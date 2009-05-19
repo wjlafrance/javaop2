@@ -1,0 +1,59 @@
+# /usr/local/home/iago/workspace/SwingGui/_Colors.txt
+# Created on: Sat Apr 30 17:59:54 CDT 2005
+# By: iago
+# Comment: These are the color constants that display on the SwingGUI.  Feel free to modify/play with them.
+
+[default]
+blizzard talk brackets=FFFFFF
+blizzard talk name=00CCFF
+blizzard talk text=00CCFF
+broadcast=FF8000
+channel name=FFFFFF
+channel text=00FF00
+clan emphasize=FFFF00
+clan message=ADFF2F
+emote brackets=FFFF00
+emote message=FFFF00
+emote name=FFFF00
+error=FF0000
+error 1 debug=009000
+error 2 info=FFD700
+error 3 notice=FF8000
+error 4 warning=FF8000
+error 5 error=FF0000
+error 6 critical=FF0000
+error 7 alert=FF0000
+error 8 emergency=FF0000
+error unknown event=0000FF
+error unknown packet=0000FF
+info=FFFF00
+me talk brackets=00FFFF
+me talk name=00FFFF
+me talk text=FFFFFF
+message box=7FFFD0
+op talk brackets=FFFFFF
+op talk name=FFFFFF
+op talk text=FFFFFF
+silent message=00CCFF
+talk brackets=FFFF00
+talk name=FFFF00
+talk text=FFFFFF
+timestamp=FFFFFF
+user join info=00FF00
+user join message=00FF00
+user join name=00FF00
+user leave info=00FF00
+user leave message=00FF00
+user leave name=00FF00
+user show info=00FF00
+user show message=00FF00
+user show name=00FF00
+user update info=00FF00
+user update message=00FF00
+user update name=00FF00
+whisper from brackets=C0C0C0
+whisper from message=C0C0C0
+whisper from name=C0C0C0
+whisper to brackets=C0C0C0
+whisper to message=C0C0C0
+whisper to name=C0C0C0

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jardesc>
+	<jar path="JavaOp2/JavaOp2.jar"/>
+	<options buildIfNeeded="true" compress="true" descriptionLocation="/javaop2/JavaOp2.jardesc" exportErrors="true" exportWarnings="true" overwrite="true" saveDescription="true" useSourceFolders="false"/>
+	<manifest generateManifest="false" mainClassHandleIdentifier="=javaop2/src&lt;_main{BotStart.java[BotStart" manifestLocation="/javaop2/JavaOp2.mf" manifestVersion="1.0" reuseManifest="true" saveManifest="true" usesManifest="true">
+		<sealing sealJar="false">
+			<packagesToSeal/>
+			<packagesToUnSeal/>
+		</sealing>
+	</manifest>
+	<selectedElements exportClassFiles="true" exportJavaFiles="true" exportOutputFolder="false">
+		<javaElement handleIdentifier="=javaop2_pub/src"/>
+		<javaElement handleIdentifier="=javaop2"/>
+	</selectedElements>
+</jardesc>

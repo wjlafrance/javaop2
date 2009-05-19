@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jardesc>
+    <jar path="JavaOp2/CommandlineConfiguration.jar"/>
+    <options overwrite="true" compress="true" exportErrors="true" exportWarnings="true" saveDescription="true" descriptionLocation="/javaop2/CommandlineConfigure.jardesc" useSourceFolders="false" buildIfNeeded="true"/>
+    <manifest manifestVersion="1.0" usesManifest="true" reuseManifest="true" saveManifest="true" generateManifest="false" manifestLocation="/javaop2/CommandlineConfigure.mf" mainClassHandleIdentifier="=javaop2/src&lt;_main{CommandlineConfigure.java[CommandlineConfigure">
+        <sealing sealJar="false">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="true" exportOutputFolder="false" exportJavaFiles="true">
+        <javaElement handleIdentifier="=javaop2_pub"/>
+        <javaElement handleIdentifier="=javaop2"/>
+    </selectedElements>
+</jardesc>
