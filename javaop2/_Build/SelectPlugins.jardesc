@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jardesc>
+    <jar path="/Users/william/JavaOp2/SelectPlugins.jar"/>
+    <options overwrite="false" compress="true" exportErrors="true" exportWarnings="true" saveDescription="true" descriptionLocation="/_Build/SelectPlugins.jardesc" useSourceFolders="false" buildIfNeeded="true"/>
+    <manifest manifestVersion="1.0" usesManifest="true" reuseManifest="true" saveManifest="true" generateManifest="false" manifestLocation="/_Build/_SelectPlugins.mf" mainClassHandleIdentifier="=javaop2/src&lt;_main{ConfigurePlugins.java[ConfigurePlugins">
+        <sealing sealJar="false">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="true" exportOutputFolder="false" exportJavaFiles="true">
+        <javaElement handleIdentifier="=javaop2_pub"/>
+        <javaElement handleIdentifier="=javaop2"/>
+    </selectedElements>
+</jardesc>
