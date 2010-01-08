@@ -11,7 +11,7 @@ import java.io.InputStream;
 import java.net.Socket;
 
 import callback_interfaces.PublicExposedFunctions;
-import exceptions.InvalidVersion;
+import exceptions.LoginException;
 import util.BNLSPacket;
 import util.TimeoutSocket;
 import constants.PacketConstants;
@@ -23,7 +23,7 @@ import constants.PacketConstants;
  */
 public class Bnls {
 
-	public static int VersionByte(PublicExposedFunctions pubFuncs, Game game) throws InvalidVersion, IOException {
+	public static int VersionByte(PublicExposedFunctions pubFuncs, Game game) throws LoginException, IOException {
 		String server = pubFuncs.getStaticExposedFunctionsHandle().getGlobalSetting("Battle.net Login Plugin", "BNLS Server");
 		int timeout = Integer.parseInt(pubFuncs.getLocalSetting("Battle.net Login Plugin", "timeout"));
 		
@@ -43,7 +43,7 @@ public class Bnls {
 	
 	public static CheckRevisionResults CheckRevision(Game game, PublicExposedFunctions pubFuncs,
 			String filename, long timestamp, byte[] formula)
-		    throws InvalidVersion, IOException
+		    throws LoginException, IOException
 	{
 		String server = pubFuncs.getStaticExposedFunctionsHandle().getGlobalSetting("Battle.net Login Plugin", "BNLS Server");
 		int timeout = Integer.parseInt(pubFuncs.getLocalSetting("Battle.net Login Plugin", "timeout"));
@@ -80,7 +80,7 @@ public class Bnls {
 		 * (DWORD)  The latest version code for this product.
 		 */
 		if(packet.removeDWord() == 0)
-			throw new InvalidVersion("[BNLS] Check revision failed.");
+			throw new LoginException("[BNLS] Check revision failed.");
 
 		int version = packet.removeDWord();
 		int checksum = packet.removeDWord();
@@ -93,7 +93,7 @@ public class Bnls {
 	 * @param game
 	 * @return BNLS product ID
 	 */
-	public static int BnlsProductId(Game g) throws InvalidVersion {
+	public static int BnlsProductId(Game g) throws LoginException {
 		if(g.getName().equalsIgnoreCase("STAR")) return 0x01;
 		if(g.getName().equalsIgnoreCase("SEXP")) return 0x02;
 		if(g.getName().equalsIgnoreCase("W2BN")) return 0x03;
@@ -103,7 +103,7 @@ public class Bnls {
 		if(g.getName().equalsIgnoreCase("WAR3")) return 0x07;
 		if(g.getName().equalsIgnoreCase("W3XP")) return 0x08;
 		
-		throw new InvalidVersion("[BNLS] Invalid product: " + g.getName());
+		throw new LoginException("[BNLS] Invalid product: " + g.getName());
 	}
 	
 	/**

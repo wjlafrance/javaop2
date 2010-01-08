@@ -14,7 +14,7 @@ import bot.JavaOpFileStuff;
 
 /**
  * This is the main class that is called when the bot starts. It does the small
- * set up theings, like: - Sets the directory to ~/.javaop - Creates the vector
+ * set up things, like: - Sets the directory to ~/.javaop2 - Creates the vector
  * of Plugin directories - Initializes the plugin manager - Creates a single
  * instance of BotCore for each bot we're loading - Handles the errors for
  * missing config file and missing database file
@@ -29,7 +29,7 @@ public class BotStart
         try
         {
             /*
-             * First thing we're going to do is set our currect directory up.
+             * First thing we're going to do is set our correct directory up.
              * After this, if you use "RelativeFile" for an operation, it'll
              * automatically put the file in this directory. Stupid, I know, but
              * Java is like that.

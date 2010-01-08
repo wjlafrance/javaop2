@@ -17,8 +17,7 @@ import java.util.Vector;
 
 import cdkey.Decode;
 
-import exceptions.InvalidCDKey;
-import exceptions.InvalidVersion;
+import exceptions.LoginException;
 
 public class Game
 {
@@ -32,7 +31,7 @@ public class Game
 		gameData = new GameData();
 	}
 
-	public Game(String game) throws InvalidVersion
+	public Game(String game) throws LoginException
 	{
 		game = game.toLowerCase();
 		game = game.replace("iiii", "4"); // who knows?
@@ -84,7 +83,7 @@ public class Game
 		else if(game.equals("warcraft3:tft"))
 			this.game = "W3XP";
 		else
-			throw new InvalidVersion("Game not found - " + game);
+			throw new LoginException("Game not found - " + game);
 	}
 
 	public int getVersionByte()
@@ -141,7 +140,7 @@ public class Game
 		return exeInfo.toString();
 	}
 
-	public int doCheckRevision(byte[] formula, String mpqFile) throws InvalidVersion
+	public int doCheckRevision(byte[] formula, String mpqFile) throws LoginException
 	{
 		String[] files = gameData.getFiles(game);
 
@@ -149,7 +148,7 @@ public class Game
 		{
 			return CheckRevision.doCheckRevision(mpqFile, files, formula);
 		}
-		catch(InvalidVersion iv)
+		catch(LoginException iv)
 		{
 			throw iv;
 		}
@@ -177,7 +176,7 @@ public class Game
 	/**
 	 * Gets the number of keys, using spawn, and key hash for the cdkey.
 	 */
-	public Buffer getKeyBuffer(String cdkey1, String cdkey2, int clientToken, int serverToken) throws InvalidCDKey
+	public Buffer getKeyBuffer(String cdkey1, String cdkey2, int clientToken, int serverToken) throws LoginException
 	{
 		Buffer ret = new Buffer();
 
@@ -197,7 +196,7 @@ public class Game
 		return ret;
 	}
 
-	private Buffer getKeyBlock(String cdkey, int clientToken, int serverToken) throws InvalidCDKey
+	private Buffer getKeyBlock(String cdkey, int clientToken, int serverToken) throws LoginException
 	{
 		Decode key = Decode.getDecoder(cdkey);
 		

@@ -27,7 +27,7 @@ public class SidAuthCheck
 {
 
 	public static BNetPacket getOutgoing(PublicExposedFunctions pubFuncs,
-			BNetPacket SidAuthInfo) throws InvalidVersion, PluginException
+			BNetPacket SidAuthInfo) throws LoginException, PluginException
 	{		
 		// (DWORD) Login Type
 		pubFuncs.putLocalVariable("loginType", SidAuthInfo.removeDWord());
@@ -154,7 +154,7 @@ public class SidAuthCheck
 	}
 	
 	public static void checkIncoming(PublicExposedFunctions pubFuncs,
-			BNetPacket SidAuthCheck) throws InvalidVersion, InvalidCDKey
+			BNetPacket SidAuthCheck) throws LoginException
 	{
 		// 	(DWORD) Result
 		int result = SidAuthCheck.removeDWord();
@@ -166,30 +166,30 @@ public class SidAuthCheck
 			case 0x000: // 0x000: Passed challenge
 				break;
 			case 0x100: // 0x100: Old game version
-				throw new InvalidVersion("[BNET] Old game version (new MPQ: " +
+				throw new LoginException("[BNET] Old game version (new MPQ: " +
 					info + ")");
 			case 0x101: // 0x101: Invalid version
-				throw new InvalidVersion("[BNET] Invalid game version");
+				throw new LoginException("[BNET] Invalid game version");
 			case 0x102: // 0x102: Game version must be downgraded 
-				throw new InvalidVersion("[BNET] Game must be downgraded");
+				throw new LoginException("[BNET] Game must be downgraded");
 			case 0x200: // 0x200: Invalid CD key 
-				throw new InvalidCDKey("[BNET] Invalid CD Key");
+				throw new LoginException("[BNET] Invalid CD Key");
 			case 0x201: // 0x201: CD key in use
-				throw new InvalidCDKey("[BNET] CD key in use by " + info);
+				throw new LoginException("[BNET] CD key in use by " + info);
 			case 0x202: // 0x202: Banned key
-				throw new InvalidCDKey("[BNET] Your CD Key is banned");
+				throw new LoginException("[BNET] Your CD Key is banned");
 			case 0x203: // 0x203: Wrong product
-				throw new InvalidCDKey("[BNET] Wrong product value for your CD Key");
+				throw new LoginException("[BNET] Wrong product value for your CD Key");
 			case 0x210: // 0x200 + 0x10: Invalid expansion CD-Key
-				throw new InvalidCDKey("[BNET] Invalid expansion CD Key");
+				throw new LoginException("[BNET] Invalid expansion CD Key");
 			case 0x211: // 0x201 + 0x10: Expansion CD key in use
-				throw new InvalidCDKey("[BNET] Expansion CD key in use by " + info);
+				throw new LoginException("[BNET] Expansion CD key in use by " + info);
 			case 0x212: // 0x202 + 0x10: Banned expansion key
-				throw new InvalidCDKey("[BNET] Your expansion CD Key is banned");
+				throw new LoginException("[BNET] Your expansion CD Key is banned");
 			case 0x213: // 0x203 + 0x10: Wrong product (expansion)
-				throw new InvalidCDKey("[BNET] Wrong product value for your expansion CD Key");
+				throw new LoginException("[BNET] Wrong product value for your expansion CD Key");
 			default:
-				throw new InvalidVersion("[BNET] Unknown status code in SID_AUTH_CHECK: " +
+				throw new LoginException("[BNET] Unknown status code in SID_AUTH_CHECK: " +
 					"0x" + Integer.toHexString(result));
 		}
 	}

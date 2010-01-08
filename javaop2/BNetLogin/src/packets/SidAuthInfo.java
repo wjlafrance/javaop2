@@ -20,11 +20,11 @@ import versioning.Game;
 public class SidAuthInfo
 {
 	public static BNetPacket getOutgoing(PublicExposedFunctions pubFuncs)
-		throws InvalidVersion
+		throws LoginException
 	{
 		String game = pubFuncs.getLocalSetting("Battle.net Login Plugin", "game");
 		if(game == null)
-			throw new InvalidVersion("[BNET] Game not specified. Unable to send" +
+			throw new LoginException("[BNET] Game not specified. Unable to send" +
 					" Authorization Info");
 		Game g = new Game(game);
 		

@@ -15,8 +15,7 @@ import java.util.Random;
 
 import exceptions.CommandUsedIllegally;
 import exceptions.CommandUsedImproperly;
-import exceptions.InvalidCDKey;
-import exceptions.InvalidPassword;
+import exceptions.LoginException;
 import exceptions.PluginException;
 import gui.ChannelList;
 import gui.ColorTextArea;
@@ -650,15 +649,9 @@ public class JavaOpPanel extends JInternalFrame implements FocusListener, Intern
         display(message);
     }
 
-    public void badCDKey(InvalidCDKey e, Object data)
+    public void loginException(LoginException e, Object data)
     {
-        display(ColorConstants.getColor("Error") + "Bot tried to use an invalid cdkey.");
-        displayError(e);
-    }
-
-    public void badPassword(InvalidPassword e, Object data)
-    {
-        display(ColorConstants.getColor("Error") + "Bot tried to use an invalid password.");
+        display(ColorConstants.getColor("Error") + "Login Exception:");
         displayError(e);
     }
 

@@ -48,7 +48,7 @@ public class Login
 	 * Legacy (non-nls) functions
 	 */
 
-	public BNetPacket checkCreateAccount(PublicExposedFunctions out, BNetPacket createAccount) throws InvalidPassword,
+	public BNetPacket checkCreateAccount(PublicExposedFunctions out, BNetPacket createAccount) throws LoginException,
 			PluginException
 	{
 		int status = createAccount.removeDWord();
@@ -66,15 +66,15 @@ public class Login
 					return SidAccountLogon.getOutgoing(out);
 			}
 		case 2:
-			throw new InvalidPassword("[BNET] Name contained invalid characters");
+			throw new LoginException("[BNET] Name contained invalid characters");
 		case 3:
-			throw new InvalidPassword("[BNET] Name contained a banned word");
+			throw new LoginException("[BNET] Name contained a banned word");
 		case 4:
-			throw new InvalidPassword("[BNET] Account already exists");
+			throw new LoginException("[BNET] Account already exists");
 		case 6:
-			throw new InvalidPassword("[BNET] Name did not contain enough alphanumeric characters");
+			throw new LoginException("[BNET] Name did not contain enough alphanumeric characters");
 		default:
-			throw new InvalidPassword("[BNET] Unknown error creating account: " + status);
+			throw new LoginException("[BNET] Unknown error creating account: " + status);
 
 		}
 	}
@@ -122,12 +122,12 @@ public class Login
 	}
 
 	public BNetPacket checkPasswordChange(PublicExposedFunctions out, BNetPacket passwordChangePacket)
-			throws InvalidPassword, PluginException
+			throws LoginException, PluginException
 	{
 		int status = passwordChangePacket.removeDWord();
 
 		if(status == 0)
-			throw new InvalidPassword("[BNET] Password change failed");
+			throw new LoginException("[BNET] Password change failed");
 
 		out.systemMessage(ErrorLevelConstants.DEBUG, "[BNET] Password change successful");
 		// Switch the new password to the current password
@@ -152,8 +152,7 @@ public class Login
 	/***************
 	 * NLS Functions
 	 */
-	public BNetPacket getLogonProof(PublicExposedFunctions out, BNetPacket authCheckPacket) throws PluginException,
-			InvalidPassword
+	public BNetPacket getLogonProof(PublicExposedFunctions out, BNetPacket authCheckPacket) throws PluginException, LoginException
 	{
 		int status = authCheckPacket.removeDWord();
 
@@ -191,14 +190,14 @@ public class Login
 			return accountCreate;
 
 		case 5:
-			throw new InvalidPassword("[BNET] Account needs to be upgraded.");
+			throw new LoginException("[BNET] Account needs to be upgraded.");
 
 		default:
-			throw new InvalidPassword("[BNET] Login failed with unknown error code: " + status);
+			throw new LoginException("[BNET] Login failed with unknown error code: " + status);
 		}
 	}
 
-	public void checkLogonProof(BNetPacket buf) throws PluginException, InvalidPassword
+	public void checkLogonProof(BNetPacket buf) throws PluginException, LoginException
 	{
 		int status = buf.removeDWord();
 
@@ -219,15 +218,15 @@ public class Login
 			break;
 
 		case 2:
-			throw new InvalidPassword("[BNET] Login failed: incorrect password.");
+			throw new LoginException("[BNET] Login failed: incorrect password.");
 
 		default:
-			throw new InvalidPassword("[BNET] Login failed with unknown error: " + status);
+			throw new LoginException("[BNET] Login failed with unknown error: " + status);
 		}
 	}
 
 	public BNetPacket checkAuthCreateAccount(PublicExposedFunctions out, BNetPacket buf) throws PluginException,
-			InvalidPassword
+			LoginException
 	{
 		int status = buf.removeDWord();
 
@@ -244,34 +243,34 @@ public class Login
 					return SidAccountLogon.getOutgoing(out);
 			}
 		case 0x06:
-			throw new InvalidPassword("[BNET] NLS Create Account failed: Name is in use");
+			throw new LoginException("[BNET] NLS Create Account failed: Name is in use");
 		case 0x07:
-			throw new InvalidPassword("[BNET] NLS Create Account failed: Name is not long enough");
+			throw new LoginException("[BNET] NLS Create Account failed: Name is not long enough");
 		case 0x08:
-			throw new InvalidPassword("[BNET] NLS Create Account failed: Name contains bad characters");
+			throw new LoginException("[BNET] NLS Create Account failed: Name contains bad characters");
 		case 0x09:
-			throw new InvalidPassword("[BNET] NLS Create Account failed: Name contains bad words");
+			throw new LoginException("[BNET] NLS Create Account failed: Name contains bad words");
 		case 0x0A:
-			throw new InvalidPassword("[BNET] NLS Create Account failed: Name needs more alphanumeric characters");
+			throw new LoginException("[BNET] NLS Create Account failed: Name needs more alphanumeric characters");
 		case 0x0B:
-			throw new InvalidPassword("[BNET] NLS Create Account failed: Name cannot have adjacent puncuation");
+			throw new LoginException("[BNET] NLS Create Account failed: Name cannot have adjacent puncuation");
 		case 0x0C:
-			throw new InvalidPassword("[BNET] NLS Create Account failed: Name has too much puncuation");
+			throw new LoginException("[BNET] NLS Create Account failed: Name has too much puncuation");
 		default:
-			throw new InvalidPassword("[BNET] NLS Create Account failed with an unknown error: " + status);
+			throw new LoginException("[BNET] NLS Create Account failed with an unknown error: " + status);
 		}
 	}
 
-	public BNetPacket authCheckAccountChange(PublicExposedFunctions out, BNetPacket buf) throws InvalidPassword
+	public BNetPacket authCheckAccountChange(PublicExposedFunctions out, BNetPacket buf) throws LoginException
 	{
 		int status = buf.removeDWord();
 
 		if(status == 1)
-			throw new InvalidPassword("[BNET] Account doesn't exist -- create before trying to change password");
+			throw new LoginException("[BNET] Account doesn't exist -- create before trying to change password");
 		else if(status == 5)
-			throw new InvalidPassword("[BNET] Account needs to be upgraded");
+			throw new LoginException("[BNET] Account needs to be upgraded");
 		else if(status != 0)
-			throw new InvalidPassword("[BNET] Unknown NLS Change Password error code: " + status);
+			throw new LoginException("[BNET] Unknown NLS Change Password error code: " + status);
 
 		accountChangeSrp = new SRP(out.getLocalSetting(prefSection, "username"), out.getLocalSetting(prefSection,
 				"password change"));
@@ -289,15 +288,15 @@ public class Login
 		return proof;
 	}
 
-	public BNetPacket authCheckAccountChangeProof(PublicExposedFunctions out, BNetPacket buf) throws InvalidPassword,
+	public BNetPacket authCheckAccountChangeProof(PublicExposedFunctions out, BNetPacket buf) throws LoginException,
 			PluginException
 	{
 		int status = buf.removeDWord();
 
 		if(status == 2)
-			throw new InvalidPassword("[BNET] Account change failed: invalid old password");
+			throw new LoginException("[BNET] Account change failed: invalid old password");
 		else if(status != 0)
-			throw new InvalidPassword("[BNET] Account change failed: unknown error: " + status);
+			throw new LoginException("[BNET] Account change failed: unknown error: " + status);
 
 		byte[] recvM2 = buf.removeBytes(SRP.SHA_DIGESTSIZE);
 		byte[] realM2 = srp.getM2(salt, B);

@@ -42,7 +42,7 @@ public class JavaOpFileStuff
     public static void setBaseDirectory()
     {
         /*
-         * First thing we're going to do is set our currect directory up. After
+         * First thing we're going to do is set our correct directory up. After
          * this, if you use "RelativeFile" for an operation, it'll automatically
          * put the file in this directory. Stupid, I know, but Java is like
          * that.

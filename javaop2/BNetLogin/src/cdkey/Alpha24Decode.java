@@ -13,11 +13,11 @@ import java.security.NoSuchAlgorithmException;
 import password.ByteFromIntArray;
 import password.IntFromByteArray;
 
-import exceptions.InvalidCDKey;
+import exceptions.LoginException;
 
 /**
  * 
- * @author iago, joe
+ * @author iago, wjlafrance
  */
 class Alpha24Decode extends Decode
 {
@@ -125,14 +125,13 @@ class Alpha24Decode extends Decode
 	private byte[] val2;
 	private int product;
 
-	public Alpha24Decode(String cdkey) throws InvalidCDKey
-	{
+	public Alpha24Decode(String cdkey) throws LoginException {
 		
 		if(cdkey == null || cdkey.length() == 0)
-			throw new InvalidCDKey("CD-Key is missing!");
+			throw new LoginException("CD-Key is missing!");
 
 		if(cdkey.length() != 24)
-			throw new InvalidCDKey("CDKey is not 24 characters!");
+			throw new LoginException("CDKey is not 24 characters!");
 
 		byte[] table = new byte[BUFLEN];
 		int[] values = new int[4];
@@ -157,14 +156,12 @@ class Alpha24Decode extends Decode
 	}
 
 
-	private void tableLookup(String key, byte[] buf)
-	{
+	private void tableLookup(String key, byte[] buf) {
 		int a;
 		int b = 0x21;
 		byte decode;
 
-		for(int i = 0; i < KEYLEN; i++)
-		{
+		for(int i = 0; i < KEYLEN; i++) {
 			a = (b + 0x07B5) % BUFLEN;
 			b = (a + 0x07B5) % BUFLEN;
 			decode = KeyTable[key.charAt(i)];
@@ -173,13 +170,11 @@ class Alpha24Decode extends Decode
 		}
 	}
 
-	private void Mult(int rounds, int mulx, int[] bufA, int[] bufB, int decodedByte)
-	{
+	private void Mult(int rounds, int mulx, int[] bufA, int[] bufB, int decodedByte) {
 		int posA = rounds - 1;
 		int posB = rounds - 1;
 
-		while(rounds-- > 0)
-		{
+		while(rounds-- > 0) {
 			long param1 = bufA[posA--];
 			param1 &= 0x00000000FFFFFFFFl;
 
@@ -195,30 +190,25 @@ class Alpha24Decode extends Decode
 
 	}
 
-	private void decodeKeyTablePass1(int[] keyTable)
-	{
+	private void decodeKeyTablePass1(int[] keyTable) {
 		int ebx, ecx, esi, ebp;
 		int var_C, var_4;
 		int var_8 = 29;
 
-		for(int i = 464; i >= 0; i -= 16)
-		{
+		for(int i = 464; i >= 0; i -= 16) {
 			esi = (var_8 & 7) << 2;
 			var_4 = var_8 >>> 3;
 			var_C = (keyTable[3 - var_4] & (0x0F << esi)) >>> esi;
 
-			if(i < 464)
-			{
-				for(int j = 29; j > var_8; j--)
-				{
+			if(i < 464) {
+				for(int j = 29; j > var_8; j--) {
 					ecx = (j & 7) << 2;
 					ebp = (keyTable[0x03 - (j >>> 3)] & (0x0F << ecx)) >>> ecx;
 					var_C = TranslateTable[ebp ^ TranslateTable[var_C + i] + i];
 				}
 			}
 
-			for(int j = --var_8; j >= 0; j--)
-			{
+			for(int j = --var_8; j >= 0; j--) {
 				ecx = (j & 7) << 2;
 				ebp = (keyTable[0x03 - (j >>> 3)] & (0x0F << ecx)) >>> ecx;
 				var_C = TranslateTable[ebp ^ TranslateTable[var_C + i] + i];
@@ -230,14 +220,12 @@ class Alpha24Decode extends Decode
 		}
 	}
 
-	void decodeKeyTablePass2(int[] keyTable)
-	{
+	void decodeKeyTablePass2(int[] keyTable) {
 		int eax, edx, ecx, edi, esi, ebp;
 		byte[] Copy = ByteFromIntArray.LITTLEENDIAN.getByteArray(keyTable);
 		esi = 0;
 
-		for(edi = 0; edi < 120; edi++)
-		{
+		for(edi = 0; edi < 120; edi++) {
 			eax = edi & 0x1F;
 			ecx = esi & 0x1F;
 			edx = 3 - (edi >>> 5);
@@ -253,10 +241,8 @@ class Alpha24Decode extends Decode
 		}
 	}
 
-	public int[] getKeyHash(int clientToken, int serverToken)
-	{
-		try
-		{
+	public int[] getKeyHash(int clientToken, int serverToken) {
+		try {
 			MessageDigest digest = MessageDigest.getInstance("SHA-1");
 
 			byte[] warBuf = new byte[26];
@@ -271,37 +257,30 @@ class Alpha24Decode extends Decode
 
 			digest.update(warBuf);
 			return IntFromByteArray.LITTLEENDIAN.getIntArray(digest.digest());
-		}
-		catch(NoSuchAlgorithmException e)
-		{
+		} catch(NoSuchAlgorithmException e) {
 			System.out.println("Could not find SHA1 library " + e);
 			System.exit(1);
 			return null;
 		}
 	}
 
-	public int getVal1()
-	{
+	public int getVal1() {
 		return val1;
 	}
 
-	public int getVal2()
-	{
+	public int getVal2() {
 		throw new UnsupportedOperationException("Can't use War3's getVal2() as an int");
 	}
 
-	public byte[] getWar3Val2()
-	{
+	public byte[] getWar3Val2() {
 		return val2;
 	}
 
-	public int getProduct()
-	{
+	public int getProduct() {
 		return product;
 	}
 
-	public String toString()
-	{
+	public String toString() {
 		return "24-character alphanumeric decoder";
 	}
 }

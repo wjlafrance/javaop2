@@ -2,7 +2,7 @@ package cdkey;
 
 import password.BrokenSHA1;
 import util.Buffer;
-import exceptions.InvalidCDKey;
+import exceptions.LoginException;
 
 /*
  * Numeric13Decode.java
@@ -20,17 +20,16 @@ class Num13Decode extends Decode
 
 	protected String cdkey;
 
-	public Num13Decode(String cdkey) throws InvalidCDKey
-	{
+	public Num13Decode(String cdkey) throws LoginException {
 		this.cdkey = cdkey;
 		if(cdkey == null || cdkey.length() == 0)
-			throw new InvalidCDKey("CD-Key is missing!");
+			throw new LoginException("CD-Key is missing!");
 
 		if(cdkey.length() != 13)
-			throw new InvalidCDKey("CDKey is not 13 characters!");
+			throw new LoginException("CDKey is not 13 characters!");
 
 		if(verify() == false)
-			throw new InvalidCDKey("CDKey is invalid: did not pass local checks");
+			throw new LoginException("CDKey is invalid: did not pass local checks");
 
 		shuffle();
 		getFinalValue();
@@ -46,8 +45,7 @@ class Num13Decode extends Decode
 	 *            The server token to hash it with.
 	 * @return The 20-byte hash (5 ints).
 	 */
-	public int[] getKeyHash(int clientToken, int serverToken)
-	{
+	public int[] getKeyHash(int clientToken, int serverToken) {
 		Buffer hashData = new Buffer();
 
 		hashData.addDWord(clientToken);
@@ -67,8 +65,7 @@ class Num13Decode extends Decode
 	 * @return true if the CDKey is valid.<BR>
 	 *         false if the CDKey is invalid.
 	 */
-	protected boolean verify()
-	{
+	protected boolean verify() {
 		int accum = 3;
 		cdkey = cdkey.toLowerCase();
 
@@ -89,8 +86,7 @@ class Num13Decode extends Decode
 	 *            The index of the second character to swap.
 	 * @return The String with the characters swapped.
 	 */
-	protected static String swap(String s, int a, int b)
-	{
+	protected static String swap(String s, int a, int b) {
 		byte[] tempStr = s.getBytes();
 
 		byte temp = tempStr[a];
@@ -102,8 +98,7 @@ class Num13Decode extends Decode
 	}
 
 	/** Does the CDKey shuffle. */
-	protected void shuffle()
-	{
+	protected void shuffle() {
 		int position = 0x0B;
 
 		for(int i = 0xC2; i >= 0x07; i -= 0x11)
@@ -112,25 +107,19 @@ class Num13Decode extends Decode
 
 
 	/** Gets the final CDKey values. */
-	protected void getFinalValue()
-	{
+	protected void getFinalValue() {
 		int hashKey = 0x13AC9741;
 
 		byte[] key = cdkey.getBytes();
 
-		for(int i = (cdkey.length() - 2); i >= 0; i--)
-		{
-			if(key[i] <= '7')
-			{
+		for(int i = (cdkey.length() - 2); i >= 0; i--) {
+			if(key[i] <= '7') {
 				key[i] ^= (byte) (hashKey & 7);
 				hashKey = hashKey >>> 3;
-			}
-			else if(key[i] < 'A')
-			{
+			} else if(key[i] < 'A') {
 				key[i] ^= (byte) (i & 1);
 			}
 		}
-
 
 		cdkey = new String(key);
 	}
@@ -140,8 +129,7 @@ class Num13Decode extends Decode
 	 * 
 	 * @return The game's product.
 	 */
-	public int getProduct()
-	{
+	public int getProduct() {
 		return Integer.parseInt(cdkey.substring(0, 2));
 	}
 
@@ -150,8 +138,7 @@ class Num13Decode extends Decode
 	 * 
 	 * @return The second CDKey value.
 	 */
-	public int getVal2()
-	{
+	public int getVal2() {
 		return Integer.parseInt(cdkey.substring(9, 12));
 	}
 
@@ -160,13 +147,11 @@ class Num13Decode extends Decode
 	 * 
 	 * @return The first CDKey value.
 	 */
-	public int getVal1()
-	{
+	public int getVal1() {
 		return Integer.parseInt(cdkey.substring(2, 9));
 	}
 
-	public String toString()
-	{
+	public String toString() {
 		return "13-character numeric decoder";
 	}
 }

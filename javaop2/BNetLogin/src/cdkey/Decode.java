@@ -6,7 +6,7 @@
 
 package cdkey;
 
-import exceptions.InvalidCDKey;
+import exceptions.LoginException;
 
 /**
  * This class takes a CD-Key, determines it's type, and returns a decoder (class that extends this class) appropriate
@@ -30,13 +30,11 @@ public class Decode
 	 * @throws InvalidCDKey
 	 *             If the key isn't 13, 16, or 24 characters long
 	 */
-	public static Decode getDecoder(String cdkey) throws InvalidCDKey
-	{
+	public static Decode getDecoder(String cdkey) throws LoginException {
 		if(cdkey == null || cdkey.length() == 0)
-			throw new InvalidCDKey("CD-Key is missing!");
+			throw new LoginException("CD-Key is missing!");
 
-		switch(cdkey.length())
-		{
+		switch(cdkey.length()) {
 			case 13: // Legacy StarCraft
 				return new Num13Decode(cdkey);
 			case 16: // Legacy Diablo II, current WarCraft II
@@ -44,7 +42,7 @@ public class Decode
 			case 26: // All products except WarCraft II
 				return new Alpha24Decode(cdkey);
 			default:
-				throw new InvalidCDKey("CDKey type cannot be determined: " + cdkey.toString());
+				throw new LoginException("CDKey type cannot be determined: " + cdkey.toString());
 		}
 	}
 
@@ -58,32 +56,28 @@ public class Decode
 	 *            Generated client token sent in SID_AUTH_CHECK.
 	 * @return (DWORD[5]) CD-Key hash for SID_AUTH_CHECK.
 	 */
-	public int[] getKeyHash(int serverToken, int clientToken)
-	{
+	public int[] getKeyHash(int serverToken, int clientToken) {
 		return new int[] { 0, 0, 0, 0, 0 };
 	}
 
 	/**
 	 * @return Key's product value
 	 */
-	public int getProduct()
-	{
+	public int getProduct() {
 		return 0;
 	}
 
 	/**
 	 * @return Key's value1
 	 */
-	public int getVal1()
-	{
+	public int getVal1() {
 		return 0;
 	}
 
 	/**
 	 * @return Key's value2
 	 */
-	public int getVal2()
-	{
+	public int getVal2() {
 		return 0;
 	}
 

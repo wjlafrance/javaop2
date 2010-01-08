@@ -51,8 +51,7 @@ public class SidLogonResponse2
 	}
 	
 	public static void checkIncoming(PublicExposedFunctions pubFuncs,
-			BNetPacket SidLogonResponse2) throws LoginException,
-			InvalidPassword, AccountDneException
+			BNetPacket SidLogonResponse2) throws LoginException, AccountDneException
 	{
 		int result = SidLogonResponse2.removeDWord();
 
@@ -63,9 +62,9 @@ public class SidLogonResponse2
 			case 1:
 				throw new AccountDneException("[BNET] Account doesn't exist.");
 			case 2:
-				throw new InvalidPassword("[BNET] Login failed -- invalid password.");
+				throw new LoginException("[BNET] Login failed -- invalid password.");
 			default:
-				throw new InvalidPassword("[BNET] Login failed with unknown error " +
+				throw new LoginException("[BNET] Login failed with unknown error " +
 						"code: 0x" + Integer.toHexString(result));
 		}
 	}

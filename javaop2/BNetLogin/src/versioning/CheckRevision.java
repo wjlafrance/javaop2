@@ -18,7 +18,7 @@ import java.util.StringTokenizer;
 
 import util.RelativeFile;
 
-import exceptions.InvalidVersion;
+import exceptions.LoginException;
 
 /**
  * This takes care of the CheckRevision() for the main game files of any
@@ -41,7 +41,7 @@ public class CheckRevision
 	 * @return
 	 */
 	public static int doCheckRevision(String mpqName, String[] files, byte[] formula)
-		throws InvalidVersion
+		throws LoginException
 	{
 		
 		if(mpqName.toLowerCase().matches("ix86ver[0-7].mpq"))
@@ -58,7 +58,7 @@ public class CheckRevision
 			return CheckRevision_IX86Ver(Integer.parseInt(mpqName.substring(9, 10)),
 				ix86Files, new String(formula));
 		}
-		throw new InvalidVersion("Unable to locally hash for MPQ file " + mpqName);
+		throw new LoginException("Unable to locally hash for MPQ file " + mpqName);
 	
 	}
 
@@ -75,7 +75,7 @@ public class CheckRevision
 	 * @return The 32-bit CheckRevision hash.
 	 */
 	private static int CheckRevision_IX86Ver(int mpqNumber, String[] files,
-		String formula) throws InvalidVersion
+		String formula) throws LoginException
 	{
 
 		/** These are the hashcodes for the various .mpq files. */
@@ -160,7 +160,7 @@ public class CheckRevision
 				}
 				error += "\nInternal Exception: " + ex.toString() + "\n";
 
-				throw new InvalidVersion(error);
+				throw new LoginException(error);
 			}
 			
 			for(int j = 0; j < roundedSize; j += 4)

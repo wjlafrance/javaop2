@@ -15,8 +15,7 @@ import pluginmanagers.PluginRegistration;
 
 import constants.ErrorLevelConstants;
 import constants.PacketConstants;
-import exceptions.InvalidCDKey;
-import exceptions.InvalidPassword;
+import exceptions.LoginException;
 import exceptions.PluginException;
 
 import util.BNetEvent;
@@ -33,8 +32,7 @@ import util.TimeoutSocket;
  * @author iago
  * 
  */
-public class PacketThread extends Thread
-{
+public class PacketThread extends Thread {
     final private PluginRegistration     callbacks;
     final private PublicExposedFunctions out;
 
@@ -44,50 +42,36 @@ public class PacketThread extends Thread
 
     private boolean                      stop   = false;
 
-    public PacketThread(PluginRegistration callbacks, PublicExposedFunctions out)
-    {
+    public PacketThread(PluginRegistration callbacks, PublicExposedFunctions out) {
         this.callbacks = callbacks;
         this.out = out;
 
         this.setName("Packet-thread-" + out.getName());
     }
 
-    public void stopThread()
-    {
-        synchronized (this)
-        {
+    public void stopThread() {
+        synchronized (this) {
             stop = true;
 
-            try
-            {
+            try {
                 input.close();
+            } catch (Exception e) {
             }
-            catch (Exception e)
-            {
-            }
-            try
-            {
+            try {
                 output.close();
+            } catch (Exception e) {
             }
-            catch (Exception e)
-            {
-            }
-            try
-            {
+            try {
                 s.close();
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
             }
         }
     }
 
-    public void run()
-    {
+    public void run() {
         // Connect
 
-        try
-        {
+        try {
             String server = out.getLocalSettingDefault("_default", "server", "uswest.battle.net");
             int port = Integer.parseInt(out.getLocalSettingDefault("_default", "port", "6112"));
 
@@ -120,17 +104,13 @@ public class PacketThread extends Thread
             input = s.getInputStream();
 
             callbacks.connected(server, port);
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             if (stop)
                 return;
             out.systemMessage(ErrorLevelConstants.ERROR, "[BNET] Connect failed: " + e);
             disconnected();
             return;
-        }
-        catch (PluginException e)
-        {
+        } catch (PluginException e) {
             if (stop)
                 return;
             out.systemMessage(ErrorLevelConstants.ERROR, "[BNET] Connect failed: " + e);
@@ -141,19 +121,16 @@ public class PacketThread extends Thread
         if (stop)
             return;
 
-        try
-        {
+        try {
             out.systemMessage(ErrorLevelConstants.DEBUG, "[BNET] PacketThread entering receive loop.");
             // Loop and receive packets
-            while (true)
-            {
+            while (true) {
                 // This try loop will catch exceptions that are thrown from
                 // plugins. If an IOException occurs,
                 // it assumes that it's lost the Battle.net connection and calls
                 // the disconnect() function and
                 // kills this thread
-                try
-                {
+                try {
                     int FF = input.read();
                     byte code = (byte) input.read();
                     int len1 = (input.read() & 0x000000FF);
@@ -184,8 +161,7 @@ public class PacketThread extends Thread
                     if (buf == null)
                         continue;
 
-                    if (code == PacketConstants.SID_CHATEVENT)
-                    {
+                    if (code == PacketConstants.SID_CHATEVENT) {
                         BNetEvent event = new BNetEvent(buf);
                         event = callbacks.eventOccurring(event);
 
@@ -193,60 +169,34 @@ public class PacketThread extends Thread
                             continue;
 
                         callbacks.eventOccurred(new BNetEvent(event));
-                    }
-                    else
-                    {
+                    } else {
                         callbacks.processedIncomingPacket(buf);
                     }
 
                     if (stop)
                         return;
-
-                }
-                catch (InvalidPassword e)
-                {
+                } catch (LoginException e) {
                     throw e;
-                }
-                catch (InvalidCDKey e)
-                {
-                    throw e;
-                }
-                catch (PluginException e)
-                {
+                } catch (PluginException e) {
                     if (stop)
                         return;
 
                     callbacks.pluginException(e);
-                }
-                catch (IOException e)
-                {
+                } catch (IOException e) {
                     throw e;
-                }
-                catch (Exception e)
-                {
+                } catch (Exception e) {
                     if (stop)
                         return;
 
                     callbacks.unknownException(e);
                 }
             } // while(true)
-        }
-        catch (InvalidPassword e)
-        {
+        } catch (LoginException e) {
             if (stop)
                 return;
 
-            callbacks.badPassword(e);
-        }
-        catch (InvalidCDKey e)
-        {
-            if (stop)
-                return;
-
-            callbacks.badCDKey(e);
-        }
-        catch (IOException e)
-        {
+            callbacks.loginException(e);
+        } catch (IOException e) {
             if (stop)
                 return;
 
@@ -256,34 +206,27 @@ public class PacketThread extends Thread
         disconnected();
     }
 
-    private void disconnected()
-    {
-        try
-        {
+    private void disconnected() {
+        try {
             input.close();
             output.close();
             s.close();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
         }
 
         callbacks.disconnected();
         stop = true;
     }
 
-    public void send(byte[] data) throws IOException
-    {
-        if (output != null)
-        {
+    public void send(byte[] data) throws IOException {
+        if (output != null) {
             output.write(data);
             output.flush();
             out.systemMessage(ErrorLevelConstants.PACKET, "Out:\n" + new util.Buffer(data).toString());
         }
     }
 
-    public void setTcpNoDelay(boolean delay) throws IOException
-    {
+    public void setTcpNoDelay(boolean delay) throws IOException {
         s.setTcpNoDelay(delay);
     }
 }

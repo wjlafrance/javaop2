@@ -8,8 +8,7 @@ import java.io.IOException;
 import util.BNetEvent;
 import util.BNetPacket;
 
-import exceptions.InvalidCDKey;
-import exceptions.InvalidPassword;
+import exceptions.LoginException;
 import exceptions.PluginException;
 
 
@@ -42,11 +41,8 @@ public interface ErrorCallback extends AbstractCallback
      */
     public void pluginException(PluginException e, Object data);
 
-    /** If the cdkey is invalid, this is called */
-    public void badCDKey(InvalidCDKey e, Object data);
-
-    /** If the password is invalid, this is called */
-    public void badPassword(InvalidPassword e, Object data);
+    /** If a login exception occurs, this is called */
+    public void loginException(LoginException e, Object data);
 
     /** This is called if an unhandled packet is received. */
     public void unknownPacketReceived(BNetPacket packet, Object data);

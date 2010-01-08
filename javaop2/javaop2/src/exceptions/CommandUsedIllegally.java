@@ -16,8 +16,7 @@ public class CommandUsedIllegally extends Exception
     private String            userFlags;
     private String            requiredFlags;
 
-    public CommandUsedIllegally(String message, String user, String command, String userFlags,
-            String requiredFlags)
+    public CommandUsedIllegally(String message, String user, String command, String userFlags, String requiredFlags)
     {
         super(message);
 

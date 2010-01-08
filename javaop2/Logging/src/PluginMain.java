@@ -16,8 +16,7 @@ import javax.swing.JComboBox;
 import callback_interfaces.PluginCallbackRegister;
 import callback_interfaces.PublicExposedFunctions;
 import callback_interfaces.StaticExposedFunctions;
-import exceptions.InvalidCDKey;
-import exceptions.InvalidPassword;
+import exceptions.LoginException;
 import exceptions.PluginException;
 import plugin_interfaces.ErrorCallback;
 import plugin_interfaces.EventCallback;
@@ -339,12 +338,7 @@ public class PluginMain extends GenericPluginInterface implements EventCallback,
         addToLog(format(message, "gray"));
     }
 
-    public void badCDKey(InvalidCDKey e, Object data)
-    {
-        displayError(e);
-    }
-
-    public void badPassword(InvalidPassword e, Object data)
+    public void loginException(LoginException e, Object data)
     {
         displayError(e);
     }

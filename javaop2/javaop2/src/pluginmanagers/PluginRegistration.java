@@ -20,8 +20,7 @@ import callback_interfaces.PluginCallbackRegister;
 import callback_interfaces.PublicExposedFunctions;
 import exceptions.CommandUsedIllegally;
 import exceptions.CommandUsedImproperly;
-import exceptions.InvalidCDKey;
-import exceptions.InvalidPassword;
+import exceptions.LoginException;
 import exceptions.PluginException;
 
 import plugin_containers.BotPlugin;
@@ -456,25 +455,14 @@ public class PluginRegistration implements PluginCallbackRegister
         }
     }
 
-    /** If the cdkey is invalid, this is called */
-    public void badCDKey(InvalidCDKey e)
+    /** If a login exception occurs, this is called */
+    public void loginException(LoginException e)
     {
         Enumeration enumeration = errorPlugins.elements();
         while (enumeration.hasMoreElements())
         {
             ErrorPlugin plugin = (ErrorPlugin) enumeration.nextElement();
-            ((ErrorCallback) plugin.getCallback()).badCDKey(e, plugin.getData());
-        }
-    }
-
-    /** If the password is invalid, this is called */
-    public void badPassword(InvalidPassword e)
-    {
-        Enumeration enumeration = errorPlugins.elements();
-        while (enumeration.hasMoreElements())
-        {
-            ErrorPlugin plugin = (ErrorPlugin) enumeration.nextElement();
-            ((ErrorCallback) plugin.getCallback()).badPassword(e, plugin.getData());
+            ((ErrorCallback) plugin.getCallback()).loginException(e, plugin.getData());
         }
     }
 

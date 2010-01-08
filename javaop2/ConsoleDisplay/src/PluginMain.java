@@ -7,8 +7,7 @@ import javax.swing.JCheckBox;
 import callback_interfaces.PluginCallbackRegister;
 import callback_interfaces.PublicExposedFunctions;
 import callback_interfaces.StaticExposedFunctions;
-import exceptions.InvalidCDKey;
-import exceptions.InvalidPassword;
+import exceptions.LoginException;
 import exceptions.PluginException;
 
 import plugin_interfaces.ErrorCallback;
@@ -217,17 +216,9 @@ public class PluginMain extends GenericPluginInterface implements SystemMessageC
                      out.getLocalSettingDefault(getName(), "colors", "true").equals("true"));
     }
 
-    public void badCDKey(InvalidCDKey e, Object data)
+    public void loginException(LoginException e, Object data)
     {
-        Output.output(out.getName(), Output.BRIGHT_RED + "Bot tried to use an invalid cdkey.",
-                      out.getLocalSettingDefault(getName(), "colors", "true").equals("true"));
-        displayError(out.getName(), e,
-                     out.getLocalSettingDefault(getName(), "colors", "true").equals("true"));
-    }
-
-    public void badPassword(InvalidPassword e, Object data)
-    {
-        Output.output(out.getName(), Output.BRIGHT_RED + "Bot tried to use an invalid password.",
+        Output.output(out.getName(), Output.BRIGHT_RED + "Login Exception:",
                       out.getLocalSettingDefault(getName(), "colors", "true").equals("true"));
         displayError(out.getName(), e,
                      out.getLocalSettingDefault(getName(), "colors", "true").equals("true"));
