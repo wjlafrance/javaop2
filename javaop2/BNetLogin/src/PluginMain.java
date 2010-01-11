@@ -145,7 +145,7 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
 
 	public String getAuthorName()
 	{
-		return "iago, joe";
+		return "iago, wjlafrance";
 	}
 
 	public String getAuthorWebsite()
@@ -155,7 +155,7 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
 
 	public String getAuthorEmail()
 	{
-		return "iago@valhallalegends.com, joetheodd@gmail.com";
+		return "iago@valhallalegends.com, wjlafrance@gmail.com";
 	}
 
 	public String getLongDescription()

@@ -42,8 +42,7 @@ public class Bnls {
 	}
 	
 	public static CheckRevisionResults CheckRevision(Game game, PublicExposedFunctions pubFuncs,
-			String filename, long timestamp, byte[] formula)
-		    throws LoginException, IOException
+			String filename, long timestamp, byte[] formula) throws LoginException, IOException
 	{
 		String server = pubFuncs.getStaticExposedFunctionsHandle().getGlobalSetting("Battle.net Login Plugin", "BNLS Server");
 		int timeout = Integer.parseInt(pubFuncs.getLocalSetting("Battle.net Login Plugin", "timeout"));

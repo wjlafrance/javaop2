@@ -27,10 +27,11 @@ import exceptions.LoginException;
  * entire files. The majority of the time is spent in i/o, but I've tried to
  * optimize this as much as possible.
  * 
- * @author iago, joe
+ * I don't think this works anymore.
+ * 
+ * @author iago, wjlafance
  */
-public class CheckRevision
-{
+public class CheckRevision {
 	
 	/**
 	 * This is the main entry point for doing CheckRevision. This sorts out
@@ -40,19 +41,14 @@ public class CheckRevision
 	 * @param formula Version check formula specified in SID_AUTH_INFO response
 	 * @return
 	 */
-	public static int doCheckRevision(String mpqName, String[] files, byte[] formula)
-		throws LoginException
-	{
-		
-		if(mpqName.toLowerCase().matches("ix86ver[0-7].mpq"))
-		{
+	public static int doCheckRevision(String mpqName, String[] files, byte[] formula) throws LoginException {
+		if(mpqName.toLowerCase().matches("ix86ver[0-7].mpq")) {
 			// IX86ver0.mpq
 			String[] ix86Files = new String[] { files[0], files[1], files[2] };
 			return CheckRevision_IX86Ver(Integer.parseInt(mpqName.substring(7, 8)),
 				ix86Files, new String(formula));
 		}
-		if(mpqName.toLowerCase().matches("ver-ix86-[0-7].mpq"))
-		{
+		if(mpqName.toLowerCase().matches("ver-ix86-[0-7].mpq")) {
 			// ver-IX86-0.mpq
 			String[] ix86Files = new String[] { files[0], files[1], files[2] };
 			return CheckRevision_IX86Ver(Integer.parseInt(mpqName.substring(9, 10)),
@@ -61,7 +57,6 @@ public class CheckRevision
 		throw new LoginException("Unable to locally hash for MPQ file " + mpqName);
 	
 	}
-
 
 	/**
 	 * Performs a IX86-Ver style CheckRevision.
@@ -74,13 +69,10 @@ public class CheckRevision
 	 * @throws IOException If there is an error reading from one of the datafiles.
 	 * @return The 32-bit CheckRevision hash.
 	 */
-	private static int CheckRevision_IX86Ver(int mpqNumber, String[] files,
-		String formula) throws LoginException
-	{
+	private static int CheckRevision_IX86Ver(int mpqNumber, String[] files, String formula) throws LoginException {
 
 		/** These are the hashcodes for the various .mpq files. */
-		int hashcodes[] =
-		{
+		int hashcodes[] = {
 			0xE7F4CB62, 0xF6A14FFC, 0xAA5504AF, 0x871FCDC2,
 			0x11BF6A18, 0xC57292E6, 0x7927D27E, 0x2FEC8733
 		};
@@ -97,12 +89,10 @@ public class CheckRevision
 		// Break this apart at the spaces
 		StringTokenizer s = new StringTokenizer(formula, " ");
 		int currentFormula = 0;
-		while(s.hasMoreTokens())
-		{
+		while(s.hasMoreTokens()) {
 			String thisToken = s.nextToken();
 			// As long as there is an '=' in the string
-			if(thisToken.indexOf('=') > 0)
-			{
+			if(thisToken.indexOf('=') > 0) {
 				// Break it apart at the '='
 				StringTokenizer nameValue = new StringTokenizer(thisToken, "=");
 				if(nameValue.countTokens() != 2)
@@ -113,12 +103,9 @@ public class CheckRevision
 				String value = nameValue.nextToken();
 
 				// If it starts with a number, assign that number to the appropriate variable
-				if(Character.isDigit(value.charAt(0)))
-				{
+				if(Character.isDigit(value.charAt(0))) {
 					values[variable] = Long.parseLong(value);
-				}
-				else
-				{
+				} else {
 					opValueDest[currentFormula] = variable;
 
 					opValueSrc1[currentFormula] = getNum(value.charAt(0));
@@ -134,26 +121,21 @@ public class CheckRevision
 		// Start by hashing A by the hashcode
 		values[0] ^= hashcodes[mpqNumber];
 
-		for(int i = 0; i < 3; i++)
-		{
+		for(int i = 0; i < 3; i++) {
 			File currentFile = new File(files[i]);
 			int roundedSize = (int) ((currentFile.length() / 1024) * 1024);
 
 			MappedByteBuffer fileData;
 			
-			try 
-			{
+			try {
 				fileData = new FileInputStream(currentFile).getChannel()
 					.map(FileChannel.MapMode.READ_ONLY, 0, roundedSize);
 				fileData.order(ByteOrder.LITTLE_ENDIAN);
-			}
-			catch(Exception ex)
-			{
+			} catch(Exception ex) {
 				String error = "You are missing files necessary to connect.\n" +
 					"Please ensure that you have the latest version of the " +
 					"appropriate files:\n";
-				for(int j = 0; j < files.length; j++)
-				{
+				for(int j = 0; j < files.length; j++) {
 					RelativeFile thisFile = new RelativeFile(files[j]);
 					thisFile.getParentFile().mkdirs();
 					error += thisFile.getAbsolutePath() + "\n";
@@ -163,27 +145,19 @@ public class CheckRevision
 				throw new LoginException(error);
 			}
 			
-			for(int j = 0; j < roundedSize; j += 4)
-			{
+			for(int j = 0; j < roundedSize; j += 4) {
 				values[3] = fileData.getInt(j);
 
-				for(int k = 0; k < currentFormula; k++)
-				{
-					switch(operation[k])
-					{
+				for(int k = 0; k < currentFormula; k++) {
+					switch(operation[k]) {
 						case '+':
-							values[opValueDest[k]] = values[opValueSrc1[k]] +
-								values[opValueSrc2[k]];
+							values[opValueDest[k]] = values[opValueSrc1[k]] + values[opValueSrc2[k]];
 							break;
-	
 						case '-':
-							values[opValueDest[k]] = values[opValueSrc1[k]] -
-								values[opValueSrc2[k]];
+							values[opValueDest[k]] = values[opValueSrc1[k]] - values[opValueSrc2[k]];
 							break;
-	
 						case '^':
-							values[opValueDest[k]] = values[opValueSrc1[k]] ^
-								values[opValueSrc2[k]];
+							values[opValueDest[k]] = values[opValueSrc1[k]] ^ values[opValueSrc2[k]];
 					}
 				}
 			}
@@ -199,8 +173,7 @@ public class CheckRevision
 	 *            The character letter.
 	 * @return The array number this is found at.
 	 */
-	private static int getNum(char c)
-	{
+	private static int getNum(char c) {
 		c = Character.toUpperCase(c);
 		if(c == 'S')
 			return 3;

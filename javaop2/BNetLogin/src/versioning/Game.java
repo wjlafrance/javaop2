@@ -26,13 +26,15 @@ public class Game
 
 	private String game;
 
-	static
-	{
+	static {
 		gameData = new GameData();
 	}
 
-	public Game(String game) throws LoginException
-	{
+	public Game(String game) throws LoginException {
+		this.game = getCodeFromLongName(game);
+	}
+	
+	private String getCodeFromLongName(String game) throws LoginException {
 		game = game.toLowerCase();
 		game = game.replace("iiii", "4"); // who knows?
 		game = game.replace("iii", "3");
@@ -40,77 +42,73 @@ public class Game
 		game = game.replace(" ", "");
 		
 		// StarCraft
-		if(game.equals("starcraft"))
-			this.game = "STAR";
-		else if(game.equals("star"))
-			this.game = "STAR";
+		if (game.equals("starcraft"))
+			return "STAR";
+		if (game.equals("star"))
+			return "STAR";
 		// StarCraft: Brood War
-		else if(game.equals("sexp"))
-			this.game = "SEXP";
-		else if(game.equals("broodwar"))
-			this.game = "SEXP";
+		if (game.equals("sexp"))
+			return "SEXP";
+		if (game.equals("broodwar"))
+			return "SEXP";
 		// WarCraft II: Battle.net Edition
-		else if(game.equals("w2bn"))
-			this.game = "W2BN";
-		else if(game.equals("war2"))
-			this.game = "W2BN";
-		else if(game.equals("warcraft2"))
-			this.game = "W2BN";
-		else if(game.equals("warcraft2bne"))
-			this.game = "W2BN";
+		if (game.equals("w2bn"))
+			return "W2BN";
+		if (game.equals("war2"))
+			return "W2BN";
+		if (game.equals("warcraft2"))
+			return "W2BN";
+		if (game.equals("warcraft2bne"))
+			return "W2BN";
 		// Diablo II
-		else if(game.equals("d2dv"))
-			this.game = "D2DV";
-		else if(game.equals("diablo2"))
-			this.game = "D2DV";
+		if (game.equals("d2dv"))
+			return "D2DV";
+		if (game.equals("diablo2"))
+			return "D2DV";
 		// Diablo II: Lord of Destruction
-		else if(game.equals("d2xp"))
-			this.game = "D2XP";
-		else if(game.equals("lod"))
-			this.game = "D2XP";
-		else if(game.equals("diablo2:lod"))
-			this.game = "D2XP";
+		if (game.equals("d2xp"))
+			return "D2XP";
+		if (game.equals("lod"))
+			return "D2XP";
+		if (game.equals("diablo2:lod"))
+			return "D2XP";
 		// WarCraft III: Reign of Chaos
-		else if(game.equals("war3"))
-			this.game = "WAR3";
-		else if(game.equals("warcraft3"))
-			this.game = "WAR3";
+		if (game.equals("war3"))
+			return "WAR3";
+		if(game.equals("warcraft3"))
+			return "WAR3";
 		// WarCraft III: The Frozen Throne
-		else if(game.equals("w3xp"))
-			this.game = "W3XP";
-		else if(game.equals("tft"))
-			this.game = "W3XP";
-		else if(game.equals("warcraft3:tft"))
-			this.game = "W3XP";
-		else
-			throw new LoginException("Game not found - " + game);
+		if(game.equals("w3xp"))
+			return "W3XP";
+		if(game.equals("tft"))
+			return "W3XP";
+		if(game.equals("warcraft3:tft"))
+			return "W3XP";
+		
+		throw new LoginException("Game name not understood - " + game +
+				"\nValid options: " + getGames().toString());
 	}
 
-	public int getVersionByte()
-	{
+	public int getVersionByte() {
 		return gameData.getVersionByte(game);
 	}
 
-	public int getVersionHash()
-	{
+	public int getVersionHash() {
 		return gameData.getVersionHash(game);
 	}
 
-	public int getGameCode()
-	{
+	public int getGameCode() {
 		return (game.charAt(0) << 24) |
 			   (game.charAt(1) << 16) |
 			   (game.charAt(2) << 8) |
 			   (game.charAt(3) << 0);
 	}
 
-	public String getName()
-	{
+	public String getName() {
 		return game;
 	}
 
-	public String getExeInfo()
-	{
+	public String getExeInfo() {
 		// return "starcraft.exe 03/28/03 04:21:56 1064960";
 
 		RelativeFile f = new RelativeFile(gameData.getFiles(game)[0]);
@@ -140,18 +138,8 @@ public class Game
 		return exeInfo.toString();
 	}
 
-	public int doCheckRevision(byte[] formula, String mpqFile) throws LoginException
-	{
-		String[] files = gameData.getFiles(game);
-
-		try
-		{
-			return CheckRevision.doCheckRevision(mpqFile, files, formula);
-		}
-		catch(LoginException iv)
-		{
-			throw iv;
-		}
+	public int doCheckRevision(byte[] formula, String mpqFile) throws LoginException {
+		return CheckRevision.doCheckRevision(mpqFile, gameData.getFiles(game), formula);
 	}
 
 	/**
@@ -159,8 +147,7 @@ public class Game
 	 * 
 	 * @return A Vector of all possible games.
 	 */
-	public static Vector<String> getGames()
-	{
+	public static Vector<String> getGames() {
 		Vector<String> v = new Vector<String>();
 		v.add("Starcraft");
 		v.add("Brood War");
@@ -176,18 +163,14 @@ public class Game
 	/**
 	 * Gets the number of keys, using spawn, and key hash for the cdkey.
 	 */
-	public Buffer getKeyBuffer(String cdkey1, String cdkey2, int clientToken, int serverToken) throws LoginException
-	{
+	public Buffer getKeyBuffer(String cdkey1, String cdkey2, int clientToken, int serverToken) throws LoginException {
 		Buffer ret = new Buffer();
 
-		if(!gameData.hasTwoKeys(game))
-		{
+		if(!gameData.hasTwoKeys(game)) {
 			ret.addDWord(1);
 			ret.addDWord(0);
 			ret.add(getKeyBlock(cdkey1, clientToken, serverToken));
-		}
-		else
-		{
+		} else {
 			ret.addDWord(2);
 			ret.addDWord(0);
 			ret.add(getKeyBlock(cdkey1, clientToken, serverToken));
@@ -196,8 +179,7 @@ public class Game
 		return ret;
 	}
 
-	private Buffer getKeyBlock(String cdkey, int clientToken, int serverToken) throws LoginException
-	{
+	private Buffer getKeyBlock(String cdkey, int clientToken, int serverToken) throws LoginException {
 		Decode key = Decode.getDecoder(cdkey);
 		
 		// TODO: Debug Information
@@ -228,8 +210,7 @@ public class Game
 		return ret;
 	}
 
-	public String toString()
-	{
+	public String toString() {
 		return game + " (" + getExeInfo() + ", Version Hash = 0x" + Integer.toHexString(gameData.getVersionHash(game))
 				+ ", Version Byte = 0x" + Integer.toHexString(gameData.getVersionByte(game)) + ")";
 	}

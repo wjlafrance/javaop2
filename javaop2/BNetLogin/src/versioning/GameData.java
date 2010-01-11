@@ -7,33 +7,28 @@ import util.RelativeFile;
  * Created on Mar 2, 2005 By iago
  */
 
-public class GameData
-{
+public class GameData {
 
 	private PersistantMap games;
 
-	public GameData()
-	{
+	public GameData() {
 		games = new PersistantMap(new RelativeFile("_GameData.txt"),
 				"These are the important informations for games to log in with -- values are stored in hex.");
 		this.initialize();
 	}
 
-	public int getVersionByte(String game)
-	{
+	public int getVersionByte(String game) {
 		return Integer.parseInt(games.getNoWrite(game, "Version byte", "0"), 16);
 	}
 
-	public int getVersionHash(String game)
-	{
+	public int getVersionHash(String game) {
 		int calc = VerHash.getVersion(games.getNoWrite(game, "File1", null));
 		if(calc == 0) // File1 is absent
 			calc = Integer.parseInt(games.getNoWrite(game, "Version hash", "0"), 16);
 		return calc;
 	}
 
-	public String[] getFiles(String game)
-	{
+	public String[] getFiles(String game) {
 		String[] files = new String[4];
 		files[0] = games.getNoWrite(game, "File1", null);
 		files[1] = games.getNoWrite(game, "File2", null);
@@ -43,8 +38,7 @@ public class GameData
 		return files;
 	}
 
-	public boolean hasTwoKeys(String game)
-	{
+	public boolean hasTwoKeys(String game) {
 		if(game.equals("STAR")) return false;
 		if(game.equals("SEXP")) return false;
 		if(game.equals("D2DV")) return false;
@@ -56,8 +50,7 @@ public class GameData
 	}
 
 
-	private void initialize()
-	{
+	private void initialize() {
 		String prefix = System.getProperty("user.home") + "/.hashes/";
 
 		games.getWrite("STAR", "Version byte", "D3");

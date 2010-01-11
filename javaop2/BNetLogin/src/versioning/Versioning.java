@@ -9,17 +9,15 @@ import util.Buffer;
 import callback_interfaces.PublicExposedFunctions;
 import constants.ErrorLevelConstants;
 import exceptions.LoginException;
-import exceptions.PluginException;
 
 
 /**
- * @author joe
+ * @author wjlafrance
  *
  * This is the entry point for all things versioning. This is analogous to the
  * old BNLSWrapper.
  */
-public class Versioning
-{
+public class Versioning {
 	
 	private static boolean bnlsFailed = false;
 
@@ -28,29 +26,21 @@ public class Versioning
 	 * whatever reason, use the locally stored value.
 	 * @return
 	 */
-	public static int VersionByte(String game, PublicExposedFunctions pubFuncs) throws LoginException
-	{
+	public static int VersionByte(String game, PublicExposedFunctions pubFuncs) throws LoginException {
 		Game g = new Game(game);
-		if(bnlsFailed || !Bnls.IsEnabled(pubFuncs))
-		{
+		if(bnlsFailed || !Bnls.IsEnabled(pubFuncs)) {
 			pubFuncs.systemMessage(ErrorLevelConstants.INFO, "Using local version byte for " + g.getName());
 			return g.getVersionByte();
-		}
-		else
-		{
-			try
-			{
+		} else {
+			try {
 				pubFuncs.systemMessage(ErrorLevelConstants.INFO, "[BNLS] Retreiving version byte for " + g.getName());
 				return Bnls.VersionByte(pubFuncs, g);
-			}
-			catch(Exception pe)
-			{
+			} catch(Exception pe) {
 				pubFuncs.systemMessage(ErrorLevelConstants.WARNING,
-						"BNLS has been disabled.\n" +
-						"Exception: " + pe.toString());
+						"Caught exception when attempting to get veryte from BNLS: " + pe.toString()); 
 				bnlsFailed = true;
 				return VersionByte(game, pubFuncs); // recurse
-			} // end BNLS try statement
+			}
 		}
 	}
 
@@ -68,31 +58,24 @@ public class Versioning
 			byte[] formula, long filetime) throws LoginException
 	{
 		Game g = new Game(game);
-		if(bnlsFailed || !Bnls.IsEnabled(pubFuncs))
-		{
+		if(bnlsFailed || !Bnls.IsEnabled(pubFuncs)) {
 			pubFuncs.systemMessage(ErrorLevelConstants.INFO, "Running local version check for " + g.getName());
 			return new CheckRevisionResults(
 					g.getVersionHash(),
 					g.doCheckRevision(formula, filename),
 					g.getExeInfo().getBytes()
 				);
-		}
-		else
-		{
-			try
-			{
+		} else {
+			try {
 				pubFuncs.systemMessage(ErrorLevelConstants.INFO, "[BNLS] Running version check for " + g.getName());
 				return Bnls.CheckRevision(g, pubFuncs, filename, filetime, formula);
-			}
-			catch(Exception pe)
-			{
+			} catch(Exception pe) {
 				pubFuncs.systemMessage(ErrorLevelConstants.WARNING,
-						"BNLS has been disabled.\n" +
-						"Exception: " + pe.toString());
+						"Caught exception when attempting to get check revision from BNLS: " + pe.toString()); 
 				bnlsFailed = true;
 				return CheckRevision(game, pubFuncs, filename, formula,
 						filetime); // recurse
-			} // end BNLS try statement
+			}
 		}
 	}
 
@@ -102,12 +85,7 @@ public class Versioning
 	 * @throws InvalidCDKey
 	 */
 	public static Buffer CDKeyBlock(String game, int clientToken, int serverToken,
-			String cdkey1, String cdkey2) throws LoginException
-	{
-		return new Game(game).getKeyBuffer(
-				cdkey1,
-				cdkey2,
-				clientToken,
-				serverToken);
+			String cdkey1, String cdkey2) throws LoginException {
+		return new Game(game).getKeyBuffer(cdkey1, cdkey2, clientToken, serverToken);
 	}
 }

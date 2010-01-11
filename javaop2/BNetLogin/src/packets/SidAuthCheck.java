@@ -42,47 +42,32 @@ public class SidAuthCheck
 		// (STRING) Formula 
 		pubFuncs.putLocalVariable("verFormula", SidAuthInfo.removeNtByteArray());
 		// (VOID) Server Signature
-		if((Integer)pubFuncs.getLocalVariable("loginType") == 2)
-		{
-			if(SidAuthInfo.size() >= 128)
-			{
+		if((Integer)pubFuncs.getLocalVariable("loginType") == 2) {
+			if(SidAuthInfo.size() >= 128) {
 				byte[] signature = SidAuthInfo.removeBytes(128);
-				if(ServerSignature.CheckSignature(signature,
-						(byte[]) pubFuncs.getLocalVariable("address")))
-				{ // signature valid
-					pubFuncs.systemMessage(ErrorLevelConstants.INFO,
-						"[BNET] Server successfully authenticated -- it's Blizzard's");
-				}
-				else
-				{ // signature invalid
-					if(pubFuncs.getLocalSettingDefault("Battle.net Login Plugin",
-						"Verify server", "true").equalsIgnoreCase("true"))
-					{
+				if(ServerSignature.CheckSignature(signature, (byte[]) pubFuncs.getLocalVariable("address"))) {
+					// signature valid
+					pubFuncs.systemMessage(ErrorLevelConstants.INFO, "[BNET] Server successfully authenticated -- it's Blizzard's");
+				} else {
+					// signature invalid
+					if(pubFuncs.getLocalSettingDefault("Battle.net Login Plugin", "Verify server", "true").equalsIgnoreCase("true")) {
 						throw new PluginException("[BNET] NLS Server failed " +
 							"authentication (this is most likely NOT a Blizzard " +
 							"server!); not connecting.  To connect anyway, change " +
 							"the setting \"Verify server\" to false.");
-					}
-					else
-					{
+					} else {
 						pubFuncs.systemMessage(ErrorLevelConstants.WARNING,
 							"[BNET] The server's authentication failed.  This " +
 							"probably isn't a real Battle.net server!");
 					}
 				}
-			}
-			else
-			{ // no signature
-				if(pubFuncs.getLocalSettingDefault("Battle.net Login Plugin",
-					"Verify server", "true").equalsIgnoreCase("true"))
-				{
+			} else { // no signature
+				if(pubFuncs.getLocalSettingDefault("Battle.net Login Plugin", "Verify server", "true").equalsIgnoreCase("true")) {
 					throw new PluginException("[BNET] NLS Server failed to send " +
 						"authentication (this is most likely NOT a Blizzard " +
 						"server!); not connecting.  To connect anyway, change the " +
 						"setting \"Verify server\" to false.");
-				}
-				else
-				{
+				} else {
 					pubFuncs.systemMessage(ErrorLevelConstants.WARNING,
 						"[BNET] NLS Server failed to send authentication. " +
 						"The connection will continue; however, this server " +
@@ -95,20 +80,15 @@ public class SidAuthCheck
 		pubFuncs.putLocalVariable("clientToken", ((int) (Math.random() * 0x7FFFFFFF) ^ (int) (Math.random() * 0x7FFFFFFF) ^ (int) (Math.random() * 0x7FFFFFFF)));
 
 		// Display the variables if we're debugging, and because it looks cool
-		pubFuncs.systemMessage(ErrorLevelConstants.DEBUG,
-			"[BNET] Logon type:   0x" +
+		pubFuncs.systemMessage(ErrorLevelConstants.DEBUG, "[BNET] Logon type:   0x" +
 			Integer.toHexString((Integer)pubFuncs.getLocalVariable("loginType")));
-		pubFuncs.systemMessage(ErrorLevelConstants.DEBUG,
-			"[BNET] Server token: 0x" +
+		pubFuncs.systemMessage(ErrorLevelConstants.DEBUG, "[BNET] Server token: 0x" +
 			Integer.toHexString((Integer)pubFuncs.getLocalVariable("serverToken")));
-		pubFuncs.systemMessage(ErrorLevelConstants.DEBUG,
-			"[BNET] Client token: 0x" +
+		pubFuncs.systemMessage(ErrorLevelConstants.DEBUG, "[BNET] Client token: 0x" +
 			Integer.toHexString((Integer)pubFuncs.getLocalVariable("clientToken")));
-		pubFuncs.systemMessage(ErrorLevelConstants.DEBUG,
-			"[BNET] MPQ filetime: 0x" +
+		pubFuncs.systemMessage(ErrorLevelConstants.DEBUG, "[BNET] MPQ filetime: 0x" +
 			Long.toHexString((Long)pubFuncs.getLocalVariable("mpqTime")));
-		pubFuncs.systemMessage(ErrorLevelConstants.DEBUG,
-			"[BNET] MPQ filename: " +
+		pubFuncs.systemMessage(ErrorLevelConstants.DEBUG, "[BNET] MPQ filename: " +
 			(String)pubFuncs.getLocalVariable("mpqName"));
 
 		
@@ -124,10 +104,8 @@ public class SidAuthCheck
 			(byte[])pubFuncs.getLocalVariable("verFormula"),
 			(Long)pubFuncs.getLocalVariable("mpqTime"));
 		
-		pubFuncs.systemMessage(ErrorLevelConstants.DEBUG,
-				"[BNET] Version Hash: 0x" + Integer.toHexString(crev.verhash));
-		pubFuncs.systemMessage(ErrorLevelConstants.DEBUG,
-				"[BNET] Checksum:     0x" + Integer.toHexString(crev.checksum));
+		pubFuncs.systemMessage(ErrorLevelConstants.DEBUG, "[BNET] Version Hash: 0x" + Integer.toHexString(crev.verhash));
+		pubFuncs.systemMessage(ErrorLevelConstants.DEBUG, "[BNET] Checksum:     0x" + Integer.toHexString(crev.checksum));
 		
 		// Build the SID_AUTH_CHECK packet
 		BNetPacket authCheck = new BNetPacket(PacketConstants.SID_AUTH_CHECK);
