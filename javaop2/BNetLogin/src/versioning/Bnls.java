@@ -61,15 +61,6 @@ public class Bnls {
 		out.write(packet.getBytes());
 		out.flush();
 
-		// TODO: Debugging
-		System.out.println("-> BNLS CheckRevision: ");
-		System.out.println(packet.toString());
-
-		packet = ReadBnlsPacket(in);
-
-		// TODO: Debugging
-		System.out.println("<- BNLS CheckRevision: ");
-		System.out.println(packet.toString());
 		/*
 		 * (BOOL)   Success*
 		 * (DWORD)  Version.
@@ -78,6 +69,7 @@ public class Bnls {
 		 * (DWORD)  Cookie.
 		 * (DWORD)  The latest version code for this product.
 		 */
+		packet = ReadBnlsPacket(in);
 		if(packet.removeDWord() == 0)
 			throw new LoginException("[BNLS] Check revision failed.");
 

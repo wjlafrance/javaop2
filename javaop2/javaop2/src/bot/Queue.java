@@ -24,7 +24,7 @@ public class Queue
     private final PublicExposedFunctions out;
     private final PluginRegistration     plugins;
 
-    private final TreeSet                queue   = new TreeSet();
+    private final TreeSet<ChatMessage>   queue   = new TreeSet<ChatMessage>();
     private final Timer                  timer   = new Timer();
 
     private TimerTask                    current = null;

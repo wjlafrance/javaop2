@@ -112,11 +112,8 @@ public class ConfigurePlugins extends JFrame implements WindowListener
             this.add(new JScrollPane(list = new JList(listData)), BorderLayout.CENTER);
 
             this.setBorder(BorderFactory.createCompoundBorder(
-                                                              BorderFactory.createLineBorder(
-                                                                                             Color.BLACK,
-                                                                                             2),
-                                                              BorderFactory.createEmptyBorder(5, 5,
-                                                                                              5, 5)));
+            		BorderFactory.createLineBorder(Color.BLACK, 2),
+                    BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
             list.setCellRenderer(new MyCellRenderer());
         }
@@ -185,11 +182,8 @@ public class ConfigurePlugins extends JFrame implements WindowListener
             save.addActionListener(this);
 
             this.setBorder(BorderFactory.createCompoundBorder(
-                                                              BorderFactory.createLineBorder(
-                                                                                             Color.BLACK,
-                                                                                             2),
-                                                              BorderFactory.createEmptyBorder(5, 5,
-                                                                                              5, 5)));
+            		BorderFactory.createLineBorder(Color.BLACK, 2),
+                    BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
         }
 

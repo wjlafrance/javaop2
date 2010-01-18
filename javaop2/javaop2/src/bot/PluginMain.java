@@ -56,7 +56,7 @@ public class PluginMain extends GenericPluginInterface
 
     public String getAuthorName()
     {
-        return "joe";
+        return "wjlafrance";
     }
 
     public String getAuthorWebsite()
@@ -66,7 +66,7 @@ public class PluginMain extends GenericPluginInterface
 
     public String getAuthorEmail()
     {
-        return "joetheodd@gmail.com";
+        return "wjlafrance@gmail.com";
     }
 
     public String getShortDescription()
@@ -122,8 +122,12 @@ public class PluginMain extends GenericPluginInterface
     {
         if (settingName.equalsIgnoreCase("server"))
         {
-            JComboBox combo = new JComboBox(new String[]
-            { "uswest.battle.net", "useast.battle.net", "europe.battle.net", "asia.battle.net" });
+            JComboBox combo = new JComboBox(new String[] {
+            		"uswest.battle.net",
+            		"useast.battle.net",
+            		"europe.battle.net",
+            		"asia.battle.net"
+            });
             combo.setEditable(true);
             combo.setSelectedItem(value);
             return combo;
