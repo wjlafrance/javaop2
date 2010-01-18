@@ -10,7 +10,7 @@ import java.io.OutputStream;
 import java.io.InputStream;
 import java.net.Socket;
 
-import callback_interfaces.PublicExposedFunctions;
+import callback_interfaces.StaticExposedFunctions;
 import exceptions.LoginException;
 import util.BNLSPacket;
 import util.TimeoutSocket;
@@ -23,9 +23,9 @@ import constants.PacketConstants;
  */
 public class Bnls {
 
-	public static int VersionByte(PublicExposedFunctions pubFuncs, Game game) throws LoginException, IOException {
-		String server = pubFuncs.getStaticExposedFunctionsHandle().getGlobalSetting("Battle.net Login Plugin", "BNLS Server");
-		int timeout = Integer.parseInt(pubFuncs.getLocalSetting("Battle.net Login Plugin", "timeout"));
+	public static int VersionByte(StaticExposedFunctions staticFuncs, Game game) throws LoginException, IOException {
+		String server = staticFuncs.getGlobalSetting("Battle.net Login Plugin", "BNLS Server");
+		int timeout = Integer.parseInt(staticFuncs.getGlobalSettingDefault("JavaOp2", "timeout", "30000"));
 		
 		Socket socket = TimeoutSocket.getSocket(server, 9367, timeout);
 		InputStream in = socket.getInputStream();
@@ -41,11 +41,11 @@ public class Bnls {
 		return packet.removeDWord();
 	}
 	
-	public static CheckRevisionResults CheckRevision(Game game, PublicExposedFunctions pubFuncs,
+	public static CheckRevisionResults CheckRevision(Game game, StaticExposedFunctions staticFuncs,
 			String filename, long timestamp, byte[] formula) throws LoginException, IOException
 	{
-		String server = pubFuncs.getStaticExposedFunctionsHandle().getGlobalSetting("Battle.net Login Plugin", "BNLS Server");
-		int timeout = Integer.parseInt(pubFuncs.getLocalSetting("Battle.net Login Plugin", "timeout"));
+		String server = staticFuncs.getGlobalSetting("Battle.net Login Plugin", "BNLS Server");
+		int timeout = Integer.parseInt(staticFuncs.getGlobalSettingDefault("JavaOp2", "timeout", "30000"));
 		
 		Socket socket = TimeoutSocket.getSocket(server, 9367, timeout);
 		InputStream in = socket.getInputStream();
@@ -108,10 +108,8 @@ public class Bnls {
 	/**
 	 * Checks to see if BNLS is enabled in BNetLogin's global configuration
 	 */
-	public static boolean IsEnabled(PublicExposedFunctions pubFuncs) {
-		return pubFuncs.getStaticExposedFunctionsHandle()
-			    .getGlobalSetting("Battle.net Login Plugin", "Enable BNLS")
-			    .equalsIgnoreCase("true");
+	public static boolean IsEnabled(StaticExposedFunctions staticFuncs) {
+		return staticFuncs.getGlobalSetting("Battle.net Login Plugin", "Enable BNLS").equalsIgnoreCase("true");
 	}
 	
 	/**

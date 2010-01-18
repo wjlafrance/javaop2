@@ -7,6 +7,7 @@ package versioning;
 
 import util.Buffer;
 import callback_interfaces.PublicExposedFunctions;
+import callback_interfaces.StaticExposedFunctions;
 import constants.ErrorLevelConstants;
 import exceptions.LoginException;
 
@@ -27,18 +28,23 @@ public class Versioning {
 	 * @return
 	 */
 	public static int VersionByte(String game, PublicExposedFunctions pubFuncs) throws LoginException {
+		StaticExposedFunctions staticFuncs = pubFuncs.getStaticExposedFunctionsHandle();
+		
 		Game g = new Game(game);
-		if(bnlsFailed || !Bnls.IsEnabled(pubFuncs)) {
+		if(bnlsFailed || !Bnls.IsEnabled(staticFuncs)) {
 			pubFuncs.systemMessage(ErrorLevelConstants.INFO, "Using local version byte for " + g.getName());
 			return g.getVersionByte();
 		} else {
 			try {
 				pubFuncs.systemMessage(ErrorLevelConstants.INFO, "[BNLS] Retreiving version byte for " + g.getName());
-				return Bnls.VersionByte(pubFuncs, g);
-			} catch(Exception pe) {
-				pubFuncs.systemMessage(ErrorLevelConstants.WARNING,
-						"Caught exception when attempting to get veryte from BNLS: " + pe.toString()); 
+				return Bnls.VersionByte(staticFuncs, g);
+			} catch(Exception ex) {
 				bnlsFailed = true;
+				pubFuncs.systemMessage(ErrorLevelConstants.WARNING,
+						"Caught exception when attempting to get verbyte from BNLS.");
+				pubFuncs.systemMessage(ErrorLevelConstants.WARNING,
+						"Stack trace available on console. Recursing.");
+				ex.printStackTrace();
 				return VersionByte(game, pubFuncs); // recurse
 			}
 		}
@@ -57,8 +63,9 @@ public class Versioning {
 			PublicExposedFunctions pubFuncs, String filename,
 			byte[] formula, long filetime) throws LoginException
 	{
+		StaticExposedFunctions staticFuncs = pubFuncs.getStaticExposedFunctionsHandle();
 		Game g = new Game(game);
-		if(bnlsFailed || !Bnls.IsEnabled(pubFuncs)) {
+		if(bnlsFailed || !Bnls.IsEnabled(staticFuncs)) {
 			pubFuncs.systemMessage(ErrorLevelConstants.INFO, "Running local version check for " + g.getName());
 			return new CheckRevisionResults(
 					g.getVersionHash(),
@@ -68,11 +75,14 @@ public class Versioning {
 		} else {
 			try {
 				pubFuncs.systemMessage(ErrorLevelConstants.INFO, "[BNLS] Running version check for " + g.getName());
-				return Bnls.CheckRevision(g, pubFuncs, filename, filetime, formula);
-			} catch(Exception pe) {
-				pubFuncs.systemMessage(ErrorLevelConstants.WARNING,
-						"Caught exception when attempting to get check revision from BNLS: " + pe.toString()); 
+				return Bnls.CheckRevision(g, staticFuncs, filename, filetime, formula);
+			} catch(Exception ex) {
 				bnlsFailed = true;
+				pubFuncs.systemMessage(ErrorLevelConstants.WARNING,
+						"Caught exception when attempting to perform check revision with BNLS.");
+				pubFuncs.systemMessage(ErrorLevelConstants.WARNING,
+						"Stack trace available on console. Recursing.");
+				ex.printStackTrace();
 				return CheckRevision(game, pubFuncs, filename, formula,
 						filetime); // recurse
 			}
