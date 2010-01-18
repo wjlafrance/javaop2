@@ -192,7 +192,7 @@ public class PluginMain extends GenericPluginInterface implements SystemMessageC
                                                                          "true").equals("true"));
     }
 
-    public void ioexception(IOException e, Object data)
+    public void ioException(IOException e, Object data)
     {
         displayError(out.getName(), e,
                      out.getLocalSettingDefault(getName(), "colors", "true").equals("true"));

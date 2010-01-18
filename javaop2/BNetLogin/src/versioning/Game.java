@@ -34,55 +34,53 @@ public class Game
 		this.game = getCodeFromLongName(game);
 	}
 	
+	/**
+	 * Takes a user-inputted game name and shortens it to the 4-letter code.
+	 * @throws LoginException Long name not recognized
+	 */
 	private String getCodeFromLongName(String game) throws LoginException {
 		game = game.toLowerCase();
 		game = game.replace("iiii", "4"); // who knows?
 		game = game.replace("iii", "3");
 		game = game.replace("ii", "2");
 		game = game.replace(" ", "");
+		game = game.replace(":", "");
 		
 		// StarCraft
-		if (game.equals("starcraft"))
-			return "STAR";
-		if (game.equals("star"))
+		if (game.equals("starcraft")
+		|| game.equals("star")
+		|| game.equals("sc"))
 			return "STAR";
 		// StarCraft: Brood War
-		if (game.equals("sexp"))
-			return "SEXP";
-		if (game.equals("broodwar"))
+		if (game.equals("sexp")
+		|| game.equals("broodwar"))
 			return "SEXP";
 		// WarCraft II: Battle.net Edition
-		if (game.equals("w2bn"))
-			return "W2BN";
-		if (game.equals("war2"))
-			return "W2BN";
-		if (game.equals("warcraft2"))
-			return "W2BN";
-		if (game.equals("warcraft2bne"))
+		if (game.equals("w2bn")
+		|| game.equals("war2")
+		|| game.equals("warcraft2")
+		|| game.equals("warcraft2bne")
+		|| game.equals("wc2"))
 			return "W2BN";
 		// Diablo II
-		if (game.equals("d2dv"))
-			return "D2DV";
-		if (game.equals("diablo2"))
+		if (game.equals("d2dv")
+	    || game.equals("d2")
+		|| game.equals("diablo2"))
 			return "D2DV";
 		// Diablo II: Lord of Destruction
-		if (game.equals("d2xp"))
-			return "D2XP";
-		if (game.equals("lod"))
-			return "D2XP";
-		if (game.equals("diablo2:lod"))
+		if (game.equals("d2xp")
+		|| game.equals("lod")
+		|| game.equals("diablo2:lod"))
 			return "D2XP";
 		// WarCraft III: Reign of Chaos
-		if (game.equals("war3"))
-			return "WAR3";
-		if(game.equals("warcraft3"))
+		if (game.equals("war3")
+		|| game.equals("warcraft3")
+		|| game.equals("warcraft3roc"))
 			return "WAR3";
 		// WarCraft III: The Frozen Throne
-		if(game.equals("w3xp"))
-			return "W3XP";
-		if(game.equals("tft"))
-			return "W3XP";
-		if(game.equals("warcraft3:tft"))
+		if(game.equals("w3xp")
+		|| game.equals("tft")
+		|| game.equals("warcraft3tft"))
 			return "W3XP";
 		
 		throw new LoginException("Game name not understood - " + game +

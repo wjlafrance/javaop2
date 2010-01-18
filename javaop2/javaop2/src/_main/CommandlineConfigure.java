@@ -77,6 +77,7 @@ public class CommandlineConfigure
 
         String newBot = getPatternInput("Name of the new bot?", null, "[a-zA-Z1-9. -_]+");
         JavaOpFileStuff.newBot(newBot);
+        JavaOpFileStuff.setActivePlugins(newBot, PluginManager.getAllNames());
     }
 
     private static void copyBot() throws IOException {

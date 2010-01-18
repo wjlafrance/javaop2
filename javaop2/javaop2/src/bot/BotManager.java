@@ -31,16 +31,12 @@ public class BotManager
 
     public static void stopBot(String name) throws IllegalArgumentException
     {
-
         BotCore bot = (BotCore) activeBots.get(name);
 
         activeBots.remove(name);
 
         if (bot != null)
             bot.stop();
-
-        // if(activeBots.size() == 0)
-        // System.exit(0);
     }
 
     public static String[] getAllBots()
@@ -50,11 +46,6 @@ public class BotManager
 
     public static String[] getActiveBots()
     {
-        // Enumeration e = activeBots.keys();
-        // Vector v = new Vector();
-        // while(e.hasMoreElements())
-        // v.add(e.nextElement());
-        //           
         return Uniq.uniq(activeBots.keys());
     }
 

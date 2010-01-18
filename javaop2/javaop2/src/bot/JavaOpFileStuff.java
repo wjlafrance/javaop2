@@ -117,7 +117,7 @@ public class JavaOpFileStuff
     public static String[] getAllPlugins()
     {
         String[] paths = Uniq.uniq(getPluginPaths());
-        Vector jars = new Vector();
+        Vector<File> jars = new Vector<File>();
 
         for (int i = 0; i < paths.length; i++)
             jars.addAll(FileManagement.search(new RelativeFile(paths[i]), ".*\\.jar"));
@@ -318,7 +318,6 @@ public class JavaOpFileStuff
     public static void newBot(String name)
     {
         getSettings(name);
-        setActivePlugins(name, PluginManager.getAllNames());
     }
 
     public static void copyBot(String oldName, String newName)

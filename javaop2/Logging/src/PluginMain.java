@@ -362,7 +362,7 @@ public class PluginMain extends GenericPluginInterface implements EventCallback,
             addToLog(format(stack[i].toString(), "red"));
     }
 
-    public void ioexception(IOException e, Object data)
+    public void ioException(IOException e, Object data)
     {
         displayError(e);
     }

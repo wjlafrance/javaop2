@@ -24,7 +24,7 @@ import exceptions.PluginException;
 public interface ErrorCallback extends AbstractCallback
 {
     /** This is called if there is a connection problem. */
-    public void ioexception(IOException e, Object data);
+    public void ioException(IOException e, Object data);
 
     /** This is called if an exception makes it to the top level. */
     public void unknownException(Exception e, Object data);

@@ -200,7 +200,7 @@ public class PacketThread extends Thread {
             if (stop)
                 return;
 
-            callbacks.ioexception(e);
+            callbacks.ioException(e);
         }
 
         disconnected();

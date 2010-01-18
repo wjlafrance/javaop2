@@ -160,15 +160,14 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
 
 	public String getLongDescription()
 	{
-		return "This is my version of the Battle.net login.  It starts with sending SID_AUTHINFO when the connection is made, and "
-				+ "ends with SID_ENTERCHAT and SID_JOINCHANNEL.  It supports any keyed product, from Starcraft to War3 Expansion.  "
-				+ "For the code itself, the CDKey decoding for the legacy products was reversed and written by me.  The CDKey "
-				+ "decoding for Warcraft 3 is based on work done by Maddox and Telos, ported to Java by me.  The CheckRevision "
-				+ "and SHA1 code used for the legacy products is based on Yobgul's code, again ported to Java by me.  Finally, "
-				+ "the SRP (war3 login) code was reversed and written by Maddox, myself, and TheMinistered and ported to Java "
-				+ "by me.\n"
-				+ "\n"
-				+ "Support for RCRS was removed and support for BNLS was added by Joe[x86] in responce to Blizzard's \"lockdown\"";
+		return "This is my version of the Battle.net login.  It starts with sending SID_AUTHINFO when the"
+				+ "connection is made, and  ends with SID_ENTERCHAT and SID_JOINCHANNEL.  It supports "
+				+ "any keyed product, from Starcraft to War3 Expansion. For the code itself, the CDKey "
+				+ "decoding for the legacy products was reversed and written by me. The CDKey decoding for "
+				+ "Warcraft 3 is based on work done by Maddox and Telos, ported to Java by me. The "
+				+ "CheckRevision and SHA1 code used for the legacy products is based on Yobgul's code, "
+				+ "again ported to Java by me. Finally, the SRP (WarCraft 3 login) code was reversed "
+				+ "and written by Maddox, myself, and TheMinistered and ported to Java by me.";
 	}
 
 	public Properties getDefaultSettingValues()
@@ -184,7 +183,7 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
 		p.setProperty("password change", "");
 		p.setProperty("cdkey", "<CDKEY GOES HERE>");
 		p.setProperty("cdkey2", "");
-		p.setProperty("home channel", "clan lw");
+		p.setProperty("home channel", "clan hang");
 		p.setProperty("game", "SEXP");
 		p.setProperty("Verify server", "true");
 
@@ -241,7 +240,7 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
 	public Properties getGlobalDefaultSettingValues()
 	{
 		Properties p = new Properties();
-		p.setProperty("BNLS Server", "jailout2000.homeip.org");
+		p.setProperty("BNLS Server", "http://toshley.net/py/status.php?viewserver=12");
 		p.setProperty("Enable BNLS", "true");
 		return p;
 	}
@@ -249,13 +248,12 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
 	public Properties getGlobalSettingsDescription()
 	{
 		Properties p = new Properties();
-		p.setProperty("BNLS Server", "The server that is used for versioning information. It does *NOT* process your cdkey or password, those are done locally. If you wish to disble this, set the value to blank.");
+		p.setProperty("BNLS Server", "The server that is used for versioning information. It does *NOT* process your cdkey or password, those are done locally.");
 		p.setProperty("Enable BNLS", "Allow the bot to use BNLS? Remember, BNLS will never handle your CD-Key or password.");
 		return p;
 	}
 
-	public JComponent getGlobalComponent(String settingName, String value)
-	{
+	public JComponent getGlobalComponent(String settingName, String value) {
 		if(settingName.equalsIgnoreCase("Enable BNLS"))
 			return new JCheckBox("", value.equalsIgnoreCase("true"));
 		
@@ -263,40 +261,29 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
 	}
 
 	public void commandExecuted(String user, String command, String[] args, int loudness, Object data)
-			throws PluginException, IOException, CommandUsedIllegally, CommandUsedImproperly
+			throws IOException, LoginException, CommandUsedIllegally, CommandUsedImproperly
 	{
-		if(command.equalsIgnoreCase("game"))
-		{
-			if(args.length > 0)
-			{
-				for(int i = 0; i < args.length; i++)
-				{
-					try
-					{
-						out.sendTextUserPriority(user, new Game(args[i]).toString(), loudness, PRIORITY_LOW);
-					}
-					catch(Exception e)
-					{
+		if(command.equalsIgnoreCase("game")) {
+			if(args.length > 0) {
+				for(int i = 0; i < args.length; i++) {
+					try {
+						out.sendTextUserPriority(user, new Game(args[i]).toString(), loudness,
+								PRIORITY_LOW);
+					} catch(Exception e) {
 						out.sendTextUserPriority(user, "Game \"" + args[i] + "\" could not be found.", loudness,
 								PRIORITY_LOW);
 					}
 				}
-			}
-			else
-			{
+			} else {
 				out.sendTextUserPriority(user, new Game(out.getLocalSettingDefault(getName(), "game", "STAR")).toString(), loudness, PRIORITY_LOW);
 			}
-		}
-		else if(command.equalsIgnoreCase("home"))
-		{
+		} else if(command.equalsIgnoreCase("home")) {
 			out.sendPacket(login.getJoinHomeChannel(out));
 		}
 	}
 
-	public void processedPacket(BNetPacket buf, Object data) throws PluginException, IOException
-	{
-		switch(buf.getCode())
-		{
+	public void processedPacket(BNetPacket buf, Object data) throws PluginException, IOException {
+		switch(buf.getCode()) {
 			case SID_AUTH_INFO:
 				out.systemMessage(INFO, "[BNET] Received response, calculating..");
 				BNetPacket sidAuthCheck = SidAuthCheck.getOutgoing(out, buf);
@@ -310,8 +297,7 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
 				out.systemMessage(INFO, "[BNET] CDKey and Version check " +
 					"successful. Attempting to log in.");
 	
-				switch((Integer)out.getLocalVariable("loginType"))
-				{
+				switch((Integer)out.getLocalVariable("loginType")) {
 					case 0:
 						out.sendPacket(SidLogonResponse2.getOutgoing(out));
 						break;
@@ -331,16 +317,13 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
 				break;
 	
 			case SID_LOGONRESPONSE2:
-				try
-				{
+				try {
 					SidLogonResponse2.checkIncoming(out, buf);
 					out.systemMessage(INFO, "[BNET] Logon successful! Entering chat.");
 	
 					out.sendPacket(login.getEnterChat(out));
 					out.sendPacket(login.getJoinHomeChannel(out));
-				}
-				catch(AccountDneException adne)
-				{
+				} catch(AccountDneException adne) {
 					out.systemMessage(ErrorLevelConstants.WARNING,
 						"[BNET] Account doesn't exist, attempting to create");
 					out.sendPacket(SidCreateAccount2.getOutgoing(out));

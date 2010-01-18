@@ -406,13 +406,13 @@ public class PluginRegistration implements PluginCallbackRegister
 
     // Error Callbacks:
     /** This is called if there is a connection problem. */
-    public void ioexception(IOException e)
+    public void ioException(IOException e)
     {
         Enumeration enumeration = errorPlugins.elements();
         while (enumeration.hasMoreElements())
         {
             ErrorPlugin plugin = (ErrorPlugin) enumeration.nextElement();
-            ((ErrorCallback) plugin.getCallback()).ioexception(e, plugin.getData());
+            ((ErrorCallback) plugin.getCallback()).ioException(e, plugin.getData());
         }
     }
 
