@@ -25,11 +25,10 @@ import callback_interfaces.StaticExposedFunctions;
  * Destroy the Panel - Can be told to select a specific bot - Can provide a list
  * of bots - Can provide the name of the currently selected bot
  */
-public class JavaOpFrame extends JFrame implements KeyListener
-{
+public class JavaOpFrame extends JFrame /*implements KeyListener*/ {
     private static final long    serialVersionUID  = 1L;
 
-    private final Hashtable      bots              = new Hashtable();
+    private final Hashtable<String, JavaOpPanel>      bots              = new Hashtable<String, JavaOpPanel>();
 
     private final JDesktopPane   desktop;
 
@@ -47,11 +46,10 @@ public class JavaOpFrame extends JFrame implements KeyListener
 
     private final int            locationIncrement = 20;
 
-    public JavaOpFrame(StaticExposedFunctions funcs)
-    {
+    public JavaOpFrame(StaticExposedFunctions funcs) {
 
         // Set the program's title
-        this.setTitle("JavaOp2 " + funcs.getVersion() + " -- forum.x86labs.org");
+        this.setTitle("JavaOp2 " + funcs.getVersion() + " -- javaop.googlecode.com");
 
         // Create the desktop pane where we'll be storing everything, and make
         // that our content pane
@@ -81,13 +79,10 @@ public class JavaOpFrame extends JFrame implements KeyListener
     {
         // If the bot already exists, select it
         JavaOpPanel bot = (JavaOpPanel) bots.get(out.getName());
-        if (bot != null)
-        {
+        if (bot != null) {
             // Bring it to the front
             select(out.getName());
-        }
-        else
-        {
+        } else {
             MyOwnFocusTraversalPolicy policy = new MyOwnFocusTraversalPolicy();
             // Create the new panel
             bot = new JavaOpPanel(out, policy);
@@ -118,12 +113,10 @@ public class JavaOpFrame extends JFrame implements KeyListener
         return bot;
     }
 
-    public void removeBot(String name)
-    {
+    public void removeBot(String name) {
         JavaOpPanel bot = (JavaOpPanel) bots.get(name);
 
-        if (bot != null)
-        {
+        if (bot != null) {
             bot.dispose();
             bots.remove(name);
         }
@@ -133,70 +126,52 @@ public class JavaOpFrame extends JFrame implements KeyListener
         this.validate();
     }
 
-    public void select(String name)
-    {
+    public void select(String name) {
         JavaOpPanel bot = (JavaOpPanel) bots.get(name);
 
         if (bot != null)
             bot.select();
     }
 
-    public String getCurrentbot()
-    {
+    public String getCurrentbot() {
         return ((JavaOpPanel) desktop.getSelectedFrame()).getBotName();
     }
 
-    public JavaOpPanel getBotByName(String name)
-    {
+    public JavaOpPanel getBotByName(String name) {
         return (JavaOpPanel) bots.get(name);
     }
 
-    public void minimizeAll()
-    {
+    public void minimizeAll() {
         JInternalFrame[] frames = desktop.getAllFrames();
         for (int i = 0; i < frames.length; i++)
-            try
-            {
+            try {
                 frames[i].setIcon(true);
-            }
-            catch (PropertyVetoException e)
-            {
+            } catch (PropertyVetoException e) {
             }
         ;
     }
 
-    public void maximizeAll()
-    {
+    public void maximizeAll() {
         JInternalFrame[] frames = desktop.getAllFrames();
-        for (int i = 0; i < frames.length; i++)
-        {
-            try
-            {
+        for (int i = 0; i < frames.length; i++) {
+            try {
                 frames[i].setIcon(false);
+            } catch (PropertyVetoException e) {
             }
-            catch (PropertyVetoException e)
-            {
-            }
-            ;
-            try
-            {
+            
+            try {
                 frames[i].setMaximum(true);
+            } catch (PropertyVetoException e) {
             }
-            catch (PropertyVetoException e)
-            {
-            }
-            ;
+
         }
     }
 
-    public void cascade()
-    {
+    public void cascade() {
         JInternalFrame[] frames = desktop.getAllFrames();
 
-        Arrays.sort(frames, new Comparator()
-        {
-            public int compare(Object arg0, Object arg1)
-            {
+        Arrays.sort(frames, new Comparator() {
+            public int compare(Object arg0, Object arg1) {
                 return ((JavaOpPanel) arg0).getTitle().compareTo(((JavaOpPanel) arg1).getTitle());
             }
         });
@@ -209,14 +184,11 @@ public class JavaOpFrame extends JFrame implements KeyListener
                 placeNext((JavaOpPanel) frames[i]);
     }
 
-    public void tile()
-    {
+    public void tile() {
         JInternalFrame[] frames = desktop.getAllFrames();
 
-        Arrays.sort(frames, new Comparator()
-        {
-            public int compare(Object arg0, Object arg1)
-            {
+        Arrays.sort(frames, new Comparator() {
+            public int compare(Object arg0, Object arg1) {
                 return ((JavaOpPanel) arg0).getTitle().compareTo(((JavaOpPanel) arg1).getTitle());
             }
         });
@@ -230,8 +202,7 @@ public class JavaOpFrame extends JFrame implements KeyListener
         int x = 0;
         int y = 0;
 
-        for (int i = 0; i < frames.length; i++)
-        {
+        for (int i = 0; i < frames.length; i++) {
             frames[i].setSize(width, height);
             frames[i].setLocation(x * width, y * height);
             x++;
@@ -243,8 +214,7 @@ public class JavaOpFrame extends JFrame implements KeyListener
         }
     }
 
-    private void placeNext(JavaOpPanel bot)
-    {
+    private void placeNext(JavaOpPanel bot) {
         // Make it a good starting size
         bot.setSize(width, height);
 
@@ -265,39 +235,33 @@ public class JavaOpFrame extends JFrame implements KeyListener
         bot.select();
     }
 
-    public void keyTyped(KeyEvent arg0)
-    {
+    /* leftover debugging code?
+    
+    public void keyTyped(KeyEvent arg0) {
         System.err.println("keyTyped: " + arg0.getKeyCode() + " - " + arg0.getModifiers());
     }
 
-    public void keyPressed(KeyEvent arg0)
-    {
+    public void keyPressed(KeyEvent arg0) {
         System.err.println("keyPressed: " + arg0.getKeyCode() + " - " + arg0.getModifiers());
     }
 
-    public void keyReleased(KeyEvent arg0)
-    {
+    public void keyReleased(KeyEvent arg0) {
         System.err.println("keyReleased: " + arg0.getKeyCode() + " - " + arg0.getModifiers());
-    }
+    }*/
 
-    private class MyOwnFocusTraversalPolicy extends FocusTraversalPolicy
-    {
-        private JavaOpPanel findPanel(Component parent)
-        {
+    private class MyOwnFocusTraversalPolicy extends FocusTraversalPolicy {
+        private JavaOpPanel findPanel(Component parent) {
             while (parent != null && parent instanceof JavaOpPanel == false)
                 parent = parent.getParent();
 
             return (JavaOpPanel) parent;
         }
 
-        private JInternalFrame[] getFrames()
-        {
+        private JInternalFrame[] getFrames() {
             JInternalFrame[] frames = desktop.getAllFrames();
 
-            Arrays.sort(frames, new Comparator()
-            {
-                public int compare(Object arg0, Object arg1)
-                {
+            Arrays.sort(frames, new Comparator() {
+                public int compare(Object arg0, Object arg1) {
                     return ((JavaOpPanel) arg0).getTitle().compareTo(
                                                                      ((JavaOpPanel) arg1).getTitle());
                 }
@@ -306,14 +270,12 @@ public class JavaOpFrame extends JFrame implements KeyListener
             return frames;
         }
 
-        private JavaOpPanel selectFrame(JavaOpPanel panel)
-        {
+        private JavaOpPanel selectFrame(JavaOpPanel panel) {
             panel.select();
             return panel;
         }
 
-        public Component getComponentAfter(Container focusCycleRoot, Component aComponent)
-        {
+        public Component getComponentAfter(Container focusCycleRoot, Component aComponent) {
             JInternalFrame[] frames = getFrames();
             JavaOpPanel panel = findPanel(aComponent);
 
@@ -327,8 +289,7 @@ public class JavaOpFrame extends JFrame implements KeyListener
             return getDefaultComponent(focusCycleRoot);
         }
 
-        public Component getComponentBefore(Container focusCycleRoot, Component aComponent)
-        {
+        public Component getComponentBefore(Container focusCycleRoot, Component aComponent) {
             JInternalFrame[] frames = getFrames();
             JavaOpPanel panel = findPanel(aComponent);
 
@@ -342,22 +303,19 @@ public class JavaOpFrame extends JFrame implements KeyListener
             return getDefaultComponent(focusCycleRoot);
         }
 
-        public Component getDefaultComponent(Container focusCycleRoot)
-        {
+        public Component getDefaultComponent(Container focusCycleRoot) {
             JInternalFrame[] frames = getFrames();
 
             return frames.length > 0 ? frames[0] : focusCycleRoot;
         }
 
-        public Component getLastComponent(Container focusCycleRoot)
-        {
+        public Component getLastComponent(Container focusCycleRoot) {
             JInternalFrame[] frames = getFrames();
 
             return frames.length > 0 ? frames[frames.length - 1] : focusCycleRoot;
         }
 
-        public Component getFirstComponent(Container focusCycleRoot)
-        {
+        public Component getFirstComponent(Container focusCycleRoot) {
             JInternalFrame[] frames = getFrames();
 
             return frames.length > 0 ? frames[0] : focusCycleRoot;
