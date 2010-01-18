@@ -6,6 +6,8 @@
 
 package cdkey;
 
+import password.BrokenSHA1;
+import util.Buffer;
 import exceptions.LoginException;
 
 /**
@@ -41,7 +43,7 @@ class Alpha16Decode extends Decode
 			 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
 			 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
 			 0xFF, 0xFF, 0xFF, 0xFF
-};
+	 };
 	 
 	private int checksum = 0;
 
@@ -55,6 +57,29 @@ class Alpha16Decode extends Decode
 			throw new LoginException("CDKey is not 16 characters!");
 
 		hash();
+	} 
+
+
+	/**
+	 * Hashes the CDKey based on the client and server token, and returns the 5-byte hash.
+	 * 
+	 * @param clientToken
+	 *            The client token to hash it with.
+	 * @param serverToken
+	 *            The server token to hash it with.
+	 * @return The 20-byte hash (5 ints).
+	 */
+	public int[] getKeyHash(int clientToken, int serverToken) {
+		Buffer hashData = new Buffer();
+
+		hashData.addDWord(clientToken);
+		hashData.addDWord(serverToken);
+		hashData.addDWord(getProduct());
+		hashData.addDWord(getVal1());
+		hashData.addDWord(0);
+		hashData.addDWord(getVal2());
+
+		return BrokenSHA1.calcHashBuffer(hashData.getBytes());
 	}
 
 	private void hash() throws LoginException {

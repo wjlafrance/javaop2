@@ -41,37 +41,32 @@ public class SidAuthCheck
 		pubFuncs.putLocalVariable("mpqName", SidAuthInfo.removeNTString());
 		// (STRING) Formula 
 		pubFuncs.putLocalVariable("verFormula", SidAuthInfo.removeNtByteArray());
-		// (VOID) Server Signature
+		
+		// check server signature
 		if((Integer)pubFuncs.getLocalVariable("loginType") == 2) {
+			boolean stopOnInvalidSignature = pubFuncs.getLocalSettingDefault("Battle.net Login Plugin",
+					"Verify server", "true").equalsIgnoreCase("true");
 			if(SidAuthInfo.size() >= 128) {
-				byte[] signature = SidAuthInfo.removeBytes(128);
-				if(ServerSignature.CheckSignature(signature, (byte[]) pubFuncs.getLocalVariable("address"))) {
-					// signature valid
-					pubFuncs.systemMessage(ErrorLevelConstants.INFO, "[BNET] Server successfully authenticated -- it's Blizzard's");
+				boolean signatureValid = ServerSignature.CheckSignature(SidAuthInfo.removeBytes(128),
+						(byte[]) pubFuncs.getLocalVariable("address"));
+				if (signatureValid) {
+					pubFuncs.systemMessage(ErrorLevelConstants.INFO, "[BNET] Server signature is valid.");
 				} else {
-					// signature invalid
-					if(pubFuncs.getLocalSettingDefault("Battle.net Login Plugin", "Verify server", "true").equalsIgnoreCase("true")) {
-						throw new PluginException("[BNET] NLS Server failed " +
-							"authentication (this is most likely NOT a Blizzard " +
-							"server!); not connecting.  To connect anyway, change " +
-							"the setting \"Verify server\" to false.");
+					if (stopOnInvalidSignature) {
+						throw new PluginException("[BNET] Server signature is invalid. " +
+								"To connect anyway, change the setting \"Verify server\" to false.");
 					} else {
 						pubFuncs.systemMessage(ErrorLevelConstants.WARNING,
-							"[BNET] The server's authentication failed.  This " +
-							"probably isn't a real Battle.net server!");
+								"[BNET] Server signature is invalid.");
 					}
 				}
-			} else { // no signature
-				if(pubFuncs.getLocalSettingDefault("Battle.net Login Plugin", "Verify server", "true").equalsIgnoreCase("true")) {
-					throw new PluginException("[BNET] NLS Server failed to send " +
-						"authentication (this is most likely NOT a Blizzard " +
-						"server!); not connecting.  To connect anyway, change the " +
-						"setting \"Verify server\" to false.");
+			} else {
+				if(stopOnInvalidSignature) {
+					throw new PluginException("[BNET] Server signature is not present. " +
+							"To connect anyway, change the setting \"Verify server\" to false.");
 				} else {
 					pubFuncs.systemMessage(ErrorLevelConstants.WARNING,
-						"[BNET] NLS Server failed to send authentication. " +
-						"The connection will continue; however, this server " +
-						"probably doesn't belong to Blizzard.");
+							"[BNET] Server signature is not present.");
 				}
 			}
 		} // end signature check
@@ -81,15 +76,15 @@ public class SidAuthCheck
 
 		// Display the variables if we're debugging, and because it looks cool
 		pubFuncs.systemMessage(ErrorLevelConstants.DEBUG, "[BNET] Logon type:   0x" +
-			Integer.toHexString((Integer)pubFuncs.getLocalVariable("loginType")));
+				Integer.toHexString((Integer)pubFuncs.getLocalVariable("loginType")));
 		pubFuncs.systemMessage(ErrorLevelConstants.DEBUG, "[BNET] Server token: 0x" +
-			Integer.toHexString((Integer)pubFuncs.getLocalVariable("serverToken")));
+				Integer.toHexString((Integer)pubFuncs.getLocalVariable("serverToken")));
 		pubFuncs.systemMessage(ErrorLevelConstants.DEBUG, "[BNET] Client token: 0x" +
-			Integer.toHexString((Integer)pubFuncs.getLocalVariable("clientToken")));
+				Integer.toHexString((Integer)pubFuncs.getLocalVariable("clientToken")));
 		pubFuncs.systemMessage(ErrorLevelConstants.DEBUG, "[BNET] MPQ filetime: 0x" +
-			Long.toHexString((Long)pubFuncs.getLocalVariable("mpqTime")));
+				Long.toHexString((Long)pubFuncs.getLocalVariable("mpqTime")));
 		pubFuncs.systemMessage(ErrorLevelConstants.DEBUG, "[BNET] MPQ filename: " +
-			(String)pubFuncs.getLocalVariable("mpqName"));
+				(String)pubFuncs.getLocalVariable("mpqName"));
 
 		
 		// END PARSING SID_AUTH_INFO
@@ -124,9 +119,7 @@ public class SidAuthCheck
 		// (STRING) EXE Statstring */
 		authCheck.addNtByteArray(crev.statstring);
 		// (STRING) CD-Key Owner  */
-		authCheck.addNTString(pubFuncs.getLocalSetting(
-				"Battle.net Login Plugin",
-				"username"));
+		authCheck.addNTString(pubFuncs.getLocalSetting("Battle.net Login Plugin", "username"));
 
 		return authCheck;
 	}
