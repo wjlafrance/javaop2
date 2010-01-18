@@ -12,117 +12,123 @@ package users.statstring;
  */
 public class War3Statstring
 {
-    private static String getRank(String rank, int i) throws java.lang.ArrayIndexOutOfBoundsException
-    {
-        String rankResult;
-        if (rank.equals("R"))
-        {
-            String[] ranks =
-            { "Unknown", "Peon", "Green Dragon Whelp", "Blue Dragon", "Red Dragon", "Deathwing" };
-            rankResult = ranks[i];
+	
+	/**
+	 * Gets the "best race" name from the initial
+	 */
+	private static String getRaceNameFromInitial(String initial) {
+        if (initial.equals("R")) {
+            return "Random";
+        } else if (initial.equals("O")) {
+            return "Orc";
+        } else if (initial.equals("N")) {
+            return "Night Elf";
+        } else if (initial.equals("U")) {
+            return "Undead";
+        } else if (initial.equals("H")) {
+            return "Human";
+        } else {
+        	return "Unknown";
         }
-        else if (rank.equals("O"))
-        {
-            String[] ranks =
-            { "Unknown", "Peon", "Grunt", "Tauren", "Far Seer", "Thrall" };
-            rankResult = ranks[i];
+	}
+	
+	/**
+	 * Gets icon name from rank initial and icon index
+	 */
+    private static String getIconName(String rank, int i) {
+    	if(i > 5)
+    		return "Unknown";
+    	
+        if (rank.equals("R")) {				// Race: Random
+            String[] ranks = {
+            		"Unknown",
+            		"Peon",
+            		"Green Dragon Whelp",
+            		"Blue Dragon",
+            		"Red Dragon",
+            		"Deathwing"
+            };
+            return ranks[i];
+        } else if (rank.equals("O")) {		// Race: Orc
+            String[] ranks = {
+            		"Unknown",
+            		"Peon",
+            		"Grunt",
+            		"Tauren",
+            		"Far Seer",
+            		"Thrall"
+            };
+            return ranks[i];
+        } else if (rank.equals("U")) {		// Race: Undead
+            String[] ranks = {
+            		"Unknown",
+            		"Peon",
+            		"Ghoul",
+            		"Abomination",
+            		"Lich",
+            		"Tichondrius"
+            };
+            return ranks[i];
+        } else if (rank.equals("H")) {		// Race: Human
+            String[] ranks = {
+            		"Unknown",
+            		"Peon",
+            		"Footman",
+            		"Knight",
+            		"Archmage",
+            		"Medivh"
+            };
+            return ranks[i];
+        } else if (rank.equals("N")) {		// Race: Night Elf
+            String[] ranks = {
+                    "Unknown",
+                    "Peon",
+                    "Archer",
+                    "Druid of the Claw",
+                    "Priestess of the Moon",
+                    "Furion Stormrage"
+            };
+            return ranks[i];
+        } else {							// Unknown race, wtf?
+            String[] ranks = {
+            		"Unknown",
+            		"Peon",
+            		"Unknown",
+            		"Unknown",
+            		"Unknown",
+            		"Unknown"
+            };
+            return ranks[i];
         }
-        else if (rank.equals("U"))
-        {
-            String[] ranks =
-            { "Unknown", "Peon", "Ghoul", "Abomination", "Lich", "Tichondrius" };
-            rankResult = ranks[i];
-        }
-        else if (rank.equals("H"))
-        {
-            String[] ranks =
-            { "Unknown", "Peon", "Footman", "Knight", "Archmage", "Medivh" };
-            rankResult = ranks[i];
-        }
-        else if (rank.equals("N"))
-        {
-            String[] ranks =
-            {
-                    "Unknown", "Peon", "Archer", "Druid of the Claw", "Priestess of the Moon",
-                    "Furion Stormrage" };
-            rankResult = ranks[i];
-        }
-        else
-        {
-            String[] ranks =
-            { "Unknown", "Peon", "Unknown", "Unknown" };
-            rankResult = ranks[i];
-        }
-        return rankResult;
     }
 
-    public static String getWar3(String message)
-    {
-        String[] war3Stats;
+    public static String getWar3(String message) {
         String icon;
         String race;
-        StringBuffer clan;
-        war3Stats = message.split(" ");
-        System.out.println("DEBUGGING LOBO:" + war3Stats[0] + " " + war3Stats[1] + " "
-                + war3Stats[2]);
-        if (war3Stats.length > 1)
-        {
-            race = war3Stats[1];
-            race = race.substring(2, 1);
-            icon = war3Stats[1];
-            icon = icon.substring(0, 1);
-        }
-        else
-        {
+        String[] tokens = message.split(" ");
+        
+        if (tokens.length > 1) {
+            race = tokens[1].substring(2, 1);
+            icon = tokens[1].substring(0, 1);
+        } else {
             race = "";
             icon = "";
         }
-        int iconIndex = Integer.parseInt(icon);
-        System.out.println("DEBUGGING LOBO: " + iconIndex);
-        System.out.println("DEBUGGING LOBOL " + war3Stats.length);
-        if (race.equals("R"))
-        {
-            icon = getRank(race, iconIndex);
-            race = "Random";
-        }
-        else if (race.equals("O"))
-        {
-            icon = getRank(race, iconIndex);
-            race = "Orc";
-        }
-        else if (race.equals("N"))
-        {
-            icon = getRank(race, iconIndex);
-            race = "Night Elf";
-        }
-        else if (race.equals("U"))
-        {
-            icon = getRank(race, iconIndex);
-            race = "Undead";
-        }
-        else if (race.equals("H"))
-        {
-            icon = getRank(race, iconIndex);
-            race = "Human";
-        }
-        if (war3Stats.length == 2)
-        {
-            clan = new StringBuffer(war3Stats[3]).reverse();
-            return "Stats: Warcraft III(level " + war3Stats[2] + ", Best Race " + race + ", Icon"
-                    + icon + ", Clan " + clan.toString() + ")";
-        }
-        else if (war3Stats.length == 1)
-        {
-            return "Stats: Warcraft III(level " + war3Stats[2] + ", Best Race " + race + ", Icon"
+        
+        icon = getIconName(race, Integer.parseInt(icon));
+        race = getRaceNameFromInitial(race);
+        
+        if (tokens.length == 2) {
+            StringBuffer clan = new StringBuffer(tokens[3]).reverse();
+            return "Stats: Warcraft III (level " + tokens[2] + ", Best Race: " + race + ", Icon:"
+                    + icon + ", Clan: " + clan.toString() + ")";
+        } else if (tokens.length == 1) {
+            return "Stats: Warcraft III (level " + tokens[2] + ", Best Race: " + race + ", Icon:"
                     + icon + ")";
-        }
-        else if (war3Stats.length == 0)
-        {
-            return "Stats: Warcraft III(None)";
-        }
-        else
-        {
-            return "Unknown statstring: " + message;
+        } else if (tokens.length == 0) {
+            return "Stats: Warcraft III (no statstring)";
+        } else {
+            return "Unknown statstring format: " + message;
         }
     }
 }
