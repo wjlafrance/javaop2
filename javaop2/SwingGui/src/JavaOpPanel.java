@@ -167,8 +167,8 @@ public class JavaOpPanel extends JInternalFrame implements FocusListener, Intern
         input.addActionListener(this);
         input.setCaretColor(Color.WHITE);
 
-        send.setBackground(Color.BLACK);
-        send.setForeground(Color.WHITE);
+        send.setBackground(Color.WHITE);
+        send.setForeground(Color.BLACK);
         send.addActionListener(this);
 
         scroller.setPreferredSize(new Dimension(200, 1000));
@@ -186,24 +186,10 @@ public class JavaOpPanel extends JInternalFrame implements FocusListener, Intern
 
         register.registerSystemMessagePlugin(this, PACKET, EMERGENCY, null);
 
-        register.registerCommandPlugin(
-                                       this,
-                                       "reply",
-                                       1,
-                                       false,
-                                       "U",
-                                       "<message>",
-                                       "Whispers a message back to the last person who sent a message",
-                                       null);
-        register.registerCommandPlugin(
-                                       this,
-                                       "rewhisper",
-                                       1,
-                                       false,
-                                       "U",
-                                       "<message>",
-                                       "Whispers a message to the last person a message was whispered to",
-                                       null);
+        register.registerCommandPlugin(this, "reply", 1, false, "U", "<message>",
+        		"Whispers a message back to the last person who sent a message", null);
+        register.registerCommandPlugin(this, "rewhisper", 1, false, "U", "<message>",
+        		"Whispers a message to the last person a message was whispered to", null);
 
         out.addAlias("reply", "r");
         out.addAlias("reply", "re");
@@ -645,7 +631,6 @@ public class JavaOpPanel extends JInternalFrame implements FocusListener, Intern
 
     public void showMessage(String message, Object data)
     {
-
         display(message);
     }
 
@@ -669,7 +654,6 @@ public class JavaOpPanel extends JInternalFrame implements FocusListener, Intern
 
     public void displayError(Throwable t)
     {
-
         StackTraceElement[] stack = t.getStackTrace();
 
         display(ColorConstants.getColor("Error") + t);
@@ -678,7 +662,7 @@ public class JavaOpPanel extends JInternalFrame implements FocusListener, Intern
 
     }
 
-    public void ioexception(IOException e, Object data)
+    public void ioException(IOException e, Object data)
     {
         displayError(e);
     }

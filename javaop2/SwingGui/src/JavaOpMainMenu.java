@@ -171,30 +171,22 @@ public class JavaOpMainMenu extends JMenuBar implements ActionListener, ChangeLi
 
     }
 
-    public void actionPerformed(ActionEvent e)
-    {
-        try
-        {
-            if (e.getSource() == createNew)
-            {
+    public void actionPerformed(ActionEvent e) {
+        try {
+            if (e.getSource() == createNew) {
                 String name = "";
 
-                for (;;)
-                {
+                for (;;) {
                     name = JOptionPane.showInputDialog(null, "Name?", name);
-
                     if (name == null)
                         return;
-
-                    if (name.matches("[\\w\\_\\-\\.]+"))
-                    {
+                    if (name.matches("[\\w\\_\\-\\.]+")) {
                         funcs.botStart(name);
                         return;
                     }
-
-                    JOptionPane.showMessageDialog(
-                                                  null,
-                                                  "Please enter a name containing at least one character, and only the characters a-z, A-Z, 0-9, or '.-_'");
+                    JOptionPane.showMessageDialog(null,
+                    		"Please enter a name containing at least one character, and only the "
+                    		+ "characters a-z, A-Z, 0-9, or '.-_'");
                 }
             }
             else if (e.getSource() == exit)
