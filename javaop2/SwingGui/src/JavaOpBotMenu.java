@@ -30,36 +30,38 @@ public class JavaOpBotMenu extends JMenuBar implements ActionListener
     /**
 	 * 
 	 */
-    private static final long            serialVersionUID = 1L;
+    private static final long         	serialVersionUID = 1L;
     // The main menus
-    private final JMenu                  file;
-    private final JMenu                  edit;
-    private final JMenu                  connection;
-    private final JMenu                  settings;
+    private final JMenu               	file;
+    private final JMenu                 edit;
+    private final JMenu                 connection;
+    private final JMenu                 settings;
 
     // Under the "file" menu
-    private final JMenuItem              reload           = new JMenuItem("Reload");
-    private final JMenuItem              close            = new JMenuItem("Close");
+    private final JMenuItem             reload           = new JMenuItem("Reload");
+    private final JMenuItem             close            = new JMenuItem("Close");
 
     // Under the "Edit" menu
-    private final JMenuItem              clear            = new JMenuItem("Clear");
+    private final JMenuItem             clear            = new JMenuItem("Clear");
 
     // Under the "Connect" menu
-    private final JMenuItem              connect          = new JMenuItem("Connect");
-    private final JMenuItem              reconnect        = new JMenuItem("Reconnect");
-    private final JMenuItem              disconnect       = new JMenuItem("Disconnect");
+    private final JMenuItem             connect          = new JMenuItem("Connect");
+    private final JMenuItem             reconnect        = new JMenuItem("Reconnect");
+    private final JMenuItem             disconnect       = new JMenuItem("Disconnect");
 
     // Under the "Settings" menu
-    private final JMenuItem              quickConfigure   = new JMenuItem("Quick configuration...");
-    private final JMenuItem              configure        = new JMenuItem("This bot's settings...");
-    private final JMenuItem              userdb           = new JMenuItem("Edit database...");
-    private final JMenuItem              colors           = new JMenuItem("Edit colors...");
+    private final JMenuItem             quickConfigure   = new JMenuItem("Quick configuration...");
+    private final JMenuItem             configure        = new JMenuItem("This bot's settings...");
+    private final JMenuItem             userdb           = new JMenuItem("Edit database...");
+    private final JMenuItem             colors           = new JMenuItem("Edit colors...");
 
     private final PublicExposedFunctions out;
     private final JavaOpPanel            panel;
 
-    private final Hashtable              menus            = new Hashtable();
-    private final Hashtable              callbacks        = new Hashtable();
+    private final Hashtable<String, JMenu>
+    		menus = new Hashtable<String, JMenu>();
+    private final Hashtable<JMenuItem, ActionListener>
+    		callbacks = new Hashtable<JMenuItem, ActionListener>();
 
     public JavaOpBotMenu(PublicExposedFunctions out, JavaOpPanel panel)
     {

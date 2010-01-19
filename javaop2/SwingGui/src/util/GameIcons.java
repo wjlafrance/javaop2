@@ -6,6 +6,8 @@ package util;
 import java.util.Hashtable;
 import javax.swing.ImageIcon;
 
+import exceptions.LoginException;
+
 
 /**
  * @author iago
@@ -13,7 +15,7 @@ import javax.swing.ImageIcon;
  */
 public class GameIcons
 {
-    private static Hashtable icons = new Hashtable();
+    private static Hashtable<String, ImageIcon> icons = new Hashtable<String, ImageIcon>();
 
     static
     {
@@ -1568,31 +1570,7 @@ public class GameIcons
 
     public static ImageIcon getIcon(String client)
     {
-        if (client.equalsIgnoreCase("starcraft") || client.equalsIgnoreCase("star"))
-            client = "STAR";
-        else if (client.equalsIgnoreCase("sexp") || client.equalsIgnoreCase("brood war")
-                || client.equalsIgnoreCase("broodwar"))
-            client = "SEXP";
-        else if (client.equalsIgnoreCase("w2bn") || client.equalsIgnoreCase("war2")
-                || client.equalsIgnoreCase("warcraft2") || client.equalsIgnoreCase("war 2")
-                || client.equalsIgnoreCase("warcraft 2") || client.equalsIgnoreCase("warcraft ii")
-                || client.equalsIgnoreCase("war ii") || client.equalsIgnoreCase("warcraft ii bne"))
-            client = "W2BN";
-        else if (client.equalsIgnoreCase("d2dv") || client.equalsIgnoreCase("diablo ii")
-                || client.equalsIgnoreCase("diablo2") || client.equalsIgnoreCase("diablo 2"))
-            client = "D2DV";
-        else if (client.equalsIgnoreCase("d2xp") || client.equalsIgnoreCase("lod")
-                || client.equalsIgnoreCase("diablo ii: lod"))
-            client = "D2XP";
-        else if (client.equalsIgnoreCase("war3") || client.equalsIgnoreCase("warcraft3")
-                || client.equalsIgnoreCase("war 3") || client.equalsIgnoreCase("warcraft 3")
-                || client.equalsIgnoreCase("warcraft iii") || client.equalsIgnoreCase("war iii"))
-            client = "WAR3";
-        else if (client.equalsIgnoreCase("w3xp") || client.equalsIgnoreCase("tft")
-                || client.equalsIgnoreCase("war 3: tft")
-                || client.equalsIgnoreCase("warcraft 3: tft")
-                || client.equalsIgnoreCase("Warcraft III: TFT"))
-            client = "W3XP";
+        client = getCodeFromLongName(client);
 
         ImageIcon icon = (ImageIcon) icons.get(client);
         if (icon == null)
@@ -1603,5 +1581,57 @@ public class GameIcons
 
         return icon;
     }
+    
+    /**
+	 * Takes a user-inputted game name and shortens it to the 4-letter code.
+	 * @throws LoginException Long name not recognized
+	 */
+	private static String getCodeFromLongName(String game) {
+		game = game.toLowerCase();
+		game = game.replace("iiii", "4"); // who knows?
+		game = game.replace("iii", "3");
+		game = game.replace("ii", "2");
+		game = game.replace(" ", "");
+		game = game.replace(":", "");
+		
+		// StarCraft
+		if (game.equals("starcraft")
+		|| game.equals("star")
+		|| game.equals("sc"))
+			return "STAR";
+		// StarCraft: Brood War
+		if (game.equals("sexp")
+		|| game.equals("broodwar"))
+			return "SEXP";
+		// WarCraft II: Battle.net Edition
+		if (game.equals("w2bn")
+		|| game.equals("war2")
+		|| game.equals("warcraft2")
+		|| game.equals("warcraft2bne")
+		|| game.equals("wc2"))
+			return "W2BN";
+		// Diablo II
+		if (game.equals("d2dv")
+	    || game.equals("d2")
+		|| game.equals("diablo2"))
+			return "D2DV";
+		// Diablo II: Lord of Destruction
+		if (game.equals("d2xp")
+		|| game.equals("lod")
+		|| game.equals("diablo2:lod"))
+			return "D2XP";
+		// WarCraft III: Reign of Chaos
+		if (game.equals("war3")
+		|| game.equals("warcraft3")
+		|| game.equals("warcraft3roc"))
+			return "WAR3";
+		// WarCraft III: The Frozen Throne
+		if(game.equals("w3xp")
+		|| game.equals("tft")
+		|| game.equals("warcraft3tft"))
+			return "W3XP";
+		
+		return "";
+	}
 
 }
