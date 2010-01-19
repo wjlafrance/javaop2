@@ -110,7 +110,7 @@ public class BotCoreStatic implements StaticExposedFunctions
 
     public String getVersion()
     {
-        return "2.1.2 (development)";
+        return "2.1.2";
     }
 
     public String getGlobalSetting(String section, String key)
