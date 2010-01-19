@@ -26,28 +26,28 @@ public class SidLogonResponse2
 		int clientToken = (Integer)pubFuncs.getLocalVariable("clientToken");
 		int serverToken = (Integer)pubFuncs.getLocalVariable("serverToken");
 		
-		if(username == null)
+		if (username == null || username.isEmpty())
 			throw new LoginException("[BNET] Cannot login because username is null.");
-		if(password == null)
+		if (password == null || password.isEmpty())
 			throw new LoginException("[BNET] Cannot login because password is null.");
-		if(clientToken == 0)
+		if (clientToken == 0)
 			throw new LoginException("[BNET] Cannot login because client token isn't set. ???");
-		if(serverToken == 0)
+		if (serverToken == 0)
 			throw new LoginException("[BNET] Cannot login because server token isn't set. ???");
 	
-		BNetPacket response = new BNetPacket(PacketConstants.SID_LOGONRESPONSE2);
+		BNetPacket packet = new BNetPacket(PacketConstants.SID_LOGONRESPONSE2);
 		// (DWORD) Client Token
-		response.addDWord(clientToken);
+		packet.addDWord(clientToken);
 		// (DWORD) Server Token
-		response.addDWord(serverToken);
+		packet.addDWord(serverToken);
 		// (DWORD[5] Password Hash
 		int[] myPass = DoubleHash.doubleHash(password, clientToken, serverToken);
 		for(int i = 0; i < 5; i++)
-			response.addDWord(myPass[i]);
+			packet.addDWord(myPass[i]);
 		// (STRING) Username
-		response.addNTString(username);
+		packet.addNTString(username);
 
-		return response;
+		return packet;
 	}
 	
 	public static void checkIncoming(PublicExposedFunctions pubFuncs,

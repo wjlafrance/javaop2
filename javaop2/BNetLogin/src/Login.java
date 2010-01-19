@@ -209,8 +209,7 @@ public class Login
 			byte[] serverProof = buf.removeBytes(SRP.SHA_DIGESTSIZE);
 			byte[] M2 = srp.getM2(salt, B);
 
-			for(int i = 0; i < serverProof.length; i++)
-			{
+			for(int i = 0; i < serverProof.length; i++) {
 				if(serverProof[i] != M2[i])
 					throw new PluginException("[BNET] Server failed to provide proof that it knows your password!");
 			}
@@ -238,7 +237,6 @@ public class Login
 				case 0:
 					return SidLogonResponse2.getOutgoing(out);
 				case 1:
-					return SidAccountLogon.getOutgoing(out);
 				case 2:
 					return SidAccountLogon.getOutgoing(out);
 			}
@@ -288,7 +286,7 @@ public class Login
 		return proof;
 	}
 
-	public BNetPacket authCheckAccountChangeProof(PublicExposedFunctions out, BNetPacket buf) throws LoginException,
+	public BNetPacket authCheckAccountChangeProof(PublicExposedFunctions pubFuncs, BNetPacket buf) throws LoginException,
 			PluginException
 	{
 		int status = buf.removeDWord();
@@ -305,26 +303,24 @@ public class Login
 			if(recvM2[i] != realM2[i])
 				throw new PluginException("[BNET] Server failed to provide proof that it knows your password!");
 
-		out.systemMessage(ErrorLevelConstants.DEBUG, "[BNET] Password successfully changed!");
+		pubFuncs.systemMessage(ErrorLevelConstants.DEBUG, "[BNET] Password successfully changed!");
 
 		// Switch the new password to the current password
-		out.putLocalSetting(prefSection, "password", out.getLocalSetting(prefSection, "password change"));
-		out.putLocalSetting(prefSection, "password change", "");
+		pubFuncs.putLocalSetting(prefSection, "password", pubFuncs.getLocalSetting(prefSection, "password change"));
+		pubFuncs.putLocalSetting(prefSection, "password change", "");
 
 		srp = null;
 		accountChangeSrp = null;
 
-		switch((Integer)out.getLocalVariable("loginType"))
-		{
+		switch((Integer)pubFuncs.getLocalVariable("loginType")) {
 			case 0:
-				return SidLogonResponse2.getOutgoing(out);
+				return SidLogonResponse2.getOutgoing(pubFuncs);
 			case 1:
-				return SidAccountLogon.getOutgoing(out);
 			case 2:
-				return SidAccountLogon.getOutgoing(out);
+				return SidAccountLogon.getOutgoing(pubFuncs);
 			default:
 				throw new LoginException("[BNET] Unable to login in with type " +
-						(Integer)out.getLocalVariable("loginType"));
+						(Integer)pubFuncs.getLocalVariable("loginType"));
 		}
 	}
 
@@ -332,8 +328,7 @@ public class Login
 	 * Generic functions
 	 */
 
-	public BNetPacket getEnterChat(PublicExposedFunctions out)
-	{
+	public BNetPacket getEnterChat(PublicExposedFunctions out) {
 		BNetPacket enterChat = new BNetPacket(PacketConstants.SID_ENTERCHAT);
 		enterChat.addNTString(out.getLocalSettingDefault(prefSection, "username", "not.iago.x86"));
 		enterChat.addNTString("");
@@ -341,8 +336,7 @@ public class Login
 		return enterChat;
 	}
 
-	public BNetPacket getJoinHomeChannel(PublicExposedFunctions out)
-	{
+	public BNetPacket getJoinHomeChannel(PublicExposedFunctions out) {
 		BNetPacket enterChannel = new BNetPacket();
 		enterChannel.setCode(PacketConstants.SID_JOINCHANNEL);
 		enterChannel.addDWord(0x02);

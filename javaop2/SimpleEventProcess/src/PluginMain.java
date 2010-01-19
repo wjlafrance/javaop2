@@ -33,16 +33,13 @@ import util.gui.JTextFieldNumeric;
  * @author iago
  * 
  */
-public class PluginMain extends GenericPluginInterface implements RawEventCallback
-{
+public class PluginMain extends GenericPluginInterface implements RawEventCallback {
     private PublicExposedFunctions out;
 
-    public void load(StaticExposedFunctions staticFuncs)
-    {
+    public void load(StaticExposedFunctions staticFuncs) {
     }
 
-    public void activate(PublicExposedFunctions out, PluginCallbackRegister register)
-    {
+    public void activate(PublicExposedFunctions out, PluginCallbackRegister register) {
         this.out = out;
 
         register.registerRawEventPlugin(this, EID_SHOWUSER, null);
@@ -61,143 +58,117 @@ public class PluginMain extends GenericPluginInterface implements RawEventCallba
         register.registerRawEventPlugin(this, EID_EMOTE, null);
     }
 
-    public void deactivate(PluginCallbackRegister register)
-    {
+    public void deactivate(PluginCallbackRegister register) {
     }
 
-    public String getName()
-    {
+    public String getName() {
         return "Simple event processor";
     }
 
-    public String getVersion()
-    {
-        return "1.1";
+    public String getVersion() {
+        return "2.1.2";
     }
 
-    public String getAuthorName()
-    {
+    public String getAuthorName() {
         return "iago";
     }
 
-    public String getAuthorWebsite()
-    {
+    public String getAuthorWebsite() {
         return "www.javaop.com";
     }
 
-    public String getAuthorEmail()
-    {
+    public String getAuthorEmail() {
         return "iago@valhallalegends.com";
     }
 
-    public String getShortDescription()
-    {
+    public String getShortDescription() {
         return "A simple event parser.";
     }
 
-    public String getLongDescription()
-    {
-        return "A very simple event parser which just translates the incoming events (EID_JOIN, for instance) into "
-                + "the appropriate events that can be understood by the display plugins.  The reason this is separate "
-                + "is so that a filter can be put in the middle that will hide floodbots and such.  If you're using a "
-                + "different event processor, DON'T use this one too.  Otherwise, you'll end up seeing events happening twice.";
+    public String getLongDescription() {
+        return "A very simple event parser which just translates the incoming events (EID_JOIN, for"
+        	+ "instance) into the appropriate events that can be understood by the display plugins. "
+        	+ "The reason this is separate is so that a filter can be put in the middle that will hide "
+        	+ "floodbots and such. If you're using a different event processor, DON'T use this one too. "
+        	+ "Otherwise, you'll end up seeing events happening twice.";
     }
 
-    public Properties getDefaultSettingValues()
-    {
+    public Properties getDefaultSettingValues() {
         Properties p = new Properties();
         p.setProperty("Ignore floodbots", "true");
         p.setProperty("Time to ignore", "400");
         return p;
     }
 
-    public Properties getSettingsDescription()
-    {
+    public Properties getSettingsDescription() {
         Properties p = new Properties();
         p.setProperty("Ignore floodbots",
-                      "If a user joins and leaves really fast, events from him won't be processed");
+        		"If a user joins and leaves really fast, events from him won't be processed");
         p.setProperty("Time to ignore",
-                      "The time, in milliseconds, before the user's events are processed");
+        		"The time, in milliseconds, before the user's events are processed");
         return p;
     }
 
-    public JComponent getComponent(String settingName, String value)
-    {
-        if (settingName.equalsIgnoreCase("Ignore floodbots"))
-        {
+    public JComponent getComponent(String settingName, String value) {
+        if (settingName.equalsIgnoreCase("Ignore floodbots")) {
             return new JCheckBox("", value.equalsIgnoreCase("true") ? true : false);
-        }
-        else if (settingName.equalsIgnoreCase("Time to ignore"))
-        {
+        } else if (settingName.equalsIgnoreCase("Time to ignore")) {
             return new JTextFieldNumeric(value);
         }
 
         return null;
     }
 
-    public Properties getGlobalDefaultSettingValues()
-    {
+    public Properties getGlobalDefaultSettingValues() {
         Properties p = new Properties();
         return p;
     }
 
-    public Properties getGlobalSettingsDescription()
-    {
+    public Properties getGlobalSettingsDescription() {
         Properties p = new Properties();
         return p;
     }
 
-    public JComponent getGlobalComponent(String settingName, String value)
-    {
+    public JComponent getGlobalComponent(String settingName, String value) {
         return null;
     }
 
-    public BNetEvent eventOccurring(BNetEvent event, Object data) throws IOException, PluginException
-    {
+    public BNetEvent eventOccurring(BNetEvent event, Object data) throws IOException, PluginException {
         return event;
     }
 
-    private Hashtable queuedMessages = new Hashtable();
-    private Hashtable timers         = new Hashtable();
+    private Hashtable<String, Vector<BNetEvent>> 	queuedMessages
+    		= new Hashtable<String, Vector<BNetEvent>>();
+    private Hashtable<String, Callback> 			timers
+    		= new Hashtable<String, Callback>();
     private Timer     timer          = new Timer();
 
-    public void eventOccurred(BNetEvent event, Object data) throws IOException, PluginException
-    {
-        boolean ignore = out.getLocalSettingDefault(getName(), "Ignore floodbots", "true").equalsIgnoreCase(
-                                                                                                            "true");
+    public void eventOccurred(BNetEvent event, Object data) throws IOException, PluginException {
+        boolean ignore = out.getLocalSettingDefault(getName(), "Ignore floodbots",
+        		"true").equalsIgnoreCase("true");
 
-        if (ignore == false)
-        {
+        if (ignore == false) {
             processEvent(event);
-        }
-        else
-        {
-            int time = Integer.parseInt(out.getLocalSettingDefault(getName(), "Time to ignore",
-                                                                   "200"));
+        } else {
+            int time = Integer.parseInt(out.getLocalSettingDefault(getName(), "Time to ignore", "200"));
 
-            synchronized (this)
-            {
+            synchronized (this) {
                 int code = event.getCode();
 
-                if (code == EID_JOIN)
-                {
+                if (code == EID_JOIN) {
 
-                    Vector v = new Vector();
+                    Vector<BNetEvent> v = new Vector<BNetEvent>();
                     v.add(event);
                     queuedMessages.put(event.getUsername(), v);
 
                     Callback callback = new Callback(event.getUsername());
                     timers.put(event.getUsername(), callback);
                     timer.schedule(callback, time);
-                }
-                else if (code == EID_LEAVE)
-                {
+                } else if (code == EID_LEAVE) {
                     if (cancelCallback(event.getUsername()) == false)
                         processEvent(event);
-                }
-                else
-                {
-                    Vector events = (Vector) queuedMessages.get(event.getUsername());
+                } else {
+                    Vector<BNetEvent> events = (Vector<BNetEvent>) queuedMessages.get(event.getUsername());
                     if (events == null)
                         processEvent(event);
                     else
@@ -207,8 +178,7 @@ public class PluginMain extends GenericPluginInterface implements RawEventCallba
         }
     }
 
-    private boolean cancelCallback(String username)
-    {
+    private boolean cancelCallback(String username) {
         queuedMessages.remove(username);
         Callback callback = (Callback) timers.remove(username);
         if (callback != null)
@@ -216,21 +186,16 @@ public class PluginMain extends GenericPluginInterface implements RawEventCallba
         return callback != null;
     }
 
-    private class Callback extends TimerTask
-    {
+    private class Callback extends TimerTask {
         private final String username;
 
-        public Callback(String username)
-        {
+        public Callback(String username) {
             this.username = username;
         }
 
-        public void run()
-        {
-            synchronized (this)
-            {
-                try
-                {
+        public void run() {
+            synchronized (this) {
+                try {
                     Vector messages = (Vector) queuedMessages.get(username);
                     if (messages == null)
                         return;
@@ -242,25 +207,20 @@ public class PluginMain extends GenericPluginInterface implements RawEventCallba
 
                     cancelCallback(username);
 
-                }
-                catch (Exception e)
-                {
+                } catch (Exception e) {
                     out.systemMessage(WARNING, "Error processing event: " + e);
                 }
             }
         }
     }
 
-    private void processEvent(BNetEvent event) throws IOException, PluginException
-    {
-        int code = event.getCode();
+    private void processEvent(BNetEvent event) throws IOException, PluginException {
         String username = event.getUsername();
         String message = event.getMessage();
         int ping = event.getPing();
         int flags = event.getFlags();
 
-        switch (code)
-        {
+        switch (event.getCode()) {
             case EID_TALK:
                 out.talk(username, message, ping, flags);
                 break;
@@ -273,7 +233,6 @@ public class PluginMain extends GenericPluginInterface implements RawEventCallba
             case EID_WHISPERSENT:
                 out.whisperTo(username, message, ping, flags);
                 break;
-
             case EID_SHOWUSER:
                 out.userShow(username, message, ping, flags);
                 break;
@@ -286,7 +245,6 @@ public class PluginMain extends GenericPluginInterface implements RawEventCallba
             case EID_USERFLAGS:
                 out.userFlags(username, message, ping, flags);
                 break;
-
             case EID_ERROR:
             case EID_CHANNELDOESNOTEXIST:
             case EID_CHANNELFULL:

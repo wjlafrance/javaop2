@@ -26,9 +26,9 @@ public class SidAccountLogon
 		int clientToken = (Integer)pubFuncs.getLocalVariable("clientToken");
 		int serverToken = (Integer)pubFuncs.getLocalVariable("serverToken");
 		
-		if(username == null)
+		if(username == null || username.isEmpty())
 			throw new LoginException("[BNET] Cannot login because username is null.");
-		if(password == null)
+		if(password == null || password.isEmpty())
 			throw new LoginException("[BNET] Cannot login because password is null.");
 		if(clientToken == 0)
 			throw new LoginException("[BNET] Cannot login because client token isn't set. ???");

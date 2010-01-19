@@ -22,6 +22,7 @@ public class SidAuthInfo
 	public static BNetPacket getOutgoing(PublicExposedFunctions pubFuncs)
 		throws LoginException
 	{
+		// get game and validate
 		String game = pubFuncs.getLocalSetting("Battle.net Login Plugin", "game");
 		if(game == null)
 			throw new LoginException("[BNET] Game not specified. Unable to send" +
@@ -49,14 +50,10 @@ public class SidAuthInfo
 		authinfo.add(0x00000000);
 		// (STRING) Country Abbreviation
 		authinfo.addNTString(pubFuncs.getLocalSettingDefault(
-				"Battle.net Login Plugin",
-				"countryCode",
-				"USA"));
+				"Battle.net Login Plugin", "countryCode", "USA"));
 		// (STRING) Country
 		authinfo.addNTString(pubFuncs.getLocalSettingDefault(
-				"Battle.net Login Plugin",
-				"country",
-				"United States"));
+				"Battle.net Login Plugin", "country", "United States"));
 		
 		return authinfo;
 	}

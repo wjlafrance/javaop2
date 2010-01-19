@@ -16,31 +16,28 @@ import password.BrokenSHA1;
 /**
  * Handles all things SID_CREATEACCOUNT2
  */
-public class SidCreateAccount2
-{
+public class SidCreateAccount2 {
 
-	public static BNetPacket getOutgoing(PublicExposedFunctions pubFuncs)
-		throws LoginException
-	{
-		String password = pubFuncs.getLocalSetting( "Battle.net Login Plugin",
+	public static BNetPacket getOutgoing(PublicExposedFunctions pubFuncs) throws LoginException {
+		String password = pubFuncs.getLocalSetting("Battle.net Login Plugin",
 			"password").toLowerCase();
 		String username = pubFuncs.getLocalSetting("Battle.net Login Plugin",
 			"username");
 		
-		if(password == null)
-			throw new LoginException("[BNET] Cannot create account, password is null.");
-		if(username == null)
+		if(username == null || username.isEmpty())
 			throw new LoginException("[BNET] Cannot create account, username is null.");
+		if(password == null || password.isEmpty())
+			throw new LoginException("[BNET] Cannot create account, password is null.");
 
-		BNetPacket SidCreateAccount2 = new BNetPacket(
-				PacketConstants.SID_CREATEACCOUNT2);
-		
+		BNetPacket sidCreateAccount2 = new BNetPacket(PacketConstants.SID_CREATEACCOUNT2);
+		// (DWORD[5]) Password
 		int[] passwordHash = BrokenSHA1.calcHashBuffer(password.getBytes());
 		for(int i = 0; i < 5; i++)
-			SidCreateAccount2.addDWord(passwordHash[i]);
-		
-		SidCreateAccount2.addNTString(username);
+			sidCreateAccount2.addDWord(passwordHash[i]);
+		// (STRING) Username
+		sidCreateAccount2.addNTString(username);
 	
-		return SidCreateAccount2;
+		return sidCreateAccount2;
 	}
+	
 }

@@ -110,64 +110,44 @@ public class BotCore implements PublicExposedFunctions
             connect();
     }
 
-    public void sendPacket(Buffer packet) throws IOException
-    {
+    public void sendPacket(Buffer packet) throws IOException {
         checkRunning();
 
-        try
-        {
-            if (packet instanceof BNetPacket)
-            {
+        try {
+            if (packet instanceof BNetPacket) {
                 packet = callbacks.processingOutgoingPacket((BNetPacket) packet);
                 if (packet == null)
                     return;
                 callbacks.processedOutgoingPacket((BNetPacket) packet);
             }
             packetThread.send(packet.getBytes());
-        }
-        catch (IOException e)
-        {
-            // We want IOExceptions to propogate
+        } catch (IOException e) { // We want IOExceptions to propogate
             throw e;
-        }
-        catch (PluginException e)
-        {
+        } catch (PluginException e) {
             callbacks.pluginException(e);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             callbacks.unknownException(e);
-        }
-        catch (Error e)
-        {
+        } catch (Error e) {
             callbacks.error(e);
         }
-
     }
 
-    public void sendTextPriority(String text, int priority)
-    {
+    public void sendTextPriority(String text, int priority) {
         checkRunning();
-
         queue.send(text, priority);
     }
 
-    public void sendText(String text)
-    {
+    public void sendText(String text) {
         checkRunning();
-
         queue.send(text, PriorityConstants.PRIORITY_NORMAL);
     }
 
-    public void sendTextUser(String user, String text, int loudness) throws IOException
-    {
+    public void sendTextUser(String user, String text, int loudness) throws IOException {
         checkRunning();
-
         sendTextUserPriority(user, text, loudness, PriorityConstants.PRIORITY_NORMAL);
     }
 
-    public void sendTextUserPriority(String user, String text, int loudness, int priority) throws IOException
-    {
+    public void sendTextUserPriority(String user, String text, int loudness, int priority) throws IOException{
         checkRunning();
 
         if (user == null)
@@ -175,20 +155,16 @@ public class BotCore implements PublicExposedFunctions
 
         final Vector<String> splitText;
 
-        if (loudness == LoudnessConstants.SILENT)
-        {
+        if (loudness == LoudnessConstants.SILENT) {
             splitText = new Vector<String>();
             splitText.add(text);
-        }
-        else
-        {
+        } else {
             splitText = Splitter.split(text, true);
         }
 
         Enumeration<String> e = splitText.elements();
 
-        while (e.hasMoreElements())
-        {
+        while (e.hasMoreElements()) {
             if (loudness == LoudnessConstants.LOUD)
                 queue.send(user + ": " + e.nextElement(), priority);
             else if (loudness == LoudnessConstants.LOUD_NO_NAME)
@@ -204,8 +180,7 @@ public class BotCore implements PublicExposedFunctions
 
     }
 
-    public void schedule(TimerTask task, long interval)
-    {
+    public void schedule(TimerTask task, long interval) {
         JOTimerTask thisTask = new JOTimerTask(task);
         timerTasks.put(task, thisTask);
         timer.schedule(thisTask, interval, interval);
@@ -214,8 +189,7 @@ public class BotCore implements PublicExposedFunctions
                 + "ms)");
     }
 
-    public void unschedule(TimerTask task)
-    {
+    public void unschedule(TimerTask task) {
         JOTimerTask thatTask = (JOTimerTask) timerTasks.get(task);
 
         if (thatTask != null)
@@ -226,22 +200,17 @@ public class BotCore implements PublicExposedFunctions
         systemMessage(ErrorLevelConstants.DEBUG, "Unscheduled timer: " + task);
     }
 
-    public void clearQueue()
-    {
+    public void clearQueue() {
         checkRunning();
-
         queue.clear();
     }
 
-    public StaticExposedFunctions getStaticExposedFunctionsHandle()
-    {
+    public StaticExposedFunctions getStaticExposedFunctionsHandle() {
         return BotCoreStatic.getInstance();
     }
 
-    public void setTCPNoDelay(boolean noDelay) throws IOException
-    {
+    public void setTCPNoDelay(boolean noDelay) throws IOException {
         checkRunning();
-
         packetThread.setTcpNoDelay(noDelay);
     }
 
@@ -252,20 +221,17 @@ public class BotCore implements PublicExposedFunctions
     /**********************
      * Locking
      */
-    public boolean isLocked()
-    {
+    public boolean isLocked() {
         checkRunning();
         return locked;
     }
 
-    public void lock()
-    {
+    public void lock() {
         checkRunning();
         locked = true;
     }
 
-    public void unlock()
-    {
+    public void unlock() {
         checkRunning();
         locked = false;
     }
@@ -273,13 +239,11 @@ public class BotCore implements PublicExposedFunctions
     /**********************
      * Aliases
      */
-    public void addAlias(String command, String alias)
-    {
+    public void addAlias(String command, String alias) {
         callbacks.addAlias(command, alias);
     }
 
-    public String[] getAliasesOf(String command)
-    {
+    public String[] getAliasesOf(String command) {
         return callbacks.getAliasesOf(command);
     }
 
@@ -287,78 +251,59 @@ public class BotCore implements PublicExposedFunctions
      * Get the command associated with an alias. Returns the command itself if
      * there is no alias.
      */
-    public String getCommandOf(String alias)
-    {
+    public String getCommandOf(String alias) {
         return callbacks.getCommandOf(alias);
     }
 
     /** Remove an alias */
-    public void removeAlias(String alias)
-    {
+    public void removeAlias(String alias) {
         callbacks.removeAlias(alias);
     }
 
     /**********************
      * Channel list
      */
-    public void channelSetName(String name)
-    {
+    public void channelSetName(String name) {
         checkRunning();
-
         this.channelName = name;
     }
 
-    public String channelGetName()
-    {
+    public String channelGetName() {
         checkRunning();
-
         return channelName;
     }
 
-    public int channelGetCount()
-    {
+    public int channelGetCount() {
         checkRunning();
-
         return users.size();
     }
 
-    public void channelClear()
-    {
+    public void channelClear() {
         checkRunning();
-
         users.clear();
     }
 
-    public User channelAddUser(String name, int flags, int ping, String message)
-    {
+    public User channelAddUser(String name, int flags, int ping, String message) {
         checkRunning();
-
         return users.addUser(name, flags, ping, message);
     }
 
-    public User channelRemoveUser(String name)
-    {
+    public User channelRemoveUser(String name) {
         checkRunning();
-
         return users.removeUser(name);
     }
 
-    public User channelGetUser(String name)
-    {
+    public User channelGetUser(String name) {
         checkRunning();
-
         return users.getUser(name);
     }
 
-    public String[] channelGetList()
-    {
+    public String[] channelGetList() {
         checkRunning();
-
         return users.getList();
     }
 
-    public String[] channelGetListWithAny(String flags)
-    {
+    public String[] channelGetListWithAny(String flags) {
         checkRunning();
 
         String[] users = channelGetList();
@@ -370,8 +315,7 @@ public class BotCore implements PublicExposedFunctions
         return (String[]) ret.toArray(new String[ret.size()]);
     }
 
-    public String[] channelGetListWithAll(String flags)
-    {
+    public String[] channelGetListWithAll(String flags) {
         checkRunning();
 
         String[] users = channelGetList();
@@ -383,8 +327,7 @@ public class BotCore implements PublicExposedFunctions
         return (String[]) ret.toArray(new String[ret.size()]);
     }
 
-    public String[] channelGetListWithoutAny(String flags)
-    {
+    public String[] channelGetListWithoutAny(String flags) {
         checkRunning();
 
         String[] users = channelGetList();
@@ -396,15 +339,13 @@ public class BotCore implements PublicExposedFunctions
         return (String[]) ret.toArray(new String[ret.size()]);
     }
 
-    public String[] channelMatchGetList(String pattern)
-    {
+    public String[] channelMatchGetList(String pattern) {
         checkRunning();
 
         return users.matchNames(pattern);
     }
 
-    public String[] channelMatchGetListWithAny(String pattern, String flags)
-    {
+    public String[] channelMatchGetListWithAny(String pattern, String flags) {
         checkRunning();
 
         String[] users = channelMatchGetList(pattern);
@@ -416,8 +357,7 @@ public class BotCore implements PublicExposedFunctions
         return (String[]) ret.toArray(new String[ret.size()]);
     }
 
-    public String[] channelMatchGetListWithAll(String pattern, String flags)
-    {
+    public String[] channelMatchGetListWithAll(String pattern, String flags) {
         checkRunning();
 
         String[] users = channelMatchGetList(pattern);
@@ -429,8 +369,7 @@ public class BotCore implements PublicExposedFunctions
         return (String[]) ret.toArray(new String[ret.size()]);
     }
 
-    public String[] channelMatchGetListWithoutAny(String pattern, String flags)
-    {
+    public String[] channelMatchGetListWithoutAny(String pattern, String flags) {
         checkRunning();
 
         String[] users = channelMatchGetList(pattern);
@@ -446,18 +385,14 @@ public class BotCore implements PublicExposedFunctions
      * Manipulating bot instances
      */
     /** Completely disconnect, kill, and clean up the current bot instance */
-    public void stop()
-    {
+    public void stop() {
         checkRunning();
 
         lock();
 
-        try
-        {
+        try {
             callbacks.botInstanceStopping();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
         }
 
         if (packetThread != null)
@@ -473,10 +408,8 @@ public class BotCore implements PublicExposedFunctions
     }
 
     /** Kill this instance of the bot */
-    public void killInstance() throws Exception
-    {
+    public void killInstance() throws Exception {
         checkRunning();
-
         killInstance(getName());
     }
 
@@ -484,10 +417,8 @@ public class BotCore implements PublicExposedFunctions
      * Kill the bot instance with the specified name. IllegalArgumentException
      * is thrown if there is no bot with that name, or if the bot isn't running.
      */
-    public void killInstance(String name) throws Exception
-    {
+    public void killInstance(String name) throws Exception {
         checkRunning();
-
         BotManager.stopBot(name);
     }
 
@@ -496,113 +427,83 @@ public class BotCore implements PublicExposedFunctions
      * IllegalArgumentException is thrown if there is no bot with that name, or
      * if the bot is already running.
      */
-    public void startInstance(String name) throws Exception
-    {
+    public void startInstance(String name) throws Exception {
         checkRunning();
-
         BotManager.startBot(name);
     }
 
     /** Get a list of all running bots */
-    public String[] getRunningBots()
-    {
+    public String[] getRunningBots() {
         checkRunning();
-
         return BotManager.getActiveBots();
     }
 
     /** Get a list of all bots */
-    public String[] getAllBots()
-    {
+    public String[] getAllBots() {
         checkRunning();
-
         return BotManager.getAllBots();
     }
 
     /******************
      * Events to send to "display" plugins
      */
-    public void talk(String user, String message, int ping, int flags) throws IOException, PluginException
-    {
+    public void talk(String user, String message, int ping, int flags) throws IOException, PluginException{
         checkRunning();
-
         callbacks.talk(user, message, ping, flags);
     }
 
-    public void emote(String user, String message, int ping, int flags) throws IOException, PluginException
-    {
+    public void emote(String user, String message, int ping, int flags) throws IOException, PluginException{
         checkRunning();
-
         callbacks.emote(user, message, ping, flags);
     }
 
-    public void whisperFrom(String user, String message, int ping, int flags) throws IOException, PluginException
-    {
+    public void whisperFrom(String user, String message, int ping, int flags) throws IOException, PluginException {
         checkRunning();
-
         callbacks.whisperFrom(user, message, ping, flags);
     }
 
-    public void whisperTo(String user, String message, int ping, int flags) throws IOException, PluginException
-    {
+    public void whisperTo(String user, String message, int ping, int flags) throws IOException, PluginException {
         checkRunning();
-
         callbacks.whisperTo(user, message, ping, flags);
     }
 
-    public void userShow(String user, String message, int ping, int flags) throws IOException, PluginException
-    {
+    public void userShow(String user, String message, int ping, int flags) throws IOException, PluginException {
         checkRunning();
-
         callbacks.userShow(user, message, ping, flags);
     }
 
-    public void userJoin(String user, String message, int ping, int flags) throws IOException, PluginException
-    {
+    public void userJoin(String user, String message, int ping, int flags) throws IOException, PluginException {
         checkRunning();
-
         callbacks.userJoin(user, message, ping, flags);
     }
 
-    public void userLeave(String user, String message, int ping, int flags) throws IOException, PluginException
-    {
+    public void userLeave(String user, String message, int ping, int flags) throws IOException, PluginException {
         checkRunning();
-
         callbacks.userLeave(user, message, ping, flags);
     }
 
-    public void userFlags(String user, String message, int ping, int flags) throws IOException, PluginException
-    {
+    public void userFlags(String user, String message, int ping, int flags) throws IOException, PluginException {
         checkRunning();
-
         callbacks.userFlags(user, message, ping, flags);
     }
 
-    public void error(String user, String message, int ping, int flags) throws IOException, PluginException
-    {
+    public void error(String user, String message, int ping, int flags) throws IOException, PluginException {
         checkRunning();
-
         callbacks.error(user, message, ping, flags);
     }
 
-    public void info(String user, String message, int ping, int flags) throws IOException, PluginException
-    {
+    public void info(String user, String message, int ping, int flags) throws IOException, PluginException {
         checkRunning();
-
         callbacks.info(user, message, ping, flags);
     }
 
-    public void broadcast(String user, String message, int ping, int flags) throws IOException, PluginException
-    {
+    public void broadcast(String user, String message, int ping, int flags) throws IOException, PluginException {
         checkRunning();
-
         callbacks.broadcast(user, message, ping, flags);
     }
 
-    public void channel(String user, String message, int ping, int flags) throws IOException, PluginException
-    {
+    public void channel(String user, String message, int ping, int flags) throws IOException, PluginException {
         checkRunning();
-
         callbacks.channel(user, message, ping, flags);
     }
 

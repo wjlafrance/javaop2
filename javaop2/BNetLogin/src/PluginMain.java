@@ -292,11 +292,11 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
 				break;
 	
 			case SID_AUTH_CHECK:
-				SidAuthCheck.checkIncoming(out, buf); // will throw exception if
-				// version check failed
+				SidAuthCheck.checkIncoming(out, buf);
+				// exception thrown if SID_AUTH_CHECK fails
 				out.systemMessage(INFO, "[BNET] CDKey and Version check " +
 					"successful. Attempting to log in.");
-	
+				
 				switch((Integer)out.getLocalVariable("loginType")) {
 					case 0:
 						out.sendPacket(SidLogonResponse2.getOutgoing(out));
@@ -307,7 +307,7 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
 						break;
 					default:
 						throw new LoginException("[BNET] Unable to login in with " +
-								"type " + (Integer)out.getLocalVariable("loginType"));
+								"login type " + (Integer)out.getLocalVariable("loginType"));
 				}
 				break;
 	
@@ -319,8 +319,8 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
 			case SID_LOGONRESPONSE2:
 				try {
 					SidLogonResponse2.checkIncoming(out, buf);
+					// exception thrown if SID_LOGINRESPONSE2 fails
 					out.systemMessage(INFO, "[BNET] Logon successful! Entering chat.");
-	
 					out.sendPacket(login.getEnterChat(out));
 					out.sendPacket(login.getJoinHomeChannel(out));
 				} catch(AccountDneException adne) {
@@ -341,17 +341,17 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
 	
 			case SID_CREATEACCOUNT2:
 				out.sendPacket(login.checkCreateAccount(out, buf));
-				out.systemMessage(INFO, "[BNET] Account successfully created, trying to log in");
+				out.systemMessage(INFO, "[BNET] Account successfully created, trying to log in..");
 				break;
 	
 			case SID_AUTH_ACCOUNTCREATE:
 				out.sendPacket(login.checkAuthCreateAccount(out, buf));
-				out.systemMessage(INFO, "[BNET] Account successfully created, trying to log in");
+				out.systemMessage(INFO, "[BNET] Account successfully created, trying to log in..");
 				break;
 	
 			case SID_CHANGEPASSWORD:
 				out.sendPacket(login.checkPasswordChange(out, buf));
-				out.systemMessage(INFO, "[BNET] Password successfully changed, logging in");
+				out.systemMessage(INFO, "[BNET] Password successfully changed, logging in..");
 				break;
 	
 			case SID_AUTH_ACCOUNTCHANGE:
