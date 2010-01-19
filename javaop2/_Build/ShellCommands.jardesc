@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jardesc>
-    <jar path="/home/william/JavaOp2/Plugins/ShellCommands.jar"/>
+    <jar path="/Users/william/JavaOp2/Plugins/ShellCommands.jar"/>
     <options overwrite="true" compress="true" exportErrors="true" exportWarnings="true" saveDescription="true" descriptionLocation="/ShellCommands/ShellCommands.jardesc" useSourceFolders="false" buildIfNeeded="true"/>
     <manifest generateManifest="true" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
 	    <sealing sealJar="false">
