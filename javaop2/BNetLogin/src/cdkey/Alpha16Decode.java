@@ -50,7 +50,7 @@ class Alpha16Decode extends Decode
 	protected Alpha16Decode(String cdkey) throws LoginException {
 		this.cdkey = cdkey;
 
-		if(cdkey == null || cdkey.length() == 0)
+		if(cdkey == null || cdkey.isEmpty())
 			throw new LoginException("CD-Key is missing!");
 
 		if(cdkey.length() != 16)

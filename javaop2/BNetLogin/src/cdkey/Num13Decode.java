@@ -22,7 +22,7 @@ class Num13Decode extends Decode
 
 	public Num13Decode(String cdkey) throws LoginException {
 		this.cdkey = cdkey;
-		if(cdkey == null || cdkey.length() == 0)
+		if(cdkey == null || cdkey.isEmpty())
 			throw new LoginException("CD-Key is missing!");
 
 		if(cdkey.length() != 13)

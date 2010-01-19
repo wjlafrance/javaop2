@@ -40,15 +40,13 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
 {
 
 	private Login login;
-	private PublicExposedFunctions out;
+	private PublicExposedFunctions pubFuncs;
 
-	public void load(StaticExposedFunctions staticFuncs)
-	{
+	public void load(StaticExposedFunctions staticFuncs) {
 	}
 
-	public void activate(PublicExposedFunctions out, PluginCallbackRegister register)
-	{
-		this.out = out;
+	public void activate(PublicExposedFunctions pubFuncs, PluginCallbackRegister register) {
+		this.pubFuncs = pubFuncs;
 
 		register.registerConnectionPlugin(this, null);
 		register.registerIncomingPacketPlugin(this, SID_AUTH_INFO, null);
@@ -66,100 +64,84 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
 
 		register.registerIncomingPacketPlugin(this, SID_ENTERCHAT, null);
 
-		register.registerCommandPlugin(this, "game", 0, false, "AGLN", "", "Shows the game that the bot is connected as", null);
-		register.registerCommandPlugin(this, "home", 0, false, "J", "", "Tells the bot to go to its home channel", null);
+		register.registerCommandPlugin(this, "game", 0, false, "AGLN", "",
+				"Shows the game that the bot is connected as", null);
+		register.registerCommandPlugin(this, "home", 0, false, "J", "",
+				"Tells the bot to go to its home channel", null);
 	}
 
-	public void deactivate(PluginCallbackRegister bot)
-	{
+	public void deactivate(PluginCallbackRegister bot) {
 	}
 
-	public boolean connecting(String server, int port, Object data)
-	{
-		try
-		{
+	public boolean connecting(String server, int port, Object data) {
+		try {
 			// Verify the cdkey
 			versioning.GameData g = new versioning.GameData();
-			boolean hasTwoKeys = g.hasTwoKeys(out.getLocalSetting(getName(), "game"));
+			boolean hasTwoKeys = g.hasTwoKeys(pubFuncs.getLocalSetting(getName(), "game"));
 						
-			Decode.getDecoder(out.getLocalSetting(getName(), "cdkey"));
+			Decode.getDecoder(pubFuncs.getLocalSetting(getName(), "cdkey"));
 			if(hasTwoKeys)
-				Decode.getDecoder(out.getLocalSetting(getName(), "cdkey2"));
-
+				Decode.getDecoder(pubFuncs.getLocalSetting(getName(), "cdkey2"));
 
 			return true;
-		}
-		catch(Exception e)
-		{
-			out.systemMessage(CRITICAL, "[BNET] Unable to connect due to exception: " + e);
+		} catch(LoginException le) {
+			pubFuncs.systemMessage(CRITICAL, "[BNET] Caught exception while validating CD-Keys: " + le);
 			return false;
 		}
 	}
 
-	public void connected(String server, int port, Object data) throws PluginException, IOException
-	{
+	public void connected(String server, int port, Object data) throws PluginException, IOException {
 		login = new Login(getName());
 
-		out.systemMessage(INFO, "[BNET] Switching to BnChat protocol. Calculating authorization info..");
-		out.sendPacket(login.getProtocolByte());
+		pubFuncs.systemMessage(INFO, "[BNET] Switching to BnChat protocol. Calculating authorization info..");
+		pubFuncs.sendPacket(login.getProtocolByte());
 		
-		BNetPacket sidAuthInfo = SidAuthInfo.getOutgoing(out);
-		out.systemMessage(INFO, "[BNET] Calculated. Sending authorization info..");
-		out.sendPacket(sidAuthInfo);
+		BNetPacket sidAuthInfo = SidAuthInfo.getOutgoing(pubFuncs);
+		pubFuncs.systemMessage(INFO, "[BNET] Calculated. Sending authorization info..");
+		pubFuncs.sendPacket(sidAuthInfo);
 	}
 
-	public boolean disconnecting(Object data)
-	{
+	public boolean disconnecting(Object data) {
 		return true;
 	}
 
-	public void disconnected(Object data)
-	{
-
+	public void disconnected(Object data) {
 	}
 
-	public BNetPacket processingPacket(BNetPacket buf, Object data)
-	{
+	public BNetPacket processingPacket(BNetPacket buf, Object data) {
 		// SID_ENTERCHAT has to come first
-		switch(buf.getCode())
-		{
-		case SID_ENTERCHAT:
-			out.putLocalVariable("username", buf.removeNTString());
-			out.putLocalVariable("statstring", buf.removeNTString());
-			out.unlock();
-			break;
+		switch(buf.getCode()) {
+			case SID_ENTERCHAT:
+				pubFuncs.putLocalVariable("username", buf.removeNTString());
+				pubFuncs.putLocalVariable("statstring", buf.removeNTString());
+				pubFuncs.unlock();
+				break;
 		}
 
 		return buf;
 	}
 
-	public String getName()
-	{
+	public String getName() {
 		return "Battle.net Login Plugin";
 	}
 
-	public String getVersion()
-	{
+	public String getVersion() {
 		return "2.1.2";
 	}
 
-	public String getAuthorName()
-	{
+	public String getAuthorName() {
 		return "iago, wjlafrance";
 	}
 
-	public String getAuthorWebsite()
-	{
-		return "www.javaop.com";
+	public String getAuthorWebsite() {
+		return "javaop.googlecode.com";
 	}
 
-	public String getAuthorEmail()
-	{
+	public String getAuthorEmail() {
 		return "iago@valhallalegends.com, wjlafrance@gmail.com";
 	}
 
-	public String getLongDescription()
-	{
+	public String getLongDescription() {
 		return "This is my version of the Battle.net login.  It starts with sending SID_AUTHINFO when the"
 				+ "connection is made, and  ends with SID_ENTERCHAT and SID_JOINCHANNEL.  It supports "
 				+ "any keyed product, from Starcraft to War3 Expansion. For the code itself, the CDKey "
@@ -170,8 +152,7 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
 				+ "and written by Maddox, myself, and TheMinistered and ported to Java by me.";
 	}
 
-	public Properties getDefaultSettingValues()
-	{
+	public Properties getDefaultSettingValues() {
 		Properties p = new Properties();
 
 		p.setProperty("auto-change password", "false");
@@ -209,27 +190,20 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
 		return p;
 	}
 
-	public JComponent getComponent(String settingName, String value)
-	{
-		if(settingName.equalsIgnoreCase("password") || settingName.equalsIgnoreCase("password change"))
-		{
+	public JComponent getComponent(String settingName, String value) {
+		if(settingName.equalsIgnoreCase("password") || settingName.equalsIgnoreCase("password change")) {
 			return new JPasswordField(value);
-		}
-		if(settingName.equalsIgnoreCase("Verify server")
-			|| settingName.equalsIgnoreCase("auto-change password")
-			|| settingName.equalsIgnoreCase("auto-change password display"))
+		} if(settingName.equalsIgnoreCase("Verify server")
+				|| settingName.equalsIgnoreCase("auto-change password")
+				|| settingName.equalsIgnoreCase("auto-change password display"))
 		{
 			return new JCheckBox("", value.equalsIgnoreCase("true"));
-		}
-		else if(settingName.equalsIgnoreCase("game"))
-		{
+		} else if(settingName.equalsIgnoreCase("game")) {
 			JComboBox combo = new JComboBox(Game.getGames());
 			combo.setEditable(true);
 			combo.setSelectedItem(value);
 			return combo;
-		}
-		else if(settingName.equalsIgnoreCase("auto-change how often"))
-		{
+		} else if(settingName.equalsIgnoreCase("auto-change how often")) {
 			return new JTextFieldNumeric(value);
 		}
 
@@ -237,10 +211,9 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
 	}
 
 
-	public Properties getGlobalDefaultSettingValues()
-	{
+	public Properties getGlobalDefaultSettingValues() {
 		Properties p = new Properties();
-		p.setProperty("BNLS Server", "http://toshley.net/py/status.php?viewserver=12");
+		p.setProperty("BNLS Server", "bnls.mattkv.net");
 		p.setProperty("Enable BNLS", "true");
 		return p;
 	}
@@ -267,105 +240,105 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
 			if(args.length > 0) {
 				for(int i = 0; i < args.length; i++) {
 					try {
-						out.sendTextUserPriority(user, new Game(args[i]).toString(), loudness,
+						pubFuncs.sendTextUserPriority(user, new Game(args[i]).toString(), loudness,
 								PRIORITY_LOW);
 					} catch(Exception e) {
-						out.sendTextUserPriority(user, "Game \"" + args[i] + "\" could not be found.", loudness,
+						pubFuncs.sendTextUserPriority(user, "Game \"" + args[i] + "\" could not be found.", loudness,
 								PRIORITY_LOW);
 					}
 				}
 			} else {
-				out.sendTextUserPriority(user, new Game(out.getLocalSettingDefault(getName(), "game", "STAR")).toString(), loudness, PRIORITY_LOW);
+				pubFuncs.sendTextUserPriority(user, new Game(pubFuncs.getLocalSettingDefault(getName(), "game", "STAR")).toString(), loudness, PRIORITY_LOW);
 			}
 		} else if(command.equalsIgnoreCase("home")) {
-			out.sendPacket(login.getJoinHomeChannel(out));
+			pubFuncs.sendPacket(login.getJoinHomeChannel(pubFuncs));
 		}
 	}
 
 	public void processedPacket(BNetPacket buf, Object data) throws PluginException, IOException {
 		switch(buf.getCode()) {
 			case SID_AUTH_INFO:
-				out.systemMessage(INFO, "[BNET] Received response, calculating..");
-				BNetPacket sidAuthCheck = SidAuthCheck.getOutgoing(out, buf);
-				out.systemMessage(INFO, "[BNET] Calculated. Sending version check..");
-				out.sendPacket(sidAuthCheck);
+				pubFuncs.systemMessage(INFO, "[BNET] Received response, calculating..");
+				BNetPacket sidAuthCheck = SidAuthCheck.getOutgoing(pubFuncs, buf);
+				pubFuncs.systemMessage(INFO, "[BNET] Calculated. Sending version check..");
+				pubFuncs.sendPacket(sidAuthCheck);
 				break;
 	
 			case SID_AUTH_CHECK:
-				SidAuthCheck.checkIncoming(out, buf);
+				SidAuthCheck.checkIncoming(pubFuncs, buf);
 				// exception thrown if SID_AUTH_CHECK fails
-				out.systemMessage(INFO, "[BNET] CDKey and Version check " +
+				pubFuncs.systemMessage(INFO, "[BNET] CDKey and Version check " +
 					"successful. Attempting to log in.");
 				
-				switch((Integer)out.getLocalVariable("loginType")) {
+				switch((Integer)pubFuncs.getLocalVariable("loginType")) {
 					case 0:
-						out.sendPacket(SidLogonResponse2.getOutgoing(out));
+						pubFuncs.sendPacket(SidLogonResponse2.getOutgoing(pubFuncs));
 						break;
 					case 1:
 					case 2:
-						out.sendPacket(SidAccountLogon.getOutgoing(out));
+						pubFuncs.sendPacket(SidAccountLogon.getOutgoing(pubFuncs));
 						break;
 					default:
 						throw new LoginException("[BNET] Unable to login in with " +
-								"login type " + (Integer)out.getLocalVariable("loginType"));
+								"login type " + (Integer)pubFuncs.getLocalVariable("loginType"));
 				}
 				break;
 	
 			case SID_AUTH_ACCOUNTLOGON:
-				out.sendPacket(login.getLogonProof(out, buf));
-				out.systemMessage(INFO, "[BNET] NLS Logon: proof has been sent.");
+				pubFuncs.sendPacket(login.getLogonProof(pubFuncs, buf));
+				pubFuncs.systemMessage(INFO, "[BNET] NLS Logon: proof has been sent.");
 				break;
 	
 			case SID_LOGONRESPONSE2:
 				try {
-					SidLogonResponse2.checkIncoming(out, buf);
+					SidLogonResponse2.checkIncoming(pubFuncs, buf);
 					// exception thrown if SID_LOGINRESPONSE2 fails
-					out.systemMessage(INFO, "[BNET] Logon successful! Entering chat.");
-					out.sendPacket(login.getEnterChat(out));
-					out.sendPacket(login.getJoinHomeChannel(out));
+					pubFuncs.systemMessage(INFO, "[BNET] Logon successful! Entering chat.");
+					pubFuncs.sendPacket(login.getEnterChat(pubFuncs));
+					pubFuncs.sendPacket(login.getJoinHomeChannel(pubFuncs));
 				} catch(AccountDneException adne) {
-					out.systemMessage(ErrorLevelConstants.WARNING,
+					pubFuncs.systemMessage(ErrorLevelConstants.WARNING,
 						"[BNET] Account doesn't exist, attempting to create");
-					out.sendPacket(SidCreateAccount2.getOutgoing(out));
+					pubFuncs.sendPacket(SidCreateAccount2.getOutgoing(pubFuncs));
 				}
 				break;
 	
 			case SID_AUTH_ACCOUNTLOGONPROOF:
-				out.systemMessage(INFO, "[BNET] Checking server's proof (that it actually knows your password)");
+				pubFuncs.systemMessage(INFO, "[BNET] Checking server's proof (that it actually knows your password)");
 				login.checkLogonProof(buf);
-				out.systemMessage(INFO, "[BNET] NLS Logon successful! Entering chat.");
-				out.sendPacket(login.getEnterChat(out));
-				out.sendPacket(login.getJoinHomeChannel(out));
+				pubFuncs.systemMessage(INFO, "[BNET] NLS Logon successful! Entering chat.");
+				pubFuncs.sendPacket(login.getEnterChat(pubFuncs));
+				pubFuncs.sendPacket(login.getJoinHomeChannel(pubFuncs));
 	
 				break;
 	
 			case SID_CREATEACCOUNT2:
-				out.sendPacket(login.checkCreateAccount(out, buf));
-				out.systemMessage(INFO, "[BNET] Account successfully created, trying to log in..");
+				pubFuncs.sendPacket(login.checkCreateAccount(pubFuncs, buf));
+				pubFuncs.systemMessage(INFO, "[BNET] Account successfully created, trying to log in..");
 				break;
 	
 			case SID_AUTH_ACCOUNTCREATE:
-				out.sendPacket(login.checkAuthCreateAccount(out, buf));
-				out.systemMessage(INFO, "[BNET] Account successfully created, trying to log in..");
+				pubFuncs.sendPacket(login.checkAuthCreateAccount(pubFuncs, buf));
+				pubFuncs.systemMessage(INFO, "[BNET] Account successfully created, trying to log in..");
 				break;
 	
 			case SID_CHANGEPASSWORD:
-				out.sendPacket(login.checkPasswordChange(out, buf));
-				out.systemMessage(INFO, "[BNET] Password successfully changed, logging in..");
+				pubFuncs.sendPacket(login.checkPasswordChange(pubFuncs, buf));
+				pubFuncs.systemMessage(INFO, "[BNET] Password successfully changed, logging in..");
 				break;
 	
 			case SID_AUTH_ACCOUNTCHANGE:
-				out.systemMessage(INFO, "[BNET] Account change info received, replying with proof..");
-				out.sendPacket(login.authCheckAccountChange(out, buf));
+				pubFuncs.systemMessage(INFO, "[BNET] Account change info received, replying with proof..");
+				pubFuncs.sendPacket(login.authCheckAccountChange(pubFuncs, buf));
 				break;
 	
 			case SID_AUTH_ACCOUNTCHANGEPROOF:
-				out.systemMessage(INFO, "[BNET] Account change proof received");
-				out.sendPacket(login.authCheckAccountChangeProof(out, buf));
+				pubFuncs.systemMessage(INFO, "[BNET] Account change proof received");
+				pubFuncs.sendPacket(login.authCheckAccountChangeProof(pubFuncs, buf));
 				break;
 	
 			case SID_WARDEN:
-				out.systemMessage(ERROR, "[BNET] Ignoring Warden challenge -- Disconnection in two minutes.");
+				pubFuncs.systemMessage(ERROR, "[BNET] Ignoring Warden challenge -- Disconnection in two minutes.");
 		}
 	}
 }

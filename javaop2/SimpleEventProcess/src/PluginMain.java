@@ -196,11 +196,11 @@ public class PluginMain extends GenericPluginInterface implements RawEventCallba
         public void run() {
             synchronized (this) {
                 try {
-                    Vector messages = (Vector) queuedMessages.get(username);
+                    Vector<BNetEvent> messages = (Vector<BNetEvent>) queuedMessages.get(username);
                     if (messages == null)
                         return;
 
-                    Enumeration e = messages.elements();
+                    Enumeration<BNetEvent> e = messages.elements();
 
                     while (e.hasMoreElements())
                         processEvent((BNetEvent) e.nextElement());
