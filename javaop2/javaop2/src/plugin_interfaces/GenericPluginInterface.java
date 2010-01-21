@@ -91,10 +91,10 @@ abstract public class GenericPluginInterface
     abstract public JComponent getGlobalComponent(String settingName, String value);
 
     /** This is just to simplify some code */
-    public Hashtable getComponents(Properties values)
+    public Hashtable<String, JComponent> getComponents(Properties values)
     {
         String[] keys = Uniq.uniq(getDefaultSettingValues().keys());
-        Hashtable ret = new Hashtable();
+        Hashtable<String, JComponent> ret = new Hashtable<String, JComponent>();
 
         for (int i = 0; i < keys.length; i++)
         {
@@ -134,7 +134,8 @@ abstract public class GenericPluginInterface
      * preferences look
      */
     public JPanel getPreferenceImplementation(Properties currentSettings,
-            Properties defaultSettings, Properties descriptions, Hashtable components)
+            Properties defaultSettings, Properties descriptions,
+            Hashtable<String, JComponent> components)
     {
         return new PreferencesPanel(currentSettings, defaultSettings, descriptions, components);
     }
@@ -144,7 +145,8 @@ abstract public class GenericPluginInterface
      * overridden, if desired
      */
     public JPanel getGlobalPreferenceImplementation(Properties currentSettings,
-            Properties defaultSettings, Properties descriptions, Hashtable components)
+            Properties defaultSettings, Properties descriptions,
+            Hashtable<String, JComponent> components)
     {
         return new PreferencesPanel(currentSettings, defaultSettings, descriptions, components);
     }

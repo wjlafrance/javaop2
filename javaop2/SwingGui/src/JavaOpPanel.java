@@ -3,6 +3,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FocusTraversalPolicy;
 import java.awt.Point;
+import java.awt.Font;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -127,17 +129,19 @@ public class JavaOpPanel extends JInternalFrame implements FocusListener, Intern
         channelPanel.setLayout(new BorderLayout());
         channelPanel.add(channelName = new JLabel("Channel", JLabel.CENTER), BorderLayout.NORTH);
         channelPanel.add(scroller, BorderLayout.EAST);
+        
+        // Set up the ColorTextArea
+        int maxChars = Integer.parseInt(out.getLocalSettingDefault(name, "chat max length", "100000"));
+        int cutTo = Integer.parseInt(out.getLocalSettingDefault(name, "chat reset length", "80000"));
+        boolean holdAtBottom = out.getLocalSettingDefault(name, "chat max length", "false").equalsIgnoreCase("true");
+        String fontName = out.getLocalSettingDefault(name, "font", "Serif");
+        int fontSize = Integer.parseInt(out.getLocalSettingDefault(name, "fontsize", "15"));
+        chatWindow = new ColorTextArea(Color.BLACK, Color.WHITE, maxChars, cutTo, holdAtBottom);
+        chatWindow.setFont(new Font(fontName, Font.PLAIN, fontSize));
+        chatWindow.setMargin(new Insets(5, 5, 5, 5));
 
         // Add our objects to the main form
-        int maxChars = Integer.parseInt(out.getLocalSettingDefault(name, "chat max length",
-                                                                   "100000"));
-        int cutTo = Integer.parseInt(out.getLocalSettingDefault(name, "chat reset length", "80000"));
-        boolean holdAtBottom = out.getLocalSettingDefault(name, "chat max length", "false").equalsIgnoreCase(
-                                                                                                             "true");
-        this.getContentPane().add(
-                                  new JScrollPane(chatWindow = new ColorTextArea(Color.BLACK,
-                                          Color.WHITE, maxChars, cutTo, holdAtBottom)),
-                                  BorderLayout.CENTER);
+        this.getContentPane().add(new JScrollPane(chatWindow), BorderLayout.CENTER);
         this.getContentPane().add(channelPanel, BorderLayout.EAST);
         this.getContentPane().add(inputPanel, BorderLayout.SOUTH);
 
