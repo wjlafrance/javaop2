@@ -16,7 +16,7 @@ import callback_interfaces.StaticExposedFunctions;
 import exceptions.PluginException;
 import plugin_interfaces.GenericPluginInterface;
 import plugin_interfaces.RawEventCallback;
-import util.BNetEvent;
+import util.BnetEvent;
 import util.gui.JTextFieldNumeric;
 
 
@@ -133,17 +133,17 @@ public class PluginMain extends GenericPluginInterface implements RawEventCallba
         return null;
     }
 
-    public BNetEvent eventOccurring(BNetEvent event, Object data) throws IOException, PluginException {
+    public BnetEvent eventOccurring(BnetEvent event, Object data) throws IOException, PluginException {
         return event;
     }
 
-    private Hashtable<String, Vector<BNetEvent>> 	queuedMessages
-    		= new Hashtable<String, Vector<BNetEvent>>();
+    private Hashtable<String, Vector<BnetEvent>> 	queuedMessages
+    		= new Hashtable<String, Vector<BnetEvent>>();
     private Hashtable<String, Callback> 			timers
     		= new Hashtable<String, Callback>();
     private Timer     timer          = new Timer();
 
-    public void eventOccurred(BNetEvent event, Object data) throws IOException, PluginException {
+    public void eventOccurred(BnetEvent event, Object data) throws IOException, PluginException {
         boolean ignore = out.getLocalSettingDefault(getName(), "Ignore floodbots",
         		"true").equalsIgnoreCase("true");
 
@@ -157,7 +157,7 @@ public class PluginMain extends GenericPluginInterface implements RawEventCallba
 
                 if (code == EID_JOIN) {
 
-                    Vector<BNetEvent> v = new Vector<BNetEvent>();
+                    Vector<BnetEvent> v = new Vector<BnetEvent>();
                     v.add(event);
                     queuedMessages.put(event.getUsername(), v);
 
@@ -168,7 +168,7 @@ public class PluginMain extends GenericPluginInterface implements RawEventCallba
                     if (cancelCallback(event.getUsername()) == false)
                         processEvent(event);
                 } else {
-                    Vector<BNetEvent> events = (Vector<BNetEvent>) queuedMessages.get(event.getUsername());
+                    Vector<BnetEvent> events = (Vector<BnetEvent>) queuedMessages.get(event.getUsername());
                     if (events == null)
                         processEvent(event);
                     else
@@ -196,14 +196,14 @@ public class PluginMain extends GenericPluginInterface implements RawEventCallba
         public void run() {
             synchronized (this) {
                 try {
-                    Vector<BNetEvent> messages = (Vector<BNetEvent>) queuedMessages.get(username);
+                    Vector<BnetEvent> messages = (Vector<BnetEvent>) queuedMessages.get(username);
                     if (messages == null)
                         return;
 
-                    Enumeration<BNetEvent> e = messages.elements();
+                    Enumeration<BnetEvent> e = messages.elements();
 
                     while (e.hasMoreElements())
-                        processEvent((BNetEvent) e.nextElement());
+                        processEvent((BnetEvent) e.nextElement());
 
                     cancelCallback(username);
 
@@ -214,7 +214,7 @@ public class PluginMain extends GenericPluginInterface implements RawEventCallba
         }
     }
 
-    private void processEvent(BNetEvent event) throws IOException, PluginException {
+    private void processEvent(BnetEvent event) throws IOException, PluginException {
         String username = event.getUsername();
         String message = event.getMessage();
         int ping = event.getPing();

@@ -1,7 +1,7 @@
 package packets;
 
 // For all packet classes
-import util.BNetPacket;
+import util.BnetPacket;
 import constants.PacketConstants;
 import exceptions.*;
 import callback_interfaces.PublicExposedFunctions;
@@ -19,7 +19,7 @@ import versioning.Game;
  */
 public class SidAuthInfo
 {
-	public static BNetPacket getOutgoing(PublicExposedFunctions pubFuncs)
+	public static BnetPacket getOutgoing(PublicExposedFunctions pubFuncs)
 		throws LoginException
 	{
 		// get game and validate
@@ -29,7 +29,7 @@ public class SidAuthInfo
 					" Authorization Info");
 		Game g = new Game(game);
 		
-		BNetPacket authinfo = new BNetPacket(PacketConstants.SID_AUTH_INFO);
+		BnetPacket authinfo = new BnetPacket(PacketConstants.SID_AUTH_INFO);
 		// (DWORD) Protocol ID
 		authinfo.add(0x00000000);
 		// (DWORD) Platform ID

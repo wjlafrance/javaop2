@@ -1,7 +1,7 @@
 package packets;
 
 // For all packet classes
-import util.BNetPacket;
+import util.BnetPacket;
 import constants.PacketConstants;
 import exceptions.*;
 import callback_interfaces.PublicExposedFunctions;
@@ -26,8 +26,8 @@ import constants.ErrorLevelConstants;
 public class SidAuthCheck
 {
 
-	public static BNetPacket getOutgoing(PublicExposedFunctions pubFuncs,
-			BNetPacket SidAuthInfo) throws LoginException, PluginException
+	public static BnetPacket getOutgoing(PublicExposedFunctions pubFuncs,
+			BnetPacket SidAuthInfo) throws LoginException, PluginException
 	{		
 		// (DWORD) Login Type
 		pubFuncs.putLocalVariable("loginType", SidAuthInfo.removeDWord());
@@ -103,7 +103,7 @@ public class SidAuthCheck
 		pubFuncs.systemMessage(ErrorLevelConstants.DEBUG, "[BNET] Checksum:     0x" + Integer.toHexString(crev.checksum));
 		
 		// Build the SID_AUTH_CHECK packet
-		BNetPacket authCheck = new BNetPacket(PacketConstants.SID_AUTH_CHECK);
+		BnetPacket authCheck = new BnetPacket(PacketConstants.SID_AUTH_CHECK);
 		// (DWORD) Client Token
 		authCheck.addDWord((Integer)pubFuncs.getLocalVariable("clientToken"));
 		// (DWORD) EXE Version
@@ -125,7 +125,7 @@ public class SidAuthCheck
 	}
 	
 	public static void checkIncoming(PublicExposedFunctions pubFuncs,
-			BNetPacket SidAuthCheck) throws LoginException
+			BnetPacket SidAuthCheck) throws LoginException
 	{
 		// 	(DWORD) Result
 		int result = SidAuthCheck.removeDWord();

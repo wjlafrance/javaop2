@@ -9,7 +9,7 @@ import callback_interfaces.PublicExposedFunctions;
 import callback_interfaces.StaticExposedFunctions;
 import plugin_interfaces.GenericPluginInterface;
 import plugin_interfaces.PacketCallback;
-import util.BNetPacket;
+import util.BnetPacket;
 
 
 /*
@@ -43,12 +43,12 @@ public class PluginMain extends GenericPluginInterface implements PacketCallback
     {
     }
 
-    public BNetPacket processingPacket(BNetPacket buf, Object data)
+    public BnetPacket processingPacket(BnetPacket buf, Object data)
     {
         return buf;
     }
 
-    public void processedPacket(BNetPacket buf, Object data) throws IOException
+    public void processedPacket(BnetPacket buf, Object data) throws IOException
     {
         switch (buf.getCode())
         {
@@ -60,7 +60,7 @@ public class PluginMain extends GenericPluginInterface implements PacketCallback
             case SID_AUTH_CHECK:
                 if (buf.removeDWord() != 0)
                     return; // Don't send UDPPINGRESPONSE on failed AUTH_CHECK
-                BNetPacket udpPing = new BNetPacket();
+                BnetPacket udpPing = new BnetPacket();
                 udpPing.setCode(SID_UDPPINGRESPONSE);
                 udpPing.addBytes(new byte[]
                 { 'b', 'n', 'e', 't' });

@@ -12,7 +12,7 @@ import exceptions.PluginException;
 import plugin_interfaces.CommandCallback;
 import plugin_interfaces.GenericPluginInterface;
 import plugin_interfaces.PacketCallback;
-import util.BNetPacket;
+import util.BnetPacket;
 import util.ColorConstants;
 import util.Uniq;
 
@@ -125,12 +125,12 @@ public class PluginMain extends GenericPluginInterface implements PacketCallback
         return null;
     }
 
-    public BNetPacket processingPacket(BNetPacket buf, Object data) throws IOException, PluginException
+    public BnetPacket processingPacket(BnetPacket buf, Object data) throws IOException, PluginException
     {
         return buf;
     }
 
-    public void processedPacket(BNetPacket buf, Object data) throws IOException, PluginException
+    public void processedPacket(BnetPacket buf, Object data) throws IOException, PluginException
     {
         if (buf.getCode() == SID_CLANINFO)
         {
@@ -261,9 +261,9 @@ public class PluginMain extends GenericPluginInterface implements PacketCallback
                     + inviter;
         }
 
-        public BNetPacket getAccept()
+        public BnetPacket getAccept()
         {
-            BNetPacket accept = new BNetPacket(SID_CLANINVITE);
+            BnetPacket accept = new BnetPacket(SID_CLANINVITE);
             accept.add(cookie);
             accept.addString(clanTag);
             accept.addNTString(inviter);
@@ -271,9 +271,9 @@ public class PluginMain extends GenericPluginInterface implements PacketCallback
             return accept;
         }
 
-        public BNetPacket getDecline()
+        public BnetPacket getDecline()
         {
-            BNetPacket decline = new BNetPacket(SID_CLANINVITE);
+            BnetPacket decline = new BnetPacket(SID_CLANINVITE);
             decline.add(cookie);
             decline.addString(clanTag);
             decline.addNTString(inviter);

@@ -13,7 +13,7 @@ import constants.PacketConstants;
 
 import pluginmanagers.PluginRegistration;
 
-import util.BNetPacket;
+import util.BnetPacket;
 import util.ChatMessage;
 
 import callback_interfaces.PublicExposedFunctions;
@@ -92,7 +92,7 @@ public class Queue
                 }
                 else
                 {
-                    BNetPacket command = new BNetPacket(PacketConstants.SID_CHATCOMMAND);
+                    BnetPacket command = new BnetPacket(PacketConstants.SID_CHATCOMMAND);
                     command.addNTString(up.getText());
                     if (plugins.sendingText(up.getText()))
                     {

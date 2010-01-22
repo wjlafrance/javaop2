@@ -10,7 +10,7 @@ import callback_interfaces.StaticExposedFunctions;
 import exceptions.PluginException;
 import plugin_interfaces.EventCallback;
 import plugin_interfaces.GenericPluginInterface;
-import util.BNetPacket;
+import util.BnetPacket;
 import util.gui.JTextFieldNumeric;
 
 
@@ -193,7 +193,7 @@ public class PluginMain extends GenericPluginInterface implements EventCallback
                         try
                         {
                             out.systemMessage(DEBUG, "Rejoining " + channel);
-                            BNetPacket kick = new BNetPacket(SID_JOINCHANNEL);
+                            BnetPacket kick = new BnetPacket(SID_JOINCHANNEL);
                             kick.addDWord(0x02);
                             kick.addNTString(channel);
                             out.sendPacket(kick);
@@ -237,7 +237,7 @@ public class PluginMain extends GenericPluginInterface implements EventCallback
             {
                 out.systemMessage(DEBUG, "I was banned by " + banner + "!");
 
-                BNetPacket ban = new BNetPacket(SID_JOINCHANNEL);
+                BnetPacket ban = new BnetPacket(SID_JOINCHANNEL);
                 ban.addDWord(0x02);
                 ban.addNTString(out.getLocalSetting(getName(), "Channel to join if banned"));
                 out.sendPacket(ban);

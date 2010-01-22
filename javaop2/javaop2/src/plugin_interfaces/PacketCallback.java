@@ -3,7 +3,7 @@ package plugin_interfaces;
 import java.io.IOException;
 
 import exceptions.PluginException;
-import util.BNetPacket;
+import util.BnetPacket;
 
 
 /*
@@ -24,11 +24,11 @@ public interface PacketCallback extends AbstractCallback
      * changed/dropped here. If null is returned, the packet is dropped. If the
      * packet is changed, it stays changed.
      */
-    public BNetPacket processingPacket(BNetPacket buf, Object data) throws IOException, PluginException;
+    public BnetPacket processingPacket(BnetPacket buf, Object data) throws IOException, PluginException;
 
     /**
      * This is called when a packet has completed being send , and it can no
      * longer be modified/dropped.
      */
-    public void processedPacket(BNetPacket buf, Object data) throws IOException, PluginException;
+    public void processedPacket(BnetPacket buf, Object data) throws IOException, PluginException;
 }

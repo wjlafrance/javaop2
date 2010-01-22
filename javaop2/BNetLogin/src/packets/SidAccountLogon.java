@@ -1,7 +1,7 @@
 package packets;
 
 // For all packet classes
-import util.BNetPacket;
+import util.BnetPacket;
 import constants.PacketConstants;
 import exceptions.*;
 import callback_interfaces.PublicExposedFunctions;
@@ -18,7 +18,7 @@ import password.SRP;
  */
 public class SidAccountLogon
 {
-	public static BNetPacket getOutgoing(PublicExposedFunctions pubFuncs)
+	public static BnetPacket getOutgoing(PublicExposedFunctions pubFuncs)
 		throws LoginException
 	{
 		String username = pubFuncs.getLocalSetting("Battle.net Logon Plugin", "username");
@@ -36,7 +36,7 @@ public class SidAccountLogon
 			throw new LoginException("[BNET] Cannot login because server token isn't set. ???");
 		
 		SRP srp = new SRP(username, password);
-		BNetPacket accountLogon = new BNetPacket(PacketConstants.SID_AUTH_ACCOUNTLOGON);
+		BnetPacket accountLogon = new BnetPacket(PacketConstants.SID_AUTH_ACCOUNTLOGON);
 
 		accountLogon.add(srp.get_A());
 		accountLogon.addNTString(username);

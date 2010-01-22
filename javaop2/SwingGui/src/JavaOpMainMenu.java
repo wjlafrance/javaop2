@@ -30,15 +30,16 @@ import gui.LoadWebsite;
 /**
  * Main Menu - Needs access to StaticExposedFunctions for creating bots
  */
-public class JavaOpMainMenu extends JMenuBar implements ActionListener, ChangeListener
+public class JavaOpMainMenu extends JMenuBar implements ActionListener,
+		ChangeListener
 {
     /**
 	 * 
 	 */
     private static final long            serialVersionUID = 1L;
     private final JavaOpFrame            frame;
-    private final StaticExposedFunctions funcs;
-    private static boolean               check            = false;
+    private final StaticExposedFunctions staticFuncs;
+    private static boolean               check = false;
 
     // The main menus
     private final JMenu                  file;
@@ -47,46 +48,57 @@ public class JavaOpMainMenu extends JMenuBar implements ActionListener, ChangeLi
     private final JMenu                  help;
 
     // Under the "file" menu
-    private final JMenu                  loadBot          = new JMenu("Load bot");
-    private final JMenu                  deleteBot        = new JMenu("Delete bot");
-    private final JMenu                  defaultBots      = new JMenu("Load on startup");
-    private final JMenuItem              createNew        = new JMenuItem("New bot...");
-    private final JMenuItem              exit             = new JMenuItem("Exit");
+    private final JMenu                  loadBot
+    		= new JMenu("Load bot");
+    private final JMenu                  deleteBot
+    		= new JMenu("Delete bot");
+    private final JMenu                  defaultBots
+    		= new JMenu("Load on startup");
+    private final JMenuItem              createNew
+    		= new JMenuItem("New bot...");
+    private final JMenuItem              exit
+    		= new JMenuItem("Exit");
 
     // Under the "Settings" menu
-    private final JMenuItem              configureG       = new JMenuItem("Global settings...");
+    private final JMenuItem              configureG
+    		= new JMenuItem("Global settings...");
 
     // Under the "Windows" menu
-    private final JMenuItem              maximizeAll      = new JMenuItem("Maximize All");
-    private final JMenuItem              minimizeAll      = new JMenuItem("Minimize All");
-    private final JMenuItem              cascade          = new JMenuItem("Cascade");
-    private final JMenuItem              tile             = new JMenuItem("Tile");
+    private final JMenuItem              maximizeAll
+    		= new JMenuItem("Maximize All");
+    private final JMenuItem              minimizeAll
+    		= new JMenuItem("Minimize All");
+    private final JMenuItem              cascade
+    		= new JMenuItem("Cascade");
+    private final JMenuItem              tile
+    		= new JMenuItem("Tile");
 
     // Under the "Help" menu
-    private final JMenuItem              news             = new JMenuItem("News...");
-    private final JMenuItem              introduction     = new JMenuItem("Introduction...");
-    private final JMenuItem              gettingStarted   = new JMenuItem("Getting Started...");
-    private final JMenuItem              moderation       = new JMenuItem("Moderation...");
-    private final JMenuItem              writingPlugins   = new JMenuItem("Writing plugins...");
-    private final JMenuItem              faq              = new JMenuItem("FAQ...");
-    private final JMenuItem              credits          = new JMenuItem("Credits...");
+    private final JMenuItem              news
+    		= new JMenuItem("News...");
+    private final JMenuItem              introduction   = new JMenuItem("Introduction...");
+    private final JMenuItem              botSetup   	= new JMenuItem("Bot setup...");
+    private final JMenuItem              moderation     = new JMenuItem("Moderation...");
+    private final JMenuItem              writingPlugins = new JMenuItem("Writing plugins...");
+    private final JMenuItem              faq            = new JMenuItem("FAQ...");
+    private final JMenuItem              credits        = new JMenuItem("Credits...");
 
-    private final BotLoader              loader           = new BotLoader();
-    private final BotDelete              deleter          = new BotDelete();
-    private final BotChecker             checker          = new BotChecker();
+    private final BotLoader              loader         = new BotLoader();
+    private final BotDelete              deleter        = new BotDelete();
+    private final BotChecker             checker        = new BotChecker();
 
     private final JDesktopPane           desktop;
 
-    public JavaOpMainMenu(StaticExposedFunctions funcs, JDesktopPane desktop, JavaOpFrame frame)
+    public JavaOpMainMenu(StaticExposedFunctions staticFuncs,
+    		JDesktopPane desktop, JavaOpFrame frame)
     {
-        this.funcs = funcs;
+        this.staticFuncs = staticFuncs;
         this.desktop = desktop;
         this.frame = frame;
 
         // This check is for debugging, to ensure that I don't accidentally load
         // this twice
-        if (check)
-        {
+        if (check) {
             System.err.println("ERROR! Loading JavaOpMainMenu more than once!");
             System.exit(1);
         }
@@ -98,11 +110,13 @@ public class JavaOpMainMenu extends JMenuBar implements ActionListener, ChangeLi
 
         createNew.addActionListener(this);
         createNew.setMnemonic('n');
-        createNew.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
+        createNew.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N,
+        		ActionEvent.CTRL_MASK));
         createNew.setIcon(MenuIcons.getIcon("newbot"));
         exit.addActionListener(this);
         exit.setMnemonic('x');
-        exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, ActionEvent.CTRL_MASK));
+        exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X,
+        		ActionEvent.CTRL_MASK));
         exit.setIcon(MenuIcons.getIcon("exit"));
         file = new JMenu("File");
         file.add(createNew);
@@ -118,7 +132,8 @@ public class JavaOpMainMenu extends JMenuBar implements ActionListener, ChangeLi
 
         configureG.addActionListener(this);
         configureG.setMnemonic('g');
-        configureG.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_G, ActionEvent.CTRL_MASK));
+        configureG.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_G,
+        		ActionEvent.CTRL_MASK));
         configureG.setIcon(MenuIcons.getIcon("global"));
         settings = new JMenu("Settings");
         settings.add(configureG);
@@ -140,21 +155,24 @@ public class JavaOpMainMenu extends JMenuBar implements ActionListener, ChangeLi
         help = new JMenu("Help");
         help.add(news);
         help.add(introduction);
-        help.add(gettingStarted);
+        help.add(botSetup);
         help.add(moderation);
         help.add(writingPlugins);
         help.add(faq);
         help.add(credits);
-        news.addActionListener(new WebpageLoader("http://www.javaop.com"));
+        news.addActionListener(new WebpageLoader(
+        		"http://javaop.googlecode.com"));
         news.setMnemonic('n');
         news.setIcon(MenuIcons.getIcon("news"));
-        introduction.addActionListener(new WebpageLoader("http://www.javaop.com/introduction.html"));
+        introduction.addActionListener(new WebpageLoader(
+        		"http://code.google.com/p/javaop/wiki/Introduction"));
         introduction.setMnemonic('i');
         introduction.setIcon(MenuIcons.getIcon("intro"));
-        gettingStarted.addActionListener(new WebpageLoader("http://www.javaop.com/started.html"));
-        gettingStarted.setMnemonic('g');
-        gettingStarted.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
-        gettingStarted.setIcon(MenuIcons.getIcon("started"));
+        botSetup.addActionListener(new WebpageLoader(
+        		"http://code.google.com/p/javaop/wiki/BotSetup"));
+        botSetup.setMnemonic('g');
+        botSetup.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
+        botSetup.setIcon(MenuIcons.getIcon("started"));
         moderation.addActionListener(new WebpageLoader("http://www.javaop.com/moderation.html"));
         moderation.setMnemonic('m');
         moderation.setIcon(MenuIcons.getIcon("mod"));
@@ -164,7 +182,8 @@ public class JavaOpMainMenu extends JMenuBar implements ActionListener, ChangeLi
         faq.addActionListener(new WebpageLoader("http://www.javaop.com/faq.html"));
         faq.setMnemonic('f');
         faq.setIcon(MenuIcons.getIcon("faq"));
-        credits.addActionListener(new WebpageLoader("http://www.javaop.com/contributers.html"));
+        credits.addActionListener(new WebpageLoader(
+        		"http://code.google.com/p/javaop/wiki/Contributers"));
         credits.setMnemonic('c');
         credits.setIcon(MenuIcons.getIcon("credit"));
         this.add(help);
@@ -181,7 +200,7 @@ public class JavaOpMainMenu extends JMenuBar implements ActionListener, ChangeLi
                     if (name == null)
                         return;
                     if (name.matches("[\\w\\_\\-\\.]+")) {
-                        funcs.botStart(name);
+                    	staticFuncs.botStart(name);
                         return;
                     }
                     JOptionPane.showMessageDialog(null,
@@ -195,7 +214,7 @@ public class JavaOpMainMenu extends JMenuBar implements ActionListener, ChangeLi
             }
             else if (e.getSource() == configureG)
             {
-                new GlobalSettingWizard(funcs);
+                new GlobalSettingWizard(staticFuncs);
             }
             else if (e.getSource() == maximizeAll)
             {
@@ -272,11 +291,11 @@ public class JavaOpMainMenu extends JMenuBar implements ActionListener, ChangeLi
             deleteBot.removeAll();
             defaultBots.removeAll();
 
-            String[] bots = funcs.botGetAllNames();
+            String[] bots = staticFuncs.botGetAllNames();
 
             for (int i = 0; i < bots.length; i++)
             {
-                PersistantMap settings = funcs.botGetSettings(bots[i]);
+                PersistantMap settings = staticFuncs.botGetSettings(bots[i]);
 
                 String info = "'"
                         + settings.getNoWrite("Battle.net Login Plugin", "username", "<unknown>")
@@ -300,7 +319,7 @@ public class JavaOpMainMenu extends JMenuBar implements ActionListener, ChangeLi
                 {
                     JCheckBoxMenuItem check = new JCheckBoxMenuItem(bots[i]);
                     check.setToolTipText(info);
-                    check.setSelected(funcs.botIsDefault(bots[i]));
+                    check.setSelected(staticFuncs.botIsDefault(bots[i]));
                     check.addActionListener(checker);
                     defaultBots.add(check);
                 }
@@ -351,17 +370,17 @@ public class JavaOpMainMenu extends JMenuBar implements ActionListener, ChangeLi
                 String name = ((JMenuItem) e.getSource()).getText();
 
                 if (frame.getBotByName(name) == null)
-                    funcs.botStart(name);
+                	staticFuncs.botStart(name);
                 else
                     frame.select(name);
             }
             catch (PluginException exc)
             {
-                funcs.systemMessage(ErrorLevelConstants.ERROR, "Unable to start bot: " + exc);
+            	staticFuncs.systemMessage(ErrorLevelConstants.ERROR, "Unable to start bot: " + exc);
             }
             catch (IOException exc)
             {
-                funcs.systemMessage(ErrorLevelConstants.ERROR, "Unable to start bot: " + exc);
+            	staticFuncs.systemMessage(ErrorLevelConstants.ERROR, "Unable to start bot: " + exc);
             }
         }
     }
@@ -373,7 +392,7 @@ public class JavaOpMainMenu extends JMenuBar implements ActionListener, ChangeLi
             String name = ((JMenuItem) e.getSource()).getText();
             if (JOptionPane.showConfirmDialog(null, "Are you sure you want to delete bot " + name
                     + "?", "Delete?", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
-                funcs.botDelete(name);
+            	staticFuncs.botDelete(name);
         }
     }
 
@@ -384,11 +403,11 @@ public class JavaOpMainMenu extends JMenuBar implements ActionListener, ChangeLi
             try
             {
                 String name = ((JMenuItem) e.getSource()).getText();
-                funcs.botToggleDefault(name);
+                staticFuncs.botToggleDefault(name);
             }
             catch (Exception exc)
             {
-                funcs.systemMessage(ErrorLevelConstants.ERROR, "Unable to set defaults: " + exc);
+            	staticFuncs.systemMessage(ErrorLevelConstants.ERROR, "Unable to set defaults: " + exc);
             }
         }
     }

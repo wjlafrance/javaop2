@@ -4,7 +4,7 @@ import java.util.Hashtable;
 
 import constants.PacketConstants;
 
-import util.BNetPacket;
+import util.BnetPacket;
 
 
 /*
@@ -20,9 +20,9 @@ public class Profile
     private static final Hashtable users    = new Hashtable();
     private static final Hashtable requests = new Hashtable();
 
-    public static BNetPacket getProfileRequest(int profileCookie, String user, String[] fields)
+    public static BnetPacket getProfileRequest(int profileCookie, String user, String[] fields)
     {
-        BNetPacket packet = new BNetPacket(PacketConstants.SID_READUSERDATA);
+        BnetPacket packet = new BnetPacket(PacketConstants.SID_READUSERDATA);
 
         // (DWORD) Number of Accounts
         packet.add(1);
@@ -42,7 +42,7 @@ public class Profile
         return packet;
     }
 
-    public static Hashtable processProfileRequest(int profileCookie, BNetPacket profile)
+    public static Hashtable processProfileRequest(int profileCookie, BnetPacket profile)
     {
         // (DWORD) Number of accounts
         if (profile.removeDWord() != 1)

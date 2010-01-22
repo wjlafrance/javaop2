@@ -21,25 +21,29 @@ import constants.PriorityConstants;
  */
 
 /** There should only ever be one instance of this created per bot */
-class JavaOpUserMenu
-{
-    // Stores a list of custom items that will be displayed in the menu
-    private Vector                       items     = new Vector();
-    // Add this to the "items" vector to put a separator in the list
-    private final JMenuItem              separator = new JMenuItem();
-    // The table of actions for custom items
-    private final Hashtable              actions   = new Hashtable();
-    // The table if icons for custom items
-    private final Hashtable              icons     = new Hashtable();
+public class JavaOpUserMenu {
+    /** Stores a list of custom items that will be displayed in the menu */
+    private Vector              					items = new Vector();
+    
+    /** Add this to the "items" vector to put a separator in the list */
+    private final JMenuItem              			separator = new JMenuItem();
+    
+    /** The table of actions for custom items */
+    private final Hashtable<String, ActionListener> actions
+    		= new Hashtable<String, ActionListener>();
+    
+    /** The table if icons for custom items */
+    private final Hashtable<String, Icon>           icons
+    		= new Hashtable<String, Icon>();
 
-    private final PublicExposedFunctions out;
+    private final PublicExposedFunctions pubFuncs;
 
-    public JavaOpUserMenu(PublicExposedFunctions out)
-    {
-        this.out = out;
+    public JavaOpUserMenu(PublicExposedFunctions pubFuncs) {
+        this.pubFuncs = pubFuncs;
     }
 
-    public void addItem(String name, int index, Icon icon, ActionListener callback)
+    public void addItem(String name, int index, Icon icon,
+    		ActionListener callback)
     {
         if (index >= 0)
             items.add(index, name);
@@ -52,44 +56,40 @@ class JavaOpUserMenu
             actions.put(name, callback);
     }
 
-    public void removeItem(String name)
-    {
+    public void removeItem(String name) {
         items.remove(name);
         actions.remove(name);
         icons.remove(name);
     }
 
-    public JPopupMenu getMenu(String name)
-    {
+    public JPopupMenu getMenu(String name) {
         return new UserMenuImpl(name);
     }
 
-    public void addSeparator()
-    {
+    public void addSeparator() {
         items.add(separator);
     }
 
-    private class UserMenuImpl extends JPopupMenu implements ActionListener
-    {
-        /**
-		 * 
-		 */
+    private class UserMenuImpl extends JPopupMenu implements ActionListener {
         private static final long serialVersionUID = 1L;
         private final JMenuItem   nameItem;
         private final JMenuItem   ban              = new JMenuItem("Ban");
-        private final JMenuItem   banMessage       = new JMenuItem("Ban (message)...");
+        private final JMenuItem   banMessage
+        		= new JMenuItem("Ban (message)...");
         private final JMenuItem   kick             = new JMenuItem("Kick");
-        private final JMenuItem   kickMessage      = new JMenuItem("Kick (message)...");
+        private final JMenuItem   kickMessage
+        		= new JMenuItem("Kick (message)...");
         private final JMenuItem   squelch          = new JMenuItem("Squelch");
         private final JMenuItem   unsquelch        = new JMenuItem("Unsquelch");
         private final JMenuItem   designate        = new JMenuItem("Designate");
         private final JMenuItem   op               = new JMenuItem("Op");
-        private final JMenuItem   edit             = new JMenuItem("Edit flags...");
-        private final JMenuItem   profile          = new JMenuItem("Profile...");
+        private final JMenuItem   edit
+        		= new JMenuItem("Edit flags...");
+        private final JMenuItem   profile
+        		= new JMenuItem("Profile...");
         private final String      name;
 
-        public UserMenuImpl(String name)
-        {
+        public UserMenuImpl(String name) {
             this.name = name;
             this.nameItem = new JMenuItem(name);
 
@@ -146,14 +146,10 @@ class JavaOpUserMenu
             edit.addActionListener(this);
             profile.addActionListener(this);
 
-            for (int i = 0; i < items.size(); i++)
-            {
-                if (items.get(i) == separator)
-                {
+            for (int i = 0; i < items.size(); i++) {
+                if (items.get(i) == separator) {
                     this.addSeparator();
-                }
-                else
-                {
+                } else {
                     String itemName = (String) items.get(i);
                     JMenuItem item = new JMenuItem(itemName);
                     item.addActionListener(this);
@@ -165,71 +161,56 @@ class JavaOpUserMenu
             }
         }
 
-        public void actionPerformed(ActionEvent e)
-        {
-            try
-            {
-                if (e.getSource() == ban)
-                {
-                    out.sendTextPriority("/ban " + name, PriorityConstants.PRIORITY_HIGH + 1);
-                }
-                else if (e.getSource() == banMessage)
-                {
-                    String message = JOptionPane.showInputDialog(this, "Message to ban with?");
+        public void actionPerformed(ActionEvent e) {
+            try {
+                if (e.getSource() == ban) {
+                	pubFuncs.sendTextPriority("/ban " + name,
+                			PriorityConstants.PRIORITY_HIGH + 1);
+                } else if (e.getSource() == banMessage) {
+                    String message = JOptionPane.showInputDialog(this,
+                    		"Message to ban with?");
                     if (message != null)
-                        out.sendTextPriority("/ban " + name + " " + message,
-                                             PriorityConstants.PRIORITY_HIGH + 1);
-                }
-                else if (e.getSource() == kick)
-                {
-                    out.sendTextPriority("/kick " + name, PriorityConstants.PRIORITY_HIGH + 1);
-                }
-                else if (e.getSource() == kickMessage)
-                {
-                    String message = JOptionPane.showInputDialog(this, "Message to kick with?");
+                    	pubFuncs.sendTextPriority("/ban " + name + " "
+                    			+ message, PriorityConstants.PRIORITY_HIGH + 1);
+                } else if (e.getSource() == kick) {
+                	pubFuncs.sendTextPriority("/kick " + name,
+                			PriorityConstants.PRIORITY_HIGH + 1);
+                } else if (e.getSource() == kickMessage) {
+                    String message = JOptionPane.showInputDialog(this,
+                    		"Message to kick with?");
                     if (message != null)
-                        out.sendTextPriority("/kick " + name + " " + message,
-                                             PriorityConstants.PRIORITY_HIGH + 1);
-                }
-                else if (e.getSource() == squelch)
-                {
-                    out.sendTextPriority("/squelch " + name, PriorityConstants.PRIORITY_HIGH + 1);
-                }
-                else if (e.getSource() == unsquelch)
-                {
-                    out.sendTextPriority("/unsquelch " + name, PriorityConstants.PRIORITY_HIGH + 1);
-                }
-                else if (e.getSource() == designate)
-                {
-                    out.sendTextPriority("/designate " + name, PriorityConstants.PRIORITY_HIGH + 1);
-                }
-                else if (e.getSource() == op)
-                {
-                    out.sendTextPriority("/designate " + name, PriorityConstants.PRIORITY_HIGH + 1);
-                    out.sendTextPriority("/resign", PriorityConstants.PRIORITY_HIGH + 1);
-                }
-                else if (e.getSource() == edit)
-                {
-                    new UserDatabaseWizard(out, name);
-                }
-                else
-                {
-                    ActionListener listener = (ActionListener) actions.get(((JMenuItem) e.getSource()).getText());
-                    if (listener == null)
-                    {
+                    	pubFuncs.sendTextPriority("/kick " + name + " "
+                    			+ message, PriorityConstants.PRIORITY_HIGH + 1);
+                } else if (e.getSource() == squelch) {
+                	pubFuncs.sendTextPriority("/squelch " + name,
+                			PriorityConstants.PRIORITY_HIGH + 1);
+                } else if (e.getSource() == unsquelch) {
+                	pubFuncs.sendTextPriority("/unsquelch " + name,
+                			PriorityConstants.PRIORITY_HIGH + 1);
+                } else if (e.getSource() == designate) {
+                	pubFuncs.sendTextPriority("/designate " + name,
+                			PriorityConstants.PRIORITY_HIGH + 1);
+                } else if (e.getSource() == op) {
+                	pubFuncs.sendTextPriority("/designate " + name,
+                			PriorityConstants.PRIORITY_HIGH + 1);
+                	pubFuncs.sendTextPriority("/resign",
+                			PriorityConstants.PRIORITY_HIGH + 1);
+                } else if (e.getSource() == edit) {
+                    new UserDatabaseWizard(pubFuncs, name);
+                } else {
+                    ActionListener listener = (ActionListener) actions
+                    		.get(((JMenuItem) e.getSource()).getText());
+                    if (listener == null) {
                         JOptionPane.showMessageDialog(null, "To-do");
-                    }
-                    else
-                    {
+                    } else {
                         ActionEvent newEvent = new ActionEvent(
                                 ((JMenuItem) e.getSource()).getText(), 1, name);
                         listener.actionPerformed(newEvent);
                     }
                 }
-            }
-            catch (Exception exc)
-            {
-                out.systemMessage(ErrorLevelConstants.ERROR, "Unable to complete command: " + exc);
+            } catch (Exception exc) {
+            	pubFuncs.systemMessage(ErrorLevelConstants.ERROR,
+            			"Unable to complete command: " + exc);
             }
         }
     }

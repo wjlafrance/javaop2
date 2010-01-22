@@ -14,7 +14,7 @@ import exceptions.PluginException;
 import plugin_interfaces.CommandCallback;
 import plugin_interfaces.EventCallback;
 import plugin_interfaces.GenericPluginInterface;
-import util.BNetPacket;
+import util.BnetPacket;
 import util.User;
 
 
@@ -154,7 +154,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
             if (out.getLocalSettingDefault(getName(), "Instant joins", "true").equalsIgnoreCase(
                                                                                                 "true"))
             {
-                BNetPacket join = new BNetPacket(SID_JOINCHANNEL);
+                BnetPacket join = new BnetPacket(SID_JOINCHANNEL);
                 join.addDWord(0x02);
                 join.addNTString(args[0]);
                 out.sendPacket(join);
@@ -169,9 +169,9 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
             if (out.getLocalSettingDefault(getName(), "Instant joins", "true").equalsIgnoreCase(
                                                                                                 "true"))
             {
-                BNetPacket leave = new BNetPacket(SID_LEAVECHAT);
+                BnetPacket leave = new BnetPacket(SID_LEAVECHAT);
                 out.sendPacket(leave);
-                BNetPacket join = new BNetPacket(SID_JOINCHANNEL);
+                BnetPacket join = new BnetPacket(SID_JOINCHANNEL);
                 join.addDWord(0x02);
                 join.addNTString(out.channelGetName());
                 out.sendPacket(join);

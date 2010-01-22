@@ -7,7 +7,7 @@ import password.SRP;
 
 import callback_interfaces.PublicExposedFunctions;
 
-import util.BNetPacket;
+import util.BnetPacket;
 import util.Buffer;
 
 import constants.ErrorLevelConstants;
@@ -48,7 +48,7 @@ public class Login
 	 * Legacy (non-nls) functions
 	 */
 
-	public BNetPacket checkCreateAccount(PublicExposedFunctions out, BNetPacket createAccount) throws LoginException,
+	public BnetPacket checkCreateAccount(PublicExposedFunctions out, BnetPacket createAccount) throws LoginException,
 			PluginException
 	{
 		int status = createAccount.removeDWord();
@@ -79,7 +79,7 @@ public class Login
 		}
 	}
 
-	public BNetPacket getChangePassword(PublicExposedFunctions out) throws PluginException
+	public BnetPacket getChangePassword(PublicExposedFunctions out) throws PluginException
 	{
 		String username = out.getLocalSetting(prefSection, "username");
 		String password = out.getLocalSetting(prefSection, "password").toLowerCase();
@@ -89,7 +89,7 @@ public class Login
 		
 		if(loginType == 0)
 		{
-			BNetPacket changePassword = new BNetPacket(PacketConstants.SID_CHANGEPASSWORD);
+			BnetPacket changePassword = new BnetPacket(PacketConstants.SID_CHANGEPASSWORD);
 
 			changePassword.add(clientToken);
 			changePassword.add(serverToken);
@@ -109,7 +109,7 @@ public class Login
 		}
 		else if(loginType == 1 || loginType == 2)
 		{
-			BNetPacket changePassword = new BNetPacket(PacketConstants.SID_AUTH_ACCOUNTCHANGE);
+			BnetPacket changePassword = new BnetPacket(PacketConstants.SID_AUTH_ACCOUNTCHANGE);
 			srp = new SRP(username, password);
 
 			changePassword.add(srp.get_A());
@@ -121,7 +121,7 @@ public class Login
 		throw new LoginException("[BNET] Unable to login in with type " + loginType);
 	}
 
-	public BNetPacket checkPasswordChange(PublicExposedFunctions out, BNetPacket passwordChangePacket)
+	public BnetPacket checkPasswordChange(PublicExposedFunctions out, BnetPacket passwordChangePacket)
 			throws LoginException, PluginException
 	{
 		int status = passwordChangePacket.removeDWord();
@@ -152,7 +152,7 @@ public class Login
 	/***************
 	 * NLS Functions
 	 */
-	public BNetPacket getLogonProof(PublicExposedFunctions out, BNetPacket authCheckPacket) throws PluginException, LoginException
+	public BnetPacket getLogonProof(PublicExposedFunctions out, BnetPacket authCheckPacket) throws PluginException, LoginException
 	{
 		int status = authCheckPacket.removeDWord();
 
@@ -167,14 +167,14 @@ public class Login
 			B = authCheckPacket.removeBytes(SRP.BIGINT_SIZE);
 
 
-			BNetPacket accountLogonProof = new BNetPacket(PacketConstants.SID_AUTH_ACCOUNTLOGONPROOF);
+			BnetPacket accountLogonProof = new BnetPacket(PacketConstants.SID_AUTH_ACCOUNTLOGONPROOF);
 			accountLogonProof.add(srp.getM1(salt, B));
 
 			return (accountLogonProof);
 
 		case 1:
 
-			BNetPacket accountCreate = new BNetPacket(PacketConstants.SID_AUTH_ACCOUNTCREATE);
+			BnetPacket accountCreate = new BnetPacket(PacketConstants.SID_AUTH_ACCOUNTCREATE);
 
 			// The salt is just a random value
 			salt = srp.get_A();
@@ -197,7 +197,7 @@ public class Login
 		}
 	}
 
-	public void checkLogonProof(BNetPacket buf) throws PluginException, LoginException
+	public void checkLogonProof(BnetPacket buf) throws PluginException, LoginException
 	{
 		int status = buf.removeDWord();
 
@@ -224,7 +224,7 @@ public class Login
 		}
 	}
 
-	public BNetPacket checkAuthCreateAccount(PublicExposedFunctions out, BNetPacket buf) throws PluginException,
+	public BnetPacket checkAuthCreateAccount(PublicExposedFunctions out, BnetPacket buf) throws PluginException,
 			LoginException
 	{
 		int status = buf.removeDWord();
@@ -259,7 +259,7 @@ public class Login
 		}
 	}
 
-	public BNetPacket authCheckAccountChange(PublicExposedFunctions out, BNetPacket buf) throws LoginException
+	public BnetPacket authCheckAccountChange(PublicExposedFunctions out, BnetPacket buf) throws LoginException
 	{
 		int status = buf.removeDWord();
 
@@ -274,7 +274,7 @@ public class Login
 				"password change"));
 		// accountChangeSrp = srp;
 
-		BNetPacket proof = new BNetPacket(PacketConstants.SID_AUTH_ACCOUNTCHANGEPROOF);
+		BnetPacket proof = new BnetPacket(PacketConstants.SID_AUTH_ACCOUNTCHANGEPROOF);
 
 		salt = buf.removeBytes(SRP.BIGINT_SIZE);
 		B = buf.removeBytes(SRP.BIGINT_SIZE);
@@ -286,7 +286,7 @@ public class Login
 		return proof;
 	}
 
-	public BNetPacket authCheckAccountChangeProof(PublicExposedFunctions pubFuncs, BNetPacket buf) throws LoginException,
+	public BnetPacket authCheckAccountChangeProof(PublicExposedFunctions pubFuncs, BnetPacket buf) throws LoginException,
 			PluginException
 	{
 		int status = buf.removeDWord();
@@ -328,16 +328,16 @@ public class Login
 	 * Generic functions
 	 */
 
-	public BNetPacket getEnterChat(PublicExposedFunctions out) {
-		BNetPacket enterChat = new BNetPacket(PacketConstants.SID_ENTERCHAT);
+	public BnetPacket getEnterChat(PublicExposedFunctions out) {
+		BnetPacket enterChat = new BnetPacket(PacketConstants.SID_ENTERCHAT);
 		enterChat.addNTString(out.getLocalSettingDefault(prefSection, "username", "not.iago.x86"));
 		enterChat.addNTString("");
 
 		return enterChat;
 	}
 
-	public BNetPacket getJoinHomeChannel(PublicExposedFunctions out) {
-		BNetPacket enterChannel = new BNetPacket();
+	public BnetPacket getJoinHomeChannel(PublicExposedFunctions out) {
+		BnetPacket enterChannel = new BnetPacket();
 		enterChannel.setCode(PacketConstants.SID_JOINCHANNEL);
 		enterChannel.addDWord(0x02);
 		enterChannel.addNTString(out.getLocalSettingDefault(prefSection, "home channel", "op x86"));

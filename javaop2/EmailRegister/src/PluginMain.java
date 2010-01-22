@@ -10,7 +10,7 @@ import callback_interfaces.StaticExposedFunctions;
 import exceptions.PluginException;
 import plugin_interfaces.GenericPluginInterface;
 import plugin_interfaces.PacketCallback;
-import util.BNetPacket;
+import util.BnetPacket;
 
 
 /*
@@ -134,7 +134,7 @@ public class PluginMain extends GenericPluginInterface implements PacketCallback
         return false;
     }
 
-    public BNetPacket processingPacket(BNetPacket buf, Object data) throws IOException, PluginException
+    public BnetPacket processingPacket(BnetPacket buf, Object data) throws IOException, PluginException
     {
         return buf;
     }
@@ -151,13 +151,13 @@ public class PluginMain extends GenericPluginInterface implements PacketCallback
         {
             out.systemMessage(NOTICE, "Attempting to register your email address");
 
-            BNetPacket register = new BNetPacket(SID_SETEMAIL);
+            BnetPacket register = new BnetPacket(SID_SETEMAIL);
             register.addNTString(email);
             out.sendPacket(register);
         }
     }
 
-    public void processedPacket(BNetPacket buf, Object data) throws IOException, PluginException
+    public void processedPacket(BnetPacket buf, Object data) throws IOException, PluginException
     {
         if (out.getLocalSettingDefault(getName(), "Register email", "false").equalsIgnoreCase(
                                                                                               "true"))
@@ -180,7 +180,7 @@ public class PluginMain extends GenericPluginInterface implements PacketCallback
         {
             if (buf.getCode() == SID_AUTH_CHECK)
             {
-                BNetPacket packet = new BNetPacket(SID_RESETPASSWORD);
+                BnetPacket packet = new BnetPacket(SID_RESETPASSWORD);
 
                 // Crossing the plugin border like this is VERY bad and I
                 // shouldn't do it. But here we are.

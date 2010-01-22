@@ -15,8 +15,8 @@ import plugin_interfaces.EventCallback;
 import plugin_interfaces.GenericPluginInterface;
 import plugin_interfaces.OutgoingTextCallback;
 import plugin_interfaces.SystemMessageCallback;
-import util.BNetEvent;
-import util.BNetPacket;
+import util.BnetEvent;
+import util.BnetPacket;
 import util.ColorConstants;
 
 
@@ -224,7 +224,7 @@ public class PluginMain extends GenericPluginInterface implements SystemMessageC
                      out.getLocalSettingDefault(getName(), "colors", "true").equals("true"));
     }
 
-    public void unknownPacketReceived(BNetPacket packet, Object data)
+    public void unknownPacketReceived(BnetPacket packet, Object data)
     {
         Output.output(out.getName(), Output.DARK_BLUE + "Unknown packet received:",
                       out.getLocalSettingDefault(getName(), "colors", "true").equals("true"));
@@ -232,7 +232,7 @@ public class PluginMain extends GenericPluginInterface implements SystemMessageC
                       out.getLocalSettingDefault(getName(), "colors", "true").equals("true"));
     }
 
-    public void unknownEventReceived(BNetEvent event, Object data)
+    public void unknownEventReceived(BnetEvent event, Object data)
     {
         Output.output(out.getName(), Output.DARK_BLUE + "Unknown event received:",
                       out.getLocalSettingDefault(getName(), "colors", "true").equals("true"));

@@ -45,8 +45,8 @@ import constants.ErrorLevelConstants;
 import constants.LoudnessConstants;
 import constants.PriorityConstants;
 
-import util.BNetEvent;
-import util.BNetPacket;
+import util.BnetEvent;
+import util.BnetPacket;
 import util.ColorConstants;
 import util.GameIcons;
 import util.PadString;
@@ -68,9 +68,10 @@ import callback_interfaces.PublicExposedFunctions;
  * PROFILE but DON'T FORGOT
  */
 
-public class JavaOpPanel extends JInternalFrame implements FocusListener, InternalFrameListener,
-        MouseListener, ActionListener, GuiCallback, EventCallback, OutgoingTextCallback,
-        SystemMessageCallback, ErrorCallback, CommandCallback
+public class JavaOpPanel extends JInternalFrame implements FocusListener,
+		InternalFrameListener, MouseListener, ActionListener, GuiCallback,
+		EventCallback, OutgoingTextCallback, SystemMessageCallback,
+		ErrorCallback, CommandCallback
 {
     private static final long            serialVersionUID = 1L;
 
@@ -99,7 +100,8 @@ public class JavaOpPanel extends JInternalFrame implements FocusListener, Intern
         userMenu = new JavaOpUserMenu(out);
 
         // Set the bot's icon (why not?)
-        this.setFrameIcon(GameIcons.getIcon(out.getLocalSetting("Battle.net Login Plugin", "Game")));
+        this.setFrameIcon(GameIcons.getIcon(out.getLocalSetting(
+        		"Battle.net Login Plugin", "Game")));
 
         // Set up the settings
         this.getContentPane().setLayout(new BorderLayout());
@@ -124,24 +126,32 @@ public class JavaOpPanel extends JInternalFrame implements FocusListener, Intern
 
         // Create our channel panel
         JScrollPane scroller = new JScrollPane(channelList = new ChannelList(
-                out.getLocalSettingDefault(name, "Ops on top", "true").equalsIgnoreCase("true")));
+                out.getLocalSettingDefault(name, "Ops on top", "true")
+                .equalsIgnoreCase("true")));
         JPanel channelPanel = new JPanel();
         channelPanel.setLayout(new BorderLayout());
-        channelPanel.add(channelName = new JLabel("Channel", JLabel.CENTER), BorderLayout.NORTH);
+        channelPanel.add(channelName = new JLabel("Channel", JLabel.CENTER),
+        		BorderLayout.NORTH);
         channelPanel.add(scroller, BorderLayout.EAST);
         
         // Set up the ColorTextArea
-        int maxChars = Integer.parseInt(out.getLocalSettingDefault(name, "chat max length", "100000"));
-        int cutTo = Integer.parseInt(out.getLocalSettingDefault(name, "chat reset length", "80000"));
-        boolean holdAtBottom = out.getLocalSettingDefault(name, "chat max length", "false").equalsIgnoreCase("true");
+        int maxChars = Integer.parseInt(out.getLocalSettingDefault(name,
+        		"chat max length", "100000"));
+        int cutTo = Integer.parseInt(out.getLocalSettingDefault(name,
+        		"chat reset length", "80000"));
+        boolean holdAtBottom = out.getLocalSettingDefault(name,
+        		"chat max length", "false").equalsIgnoreCase("true");
         String fontName = out.getLocalSettingDefault(name, "font", "Serif");
-        int fontSize = Integer.parseInt(out.getLocalSettingDefault(name, "fontsize", "15"));
-        chatWindow = new ColorTextArea(Color.BLACK, Color.WHITE, maxChars, cutTo, holdAtBottom);
+        int fontSize = Integer.parseInt(out.getLocalSettingDefault(name,
+        		"fontsize", "15"));
+        chatWindow = new ColorTextArea(Color.BLACK, Color.WHITE, maxChars,
+        		cutTo, holdAtBottom);
         chatWindow.setFont(new Font(fontName, Font.PLAIN, fontSize));
         chatWindow.setMargin(new Insets(5, 5, 5, 5));
 
         // Add our objects to the main form
-        this.getContentPane().add(new JScrollPane(chatWindow), BorderLayout.CENTER);
+        this.getContentPane().add(new JScrollPane(chatWindow),
+        		BorderLayout.CENTER);
         this.getContentPane().add(channelPanel, BorderLayout.EAST);
         this.getContentPane().add(inputPanel, BorderLayout.SOUTH);
 
@@ -177,11 +187,9 @@ public class JavaOpPanel extends JInternalFrame implements FocusListener, Intern
 
         scroller.setPreferredSize(new Dimension(200, 1000));
         scroller.getViewport().setBackground(Color.BLACK);
-
     }
 
-    public void registerCallbacks(PluginCallbackRegister register)
-    {
+    public void registerCallbacks(PluginCallbackRegister register) {
         register.registerEventPlugin(this, null);
         register.registerOutgoingTextPlugin(this, null);
         register.registerErrorPlugin(this, null);
@@ -190,10 +198,12 @@ public class JavaOpPanel extends JInternalFrame implements FocusListener, Intern
 
         register.registerSystemMessagePlugin(this, PACKET, EMERGENCY, null);
 
-        register.registerCommandPlugin(this, "reply", 1, false, "U", "<message>",
-        		"Whispers a message back to the last person who sent a message", null);
-        register.registerCommandPlugin(this, "rewhisper", 1, false, "U", "<message>",
-        		"Whispers a message to the last person a message was whispered to", null);
+        register.registerCommandPlugin(this, "reply", 1, false, "U",
+        		"<message>", "Whispers a message back to the last person who "
+        		+ "sent a message", null);
+        register.registerCommandPlugin(this, "rewhisper", 1, false, "U",
+        		"<message>", "Whispers a message to the last person a message "
+        		+ "was whispered to", null);
 
         out.addAlias("reply", "r");
         out.addAlias("reply", "re");
@@ -201,82 +211,69 @@ public class JavaOpPanel extends JInternalFrame implements FocusListener, Intern
 
     }
 
-    public void addUser(String user, String client, String clan, int ping, int flags)
+    public void addUser(String user, String client, String clan, int ping,
+    		int flags)
     {
         channelList.addUser(user, client, clan, ping, flags);
         channelName.setText(channel + " (" + channelList.getRowCount() + ")");
     }
 
-    public void removeUser(String user)
-    {
+    public void removeUser(String user) {
         channelList.removeUser(user);
         channelName.setText(channel + " (" + channelList.getRowCount() + ")");
     }
 
-    public void addText(String text)
-    {
+    public void addText(String text) {
         chatWindow.addText(text);
         channelName.setText(channel + " (" + channelList.getRowCount() + ")");
     }
 
-    public void joinChannel(String channel)
-    {
+    public void joinChannel(String channel) {
         this.channel = channel;
         channelList.clear();
         channelName.setText(channel + " (" + channelList.getRowCount() + ")");
     }
 
-    public void clear()
-    {
+    public void clear() {
         chatWindow.setText("");
-        chatWindow.addText(ColorConstants.getColor("info") + "Chat window cleared\n");
+        chatWindow.addText(ColorConstants.getColor("info")
+        		+ "Chat window cleared\n");
     }
 
-    private boolean doCommand(String str) throws IOException, PluginException
-    {
-        if (str.length() > 2 && str.charAt(0) == '/')
-        {
+    private boolean doCommand(String str) throws IOException, PluginException {
+        if (str.length() > 2 && str.charAt(0) == '/') {
             String[] commandArg = str.substring(1).split(" ", 2);
 
-            return out.raiseCommand(null, commandArg[0], commandArg.length == 2 ? commandArg[1]
-                    : "", LoudnessConstants.SILENT, false);
+            return out.raiseCommand(null, commandArg[0], commandArg.length
+            		== 2 ? commandArg[1] : "", LoudnessConstants.SILENT, false);
         }
 
         return false;
     }
 
-    public void selectInput()
-    {
+    public void selectInput() {
         input.requestFocus();
         input.selectAll();
     }
 
-    public String getBotName()
-    {
+    public String getBotName() {
         return out.getName();
     }
 
-    public void select()
-    {
-        try
-        {
+    public void select() {
+        try {
             this.setSelected(true);
-        }
-        catch (PropertyVetoException exc)
-        {
+        } catch (PropertyVetoException exc) {
         }
         input.requestFocus();
     }
 
-    public void actionPerformed(ActionEvent e)
-    {
+    public void actionPerformed(ActionEvent e) {
         if (input.getText().length() == 0)
             return;
 
-        try
-        {
-            if (out != null)
-            {
+        try {
+            if (out != null) {
                 if (doCommand(input.getText()) == false)
                     out.sendTextPriority(input.getText(), PriorityConstants.PRIORITY_VERY_HIGH + 1);
             }
@@ -284,9 +281,7 @@ public class JavaOpPanel extends JInternalFrame implements FocusListener, Intern
             chatWindow.setSelectionEnd(chatWindow.getText().length());
 
             input.setText("");
-        }
-        catch (Exception exception)
-        {
+        } catch (Exception exception) {
             input.selectAll();
             exception.printStackTrace();
         }
@@ -294,12 +289,12 @@ public class JavaOpPanel extends JInternalFrame implements FocusListener, Intern
         input.requestFocus();
     }
 
-    public void mouseClicked(MouseEvent e)
-    {
+    public void mouseClicked(MouseEvent e) {
         int x = e.getX();
         int y = e.getY();
 
-        String name = (String) channelList.getValueAt(channelList.rowAtPoint(new Point(x, y)), 1);
+        String name = (String) channelList.getValueAt(channelList
+        		.rowAtPoint(new Point(x, y)), 1);
 
         if (name == null)
             return;
@@ -311,35 +306,30 @@ public class JavaOpPanel extends JInternalFrame implements FocusListener, Intern
         }
     }
 
-    public void mouseEntered(MouseEvent e)
-    {
+    public void mouseEntered(MouseEvent e) {
     }
 
-    public void mouseExited(MouseEvent e)
-    {
+    public void mouseExited(MouseEvent e) {
     }
 
-    public void mousePressed(MouseEvent e)
-    {
+    public void mousePressed(MouseEvent e) {
     }
 
-    public void mouseReleased(MouseEvent e)
-    {
+    public void mouseReleased(MouseEvent e) {
     }
 
-    public void menuItemAdded(String name, String whichMenu, int index, char mnemonic,
-            KeyStroke hotkey, Icon icon, ActionListener callback, Object data)
+    public void menuItemAdded(String name, String whichMenu, int index,
+    		char mnemonic, KeyStroke hotkey, Icon icon,
+    		ActionListener callback, Object data)
     {
         menu.addItem(name, whichMenu, index, mnemonic, hotkey, icon, callback);
     }
 
-    public void menuItemRemoved(String name, String whichMenu, Object data)
-    {
+    public void menuItemRemoved(String name, String whichMenu, Object data) {
         menu.removeItem(name, whichMenu);
     }
 
-    public void menuSeparatorAdded(String whichMenu, Object data)
-    {
+    public void menuSeparatorAdded(String whichMenu, Object data) {
         menu.addSeparator(whichMenu);
     }
 
@@ -349,36 +339,36 @@ public class JavaOpPanel extends JInternalFrame implements FocusListener, Intern
         menu.addMenu(name, index, mnemonic, icon, callback);
     }
 
-    public void menuRemoved(String name, Object data)
-    {
+    public void menuRemoved(String name, Object data) {
         menu.removeMenu(name);
     }
 
-    public void userMenuAdded(String name, int index, Icon icon, ActionListener callback,
-            Object data)
+    public void userMenuAdded(String name, int index, Icon icon,
+    		ActionListener callback, Object data)
     {
         userMenu.addItem(name, index, icon, callback);
     }
 
-    public void userMenuRemoved(String name, Object data)
-    {
+    public void userMenuRemoved(String name, Object data) {
         userMenu.removeItem(name);
     }
 
-    public void userMenuSeparatorAdded(Object data)
-    {
+    public void userMenuSeparatorAdded(Object data) {
         userMenu.addSeparator();
     }
 
-    private String colorMessage(String message)
-    {
-        if (out.getLocalSettingDefault(name, "Colored names", "true").equalsIgnoreCase("true"))
+    private String colorMessage(String message) {
+        if (out.getLocalSettingDefault(name, "Colored names", "true")
+        		.equalsIgnoreCase("true"))
         {
             Random r = new Random(message.hashCode());
             int blank = r.nextInt(3);
-            String green = blank == 0 ? "00" : PadString.padHex(r.nextInt(130) + 55, 2);
-            String blue = blank == 1 ? "00" : PadString.padHex(r.nextInt(130) + 55, 2);
-            String red = blank == 2 ? "00" : PadString.padHex(r.nextInt(130) + 55, 2);
+            String green = blank == 0 ? "00" : PadString.padHex(r.nextInt(130)
+            		+ 55, 2);
+            String blue = blank == 1 ? "00" : PadString.padHex(r.nextInt(130)
+            		+ 55, 2);
+            String red = blank == 2 ? "00" : PadString.padHex(r.nextInt(130)
+            		+ 55, 2);
 
             String color = red + green + blue;
             message = ColorConstants.COLOR + color + message;
@@ -387,122 +377,161 @@ public class JavaOpPanel extends JInternalFrame implements FocusListener, Intern
         return message;
     }
 
-    public void talk(String user, String statstring, int ping, int flags) throws PluginException
+    public void talk(String user, String statstring, int ping, int flags)
+    		throws PluginException
     {
-        if ((flags & USER_CHANNELOP) > 0)
+        if ((flags & USER_CHANNELOP) > 0) {
             display(ColorConstants.getColor("Op talk brackets") + "<"
-                    + ColorConstants.getColor("Op talk name") + colorMessage(user)
+                    + ColorConstants.getColor("Op talk name")
+                    + colorMessage(user)
                     + ColorConstants.getColor("Op talk brackets") + "> "
                     + ColorConstants.getColor("Op talk text") + statstring);
-        else if ((flags & USER_BLIZZREP) > 0)
+        } else if ((flags & USER_BLIZZREP) > 0) {
             display(ColorConstants.getColor("Blizzard talk brackets") + "<"
-                    + ColorConstants.getColor("Blizzard talk name") + colorMessage(user)
+                    + ColorConstants.getColor("Blizzard talk name")
+                    + colorMessage(user)
                     + ColorConstants.getColor("Blizzard talk brackets") + "> "
-                    + ColorConstants.getColor("Blizzard talk text") + statstring);
-        else
+                    + ColorConstants.getColor("Blizzard talk text")
+                    + statstring);
+        } else {
             display(ColorConstants.getColor("Talk brackets") + "<"
                     + ColorConstants.getColor("Talk name") + colorMessage(user)
                     + ColorConstants.getColor("Talk brackets") + "> "
                     + ColorConstants.getColor("Talk text") + statstring);
+        }
     }
 
-    public void emote(String user, String statstring, int ping, int flags) throws PluginException
+    public void emote(String user, String statstring, int ping, int flags)
+    		throws PluginException
     {
-
         display(ColorConstants.getColor("Emote brackets") + "<"
-                + ColorConstants.getColor("Emote name") + colorMessage(user) + " "
-                + ColorConstants.getColor("Emote message") + statstring
+                + ColorConstants.getColor("Emote name") + colorMessage(user)
+                + " " + ColorConstants.getColor("Emote message") + statstring
                 + ColorConstants.getColor("Emote brackets") + ">");
-
     }
 
-    public void whisperFrom(String user, String statstring, int ping, int flags) throws PluginException
+    public void whisperFrom(String user, String statstring, int ping, int flags)
+    		throws PluginException
     {
         this.lastWhisperFrom = user;
 
         display(ColorConstants.getColor("Whisper from brackets") + "<"
-                + ColorConstants.getColor("Whisper from name") + "From: " + colorMessage(user)
+                + ColorConstants.getColor("Whisper from name") + "From: "
+                + colorMessage(user)
                 + ColorConstants.getColor("Whisper from brackets") + "> "
                 + ColorConstants.getColor("Whisper from message") + statstring);
-
     }
 
-    public void whisperTo(String user, String statstring, int ping, int flags) throws PluginException
+    public void whisperTo(String user, String statstring, int ping, int flags)
+    		throws PluginException
     {
         this.lastWhisperTo = user;
 
         display(ColorConstants.getColor("Whisper to brackets") + "<"
-                + ColorConstants.getColor("Whisper to name") + "To: " + colorMessage(user)
+                + ColorConstants.getColor("Whisper to name") + "To: "
+                + colorMessage(user)
                 + ColorConstants.getColor("Whisper to brackets") + "> "
                 + ColorConstants.getColor("Whisper to message") + statstring);
-
     }
 
-    public void userShow(String user, String statstring, int ping, int flags) throws PluginException
+    public void userShow(String user, String statstring, int ping, int flags)
+    		throws PluginException
     {
-        if (out.getLocalSettingDefault(name, "Show join/leave", "true").equalsIgnoreCase("true"))
-            display(ColorConstants.getColor("User show name") + colorMessage(user)
-                    + ColorConstants.getColor("User show message") + " is in the channel "
-                    + ColorConstants.getColor("User show info") + "(ping: " + ping + ", flags: "
-                    + flags + ")");
+        if (out.getLocalSettingDefault(name, "Show join/leave", "true")
+        		.equalsIgnoreCase("true"))
+        {
+            display(ColorConstants.getColor("User show name")
+            		+ colorMessage(user)
+            		+ ColorConstants.getColor("User show message")
+                    + " is in the channel "
+                    + ColorConstants.getColor("User show info")
+                    + "(ping: " + ping + ", flags: " + flags + ")");
+        }
 
         Statstring ss = new Statstring(statstring);
         addUser(user, ss.getClient(), ss.getClan(), ping, flags);
     }
 
-    public void userJoin(String user, String statstring, int ping, int flags) throws PluginException
+    public void userJoin(String user, String statstring, int ping, int flags)
+    		throws PluginException
     {
-        if (out.getLocalSettingDefault(name, "Show join/leave", "true").equalsIgnoreCase("true"))
-            display(ColorConstants.getColor("User join name") + colorMessage(user)
-                    + ColorConstants.getColor("User join message") + " has joined the channel "
-                    + ColorConstants.getColor("User join info") + "(ping: " + ping + ", flags: "
+        if (out.getLocalSettingDefault(name, "Show join/leave", "true")
+        		.equalsIgnoreCase("true"))
+        {
+            display(ColorConstants.getColor("User join name")
+            		+ colorMessage(user)
+                    + ColorConstants.getColor("User join message")
+                    + " has joined the channel "
+                    + ColorConstants.getColor("User join info")
+                    + "(ping: " + ping + ", flags: "
                     + flags + ")");
+        }
 
         Statstring ss = new Statstring(statstring);
         addUser(user, ss.getClient(), ss.getClan(), ping, flags);
     }
 
-    public void userLeave(String user, String statstring, int ping, int flags) throws PluginException
+    public void userLeave(String user, String statstring, int ping, int flags)
+    		throws PluginException
     {
-        if (out.getLocalSettingDefault(name, "Show join/leave", "true").equalsIgnoreCase("true"))
-            display(ColorConstants.getColor("User leave name") + colorMessage(user)
-                    + ColorConstants.getColor("User leave message") + " has left the channel "
-                    + ColorConstants.getColor("User leave info") + "(ping: " + ping + ", flags: "
+        if (out.getLocalSettingDefault(name, "Show join/leave", "true")
+        		.equalsIgnoreCase("true"))
+        {
+            display(ColorConstants.getColor("User leave name")
+            		+ colorMessage(user)
+                    + ColorConstants.getColor("User leave message")
+                    + " has left the channel "
+                    + ColorConstants.getColor("User leave info")
+                    + "(ping: " + ping + ", flags: "
                     + flags + ")");
+        }
         removeUser(user);
     }
 
-    public void userFlags(String user, String statstring, int ping, int flags) throws PluginException
+    public void userFlags(String user, String statstring, int ping, int flags)
+    		throws PluginException
     {
-        if (out.getLocalSettingDefault(name, "Show status updates", "false").equalsIgnoreCase(
-                                                                                              "true"))
-            display(ColorConstants.getColor("User update name") + colorMessage(user)
-                    + ColorConstants.getColor("User update message") + " has had a status update "
-                    + ColorConstants.getColor("User update info") + "(ping: " + ping + ", flags: "
+        if (out.getLocalSettingDefault(name, "Show status updates", "false")
+        		.equalsIgnoreCase("true"))
+        {
+            display(ColorConstants.getColor("User update name")
+            		+ colorMessage(user)
+                    + ColorConstants.getColor("User update message")
+                    + " has had a status update "
+                    + ColorConstants.getColor("User update info")
+                    + "(ping: " + ping + ", flags: "
                     + flags + ")");
+        }
 
         Statstring ss = new Statstring(statstring);
         addUser(user, ss.getClient(), ss.getClan(), ping, flags);
     }
 
-    public void error(String user, String statstring, int ping, int flags) throws PluginException
+    public void error(String user, String statstring, int ping, int flags)
+    		throws PluginException
     {
         display(ColorConstants.getColor("Error") + statstring);
     }
 
-    public void info(String user, String statstring, int ping, int flags) throws PluginException
+    public void info(String user, String statstring, int ping, int flags) 
+    		throws PluginException
     {
 
-        if (out.getLocalSettingDefault(getName(), "Show away", "false").equalsIgnoreCase("false"))
+    	// filter out away messages
+        if (out.getLocalSettingDefault(getName(), "Show away", "false")
+        		.equalsIgnoreCase("false"))
         {
             // [21:29:46.534] You are now marked as being away.
-            if (statstring.equalsIgnoreCase("You are now marked as being away."))
+            if (statstring.equalsIgnoreCase("You are now marked as being "
+            		+ "away."))
                 return;
             // [21:29:49.091] You are still marked as being away.
-            if (statstring.equalsIgnoreCase("You are still marked as being away."))
+            if (statstring.equalsIgnoreCase("You are still marked as being "
+            		+ "away."))
                 return;
             // [21:29:50.299] You are no longer marked as away.
-            if (statstring.equalsIgnoreCase("You are no longer marked as away."))
+            if (statstring.equalsIgnoreCase("You are no longer marked as "
+            		+ "away."))
                 return;
         }
 
@@ -510,59 +539,53 @@ public class JavaOpPanel extends JInternalFrame implements FocusListener, Intern
 
     }
 
-    public void broadcast(String user, String statstring, int ping, int flags) throws PluginException
+    public void broadcast(String user, String statstring, int ping, int flags)
+    		throws PluginException
     {
         display(ColorConstants.getColor("Broadcast") + statstring);
     }
 
-    public void channel(String user, String statstring, int ping, int flags) throws PluginException
+    public void channel(String user, String statstring, int ping, int flags)
+    		throws PluginException
     {
         display(ColorConstants.getColor("Channel text") + "Joining channel: "
                 + ColorConstants.getColor("Channel name") + statstring);
         joinChannel(statstring);
     }
 
-    private void display(String message)
-    {
-        addText(ColorConstants.getColor("Timestamp") + Timestamp.getTimestamp() + message + "\n");
+    private void display(String message) {
+        addText(ColorConstants.getColor("Timestamp") + Timestamp.getTimestamp()
+        		+ message + "\n");
     }
 
-    public String queuingText(String text, Object data)
-    {
+    public String queuingText(String text, Object data) {
         return text;
     }
 
-    public void queuedText(String text, Object data)
-    {
+    public void queuedText(String text, Object data) {
     }
 
-    public String nextInLine(String text, Object data)
-    {
+    public String nextInLine(String text, Object data) {
         return text;
     }
 
-    public long getDelay(String text, Object data)
-    {
+    public long getDelay(String text, Object data) {
         return 0;
     }
 
-    public boolean sendingText(String text, Object data)
-    {
+    public boolean sendingText(String text, Object data) {
         return true;
     }
 
-    public void sentText(String text, Object data)
-    {
-
+    public void sentText(String text, Object data) {
         if (text.length() == 0)
             return;
 
-        boolean showCommands = out.getLocalSettingDefault(getName(), "Show \"/commands\"", "false").equalsIgnoreCase(
-                                                                                                                     "true");
-        boolean isCommand = text.charAt(0) == '/';
+        boolean showCommands = out.getLocalSettingDefault(getName(), 
+        		"Show \"/commands\"", "false").equalsIgnoreCase("true");
+        boolean isCommand = (text.charAt(0) == '/');
 
-        if (showCommands == true || isCommand == false)
-        {
+        if (showCommands == true || isCommand == false) {
             display(ColorConstants.getColor("Me talk brackets") + "<"
                     + ColorConstants.getColor("Me talk name")
                     + colorMessage((String) out.getLocalVariable("username"))
@@ -571,156 +594,179 @@ public class JavaOpPanel extends JInternalFrame implements FocusListener, Intern
         }
 
     }
+    
+    private int getMinimumMessageLevel() {
+    	String loudness = out.getStaticExposedFunctionsHandle()
+				.getGlobalSettingDefault(getName(), "loudness", "debug");
 
-    public void systemMessage(int level, String message, Object data)
-    {
-    	String loudness = out.getStaticExposedFunctionsHandle().getGlobalSettingDefault(getName(), "loudness", "debug");
-        
-    	int minMessage = 1;
-    	if(loudness.equalsIgnoreCase("PACKET"))    minMessage = ErrorLevelConstants.PACKET;
-    	if(loudness.equalsIgnoreCase("DEBUG"))     minMessage = ErrorLevelConstants.DEBUG;
-    	if(loudness.equalsIgnoreCase("INFO"))      minMessage = ErrorLevelConstants.INFO;
-    	if(loudness.equalsIgnoreCase("NOTICE"))    minMessage = ErrorLevelConstants.NOTICE;
-    	if(loudness.equalsIgnoreCase("WARNING"))   minMessage = ErrorLevelConstants.WARNING;
-    	if(loudness.equalsIgnoreCase("ERROR"))     minMessage = ErrorLevelConstants.ERROR;
-    	if(loudness.equalsIgnoreCase("CRITICAL"))  minMessage = ErrorLevelConstants.CRITICAL;
-    	if(loudness.equalsIgnoreCase("ALERT"))     minMessage = ErrorLevelConstants.ALERT;
-    	if(loudness.equalsIgnoreCase("EMERGENCY")) minMessage = ErrorLevelConstants.EMERGENCY;
+		if(loudness.equalsIgnoreCase("PACKET"))    
+			return ErrorLevelConstants.PACKET;
+		if(loudness.equalsIgnoreCase("DEBUG"))     
+			return ErrorLevelConstants.DEBUG;
+		if(loudness.equalsIgnoreCase("INFO"))      
+			return ErrorLevelConstants.INFO;
+		if(loudness.equalsIgnoreCase("NOTICE"))    
+			return ErrorLevelConstants.NOTICE;
+		if(loudness.equalsIgnoreCase("WARNING"))   
+			return ErrorLevelConstants.WARNING;
+		if(loudness.equalsIgnoreCase("ERROR"))     
+			return ErrorLevelConstants.ERROR;
+		if(loudness.equalsIgnoreCase("CRITICAL"))  
+			return ErrorLevelConstants.CRITICAL;
+		if(loudness.equalsIgnoreCase("ALERT"))     
+			return ErrorLevelConstants.ALERT;
+		if(loudness.equalsIgnoreCase("EMERGENCY")) 
+			return ErrorLevelConstants.EMERGENCY;
+		return 1;
     	
-        switch (level)
-        {
+    }
+
+    public void systemMessage(int level, String message, Object data) {
+    	int minMessage = getMinimumMessageLevel();
+    	
+    	if(minMessage > level)
+    		return;
+    	
+        switch (level) {
             case DEBUG:
-                if (minMessage <= DEBUG)
-                    display(ColorConstants.getColor("Error 1 Debug") + errorLevelConstants[level]
-                            + ": " + message);
+                display(ColorConstants.getColor("Error 1 Debug")
+                    	+ errorLevelConstants[level] + ": " + message);
                 break;
             case INFO:
-                if (minMessage <= INFO)
-                    display(ColorConstants.getColor("Error 2 Info") + errorLevelConstants[level]
-                            + ": " + message);
+                display(ColorConstants.getColor("Error 2 Info")
+                    	+ errorLevelConstants[level] + ": " + message);
                 break;
-            case NOTICE:
-                if (minMessage <= NOTICE)
-                    display(ColorConstants.getColor("Error 3 Notice") + errorLevelConstants[level]
-                            + ": " + message);
+            case ErrorLevelConstants.NOTICE:
+                display(ColorConstants.getColor("Error 3 Notice")
+                    	+ errorLevelConstants[level] + ": " + message);
                 break;
-            case WARNING:
-                if (minMessage <= WARNING)
-                    display(ColorConstants.getColor("Error 4 Warning") + errorLevelConstants[level]
-                            + ": " + message);
+            case ErrorLevelConstants.WARNING:
+                display(ColorConstants.getColor("Error 4 Warning")
+                    	+ errorLevelConstants[level] + ": " + message);
                 break;
             case ErrorLevelConstants.ERROR:
-                if (minMessage <= ErrorLevelConstants.ERROR)
-                    display(ColorConstants.getColor("Error 5 Error") + errorLevelConstants[level]
-                            + ": " + message);
+                display(ColorConstants.getColor("Error 5 Error")
+                		+ errorLevelConstants[level] + ": " + message);
                 break;
             case CRITICAL:
-                if (minMessage <= CRITICAL)
-                    display(ColorConstants.getColor("Error 6 Critical")
-                            + errorLevelConstants[level] + ": " + message);
+                display(ColorConstants.getColor("Error 6 Critical")
+                        + errorLevelConstants[level] + ": " + message);
                 break;
             case ALERT:
-                if (minMessage <= ALERT)
-                    display(ColorConstants.getColor("Error 7 Alert") + errorLevelConstants[level]
-                            + ": " + message);
+                display(ColorConstants.getColor("Error 7 Alert")
+                		+ errorLevelConstants[level] + ": " + message);
                 break;
             case EMERGENCY:
-                if (minMessage <= EMERGENCY)
-                    display(ColorConstants.getColor("Error 8 Emergency")
-                            + errorLevelConstants[level] + ": " + message);
+                display(ColorConstants.getColor("Error 8 Emergency")
+                        + errorLevelConstants[level] + ": " + message);
                 break;
         }
 
     }
 
-    public void showMessage(String message, Object data)
-    {
+    public void showMessage(String message, Object data) {
         display(message);
     }
 
-    public void loginException(LoginException e, Object data)
+    public void unknownPacketReceived(BnetPacket packet, Object data) {
+    	if (getMinimumMessageLevel() > ErrorLevelConstants.ERROR)
+    		return;
+        display(ColorConstants.getColor("Error unknown packet")
+        		+ "Unknown packet received:");
+        display(ColorConstants.getColor("Error unknown packet") + packet);
+    }
+
+    public void unknownEventReceived(BnetEvent event, Object data)
     {
+    	if (getMinimumMessageLevel() > ErrorLevelConstants.ERROR)
+    		return;
+        display(ColorConstants.getColor("Error unknown event")
+        		+ "Unknown event received:");
+        display(ColorConstants.getColor("Error unknown event") + event);
+    }
+
+    /* Exception displaying */
+    
+    public void loginException(LoginException e, Object data) {
+    	if (getMinimumMessageLevel() > ErrorLevelConstants.ERROR)
+    		return;
         display(ColorConstants.getColor("Error") + "Login Exception:");
         displayError(e);
     }
 
-    public void unknownPacketReceived(BNetPacket packet, Object data)
-    {
-        display(ColorConstants.getColor("Error unknown packet") + "Unknown packet received:");
-        display(ColorConstants.getColor("Error unknown packet") + packet);
+    public void ioException(IOException e, Object data) {
+    	if (getMinimumMessageLevel() > ErrorLevelConstants.ERROR)
+    		return;
+        display(ColorConstants.getColor("Error") + "IO Exception:");
+        displayError(e);
     }
 
-    public void unknownEventReceived(BNetEvent event, Object data)
-    {
-        display(ColorConstants.getColor("Error unknown event") + "Unknown event received:");
-        display(ColorConstants.getColor("Error unknown event") + event);
+    public void unknownException(Exception e, Object data) {
+    	if (getMinimumMessageLevel() > ErrorLevelConstants.ERROR)
+    		return;
+        display(ColorConstants.getColor("Error") + "Exception:");
+        displayError(e);
     }
 
-    public void displayError(Throwable t)
-    {
+    public void error(Error e, Object data) {
+    	if (getMinimumMessageLevel() > ErrorLevelConstants.ERROR)
+    		return;
+        display(ColorConstants.getColor("Error") + "Error:");
+        displayError(e);
+    }
+
+    public void pluginException(PluginException e, Object data) {
+    	if (getMinimumMessageLevel() > ErrorLevelConstants.ERROR)
+    		return;
+        displayError(e);
+    }
+
+    /**
+     * Displays a stack trace for an exception
+     * @param t Exception
+     */
+    public void displayError(Throwable t) {
         StackTraceElement[] stack = t.getStackTrace();
 
         display(ColorConstants.getColor("Error") + t);
         for (int i = 0; i < stack.length; i++)
             display(ColorConstants.getColor("Error") + stack[i]);
-
     }
 
-    public void ioException(IOException e, Object data)
+    public void commandExecuted(String user, String command, String[] args,
+    		int loudness, Object data) throws PluginException, IOException,
+    		CommandUsedIllegally, CommandUsedImproperly
     {
-        displayError(e);
-    }
-
-    public void unknownException(Exception e, Object data)
-    {
-        displayError(e);
-    }
-
-    public void error(Error e, Object data)
-    {
-        displayError(e);
-    }
-
-    public void pluginException(PluginException e, Object data)
-    {
-        displayError(e);
-    }
-
-    public void commandExecuted(String user, String command, String[] args, int loudness,
-            Object data) throws PluginException, IOException, CommandUsedIllegally, CommandUsedImproperly
-    {
-        if (args.length == 0)
-            throw new CommandUsedImproperly("What do you want to say?", user, command);
-
-        if (command.equalsIgnoreCase("reply"))
-        {
+    	if (command.equalsIgnoreCase("say")) {
+    		if (args.length == 0) {
+    			throw new CommandUsedImproperly("What do you want to say?",
+    					user, command);
+    		}
+    	} else if (command.equalsIgnoreCase("reply")) {
             if (lastWhisperFrom == null)
-                out.sendTextUser(user, "Error: no last incoming whisper", loudness);
+                out.sendTextUser(user, "Error: no last incoming whisper",
+                		loudness);
             else
                 out.sendText("/w " + lastWhisperFrom + " " + args[0]);
         }
         else if (command.equalsIgnoreCase("rewhisper"))
         {
             if (lastWhisperTo == null)
-                out.sendTextUser(user, "Error: no last outgoing whisper", loudness);
+                out.sendTextUser(user, "Error: no last outgoing whisper",
+                		loudness);
             else
                 out.sendText("/w " + lastWhisperTo + " " + args[0]);
         }
     }
 
-    public void internalFrameOpened(InternalFrameEvent arg0)
-    {
+    public void internalFrameOpened(InternalFrameEvent arg0) {
         selectInput();
     }
 
-    public void internalFrameClosing(InternalFrameEvent arg0)
-    {
-        try
-        {
+    public void internalFrameClosing(InternalFrameEvent arg0) {
+        try {
             out.getStaticExposedFunctionsHandle().botStop(out.getName());
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
         }
     }
 
@@ -736,21 +782,17 @@ public class JavaOpPanel extends JInternalFrame implements FocusListener, Intern
     {
     }
 
-    public void internalFrameActivated(InternalFrameEvent arg0)
-    {
+    public void internalFrameActivated(InternalFrameEvent arg0) {
         selectInput();
     }
 
-    public void internalFrameDeactivated(InternalFrameEvent arg0)
-    {
+    public void internalFrameDeactivated(InternalFrameEvent arg0) {
     }
 
-    public void focusGained(FocusEvent arg0)
-    {
+    public void focusGained(FocusEvent arg0) {
         this.selectInput();
     }
 
-    public void focusLost(FocusEvent arg0)
-    {
+    public void focusLost(FocusEvent arg0) {
     }
 }

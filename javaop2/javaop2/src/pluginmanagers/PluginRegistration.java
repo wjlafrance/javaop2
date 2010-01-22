@@ -47,8 +47,8 @@ import plugin_interfaces.PacketCallback;
 import plugin_interfaces.SystemMessageCallback;
 import plugin_interfaces.UserDatabaseCallback;
 import plugin_interfaces.UserErrorCallback;
-import util.BNetEvent;
-import util.BNetPacket;
+import util.BnetEvent;
+import util.BnetPacket;
 import util.PersistantMap;
 
 
@@ -417,7 +417,7 @@ public class PluginRegistration implements PluginCallbackRegister
     }
 
     /** This is called if an unhandled packet is received. */
-    public void unknownPacketReceived(BNetPacket packet) {
+    public void unknownPacketReceived(BnetPacket packet) {
         Enumeration<ErrorPlugin> enumeration = errorPlugins.elements();
         while (enumeration.hasMoreElements()) {
             ErrorPlugin plugin = (ErrorPlugin) enumeration.nextElement();
@@ -426,18 +426,18 @@ public class PluginRegistration implements PluginCallbackRegister
     }
 
     /** This is called if an unhandled event is received. */
-    public void unknownEventReceived(BNetEvent event) {
+    public void unknownEventReceived(BnetEvent event) {
         Enumeration<ErrorPlugin> enumeration = errorPlugins.elements();
         while (enumeration.hasMoreElements()) {
             ErrorPlugin plugin = (ErrorPlugin) enumeration.nextElement();
-            ((ErrorCallback) plugin.getCallback()).unknownEventReceived(new BNetEvent(event),
+            ((ErrorCallback) plugin.getCallback()).unknownEventReceived(new BnetEvent(event),
                                                                         plugin.getData());
         }
     }
 
     // Event Callbacks:
     /** This is called when an event the implementor is registered for occurs. */
-    public BNetEvent eventOccurring(BNetEvent event) throws IOException, PluginException {
+    public BnetEvent eventOccurring(BnetEvent event) throws IOException, PluginException {
         if (rawEventPlugins[event.getCode()] == null) {
             this.unknownEventReceived(event);
             return null;
@@ -454,14 +454,14 @@ public class PluginRegistration implements PluginCallbackRegister
     }
 
     /** This is called when an event the implementor is registered for occurs. */
-    public void eventOccurred(BNetEvent event) throws IOException, PluginException {
+    public void eventOccurred(BnetEvent event) throws IOException, PluginException {
         if (rawEventPlugins[event.getCode()] == null)
             return;
 
         Enumeration<RawEventPlugin> e = rawEventPlugins[event.getCode()].elements();
         while (e.hasMoreElements()) {
             RawEventPlugin plugin = (RawEventPlugin) e.nextElement();
-            ((RawEventCallback) (plugin).getCallback()).eventOccurred(new BNetEvent(event),
+            ((RawEventCallback) (plugin).getCallback()).eventOccurred(new BnetEvent(event),
                                                                       plugin.getData());
         }
     }
@@ -658,7 +658,7 @@ public class PluginRegistration implements PluginCallbackRegister
      * This is called when a packet is about to be sent or received. It can be
      * changed/dropped here.
      */
-    public BNetPacket processingIncomingPacket(BNetPacket buf) throws IOException, PluginException {
+    public BnetPacket processingIncomingPacket(BnetPacket buf) throws IOException, PluginException {
         int code = buf.getCode() & 0x000000FF;
 
         if (incomingPacketPlugins[code] == null) {
@@ -677,7 +677,7 @@ public class PluginRegistration implements PluginCallbackRegister
             PacketPlugin plugin = (PacketPlugin) e.nextElement();
 
             if ((buf = ((PacketCallback) plugin.getCallback()).processingPacket(
-            		new BNetPacket(buf), plugin.getData())) == null)
+            		new BnetPacket(buf), plugin.getData())) == null)
                 return null;
         }
         return buf;
@@ -687,7 +687,7 @@ public class PluginRegistration implements PluginCallbackRegister
      * This is called when a packet has completed being send , and it can no
      * longer be modified/dropped.
      */
-    public void processedIncomingPacket(BNetPacket buf) throws IOException, PluginException {
+    public void processedIncomingPacket(BnetPacket buf) throws IOException, PluginException {
         int code = buf.getCode() & 0x000000FF;
         if (incomingPacketPlugins[code] == null)
             return;
@@ -695,7 +695,7 @@ public class PluginRegistration implements PluginCallbackRegister
         Enumeration<PacketPlugin> e = incomingPacketPlugins[code].elements();
         while (e.hasMoreElements()) {
             PacketPlugin plugin = (PacketPlugin) e.nextElement();
-            ((PacketCallback) plugin.getCallback()).processedPacket(new BNetPacket(buf),
+            ((PacketCallback) plugin.getCallback()).processedPacket(new BnetPacket(buf),
             		plugin.getData());
         }
     }
@@ -704,7 +704,7 @@ public class PluginRegistration implements PluginCallbackRegister
      * This is called when a packet is about to be sent or received. It can be
      * changed/dropped here.
      */
-    public BNetPacket processingOutgoingPacket(BNetPacket buf) throws IOException, PluginException {
+    public BnetPacket processingOutgoingPacket(BnetPacket buf) throws IOException, PluginException {
         int code = buf.getCode() & 0x000000FF;
         if (outgoingPacketPlugins[code] == null) {
             return buf;
@@ -725,7 +725,7 @@ public class PluginRegistration implements PluginCallbackRegister
      * This is called when a packet has completed being send , and it can no
      * longer be modified/dropped.
      */
-    public void processedOutgoingPacket(BNetPacket buf) throws IOException, PluginException {
+    public void processedOutgoingPacket(BnetPacket buf) throws IOException, PluginException {
         int code = buf.getCode() & 0x000000FF;
         if (outgoingPacketPlugins[code] == null)
             return;
@@ -733,7 +733,7 @@ public class PluginRegistration implements PluginCallbackRegister
         Enumeration<PacketPlugin> e = outgoingPacketPlugins[code].elements();
         while (e.hasMoreElements()) {
             PacketPlugin plugin = (PacketPlugin) e.nextElement();
-            ((PacketCallback) plugin.getCallback()).processedPacket(new BNetPacket(buf),
+            ((PacketCallback) plugin.getCallback()).processedPacket(new BnetPacket(buf),
                                                                     plugin.getData());
         }
     }

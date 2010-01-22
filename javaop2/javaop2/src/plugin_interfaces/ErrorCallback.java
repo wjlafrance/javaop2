@@ -5,8 +5,8 @@ package plugin_interfaces;
 
 import java.io.IOException;
 
-import util.BNetEvent;
-import util.BNetPacket;
+import util.BnetEvent;
+import util.BnetPacket;
 
 import exceptions.LoginException;
 import exceptions.PluginException;
@@ -45,8 +45,8 @@ public interface ErrorCallback extends AbstractCallback
     public void loginException(LoginException e, Object data);
 
     /** This is called if an unhandled packet is received. */
-    public void unknownPacketReceived(BNetPacket packet, Object data);
+    public void unknownPacketReceived(BnetPacket packet, Object data);
 
     /** This is called if an unhandled event is received. */
-    public void unknownEventReceived(BNetEvent event, Object data);
+    public void unknownEventReceived(BnetEvent event, Object data);
 }

@@ -12,7 +12,7 @@ import java.net.Socket;
 
 import callback_interfaces.StaticExposedFunctions;
 import exceptions.LoginException;
-import util.BNLSPacket;
+import util.BnlsPacket;
 import util.TimeoutSocket;
 import constants.PacketConstants;
 
@@ -31,7 +31,7 @@ public class Bnls {
 		InputStream in = socket.getInputStream();
 		OutputStream out = socket.getOutputStream();
 
-		BNLSPacket packet = new BNLSPacket(PacketConstants.BNLS_REQUESTVERSIONBYTE);
+		BnlsPacket packet = new BnlsPacket(PacketConstants.BNLS_REQUESTVERSIONBYTE);
 		packet.addDWord(BnlsProductId(game));
 		out.write(packet.getBytes());
 		out.flush();
@@ -51,7 +51,7 @@ public class Bnls {
 		InputStream in = socket.getInputStream();
 		OutputStream out = socket.getOutputStream();
 
-		BNLSPacket packet = new BNLSPacket(PacketConstants.BNLS_VERSIONCHECKEX2);
+		BnlsPacket packet = new BnlsPacket(PacketConstants.BNLS_VERSIONCHECKEX2);
 		packet.addDWord(BnlsProductId(game)); 	// (DWORD) Product ID
 		packet.addDWord(0); 					// (DWORD) Flags**
 		packet.addDWord(0); 					// (DWORD) Cookie
@@ -112,14 +112,14 @@ public class Bnls {
 	 * @return A BNLSPacket representing the next packet received
 	 * @throws IOException A socket error
 	 */
-	private static BNLSPacket ReadBnlsPacket(InputStream in) throws IOException {
+	private static BnlsPacket ReadBnlsPacket(InputStream in) throws IOException {
 		int length = in.read() | (in.read() << 8);
 		int id = in.read();
 		byte[] data = new byte[length - 3];
 		for(int i = 0; i < length - 3; i++) {
 			data[i] = (byte) in.read();
 		}
-		return new BNLSPacket((byte)id, data);
+		return new BnlsPacket((byte)id, data);
 	}
 
 }

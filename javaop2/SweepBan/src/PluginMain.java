@@ -14,7 +14,7 @@ import plugin_interfaces.CommandCallback;
 import plugin_interfaces.EventCallback;
 import plugin_interfaces.GenericPluginInterface;
 import plugin_interfaces.PacketCallback;
-import util.BNetPacket;
+import util.BnetPacket;
 
 
 /*
@@ -144,13 +144,13 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
         out.sendTextUser(user, "Sweeping channel " + args[0], loudness);
 
         // Retrieve the list of users
-        BNetPacket who = new BNetPacket(SID_CHATCOMMAND);
+        BnetPacket who = new BnetPacket(SID_CHATCOMMAND);
         who.addNTString("/who " + args[0]);
         out.sendPacket(who);
 
         // Send a profile request so we can tell when it's done (thanks to
         // Stealth)
-        BNetPacket delay = new BNetPacket(SID_READUSERDATA);
+        BnetPacket delay = new BnetPacket(SID_READUSERDATA);
         delay.addDWord(1); // accounts
         delay.addDWord(1); // keys
         delay.addDWord(getName().hashCode()); // cookie
@@ -160,7 +160,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
         out.systemMessage(DEBUG, "Sweepban enabled");
     }
 
-    public void processedPacket(BNetPacket buf, Object data) throws PluginException
+    public void processedPacket(BnetPacket buf, Object data) throws PluginException
     {
         if (buf.getCode() == SID_READUSERDATA)
         {
@@ -225,7 +225,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
 
     }
 
-    public BNetPacket processingPacket(BNetPacket buf, Object data) throws IOException, PluginException
+    public BnetPacket processingPacket(BnetPacket buf, Object data) throws IOException, PluginException
     {
         return buf;
     }

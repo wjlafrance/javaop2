@@ -13,7 +13,7 @@ import plugin_interfaces.CommandCallback;
 import plugin_interfaces.GenericPluginInterface;
 import plugin_interfaces.OutgoingTextCallback;
 import plugin_interfaces.PacketCallback;
-import util.BNetPacket;
+import util.BnetPacket;
 import util.gui.JTextFieldNumeric;
 
 
@@ -333,12 +333,12 @@ public class PluginMain extends GenericPluginInterface implements OutgoingTextCa
         }
     }
 
-    public BNetPacket processingPacket(BNetPacket buf, Object data) throws IOException, PluginException
+    public BnetPacket processingPacket(BnetPacket buf, Object data) throws IOException, PluginException
     {
         return buf;
     }
 
-    public void processedPacket(BNetPacket buf, Object data) throws IOException, PluginException
+    public void processedPacket(BnetPacket buf, Object data) throws IOException, PluginException
     {
         if (buf.getCode() == SID_FLOODDETECTED)
         {

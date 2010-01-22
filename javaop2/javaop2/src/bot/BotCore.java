@@ -26,7 +26,7 @@ import pluginmanagers.PluginRegistration;
 import pluginmanagers.PluginManager;
 
 import users.UserList;
-import util.BNetPacket;
+import util.BnetPacket;
 import util.Buffer;
 import util.ColorConstants;
 import util.PersistantMap;
@@ -114,11 +114,11 @@ public class BotCore implements PublicExposedFunctions
         checkRunning();
 
         try {
-            if (packet instanceof BNetPacket) {
-                packet = callbacks.processingOutgoingPacket((BNetPacket) packet);
+            if (packet instanceof BnetPacket) {
+                packet = callbacks.processingOutgoingPacket((BnetPacket) packet);
                 if (packet == null)
                     return;
-                callbacks.processedOutgoingPacket((BNetPacket) packet);
+                callbacks.processedOutgoingPacket((BnetPacket) packet);
             }
             packetThread.send(packet.getBytes());
         } catch (IOException e) { // We want IOExceptions to propogate

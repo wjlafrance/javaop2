@@ -1,7 +1,7 @@
 package packets;
 
 // For all packet classes
-import util.BNetPacket;
+import util.BnetPacket;
 import constants.PacketConstants;
 import exceptions.*;
 import callback_interfaces.PublicExposedFunctions;
@@ -18,7 +18,7 @@ import password.BrokenSHA1;
  */
 public class SidCreateAccount2 {
 
-	public static BNetPacket getOutgoing(PublicExposedFunctions pubFuncs) throws LoginException {
+	public static BnetPacket getOutgoing(PublicExposedFunctions pubFuncs) throws LoginException {
 		String password = pubFuncs.getLocalSetting("Battle.net Login Plugin",
 			"password").toLowerCase();
 		String username = pubFuncs.getLocalSetting("Battle.net Login Plugin",
@@ -29,7 +29,7 @@ public class SidCreateAccount2 {
 		if(password == null || password.isEmpty())
 			throw new LoginException("[BNET] Cannot create account, password is null.");
 
-		BNetPacket sidCreateAccount2 = new BNetPacket(PacketConstants.SID_CREATEACCOUNT2);
+		BnetPacket sidCreateAccount2 = new BnetPacket(PacketConstants.SID_CREATEACCOUNT2);
 		// (DWORD[5]) Password
 		int[] passwordHash = BrokenSHA1.calcHashBuffer(password.getBytes());
 		for(int i = 0; i < 5; i++)

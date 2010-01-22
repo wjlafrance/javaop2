@@ -13,7 +13,7 @@ import exceptions.PluginException;
 import plugin_interfaces.CommandCallback;
 import plugin_interfaces.GenericPluginInterface;
 import plugin_interfaces.PacketCallback;
-import util.BNetPacket;
+import util.BnetPacket;
 import util.FileTime;
 
 
@@ -132,12 +132,12 @@ public class PluginMain extends GenericPluginInterface implements PacketCallback
         return null;
     }
 
-    public BNetPacket processingPacket(BNetPacket buf, Object data) throws IOException, PluginException
+    public BnetPacket processingPacket(BnetPacket buf, Object data) throws IOException, PluginException
     {
         return buf;
     }
 
-    public void processedPacket(BNetPacket buf, Object data) throws IOException, PluginException
+    public void processedPacket(BnetPacket buf, Object data) throws IOException, PluginException
     {
         if (buf.getCode() == SID_GETLADDERDATA)
         {
@@ -268,7 +268,7 @@ public class PluginMain extends GenericPluginInterface implements PacketCallback
         else
             number = 3;
 
-        BNetPacket getLadder = new BNetPacket(SID_GETLADDERDATA);
+        BnetPacket getLadder = new BnetPacket(SID_GETLADDERDATA);
 
         getLadder.addString(client); // (DWORD) Product ID
         getLadder.addDWord(1); // (DWORD) League

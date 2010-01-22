@@ -10,7 +10,6 @@ import util.Buffer;
 import util.PadString;
 import util.RelativeFile;
 
-import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Vector;

@@ -20,7 +20,7 @@ import javax.swing.JTextField;
 
 import constants.PacketConstants;
 
-import util.BNetPacket;
+import util.BnetPacket;
 import util.gui.Gui;
 
 import callback_interfaces.PublicExposedFunctions;
@@ -153,7 +153,7 @@ public class ProfileDisplay extends JFrame implements WindowListener
                 if (JOptionPane.showConfirmDialog(this, "Save new profile?", "Save?",
                                                   JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
                 {
-                    BNetPacket write = new BNetPacket(PacketConstants.SID_WRITEUSERDATA);
+                    BnetPacket write = new BnetPacket(PacketConstants.SID_WRITEUSERDATA);
                     // (DWORD) Number of accounts
                     write.addDWord(1);
 

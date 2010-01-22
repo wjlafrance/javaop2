@@ -18,8 +18,8 @@ import constants.PacketConstants;
 import exceptions.LoginException;
 import exceptions.PluginException;
 
-import util.BNetEvent;
-import util.BNetPacket;
+import util.BnetEvent;
+import util.BnetPacket;
 import util.TimeoutSocket;
 
 
@@ -150,7 +150,7 @@ public class PacketThread extends Thread {
                     for (int i = 0; i < packet.length; i++)
                         packet[i] = (byte) input.read();
 
-                    BNetPacket buf = new BNetPacket(code);
+                    BnetPacket buf = new BnetPacket(code);
                     buf.add(packet);
                     out.systemMessage(ErrorLevelConstants.PACKET, "In:\n" + buf.toString());
 
@@ -162,13 +162,13 @@ public class PacketThread extends Thread {
                         continue;
 
                     if (code == PacketConstants.SID_CHATEVENT) {
-                        BNetEvent event = new BNetEvent(buf);
+                    	BnetEvent event = new BnetEvent(buf);
                         event = callbacks.eventOccurring(event);
 
                         if (event == null)
                             continue;
 
-                        callbacks.eventOccurred(new BNetEvent(event));
+                        callbacks.eventOccurred(new BnetEvent(event));
                     } else {
                         callbacks.processedIncomingPacket(buf);
                     }

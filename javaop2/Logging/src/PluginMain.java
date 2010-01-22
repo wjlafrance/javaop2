@@ -24,8 +24,8 @@ import plugin_interfaces.GenericPluginInterface;
 import plugin_interfaces.OutgoingTextCallback;
 import plugin_interfaces.PacketCallback;
 import plugin_interfaces.SystemMessageCallback;
-import util.BNetEvent;
-import util.BNetPacket;
+import util.BnetEvent;
+import util.BnetPacket;
 import util.RelativeFile;
 import util.Timestamp;
 
@@ -343,12 +343,12 @@ public class PluginMain extends GenericPluginInterface implements EventCallback,
         displayError(e);
     }
 
-    public void unknownPacketReceived(BNetPacket packet, Object data)
+    public void unknownPacketReceived(BnetPacket packet, Object data)
     {
         addToLog(format("Unknown packet received:\n" + packet, "blue"));
     }
 
-    public void unknownEventReceived(BNetEvent event, Object data)
+    public void unknownEventReceived(BnetEvent event, Object data)
     {
         addToLog(format("Unknown event received:\n" + event, "blue"));
     }
@@ -382,12 +382,12 @@ public class PluginMain extends GenericPluginInterface implements EventCallback,
         displayError(e);
     }
 
-    public BNetPacket processingPacket(BNetPacket buf, Object data) throws PluginException
+    public BnetPacket processingPacket(BnetPacket buf, Object data) throws PluginException
     {
         return buf;
     }
 
-    public void processedPacket(BNetPacket buf, Object data) throws PluginException
+    public void processedPacket(BnetPacket buf, Object data) throws PluginException
     {
         // Don't log the cdkey or password packets, and just skip pings
         if (buf.getCode() == SID_PING || buf.getCode() == SID_NULL)

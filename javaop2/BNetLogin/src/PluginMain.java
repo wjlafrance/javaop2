@@ -21,7 +21,7 @@ import plugin_interfaces.ConnectionCallback;
 import plugin_interfaces.GenericPluginInterface;
 import plugin_interfaces.PacketCallback;
 
-import util.BNetPacket;
+import util.BnetPacket;
 import util.gui.JTextFieldNumeric;
 
 import versioning.Game;
@@ -96,7 +96,7 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
 		pubFuncs.systemMessage(INFO, "[BNET] Switching to BnChat protocol. Calculating authorization info..");
 		pubFuncs.sendPacket(login.getProtocolByte());
 		
-		BNetPacket sidAuthInfo = SidAuthInfo.getOutgoing(pubFuncs);
+		BnetPacket sidAuthInfo = SidAuthInfo.getOutgoing(pubFuncs);
 		pubFuncs.systemMessage(INFO, "[BNET] Calculated. Sending authorization info..");
 		pubFuncs.sendPacket(sidAuthInfo);
 	}
@@ -108,7 +108,7 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
 	public void disconnected(Object data) {
 	}
 
-	public BNetPacket processingPacket(BNetPacket buf, Object data) {
+	public BnetPacket processingPacket(BnetPacket buf, Object data) {
 		// SID_ENTERCHAT has to come first
 		switch(buf.getCode()) {
 			case SID_ENTERCHAT:
@@ -255,11 +255,11 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
 		}
 	}
 
-	public void processedPacket(BNetPacket buf, Object data) throws PluginException, IOException {
+	public void processedPacket(BnetPacket buf, Object data) throws PluginException, IOException {
 		switch(buf.getCode()) {
 			case SID_AUTH_INFO:
 				pubFuncs.systemMessage(INFO, "[BNET] Received response, calculating..");
-				BNetPacket sidAuthCheck = SidAuthCheck.getOutgoing(pubFuncs, buf);
+				BnetPacket sidAuthCheck = SidAuthCheck.getOutgoing(pubFuncs, buf);
 				pubFuncs.systemMessage(INFO, "[BNET] Calculated. Sending version check..");
 				pubFuncs.sendPacket(sidAuthCheck);
 				break;

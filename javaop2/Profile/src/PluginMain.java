@@ -16,7 +16,7 @@ import plugin_interfaces.CommandCallback;
 import plugin_interfaces.EventCallback;
 import plugin_interfaces.GenericPluginInterface;
 import plugin_interfaces.PacketCallback;
-import util.BNetPacket;
+import util.BnetPacket;
 import util.FileTime;
 import util.TimeReader;
 
@@ -170,12 +170,12 @@ public class PluginMain extends GenericPluginInterface implements PacketCallback
         return null;
     }
 
-    public BNetPacket processingPacket(BNetPacket buf, Object data) throws PluginException
+    public BnetPacket processingPacket(BnetPacket buf, Object data) throws PluginException
     {
         return buf;
     }
 
-    public void processedPacket(BNetPacket buf, Object data) throws IOException, PluginException
+    public void processedPacket(BnetPacket buf, Object data) throws IOException, PluginException
     {
         if (buf.getCode() == SID_READUSERDATA)
         {
@@ -256,12 +256,12 @@ public class PluginMain extends GenericPluginInterface implements PacketCallback
         }
     }
 
-    private BNetPacket getRequest(String requester, String user, String[] keys, int loudness)
+    private BnetPacket getRequest(String requester, String user, String[] keys, int loudness)
     {
         ProfileRequest thisRequest = new ProfileRequest(requester, user, keys, loudness);
         requests.put(cookie + "", thisRequest);
 
-        BNetPacket request = new BNetPacket(SID_READUSERDATA);
+        BnetPacket request = new BnetPacket(SID_READUSERDATA);
         // (DWORD) Number of Accounts
         request.addDWord(1);
         // (DWORD) Number of Keys
@@ -302,7 +302,7 @@ public class PluginMain extends GenericPluginInterface implements PacketCallback
         {
             if (args.length == 0)
                 throw new CommandUsedImproperly("setprofile requires a key", user, command);
-            BNetPacket set = new BNetPacket(SID_WRITEUSERDATA);
+            BnetPacket set = new BnetPacket(SID_WRITEUSERDATA);
             // (DWORD) Number of accounts
             set.addDWord(1);
             // (DWORD) Number of keys
@@ -324,7 +324,7 @@ public class PluginMain extends GenericPluginInterface implements PacketCallback
                 throw new CommandUsedImproperly("w3profile requires a username", user, command);
 
             requests.put(cookie + "", new ProfileRequest(user, args[0], null, loudness));
-            BNetPacket profile = new BNetPacket(SID_PROFILE);
+            BnetPacket profile = new BnetPacket(SID_PROFILE);
             profile.add(cookie);
             profile.addNTString(args[0]);
 

@@ -1,7 +1,7 @@
 package packets;
 
 // For all packet classes
-import util.BNetPacket;
+import util.BnetPacket;
 import constants.PacketConstants;
 import exceptions.*;
 import callback_interfaces.PublicExposedFunctions;
@@ -18,7 +18,7 @@ import password.DoubleHash;
  */
 public class SidLogonResponse2
 {
-	public static BNetPacket getOutgoing(PublicExposedFunctions pubFuncs)
+	public static BnetPacket getOutgoing(PublicExposedFunctions pubFuncs)
 		throws LoginException
 	{
 		String username = pubFuncs.getLocalSetting("Battle.net Login Plugin", "username");
@@ -35,7 +35,7 @@ public class SidLogonResponse2
 		if (serverToken == 0)
 			throw new LoginException("[BNET] Cannot login because server token isn't set. ???");
 	
-		BNetPacket packet = new BNetPacket(PacketConstants.SID_LOGONRESPONSE2);
+		BnetPacket packet = new BnetPacket(PacketConstants.SID_LOGONRESPONSE2);
 		// (DWORD) Client Token
 		packet.addDWord(clientToken);
 		// (DWORD) Server Token
@@ -51,7 +51,7 @@ public class SidLogonResponse2
 	}
 	
 	public static void checkIncoming(PublicExposedFunctions pubFuncs,
-			BNetPacket SidLogonResponse2) throws LoginException, AccountDneException
+			BnetPacket SidLogonResponse2) throws LoginException, AccountDneException
 	{
 		int result = SidLogonResponse2.removeDWord();
 

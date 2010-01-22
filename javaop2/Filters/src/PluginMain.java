@@ -14,7 +14,7 @@ import exceptions.PluginException;
 import plugin_interfaces.CommandCallback;
 import plugin_interfaces.GenericPluginInterface;
 import plugin_interfaces.RawEventCallback;
-import util.BNetEvent;
+import util.BnetEvent;
 import util.Pattern;
 
 
@@ -157,7 +157,7 @@ public class PluginMain extends GenericPluginInterface implements RawEventCallba
         return null;
     }
 
-    public BNetEvent eventOccurring(BNetEvent event, Object data) throws PluginException
+    public BnetEvent eventOccurring(BnetEvent event, Object data) throws PluginException
     {
         // Filter out any "ignored" user
         if (out.dbHasAny(event.getUsername(), out.getLocalSettingDefault(getName(), "ignore flag",
@@ -194,11 +194,11 @@ public class PluginMain extends GenericPluginInterface implements RawEventCallba
             }
         }
 
-        return new BNetEvent(event.getCode(), event.getUsername(), message, event.getPing(),
+        return new BnetEvent(event.getCode(), event.getUsername(), message, event.getPing(),
                 event.getFlags());
     }
 
-    public void eventOccurred(BNetEvent event, Object data) throws PluginException
+    public void eventOccurred(BnetEvent event, Object data) throws PluginException
     {
     }
 
