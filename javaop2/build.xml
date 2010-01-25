@@ -1,0 +1,218 @@
+<project default="main">
+    
+    <target name="main" depends="clean, build, jar"></target>
+    
+    <target name="clean">
+        <delete dir="Advertisements/bin"/>
+        <delete dir="Alias/bin"/>
+        <delete dir="AntiFlood/bin"/>
+        <delete dir="AutoRejoin/bin"/>
+        <delete dir="Autoban/bin"/>
+        <delete dir="AwayMessage/bin"/>
+        <delete dir="BNetLogin/bin"/>
+        <delete dir="BasicCommands/bin"/>
+        <delete dir="BotMail/bin"/>
+        <delete dir="ChannelProtection/bin"/>
+        <delete dir="ChannelList/bin"/>
+        <delete dir="Commands/bin"/>
+        <delete dir="ConnectionCommands/bin"/>
+        <delete dir="ConsoleDisplay/bin"/>
+        <delete dir="Designate/bin"/>
+        <delete dir="EmailRegister/bin"/>
+        <delete dir="Filters/bin"/>
+        <delete dir="Forwarding/bin"/>
+        <delete dir="FunStuff/bin"/>
+        <delete dir="GlobalCommand/bin"/>
+        <delete dir="Greeting/bin"/>
+        <delete dir="Help/bin"/>
+        <delete dir="IPBan/bin"/>
+        <delete dir="Ladder/bin"/>
+        <delete dir="Logging/bin"/>
+        <delete dir="Moderation/bin"/>
+        <delete dir="Ping/bin"/>
+        <delete dir="Profile/bin"/>
+        <delete dir="ShellCommands/bin"/>
+        <delete dir="ShowInvisibleUsers/bin"/>
+        <delete dir="SimpleEventProcess/bin"/>
+        <delete dir="SweepBan/bin"/>
+        <delete dir="SwingGui/bin"/>
+        <delete dir="UserInformation/bin"/>
+        <delete dir="UserManagement/bin"/>
+        <delete dir="Version/bin"/>
+        <delete dir="War3Clan/bin"/>
+        <delete dir="javaop2/bin"/>
+    </target>
+    
+    <target name="build">
+        <mkdir dir="javaop2/bin"/>
+        <javac srcdir="javaop2/src" destdir="javaop2/bin"/>
+        <mkdir dir="Advertisements/bin"/>
+        <javac srcdir="Advertisements/src" destdir="Advertisements/bin"
+                classpath="javaop2/bin"/>
+        <mkdir dir="Alias/bin"/>
+        <javac srcdir="Alias/src" destdir="Alias/bin"
+                classpath="javaop2/bin"/>
+        <mkdir dir="AntiFlood/bin"/>
+        <javac srcdir="AntiFlood/src" destdir="AntiFlood/bin"
+                classpath="javaop2/bin"/>
+        <mkdir dir="AutoRejoin/bin"/>
+        <javac srcdir="AutoRejoin/src" destdir="AutoRejoin/bin"
+                classpath="javaop2/bin"/>
+        <mkdir dir="Autoban/bin"/>
+        <javac srcdir="Autoban/src" destdir="Autoban/bin"
+                classpath="javaop2/bin"/>
+        <mkdir dir="AwayMessage/bin"/>
+        <javac srcdir="AwayMessage/src" destdir="AwayMessage/bin"
+                classpath="javaop2/bin"/>
+        <mkdir dir="BNetLogin/bin"/>
+        <javac srcdir="BNetLogin/src" destdir="BNetLogin/bin"
+                classpath="javaop2/bin"/>
+        <mkdir dir="BasicCommands/bin"/>
+        <javac srcdir="BasicCommands/src" destdir="BasicCommands/bin"
+                classpath="javaop2/bin"/>
+        <mkdir dir="BotMail/bin"/>
+        <javac srcdir="BotMail/src" destdir="BotMail/bin"
+                classpath="javaop2/bin"/>
+        <mkdir dir="ChannelProtection/bin"/>
+        <javac srcdir="ChannelProtection/src" destdir="ChannelProtection/bin"
+                classpath="javaop2/bin"/>
+        <mkdir dir="ChannelList/bin"/>
+        <javac srcdir="ChannelList/src" destdir="ChannelList/bin"
+                classpath="javaop2/bin"/>
+        <mkdir dir="Commands/bin"/>
+        <javac srcdir="Commands/src" destdir="Commands/bin"
+                classpath="javaop2/bin"/>
+        <mkdir dir="ConnectionCommands/bin"/>
+        <javac srcdir="ConnectionCommands/src" destdir="ConnectionCommands/bin"
+                classpath="javaop2/bin"/>
+        <mkdir dir="ConsoleDisplay/bin"/>
+        <javac srcdir="ConsoleDisplay/src" destdir="ConsoleDisplay/bin"
+                classpath="javaop2/bin"/>
+        <mkdir dir="Designate/bin"/>
+        <javac srcdir="Designate/src" destdir="Designate/bin"
+                classpath="javaop2/bin"/>
+        <mkdir dir="EmailRegister/bin"/>
+        <javac srcdir="EmailRegister/src" destdir="EmailRegister/bin"
+                classpath="javaop2/bin"/>
+        <mkdir dir="Filters/bin"/>
+        <javac srcdir="Filters/src" destdir="Filters/bin"
+                classpath="javaop2/bin"/>
+        <mkdir dir="Forwarding/bin"/>
+        <javac srcdir="Forwarding/src" destdir="Forwarding/bin"
+                classpath="javaop2/bin"/>
+        <mkdir dir="FunStuff/bin"/>
+        <javac srcdir="FunStuff/src" destdir="FunStuff/bin"
+                classpath="javaop2/bin"/>
+        <mkdir dir="GlobalCommand/bin"/>
+        <javac srcdir="GlobalCommand/src" destdir="GlobalCommand/bin"
+                classpath="javaop2/bin"/>
+        <mkdir dir="Greeting/bin"/>
+        <javac srcdir="Greeting/src" destdir="Greeting/bin"
+                classpath="javaop2/bin"/>
+        <mkdir dir="Help/bin"/>
+        <javac srcdir="Help/src" destdir="Help/bin"
+                classpath="javaop2/bin"/>
+        <mkdir dir="IPBan/bin"/>
+        <javac srcdir="IPBan/src" destdir="IPBan/bin"
+                classpath="javaop2/bin"/>
+        <mkdir dir="Ladder/bin"/>
+        <javac srcdir="Ladder/src" destdir="Ladder/bin"
+                classpath="javaop2/bin"/>
+        <mkdir dir="Logging/bin"/>
+        <javac srcdir="Logging/src" destdir="Logging/bin"
+                classpath="javaop2/bin"/>
+        <mkdir dir="Moderation/bin"/>
+        <javac srcdir="Moderation/src" destdir="Moderation/bin"
+                classpath="javaop2/bin"/>
+        <mkdir dir="Ping/bin"/>
+        <javac srcdir="Ping/src" destdir="Ping/bin"
+                classpath="javaop2/bin"/>
+        <mkdir dir="Profile/bin"/>
+        <javac srcdir="Profile/src" destdir="Profile/bin"
+                classpath="javaop2/bin"/>
+        <mkdir dir="ShellCommands/bin"/>
+        <javac srcdir="ShellCommands/src" destdir="ShellCommands/bin"
+                classpath="javaop2/bin"/>
+        <mkdir dir="ShowInvisibleUsers/bin"/>
+        <javac srcdir="ShowInvisibleUsers/src" destdir="ShowInvisibleUsers/bin"
+                classpath="javaop2/bin"/>
+        <mkdir dir="SimpleEventProcess/bin"/>
+        <javac srcdir="SimpleEventProcess/src" destdir="SimpleEventProcess/bin"
+                classpath="javaop2/bin"/>
+        <mkdir dir="SweepBan/bin"/>
+        <javac srcdir="SweepBan/src" destdir="SweepBan/bin"
+                classpath="javaop2/bin"/>
+        <mkdir dir="SwingGui/bin"/>
+        <javac srcdir="SwingGui/src" destdir="SwingGui/bin"
+                classpath="javaop2/bin"/>
+        <mkdir dir="UserInformation/bin"/>
+        <javac srcdir="UserInformation/src" destdir="UserInformation/bin"
+                classpath="javaop2/bin"/>
+        <mkdir dir="UserManagement/bin"/>
+        <javac srcdir="UserManagement/src" destdir="UserManagement/bin"
+                classpath="javaop2/bin"/>
+        <mkdir dir="Version/bin"/>
+        <javac srcdir="Version/src" destdir="Version/bin"
+                classpath="javaop2/bin"/>
+        <mkdir dir="War3Clan/bin"/>
+        <javac srcdir="War3Clan/src" destdir="War3Clan/bin"
+                classpath="javaop2/bin"/>
+    </target>
+    
+    <target name="jar">
+        <property name="path" value="jar" />
+        <property name="pluginpath" value="jar/Plugins" />
+        
+        <delete dir="${path}" />
+        <delete dir="${pluginpath}" />
+        <mkdir dir="${path}" />
+        <mkdir dir="${pluginpath}"/>
+        <jar destfile="${path}/JavaOp2.jar" basedir="javaop2/bin">
+            <manifest><attribute name="Main-Class" value="_main.BotStart"/></manifest>
+        </jar>
+        <jar destfile="${path}/CommandlineConfigure.jar" basedir="javaop2/bin">
+            <manifest><attribute name="Main-Class" value="_main.CommandlineConfigure"/></manifest>
+        </jar>
+        <jar destfile="${path}/ConfigurePlugins.jar" basedir="javaop2/bin">
+            <manifest><attribute name="Main-Class" value="_main.ConfigurePlugins"/></manifest>
+        </jar>
+        <jar destfile="${pluginpath}/Advertisements.jar" basedir="Advertisements/bin" />
+        <jar destfile="${pluginpath}/Alias.jar" basedir="Alias/bin" />
+        <jar destfile="${pluginpath}/AntiFlood.jar" basedir="AntiFlood/bin" />
+        <jar destfile="${pluginpath}/AutoRejoin.jar" basedir="AutoRejoin/bin" />
+        <jar destfile="${pluginpath}/Autoban.jar" basedir="Autoban/bin" />
+        <jar destfile="${pluginpath}/AwayMessage.jar" basedir="AwayMessage/bin" />
+        <jar destfile="${pluginpath}/BNetLogin.jar" basedir="BNetLogin/bin" />
+        <jar destfile="${pluginpath}/BasicCommands.jar" basedir="BasicCommands/bin" />
+        <jar destfile="${pluginpath}/BotMail.jar" basedir="BotMail/bin" />
+        <jar destfile="${pluginpath}/ChannelProtection.jar" basedir="ChannelProtection/bin" />
+        <jar destfile="${pluginpath}/ChannelList.jar" basedir="ChannelList/bin" />
+        <jar destfile="${pluginpath}/Commands.jar" basedir="Commands/bin" />
+        <jar destfile="${pluginpath}/ConnectionCommands.jar" basedir="ConnectionCommands/bin" />
+        <jar destfile="${pluginpath}/ConsoleDisplay.jar" basedir="ConsoleDisplay/bin" />
+        <jar destfile="${pluginpath}/Designate.jar" basedir="Designate/bin" />
+        <jar destfile="${pluginpath}/EmailRegister.jar" basedir="EmailRegister/bin" />
+        <jar destfile="${pluginpath}/Filters.jar" basedir="Filters/bin" />
+        <jar destfile="${pluginpath}/Forwarding.jar" basedir="Forwarding/bin" />
+        <jar destfile="${pluginpath}/FunStuff.jar" basedir="FunStuff/bin" />
+        <jar destfile="${pluginpath}/GlobalCommand.jar" basedir="GlobalCommand/bin" />
+        <jar destfile="${pluginpath}/Greeting.jar" basedir="Greeting/bin" />
+        <jar destfile="${pluginpath}/Help.jar" basedir="Help/bin" />
+        <jar destfile="${pluginpath}/IPBan.jar" basedir="IPBan/bin" />
+        <jar destfile="${pluginpath}/Ladder.jar" basedir="Ladder/bin" />
+        <jar destfile="${pluginpath}/Logging.jar" basedir="Logging/bin" />
+        <jar destfile="${pluginpath}/Moderation.jar" basedir="Moderation/bin" />
+        <jar destfile="${pluginpath}/Ping.jar" basedir="Ping/bin" />
+        <jar destfile="${pluginpath}/Profile.jar" basedir="Profile/bin" />
+        <jar destfile="${pluginpath}/ShellCommands.jar" basedir="ShellCommands/bin" />
+        <jar destfile="${pluginpath}/ShowInvisibleUsers.jar" basedir="ShowInvisibleUsers/bin" />
+        <jar destfile="${pluginpath}/SimpleEventProcess.jar" basedir="SimpleEventProcess/bin" />
+        <jar destfile="${pluginpath}/SweepBan.jar" basedir="SweepBan/bin" />
+        <jar destfile="${pluginpath}/SwingGui.jar" basedir="SwingGui/bin" />
+        <jar destfile="${pluginpath}/UserInformation.jar" basedir="UserInformation/bin" />
+        <jar destfile="${pluginpath}/UserManagement.jar" basedir="UserManagement/bin" />
+        <jar destfile="${pluginpath}/Version.jar" basedir="Version/bin" />
+        <jar destfile="${pluginpath}/War3Clan.jar" basedir="War3Clan/bin" />
+    </target>
+    
+</project>
