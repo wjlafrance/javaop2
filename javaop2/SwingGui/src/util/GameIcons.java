@@ -1618,7 +1618,7 @@ public class GameIcons
 		// Diablo II: Lord of Destruction
 		if (game.equals("d2xp")
 		|| game.equals("lod")
-		|| game.equals("diablo2:lod"))
+		|| game.equals("diablo2lod"))
 			return "D2XP";
 		// WarCraft III: Reign of Chaos
 		if (game.equals("war3")

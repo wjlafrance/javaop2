@@ -170,7 +170,7 @@ public class JavaOpMainMenu extends JMenuBar implements ActionListener,
         introduction.setIcon(MenuIcons.getIcon("intro"));
         botSetup.addActionListener(new WebpageLoader(
         		"http://code.google.com/p/javaop/wiki/BotSetup"));
-        botSetup.setMnemonic('g');
+        botSetup.setMnemonic('b');
         botSetup.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
         botSetup.setIcon(MenuIcons.getIcon("started"));
         moderation.addActionListener(new WebpageLoader("http://www.javaop.com/moderation.html"));

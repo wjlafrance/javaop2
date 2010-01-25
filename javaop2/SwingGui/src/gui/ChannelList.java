@@ -350,14 +350,15 @@ class Model extends AbstractTableModel
             this.flags = flags;
         }
 
-        public int getFlags()
+        @SuppressWarnings("unused")
+		public int getFlags()
         {
             return flags;
         }
 
         public ImageIcon getGameIcon()
         {
-            if (client == null)
+            if (client == null || client.isEmpty())
                 return null;
             else if ((flags & Flags.USER_SQUELCHED) > 0)
                 return GameIcons.getIcon("SQUELCHED");

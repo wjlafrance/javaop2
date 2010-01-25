@@ -55,48 +55,37 @@ public class QuickSettings extends JFrame implements WindowListener
         Properties descriptions = new Properties();
         Hashtable components = new Hashtable();
 
-        currentSettings.setProperty("server", out.getLocalSetting(" Default", "server"));
-        defaultSettings.setProperty(
-                                    "server",
-                                    funcs.pluginGetDefaultSettings(" Default").getProperty("server"));
-        descriptions.setProperty("server",
-                                 funcs.pluginGetDescriptions(" Default").getProperty("server"));
-        components.put(
-                       "server",
-                       funcs.pluginGetComponents(" Default", out.getLocalSettingSection(" Default")).get(
-                                                                                                         "server"));
+        currentSettings.setProperty("server", out.getLocalSetting(" Default",
+        		"server"));
+        defaultSettings.setProperty("server", funcs.pluginGetDefaultSettings(
+        		" Default").getProperty("server"));
+        descriptions.setProperty("server", funcs.pluginGetDescriptions(
+        		" Default").getProperty("server"));
+        components.put("server", funcs.pluginGetComponents(" Default",
+        		out.getLocalSettingSection(" Default")).get("server"));
 
         currentSettings.setProperty("connect automatically",
-                                    out.getLocalSetting(" Default", "connect automatically"));
-        defaultSettings.setProperty(
-                                    "connect automatically",
-                                    funcs.pluginGetDefaultSettings(" Default").getProperty(
-                                                                                           "connect automatically"));
-        descriptions.setProperty(
-                                 "connect automatically",
-                                 funcs.pluginGetDescriptions(" Default").getProperty(
-                                                                                     "connect automatically"));
-        components.put(
-                       "connect automatically",
-                       funcs.pluginGetComponents(" Default", out.getLocalSettingSection(" Default")).get(
-                                                                                                         "connect automatically"));
+        		out.getLocalSetting(" Default", "connect automatically"));
+        defaultSettings.setProperty("connect automatically",
+        		funcs.pluginGetDefaultSettings(" Default").getProperty(
+        		"connect automatically"));
+        descriptions.setProperty("connect automatically", funcs
+        		.pluginGetDescriptions(" Default").getProperty(
+        		"connect automatically"));
+        components.put("connect automatically", funcs.pluginGetComponents(
+        		" Default", out.getLocalSettingSection(" Default")).get(
+        		"connect automatically"));
 
-        currentSettings.setProperty("username", out.getLocalSetting("Battle.net Login Plugin",
-                                                                    "username"));
-        defaultSettings.setProperty(
-                                    "username",
-                                    funcs.pluginGetDefaultSettings("Battle.net Login Plugin").getProperty(
-                                                                                                          "username"));
-        descriptions.setProperty(
-                                 "username",
-                                 funcs.pluginGetDescriptions("Battle.net Login Plugin").getProperty(
-                                                                                                    "username"));
-        components.put(
-                       "username",
-                       funcs.pluginGetComponents(
-                                                 "Battle.net Login Plugin",
-                                                 out.getLocalSettingSection("Battle.net Login Plugin")).get(
-                                                                                                            "username"));
+        currentSettings.setProperty("username", out.getLocalSetting(
+        		"Battle.net Login Plugin", "username"));
+        defaultSettings.setProperty("username",
+        		funcs.pluginGetDefaultSettings("Battle.net Login Plugin")
+        		.getProperty("username"));
+        descriptions.setProperty("username", funcs.pluginGetDescriptions(
+        		"Battle.net Login Plugin").getProperty("username"));
+        components.put("username", funcs.pluginGetComponents(
+        		"Battle.net Login Plugin", out.getLocalSettingSection(
+        		"Battle.net Login Plugin")).get("username"));
 
         currentSettings.setProperty("password", out.getLocalSetting("Battle.net Login Plugin",
                                                                     "password"));
@@ -202,20 +191,20 @@ public class QuickSettings extends JFrame implements WindowListener
                                                                                                                   "Email"));
         }
 
-        currentSettings.setProperty("Colored names", out.getLocalSetting("Swing Gui Plugin",
+        currentSettings.setProperty("Colored names", out.getLocalSetting("Swing Gui",
                                                                          "Colored names"));
         defaultSettings.setProperty(
                                     "Colored names",
-                                    funcs.pluginGetDefaultSettings("Swing Gui Plugin").getProperty(
+                                    funcs.pluginGetDefaultSettings("Swing Gui").getProperty(
                                                                                                    "Colored names"));
         descriptions.setProperty(
                                  "Colored names",
-                                 funcs.pluginGetDescriptions("Swing Gui Plugin").getProperty(
+                                 funcs.pluginGetDescriptions("Swing Gui").getProperty(
                                                                                              "Colored names"));
         components.put(
                        "Colored names",
-                       funcs.pluginGetComponents("Swing Gui Plugin",
-                                                 out.getLocalSettingSection("Swing Gui Plugin")).get(
+                       funcs.pluginGetComponents("Swing Gui",
+                                                 out.getLocalSettingSection("Swing Gui")).get(
                                                                                                      "Colored names"));
 
         if (out.pluginIsActive("Commands"))
@@ -373,7 +362,7 @@ public class QuickSettings extends JFrame implements WindowListener
             out.putLocalSetting("Email Registration Plugin", "Email",
                                 newPref.getProperty("username"));
 
-        out.putLocalSetting("Swing Gui Plugin", "Colored names", newPref.getProperty("username"));
+        out.putLocalSetting("Swing Gui", "Colored names", newPref.getProperty("username"));
 
         if (out.pluginIsActive("Commands"))
         {

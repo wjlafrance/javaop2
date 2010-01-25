@@ -2,8 +2,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.FocusTraversalPolicy;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.beans.PropertyVetoException;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -12,6 +10,7 @@ import java.util.Hashtable;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
+import javax.swing.UIManager;
 
 import util.gui.Gui;
 
@@ -25,10 +24,11 @@ import callback_interfaces.StaticExposedFunctions;
  * Destroy the Panel - Can be told to select a specific bot - Can provide a list
  * of bots - Can provide the name of the currently selected bot
  */
-public class JavaOpFrame extends JFrame /*implements KeyListener*/ {
+public class JavaOpFrame extends JFrame {
     private static final long    serialVersionUID  = 1L;
 
-    private final Hashtable<String, JavaOpPanel>      bots              = new Hashtable<String, JavaOpPanel>();
+    private final Hashtable<String, JavaOpPanel>      bots
+    		= new Hashtable<String, JavaOpPanel>();
 
     private final JDesktopPane   desktop;
 
@@ -46,17 +46,23 @@ public class JavaOpFrame extends JFrame /*implements KeyListener*/ {
 
     private final int            locationIncrement = 20;
 
-    public JavaOpFrame(StaticExposedFunctions funcs) {
+    public JavaOpFrame(StaticExposedFunctions staticFuncs) {
+    	
+    	// Try using the native look and feel. If it doesn't work, no big deal
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch(Exception e) {
+        }
 
         // Set the program's title
-        this.setTitle("JavaOp2 " + funcs.getVersion() + " -- javaop.googlecode.com");
+        this.setTitle("JavaOp2 " + staticFuncs.getVersion() + " -- javaop.googlecode.com");
 
         // Create the desktop pane where we'll be storing everything, and make
         // that our content pane
         this.setContentPane(desktop = new JDesktopPane());
 
         // Set my menu bar
-        this.setJMenuBar(menu = new JavaOpMainMenu(funcs, desktop, this));
+        this.setJMenuBar(menu = new JavaOpMainMenu(staticFuncs, desktop, this));
 
         // Set the default size
         this.setSize(800, 500);
@@ -234,20 +240,6 @@ public class JavaOpFrame extends JFrame /*implements KeyListener*/ {
         bot.toFront();
         bot.select();
     }
-
-    /* leftover debugging code?
-    
-    public void keyTyped(KeyEvent arg0) {
-        System.err.println("keyTyped: " + arg0.getKeyCode() + " - " + arg0.getModifiers());
-    }
-
-    public void keyPressed(KeyEvent arg0) {
-        System.err.println("keyPressed: " + arg0.getKeyCode() + " - " + arg0.getModifiers());
-    }
-
-    public void keyReleased(KeyEvent arg0) {
-        System.err.println("keyReleased: " + arg0.getKeyCode() + " - " + arg0.getModifiers());
-    }*/
 
     private class MyOwnFocusTraversalPolicy extends FocusTraversalPolicy {
         private JavaOpPanel findPanel(Component parent) {

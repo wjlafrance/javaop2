@@ -45,13 +45,13 @@ import constants.ErrorLevelConstants;
 import constants.LoudnessConstants;
 import constants.PriorityConstants;
 
+import users.Statstring;
 import util.BnetEvent;
 import util.BnetPacket;
 import util.ColorConstants;
 import util.GameIcons;
 import util.PadString;
 import util.Timestamp;
-import util.Statstring;
 
 import callback_interfaces.PluginCallbackRegister;
 import callback_interfaces.PublicExposedFunctions;
@@ -75,18 +75,18 @@ public class JavaOpPanel extends JInternalFrame implements FocusListener,
 {
     private static final long            serialVersionUID = 1L;
 
-    private final PublicExposedFunctions out;
-    final private ColorTextArea          chatWindow;
-    final private ChannelList            channelList;
-    final private TextFieldHistory       input;
-    final private JButton                send;
-    final private JLabel                 channelName;
-    final private JavaOpBotMenu          menu;
-    final private JavaOpUserMenu         userMenu;
-    final private String                 name             = "Swing Gui Plugin";
-    private String                       channel          = "<Not Logged In>";
-    private String                       lastWhisperTo    = null;
-    private String                       lastWhisperFrom  = null;
+    private final PublicExposedFunctions 	out;
+    final private ColorTextArea          	chatWindow;
+    final private ChannelList            	channelList;
+    final private TextFieldHistory       	input;
+    final private JButton                	send;
+    final private JLabel                 	channelName;
+    final private JavaOpBotMenu          	menu;
+    final private JavaOpUserMenu         	userMenu;
+    private String                 			name             = "Swing Gui";
+    private String                       	channel          = "<Not Logged In>";
+    private String                       	lastWhisperTo    = null;
+    private String                       	lastWhisperFrom  = null;
 
     public JavaOpPanel(PublicExposedFunctions out, FocusTraversalPolicy policy)
     {
@@ -362,13 +362,16 @@ public class JavaOpPanel extends JInternalFrame implements FocusListener,
         		.equalsIgnoreCase("true"))
         {
             Random r = new Random(message.hashCode());
-            int blank = r.nextInt(3);
+            /*int blank = r.nextInt(3);
             String green = blank == 0 ? "00" : PadString.padHex(r.nextInt(130)
             		+ 55, 2);
             String blue = blank == 1 ? "00" : PadString.padHex(r.nextInt(130)
             		+ 55, 2);
             String red = blank == 2 ? "00" : PadString.padHex(r.nextInt(130)
-            		+ 55, 2);
+            		+ 55, 2);*/
+            String green = PadString.padHex(r.nextInt(115) + 70, 2);
+            String blue = PadString.padHex(r.nextInt(115) + 70, 2);
+            String red = PadString.padHex(r.nextInt(115) + 70, 2);
 
             String color = red + green + blue;
             message = ColorConstants.COLOR + color + message;
