@@ -4,7 +4,7 @@
  * Created on January 20, 2005, 4:36 PM
  */
 
-package users.statstring;
+package users;
 
 /**
  * 

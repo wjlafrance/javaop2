@@ -1,4 +1,4 @@
-package util;
+package users;
 
 /**
  * Parses statstrings. Information from:
@@ -16,13 +16,12 @@ public class Statstring
         {
             this.tokens = statstring.split(" ", -1);
 
-            // Debugging
-            System.out.print("Raw: " + statstring + "; ");
+            /* System.out.print("Raw: " + statstring + "; ");
             for (int i = 0; i < tokens.length; i++)
             {
                 System.out.print(i + ": " + tokens[i] + "; ");
             }
-            System.out.println();
+            System.out.println(); */
         }
     }
 
