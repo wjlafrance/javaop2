@@ -40,7 +40,7 @@ public class Decode
 			case 16: // Legacy Diablo II, current WarCraft II
 				return new Alpha16Decode(cdkey);
 			case 26: // All products except WarCraft II
-				return new Alpha24Decode(cdkey);
+				return new Alpha26Decode(cdkey);
 			default:
 				throw new LoginException("CDKey type cannot be determined: " + cdkey.toString());
 		}

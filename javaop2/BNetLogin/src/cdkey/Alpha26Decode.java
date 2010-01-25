@@ -19,7 +19,7 @@ import exceptions.LoginException;
  * 
  * @author iago, wjlafrance
  */
-class Alpha24Decode extends Decode
+class Alpha26Decode extends Decode
 {
 
 	public final static byte[] KeyTable = { (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF,
@@ -125,12 +125,12 @@ class Alpha24Decode extends Decode
 	private byte[] val2;
 	private int product;
 
-	public Alpha24Decode(String cdkey) throws LoginException {
+	public Alpha26Decode(String cdkey) throws LoginException {
 		
 		if(cdkey == null || cdkey.isEmpty())
 			throw new LoginException("CD-Key is missing!");
 
-		if(cdkey.length() != 24)
+		if(cdkey.length() != KEYLEN)
 			throw new LoginException("CDKey is not 24 characters!");
 
 		byte[] table = new byte[BUFLEN];
