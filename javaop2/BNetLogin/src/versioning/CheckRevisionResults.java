@@ -8,13 +8,13 @@ package versioning;
  * @author wjlafrance
  */
 public class CheckRevisionResults {
-	public int verhash;
-	public int checksum;
-	public byte[] statstring;
+    public int verhash;
+    public int checksum;
+    public byte[] statstring;
 
-	public CheckRevisionResults(int verhash, int checksum, byte[] statstring) {
-		this.checksum = checksum;
-		this.verhash = verhash;
-		this.statstring = statstring;
-	}
+    public CheckRevisionResults(int verhash, int checksum, byte[] statstring) {
+        this.checksum = checksum;
+        this.verhash = verhash;
+        this.statstring = statstring;
+    }
 }

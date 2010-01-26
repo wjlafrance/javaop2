@@ -87,7 +87,7 @@ public class Bnls {
      * @param game
      * @return BNLS product ID
      */
-    public static int BnlsProductId(Game g) throws LoginException {
+    private static int BnlsProductId(Game g) throws LoginException {
         if(g.getName().equalsIgnoreCase("STAR")) return 0x01;
         if(g.getName().equalsIgnoreCase("SEXP")) return 0x02;
         if(g.getName().equalsIgnoreCase("W2BN")) return 0x03;
@@ -103,7 +103,7 @@ public class Bnls {
     /**
      * Checks to see if BNLS is enabled in BNetLogin's global configuration
      */
-    public static boolean IsEnabled(StaticExposedFunctions staticFuncs) {
+    public static boolean isEnabled(StaticExposedFunctions staticFuncs) {
         return staticFuncs.getGlobalSetting("Battle.net Login Plugin",
                 "Enable BNLS").equalsIgnoreCase("true");
     }
