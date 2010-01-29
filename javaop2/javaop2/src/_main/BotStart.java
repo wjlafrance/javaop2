@@ -31,7 +31,7 @@ public class BotStart
             // If we're on OS X, make it look pretty
             System.setProperty("apple.laf.brushMetalLook", "true");
             System.setProperty("apple.awt.graphics.UseQuartz", "true");
-            System.setProperty("apple.laf.useScreenMenuBar, "true");
+            System.setProperty("apple.laf.useScreenMenuBar", "true");
             /*
              * First thing we're going to do is set our correct directory up.
              * After this, if you use "RelativeFile" for an operation, it'll

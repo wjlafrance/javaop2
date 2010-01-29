@@ -1587,6 +1587,9 @@ public class GameIcons
 	 * @throws LoginException Long name not recognized
 	 */
 	private static String getCodeFromLongName(String game) {
+            if (game == null)
+                return "";
+
 		game = game.toLowerCase();
 		game = game.replace("iiii", "4"); // who knows?
 		game = game.replace("iii", "3");

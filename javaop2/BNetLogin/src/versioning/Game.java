@@ -40,6 +40,10 @@ public class Game
      * @throws LoginException Long name not recognized
      */
     private String getCodeFromLongName(String game) throws LoginException {
+        if (game == null)
+            return "";
+
+
         game = game.toLowerCase();
         game = game.replace("iiii", "4"); // who knows?
         game = game.replace("iii", "3");
@@ -180,14 +184,7 @@ public class Game
 
     private Buffer getKeyBlock(String cdkey, int clientToken, int serverToken) throws LoginException {
         Decode key = Decode.getDecoder(cdkey);
-        
-        // TODO: Debug Information
-        System.out.println("Key: " + cdkey);
-        System.out.println("Decoder: " + key.toString());
-        System.out.println("Length: " + cdkey.length());
-        System.out.println("Product: " + key.getProduct());
-        System.out.println("Value 1: " + key.getVal1());
-        
+                
         Buffer ret = new Buffer();
         // For Each Key:
         // (DWORD) Key Length
