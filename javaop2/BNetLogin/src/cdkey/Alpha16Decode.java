@@ -47,14 +47,14 @@ class Alpha16Decode extends Decode
 	 
 	private int checksum = 0;
 
-	protected Alpha16Decode(String cdkey) throws LoginException {
+	protected Alpha16Decode(String cdkey) throws IllegalArgumentException {
 		this.cdkey = cdkey;
 
 		if(cdkey == null || cdkey.isEmpty())
-			throw new LoginException("CD-Key is missing!");
+			throw new IllegalArgumentException("CD-Key is missing!");
 
 		if(cdkey.length() != 16)
-			throw new LoginException("CDKey is not 16 characters!");
+			throw new IllegalArgumentException("CDKey is not 16 characters!");
 
 		hash();
 	} 
@@ -82,7 +82,7 @@ class Alpha16Decode extends Decode
 		return BrokenSHA1.calcHashBuffer(hashData.getBytes());
 	}
 
-	private void hash() throws LoginException {
+	private void hash() throws IllegalArgumentException {
 		checksum = 0;
 		char[] keyarray = cdkey.toCharArray();
 		int r, n, n2, v, v2;
@@ -117,7 +117,7 @@ class Alpha16Decode extends Decode
 
 		v &= 0xFF;
 		if(v != checksum)
-			throw new LoginException("CDKey is invalid.");
+			throw new IllegalArgumentException("CDKey is invalid.");
 
 		for(int i = 15; i >= 0; i--) {
 			c = (byte) keyarray[i];

@@ -140,9 +140,12 @@ public class Game
 
         return exeInfo.toString();
     }
-
-    public int doCheckRevision(byte[] formula, String mpqFile) throws LoginException, IOException {
-        return CheckRevision.doCheckRevision(mpqFile, gameData.getFiles(game), formula);
+    
+    public int doCheckRevision(byte[] formula, String mpqFile) throws
+            LoginException, IOException
+    {
+        return CheckRevision.doCheckRevision(mpqFile, gameData.getFiles(game),
+                formula);
     }
 
     /**
@@ -166,7 +169,9 @@ public class Game
     /**
      * Gets the number of keys, using spawn, and key hash for the cdkey.
      */
-    public Buffer getKeyBuffer(String cdkey1, String cdkey2, int clientToken, int serverToken) throws LoginException {
+    public Buffer getKeyBuffer(String cdkey1, String cdkey2, int clientToken,
+            int serverToken) throws LoginException
+    {
         Buffer ret = new Buffer();
 
         if(!gameData.hasTwoKeys(game)) {
@@ -182,32 +187,27 @@ public class Game
         return ret;
     }
 
-    private Buffer getKeyBlock(String cdkey, int clientToken, int serverToken) throws LoginException {
+    private Buffer getKeyBlock(String cdkey, int clientToken, int serverToken)
+            throws LoginException
+    {
         Decode key = Decode.getDecoder(cdkey);
+        int[] hashedKey = key.getKeyHash(clientToken, serverToken);
                 
         Buffer ret = new Buffer();
-        // For Each Key:
-        // (DWORD) Key Length
-        ret.addDWord(cdkey.length());
-        // (DWORD) Product
-        ret.addDWord(key.getProduct());
-        // (DWORD) CDKEY Value 1
-        ret.addDWord(key.getVal1());
-        // (DWORD) Unknown (0)
-        ret.addDWord(0);
-        // (DWORD[5]) Hashed Key Data
-
-        int[] hashedKey = key.getKeyHash(clientToken, serverToken);
+        ret.addDWord(cdkey.length());       // (DWORD) Key Length
+        ret.addDWord(key.getProduct());     // (DWORD) Product
+        ret.addDWord(key.getVal1());        // (DWORD) Value 1
+        ret.addDWord(0);                    // (DWORD) Uknown
         for(int i = 0; i < 5; i++)
-            ret.addDWord(hashedKey[i]);
-
-        System.out.println("Buffer:\n" + ret.toString());
+            ret.addDWord(hashedKey[i]);     // (DWORD[5]) Hashed key data
 
         return ret;
     }
 
     public String toString() {
-        return game + " (" + getExeInfo() + ", Version Hash = 0x" + Integer.toHexString(gameData.getVersionHash(game))
-                + ", Version Byte = 0x" + Integer.toHexString(gameData.getVersionByte(game)) + ")";
+        return game + " (" + getExeInfo() + ", Version Hash = 0x"
+                + Integer.toHexString(gameData.getVersionHash(game))
+                + ", Version Byte = 0x" + Integer.toHexString(gameData
+                .getVersionByte(game)) + ")";
     }
 }

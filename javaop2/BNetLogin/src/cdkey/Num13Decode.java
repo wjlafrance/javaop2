@@ -20,16 +20,16 @@ class Num13Decode extends Decode
 
 	protected String cdkey;
 
-	public Num13Decode(String cdkey) throws LoginException {
+	public Num13Decode(String cdkey) throws IllegalArgumentException {
 		this.cdkey = cdkey;
 		if(cdkey == null || cdkey.isEmpty())
-			throw new LoginException("CD-Key is missing!");
+			throw new IllegalArgumentException("CD-Key is missing!");
 
 		if(cdkey.length() != 13)
-			throw new LoginException("CDKey is not 13 characters!");
+			throw new IllegalArgumentException("CDKey is not 13 characters!");
 
 		if(verify() == false)
-			throw new LoginException("CDKey is invalid: did not pass local checks");
+			throw new IllegalArgumentException("CDKey is invalid: did not pass local checks");
 
 		shuffle();
 		getFinalValue();
