@@ -13,6 +13,7 @@ import util.ServerSignature;
 
 import versioning.CheckRevisionResults;
 import versioning.Versioning;
+import versioning.GameData;
 
 import constants.ErrorLevelConstants;
 
@@ -37,7 +38,12 @@ public class SidAuthCheck
         pubFuncs.putLocalVariable("verFormula", SidAuthInfo.removeNtByteArray());
         
         // test signature, will throw exception if invalid
-        ServerSignature.checkSignature(pubFuncs, SidAuthInfo);
+        GameData g = new GameData();
+        if (g.hasServerSignature(pubFuncs.getLocalSetting(
+                "Battle.net Login Plugin", "game")))
+        {
+            ServerSignature.checkSignature(pubFuncs, SidAuthInfo);
+        }
         
         // Generate the client token, which is a random value
         pubFuncs.putLocalVariable("clientToken", (

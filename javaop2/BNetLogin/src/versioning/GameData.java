@@ -65,7 +65,7 @@ public class GameData {
      * Gets a boolean indicating if a certain game takes two keys to log in
      */
     public boolean hasTwoKeys(String game) {
-        if (game.equals("D2DV")) {
+        if (game.equals("D2XP")) {
             return true;
         } else if (game.equals("W3XP")) {
             return true;
@@ -74,6 +74,15 @@ public class GameData {
         }
     }
     
+    /**
+     * Gets a boolean indicating if a certain game has a server signature
+     */
+    public boolean hasServerSignature(String game) {
+        if (game.equals("WAR3") || game.equals("W3XP"))
+            return true;
+        else
+            return false;
+    }
     
     private void initialize() {
         games.getWrite("STAR", "Version byte", "D3");
