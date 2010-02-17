@@ -207,7 +207,6 @@ public class Buffer
         addByte((byte) ((d & 0x0000FF00) >> 8));
         addByte((byte) ((d & 0x00FF0000) >> 16));
         addByte((byte) ((d & 0xFF000000) >> 24));
-
     }
 
     public void addArray(int[] a)

@@ -29,50 +29,21 @@ public class SidAuthCheck
     public static BnetPacket getOutgoing(PublicExposedFunctions pubFuncs,
             BnetPacket SidAuthInfo) throws LoginException, PluginException
     {       
-        // (DWORD) Login Type
-        pubFuncs.putLocalVariable("loginType", SidAuthInfo.removeDWord());
-        // (DWORD) Server Token
+        pubFuncs.putLocalVariable("loginType",  SidAuthInfo.removeDWord());
         pubFuncs.putLocalVariable("serverToken", SidAuthInfo.removeDWord());
-        // (DWORD) UDP Value
-        pubFuncs.putLocalVariable("udpValue", SidAuthInfo.removeDWord());
-        // (FILETIME) MPQ file time
-        pubFuncs.putLocalVariable("mpqTime", SidAuthInfo.removeLong());
-        // (STRING) CRev MPQ
-        pubFuncs.putLocalVariable("mpqName", SidAuthInfo.removeNTString());
-        // (STRING) Formula 
+        pubFuncs.putLocalVariable("udpValue",   SidAuthInfo.removeDWord());
+        pubFuncs.putLocalVariable("mpqTime",    SidAuthInfo.removeLong());
+        pubFuncs.putLocalVariable("mpqName",    SidAuthInfo.removeNTString());
         pubFuncs.putLocalVariable("verFormula", SidAuthInfo.removeNtByteArray());
         
-        // check server signature
-        if((Integer)pubFuncs.getLocalVariable("loginType") == 2) {
-            boolean stopOnInvalidSignature = pubFuncs.getLocalSettingDefault("Battle.net Login Plugin",
-                    "Verify server", "true").equalsIgnoreCase("true");
-            if(SidAuthInfo.size() >= 128) {
-                boolean signatureValid = ServerSignature.CheckSignature(SidAuthInfo.removeBytes(128),
-                        (byte[]) pubFuncs.getLocalVariable("address"));
-                if (signatureValid) {
-                    pubFuncs.systemMessage(ErrorLevelConstants.INFO, "[BNET] Server signature is valid.");
-                } else {
-                    if (stopOnInvalidSignature) {
-                        throw new PluginException("[BNET] Server signature is invalid. " +
-                                "To connect anyway, change the setting \"Verify server\" to false.");
-                    } else {
-                        pubFuncs.systemMessage(ErrorLevelConstants.WARNING,
-                                "[BNET] Server signature is invalid.");
-                    }
-                }
-            } else {
-                if(stopOnInvalidSignature) {
-                    throw new PluginException("[BNET] Server signature is not present. " +
-                            "To connect anyway, change the setting \"Verify server\" to false.");
-                } else {
-                    pubFuncs.systemMessage(ErrorLevelConstants.WARNING,
-                            "[BNET] Server signature is not present.");
-                }
-            }
-        } // end signature check
+        // test signature, will throw exception if invalid
+        ServerSignature.checkSignature(pubFuncs, SidAuthInfo);
         
         // Generate the client token, which is a random value
-        pubFuncs.putLocalVariable("clientToken", ((int) (Math.random() * 0x7FFFFFFF) ^ (int) (Math.random() * 0x7FFFFFFF) ^ (int) (Math.random() * 0x7FFFFFFF)));
+        pubFuncs.putLocalVariable("clientToken", (
+            (int) (Math.random() * 0x7FFFFFFF) ^
+            (int) (Math.random() * 0x7FFFFFFF) ^
+            (int) (Math.random() * 0x7FFFFFFF)));
 
         // Display the variables if we're debugging, and because it looks cool
         pubFuncs.systemMessage(ErrorLevelConstants.DEBUG, "[BNET] Logon type:   0x" +
@@ -85,22 +56,24 @@ public class SidAuthCheck
                 Long.toHexString((Long)pubFuncs.getLocalVariable("mpqTime")));
         pubFuncs.systemMessage(ErrorLevelConstants.DEBUG, "[BNET] MPQ filename: " +
                 (String)pubFuncs.getLocalVariable("mpqName"));
-
+        
         
         // END PARSING SID_AUTH_INFO
         // -------------------------------------------------
         // CONSTRUCTING SID_AUTH_CHECK
         
         String game = pubFuncs.getLocalSetting("Battle.net Login Plugin", "game");
-
+        
         // Run check revision
         CheckRevisionResults crev = Versioning.CheckRevision(game, pubFuncs,
-            (String)pubFuncs.getLocalVariable("mpqName"),
-            (byte[])pubFuncs.getLocalVariable("verFormula"),
-            (Long)pubFuncs.getLocalVariable("mpqTime"));
+                (String)pubFuncs.getLocalVariable("mpqName"),
+                (byte[])pubFuncs.getLocalVariable("verFormula"),
+                (Long)pubFuncs.getLocalVariable("mpqTime"));
         
-        pubFuncs.systemMessage(ErrorLevelConstants.DEBUG, "[BNET] Version Hash: 0x" + Integer.toHexString(crev.verhash));
-        pubFuncs.systemMessage(ErrorLevelConstants.DEBUG, "[BNET] Checksum:     0x" + Integer.toHexString(crev.checksum));
+        pubFuncs.systemMessage(ErrorLevelConstants.DEBUG, "[BNET] Version Hash: 0x" +
+                Integer.toHexString(crev.verhash));
+        pubFuncs.systemMessage(ErrorLevelConstants.DEBUG, "[BNET] Checksum:     0x" +
+                Integer.toHexString(crev.checksum));
         
         // Build the SID_AUTH_CHECK packet
         BnetPacket authCheck = new BnetPacket(PacketConstants.SID_AUTH_CHECK);
