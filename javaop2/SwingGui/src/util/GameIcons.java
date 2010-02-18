@@ -19,8 +19,7 @@ public class GameIcons
 
     static
     {
-        icons.put("STAR", new ImageIcon(new byte[]
-        {
+        icons.put("STAR", new ImageIcon(new byte[] {
             (byte) 0x47, (byte) 0x49, (byte) 0x46, (byte) 0x38, (byte) 0x39, (byte) 0x61,
             (byte) 0x1c, (byte) 0x00, (byte) 0x0e, (byte) 0x00, (byte) 0xc4, (byte) 0x00,
             (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x49, (byte) 0x49,
@@ -85,8 +84,8 @@ public class GameIcons
             (byte) 0x91, (byte) 0x82, (byte) 0xb1, (byte) 0x02, (byte) 0x83, (byte) 0x81,
             (byte) 0x13, (byte) 0x0a, (byte) 0x46, (byte) 0x1c, (byte) 0xc0, (byte) 0x10,
             (byte) 0x02, (byte) 0x00, (byte) 0x3b }));
-        icons.put("SEXP", new ImageIcon(new byte[]
-        {
+            
+        icons.put("SEXP", new ImageIcon(new byte[] {
             (byte) 0x47, (byte) 0x49, (byte) 0x46, (byte) 0x38, (byte) 0x39, (byte) 0x61,
             (byte) 0x1c, (byte) 0x00, (byte) 0x0e, (byte) 0x00, (byte) 0xc4, (byte) 0x00,
             (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x6d, (byte) 0x92,
@@ -143,8 +142,8 @@ public class GameIcons
             (byte) 0xec, (byte) 0x0a, (byte) 0x12, (byte) 0xef, (byte) 0x18, (byte) 0x08,
             (byte) 0xf2, (byte) 0x17, (byte) 0xf5, (byte) 0x17, (byte) 0x18, (byte) 0x21,
             (byte) 0x00, (byte) 0x3b }));
-        icons.put("CHAT", new ImageIcon(new byte[]
-        {
+            
+        icons.put("CHAT", new ImageIcon(new byte[] {
             (byte) 0x47, (byte) 0x49, (byte) 0x46, (byte) 0x38, (byte) 0x39, (byte) 0x61,
             (byte) 0x1c, (byte) 0x00, (byte) 0x0e, (byte) 0x00, (byte) 0xc4, (byte) 0x00,
             (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x49, (byte) 0x6d,
@@ -199,8 +198,8 @@ public class GameIcons
             (byte) 0xde, (byte) 0x15, (byte) 0x35, (byte) 0x94, (byte) 0x30, (byte) 0x01,
             (byte) 0x04, (byte) 0xe7, (byte) 0x28, (byte) 0x0d, (byte) 0x25, (byte) 0x07,
             (byte) 0x16, (byte) 0x0d, (byte) 0x21, (byte) 0x00, (byte) 0x3b }));
-        icons.put("D2DV", new ImageIcon(new byte[]
-        {
+            
+        icons.put("D2DV", new ImageIcon(new byte[] {
             (byte) 0x47, (byte) 0x49, (byte) 0x46, (byte) 0x38, (byte) 0x39, (byte) 0x61,
             (byte) 0x1c, (byte) 0x00, (byte) 0x0e, (byte) 0x00, (byte) 0xb3, (byte) 0x00,
             (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0xdb, (byte) 0x00,
@@ -242,8 +241,8 @@ public class GameIcons
             (byte) 0x3c, (byte) 0x14, (byte) 0x15, (byte) 0xa9, (byte) 0x15, (byte) 0x89,
             (byte) 0x1e, (byte) 0xc0, (byte) 0x19, (byte) 0x15, (byte) 0x08, (byte) 0x45,
             (byte) 0x09, (byte) 0x11, (byte) 0x00, (byte) 0x3b }));
-        icons.put("D2XP", new ImageIcon(new byte[]
-        {
+            
+        icons.put("D2XP", new ImageIcon(new byte[] {
             (byte) 0x47, (byte) 0x49, (byte) 0x46, (byte) 0x38, (byte) 0x39, (byte) 0x61,
             (byte) 0x1c, (byte) 0x00, (byte) 0x0e, (byte) 0x00, (byte) 0xd5, (byte) 0x00,
             (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0xff, (byte) 0xdb,
@@ -319,8 +318,8 @@ public class GameIcons
             (byte) 0xb1, (byte) 0xe2, (byte) 0x03, (byte) 0x07, (byte) 0xf0, (byte) 0x22,
             (byte) 0x46, (byte) 0x48, (byte) 0x00, (byte) 0x2b, (byte) 0x22, (byte) 0xc7,
             (byte) 0x20, (byte) 0x00, (byte) 0x3b }));
-        icons.put("DRTL", new ImageIcon(new byte[]
-        {
+            
+        icons.put("DRTL", new ImageIcon(new byte[] {
             (byte) 0x47, (byte) 0x49, (byte) 0x46, (byte) 0x38, (byte) 0x39, (byte) 0x61,
             (byte) 0x1c, (byte) 0x00, (byte) 0x0e, (byte) 0x00, (byte) 0xc4, (byte) 0x00,
             (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0xb6, (byte) 0x00,
@@ -370,8 +369,8 @@ public class GameIcons
             (byte) 0x02, (byte) 0x12, (byte) 0xc4, (byte) 0xc6, (byte) 0x05, (byte) 0xc6,
             (byte) 0xc2, (byte) 0xc3, (byte) 0xc5, (byte) 0x0e, (byte) 0x0a, (byte) 0x21,
             (byte) 0x00, (byte) 0x3b }));
-        icons.put("JSTR", new ImageIcon(new byte[]
-        {
+            
+        icons.put("JSTR", new ImageIcon(new byte[] {
             (byte) 0x47, (byte) 0x49, (byte) 0x46, (byte) 0x38, (byte) 0x39, (byte) 0x61,
             (byte) 0x1c, (byte) 0x00, (byte) 0x0e, (byte) 0x00, (byte) 0xd5, (byte) 0x00,
             (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x92, (byte) 0xb6,
@@ -454,8 +453,8 @@ public class GameIcons
             (byte) 0x90, (byte) 0x98, (byte) 0x19, (byte) 0x81, (byte) 0x84, (byte) 0x05,
             (byte) 0x06, (byte) 0x08, (byte) 0x16, (byte) 0x9c, (byte) 0x40, (byte) 0x08,
             (byte) 0x02, (byte) 0x00, (byte) 0x3b }));
-        icons.put("OPS", new ImageIcon(new byte[]
-        {
+            
+        icons.put("OPS", new ImageIcon(new byte[] {
             (byte) 0x47, (byte) 0x49, (byte) 0x46, (byte) 0x38, (byte) 0x39, (byte) 0x61,
             (byte) 0x1c, (byte) 0x00, (byte) 0x0e, (byte) 0x00, (byte) 0xd5, (byte) 0x00,
             (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x66, (byte) 0x00,
@@ -522,8 +521,8 @@ public class GameIcons
             (byte) 0x5a, (byte) 0xc4, (byte) 0xb6, (byte) 0x0d, (byte) 0x0e, (byte) 0xdc,
             (byte) 0xe1, (byte) 0xdd, (byte) 0xa5, (byte) 0xd8, (byte) 0x00, (byte) 0x41,
             (byte) 0x00, (byte) 0x3b }));
-        icons.put("SPEAKER", new ImageIcon(new byte[]
-        {
+            
+        icons.put("SPEAKER", new ImageIcon(new byte[] {
             (byte) 0x47, (byte) 0x49, (byte) 0x46, (byte) 0x38, (byte) 0x39, (byte) 0x61,
             (byte) 0x1c, (byte) 0x00, (byte) 0x0e, (byte) 0x00, (byte) 0xd5, (byte) 0x00,
             (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x6d, (byte) 0x49,
@@ -603,8 +602,8 @@ public class GameIcons
             (byte) 0x6c, (byte) 0xe3, (byte) 0xb7, (byte) 0x4f, (byte) 0x00, (byte) 0x85,
             (byte) 0x06, (byte) 0x06, (byte) 0x27, (byte) 0x9c, (byte) 0x04, (byte) 0x10,
             (byte) 0x04, (byte) 0x00, (byte) 0x3b }));
-        icons.put("SQUELCHED", new ImageIcon(new byte[]
-        {
+            
+        icons.put("SQUELCHED", new ImageIcon(new byte[] {
             (byte) 0x47, (byte) 0x49, (byte) 0x46, (byte) 0x38, (byte) 0x39, (byte) 0x61,
             (byte) 0x1c, (byte) 0x00, (byte) 0x0e, (byte) 0x00, (byte) 0xc4, (byte) 0x00,
             (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0xdb, (byte) 0x00,
@@ -649,8 +648,8 @@ public class GameIcons
             (byte) 0x40, (byte) 0x27, (byte) 0x09, (byte) 0x94, (byte) 0x42, (byte) 0x2f,
             (byte) 0x98, (byte) 0x7a, (byte) 0x43, (byte) 0x06, (byte) 0x6a, (byte) 0x25,
             (byte) 0x21, (byte) 0x00, (byte) 0x3b }));
-        icons.put("SSHR", new ImageIcon(new byte[]
-        {
+            
+        icons.put("SSHR", new ImageIcon(new byte[] {
             (byte) 0x47, (byte) 0x49, (byte) 0x46, (byte) 0x38, (byte) 0x39, (byte) 0x61,
             (byte) 0x1c, (byte) 0x00, (byte) 0x0e, (byte) 0x00, (byte) 0xc4, (byte) 0x00,
             (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x55, (byte) 0x49, (byte) 0x6d,
@@ -703,8 +702,8 @@ public class GameIcons
             (byte) 0x2d, (byte) 0x0e, (byte) 0x0b, (byte) 0x2a, (byte) 0x01, (byte) 0x27,
             (byte) 0x09, (byte) 0x15, (byte) 0xdd, (byte) 0x15, (byte) 0x09, (byte) 0x21,
             (byte) 0x00, (byte) 0x3b }));
-        icons.put("W2BN", new ImageIcon(new byte[]
-        {
+            
+        icons.put("W2BN", new ImageIcon(new byte[] {
             (byte) 0x47, (byte) 0x49, (byte) 0x46, (byte) 0x38, (byte) 0x39, (byte) 0x61,
             (byte) 0x1c, (byte) 0x00, (byte) 0x0e, (byte) 0x00, (byte) 0xd5, (byte) 0x00,
             (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0xb6, (byte) 0x00,
@@ -795,8 +794,8 @@ public class GameIcons
             (byte) 0xa2, (byte) 0xa2, (byte) 0xac, (byte) 0x58, (byte) 0x69, (byte) 0x68,
             (byte) 0xa1, (byte) 0xa4, (byte) 0x7b, (byte) 0xfa, (byte) 0xb4, (byte) 0x41,
             (byte) 0x10, (byte) 0x00, (byte) 0x3b }));
-        icons.put("W3XP", new ImageIcon(new byte[]
-        {
+            
+        icons.put("W3XP", new ImageIcon(new byte[] {
             (byte) 0x47, (byte) 0x49, (byte) 0x46, (byte) 0x38, (byte) 0x39, (byte) 0x61,
             (byte) 0x1c, (byte) 0x00, (byte) 0x0e, (byte) 0x00, (byte) 0xe6, (byte) 0x00,
             (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0xdb, (byte) 0x92,
@@ -924,8 +923,8 @@ public class GameIcons
             (byte) 0xae, (byte) 0x2d, (byte) 0x0c, (byte) 0x32, (byte) 0xd0, (byte) 0xa1,
             (byte) 0xf6, (byte) 0x82, (byte) 0x0e, (byte) 0xb7, (byte) 0x3b, (byte) 0x04,
             (byte) 0x02, (byte) 0x00, (byte) 0x3b }));
-        icons.put("WAR3", new ImageIcon(new byte[]
-        {
+            
+        icons.put("WAR3", new ImageIcon(new byte[] {
             (byte) 0x47, (byte) 0x49, (byte) 0x46, (byte) 0x38, (byte) 0x39, (byte) 0x61,
             (byte) 0x1c, (byte) 0x00, (byte) 0x0e, (byte) 0x00, (byte) 0xd5, (byte) 0x00,
             (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0xb6, (byte) 0x24,
@@ -1017,8 +1016,8 @@ public class GameIcons
             (byte) 0x40, (byte) 0x40, (byte) 0xa8, (byte) 0x0a, (byte) 0xe1, (byte) 0x4d,
             (byte) 0x04, (byte) 0x13, (byte) 0x73, (byte) 0xc8, (byte) 0x36, (byte) 0x98,
             (byte) 0xdb, (byte) 0x20, (byte) 0x08, (byte) 0x00, (byte) 0x3b }));
-        icons.put("BLIZZARD", new ImageIcon(new byte[]
-        {
+            
+        icons.put("BLIZZARD", new ImageIcon(new byte[] {
             (byte) 0x47, (byte) 0x49, (byte) 0x46, (byte) 0x38, (byte) 0x39, (byte) 0x61,
             (byte) 0x14, (byte) 0x00, (byte) 0x0b, (byte) 0x00, (byte) 0xc4, (byte) 0x1f,
             (byte) 0x00, (byte) 0x04, (byte) 0xa4, (byte) 0xfa, (byte) 0x16, (byte) 0x84,
@@ -1067,9 +1066,8 @@ public class GameIcons
             (byte) 0x8d, (byte) 0x15, (byte) 0xbf, (byte) 0x41, (byte) 0x41, (byte) 0x05,
             (byte) 0x08, (byte) 0xbf, (byte) 0xaa, (byte) 0x1b, (byte) 0x21, (byte) 0x00,
             (byte) 0x3b }));
-
-        icons.put("1g", new ImageIcon(new byte[]
-        {
+        
+        icons.put("1G", new ImageIcon(new byte[] {
             (byte) 0x47, (byte) 0x49, (byte) 0x46, (byte) 0x38, (byte) 0x39, (byte) 0x61,
             (byte) 0x1c, (byte) 0x00, (byte) 0x0d, (byte) 0x00, (byte) 0xa1, (byte) 0x04,
             (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x18, (byte) 0x98,
@@ -1086,8 +1084,8 @@ public class GameIcons
             (byte) 0x7d, (byte) 0x4d, (byte) 0x28, (byte) 0x2e, (byte) 0x64, (byte) 0x99,
             (byte) 0x58, (byte) 0xe8, (byte) 0x12, (byte) 0xad, (byte) 0xee, (byte) 0xfb,
             (byte) 0x15, (byte) 0x00, (byte) 0x3b, }));
-        icons.put("2g", new ImageIcon(new byte[]
-        {
+            
+        icons.put("2G", new ImageIcon(new byte[] {
             (byte) 0x47, (byte) 0x49, (byte) 0x46, (byte) 0x38, (byte) 0x39, (byte) 0x61,
             (byte) 0x1c, (byte) 0x00, (byte) 0x0d, (byte) 0x00, (byte) 0xa1, (byte) 0x04,
             (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x18, (byte) 0x98,
@@ -1106,8 +1104,8 @@ public class GameIcons
             (byte) 0x26, (byte) 0x1a, (byte) 0x30, (byte) 0xc7, (byte) 0x93, (byte) 0x04,
             (byte) 0x50, (byte) 0xf6, (byte) 0xce, (byte) 0x87, (byte) 0x05, (byte) 0x00,
             (byte) 0x3b, }));
-        icons.put("3y", new ImageIcon(new byte[]
-        {
+            
+        icons.put("3Y", new ImageIcon(new byte[] {
             (byte) 0x47, (byte) 0x49, (byte) 0x46, (byte) 0x38, (byte) 0x39, (byte) 0x61,
             (byte) 0x1c, (byte) 0x00, (byte) 0x0d, (byte) 0x00, (byte) 0xa1, (byte) 0x04,
             (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x80, (byte) 0x80,
@@ -1127,8 +1125,8 @@ public class GameIcons
             (byte) 0x9f, (byte) 0x1c, (byte) 0xb0, (byte) 0xef, (byte) 0x32, (byte) 0x05,
             (byte) 0x00, (byte) 0x02, (byte) 0x65, (byte) 0xc4, (byte) 0x62, (byte) 0xb1,
             (byte) 0x00, (byte) 0x00, (byte) 0x3b, }));
-        icons.put("4y", new ImageIcon(new byte[]
-        {
+            
+        icons.put("4Y", new ImageIcon(new byte[] {
             (byte) 0x47, (byte) 0x49, (byte) 0x46, (byte) 0x38, (byte) 0x39, (byte) 0x61,
             (byte) 0x1c, (byte) 0x00, (byte) 0x0d, (byte) 0x00, (byte) 0xa1, (byte) 0x04,
             (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x80, (byte) 0x80,
@@ -1149,8 +1147,8 @@ public class GameIcons
             (byte) 0xf9, (byte) 0xfd, (byte) 0x32, (byte) 0x98, (byte) 0xa2, (byte) 0x05,
             (byte) 0xb3, (byte) 0x4a, (byte) 0x2a, (byte) 0x97, (byte) 0x87, (byte) 0x02,
             (byte) 0x00, (byte) 0x3b, }));
-        icons.put("5r", new ImageIcon(new byte[]
-        {
+            
+        icons.put("5R", new ImageIcon(new byte[] {
             (byte) 0x47, (byte) 0x49, (byte) 0x46, (byte) 0x38, (byte) 0x39, (byte) 0x61,
             (byte) 0x1c, (byte) 0x00, (byte) 0x0d, (byte) 0x00, (byte) 0xc2, (byte) 0x05,
             (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x90, (byte) 0x00,
@@ -1175,8 +1173,8 @@ public class GameIcons
             (byte) 0xa7, (byte) 0x68, (byte) 0x49, (byte) 0x2a, (byte) 0xe1, (byte) 0x58,
             (byte) 0x35, (byte) 0xd7, (byte) 0x89, (byte) 0x76, (byte) 0xcb, (byte) 0xdd,
             (byte) 0x26, (byte) 0x00, (byte) 0x00, (byte) 0x3b, }));
-        icons.put("6r", new ImageIcon(new byte[]
-        {
+            
+        icons.put("6R", new ImageIcon(new byte[] {
             (byte) 0x47, (byte) 0x49, (byte) 0x46, (byte) 0x38, (byte) 0x39, (byte) 0x61,
             (byte) 0x1c, (byte) 0x00, (byte) 0x0d, (byte) 0x00, (byte) 0xc2, (byte) 0x05,
             (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x90, (byte) 0x00,
@@ -1203,8 +1201,7 @@ public class GameIcons
             (byte) 0x7a, (byte) 0xbe, (byte) 0x99, (byte) 0x89, (byte) 0x78, (byte) 0x4c,
             (byte) 0x8e, (byte) 0x24, (byte) 0x00, (byte) 0x00, (byte) 0x3b, }));
 
-        icons.put("SYSOP", new ImageIcon(new byte[]
-        {
+        icons.put("SYSOP", new ImageIcon(new byte[] {
             (byte) 0x47, (byte) 0x49, (byte) 0x46, (byte) 0x38, (byte) 0x39, (byte) 0x61,
             (byte) 0x1c, (byte) 0x00, (byte) 0x0e, (byte) 0x00, (byte) 0xe7, (byte) 0xce,
             (byte) 0x00, (byte) 0x00, (byte) 0x01, (byte) 0x00, (byte) 0x02, (byte) 0x00,
@@ -1412,8 +1409,7 @@ public class GameIcons
             (byte) 0x11, (byte) 0xc6, (byte) 0x1d, (byte) 0x75, (byte) 0xfc, (byte) 0xe1,
             (byte) 0x44, (byte) 0x23, (byte) 0x01, (byte) 0x01, (byte) 0x00, (byte) 0x3b }));
 
-        icons.put("DISCONNECTED", new ImageIcon(new byte[]
-        {
+        icons.put("DISCONNECTED", new ImageIcon(new byte[] {
             (byte) 0x47, (byte) 0x49, (byte) 0x46, (byte) 0x38, (byte) 0x39, (byte) 0x61,
             (byte) 0x12, (byte) 0x00, (byte) 0x0b, (byte) 0x00, (byte) 0xc4, (byte) 0x00,
             (byte) 0x00, (byte) 0xff, (byte) 0x00, (byte) 0x00, (byte) 0x80, (byte) 0x80,
@@ -1454,8 +1450,7 @@ public class GameIcons
             (byte) 0x8d, (byte) 0x8e, (byte) 0x8f, (byte) 0x90, (byte) 0x8f, (byte) 0x21,
             (byte) 0x00, (byte) 0x3b, }));
 
-        icons.put("DSHR", new ImageIcon(new byte[]
-        {
+        icons.put("DSHR", new ImageIcon(new byte[] {
             (byte) 0xff, (byte) 0xd8, (byte) 0xff, (byte) 0xe0, (byte) 0x00, (byte) 0x10,
             (byte) 0x4a, (byte) 0x46, (byte) 0x49, (byte) 0x46, (byte) 0x00, (byte) 0x01,
             (byte) 0x01, (byte) 0x01, (byte) 0x00, (byte) 0x48, (byte) 0x00, (byte) 0x48,
@@ -1568,73 +1563,72 @@ public class GameIcons
 
     }
 
-    public static ImageIcon getIcon(String client)
-    {
+    public static ImageIcon getIcon(String client) {
+        
         client = getCodeFromLongName(client);
-
-        ImageIcon icon = (ImageIcon) icons.get(client);
-        if (icon == null)
-            icon = (ImageIcon) icons.get(new StringBuffer(client).reverse().toString());
-
-        if (icon == null)
-            System.err.println("Error: client icon not found: " + client);
-
-        return icon;
+        return (ImageIcon) icons.get(client);
     }
     
     /**
-	 * Takes a user-inputted game name and shortens it to the 4-letter code.
-	 * @throws LoginException Long name not recognized
-	 */
-	private static String getCodeFromLongName(String game) {
-            if (game == null)
-                return "";
+     * Takes a user-inputted game name and shortens it to the 4-letter code.
+     */
+    private static String getCodeFromLongName(String game) {
+        if (game == null)
+            return "";
 
-		game = game.toLowerCase();
-		game = game.replace("iiii", "4"); // who knows?
-		game = game.replace("iii", "3");
-		game = game.replace("ii", "2");
-		game = game.replace(" ", "");
-		game = game.replace(":", "");
-		
-		// StarCraft
-		if (game.equals("starcraft")
-		|| game.equals("star")
-		|| game.equals("sc"))
-			return "STAR";
-		// StarCraft: Brood War
-		if (game.equals("sexp")
-		|| game.equals("broodwar"))
-			return "SEXP";
-		// WarCraft II: Battle.net Edition
-		if (game.equals("w2bn")
-		|| game.equals("war2")
-		|| game.equals("warcraft2")
-		|| game.equals("warcraft2bne")
-		|| game.equals("wc2"))
-			return "W2BN";
-		// Diablo II
-		if (game.equals("d2dv")
-	    || game.equals("d2")
-		|| game.equals("diablo2"))
-			return "D2DV";
-		// Diablo II: Lord of Destruction
-		if (game.equals("d2xp")
-		|| game.equals("lod")
-		|| game.equals("diablo2lod"))
-			return "D2XP";
-		// WarCraft III: Reign of Chaos
-		if (game.equals("war3")
-		|| game.equals("warcraft3")
-		|| game.equals("warcraft3roc"))
-			return "WAR3";
-		// WarCraft III: The Frozen Throne
-		if(game.equals("w3xp")
-		|| game.equals("tft")
-		|| game.equals("warcraft3tft"))
-			return "W3XP";
-		
-		return "";
-	}
+        game = game.toLowerCase();
+        game = game.replace("iiii", "4"); // who knows?
+        game = game.replace("iii", "3");
+        game = game.replace("ii", "2");
+        game = game.replace(" ", "");
+        game = game.replace(":", "");
+        
+        // StarCraft
+        if (game.equals("star")
+        || game.equals("rats")
+        || game.equals("starcraft")
+        || game.equals("sc"))
+            return "STAR";
+        // StarCraft: Brood War
+        if (game.equals("sexp")
+        || game.equals("pxes")
+        || game.equals("broodwar")
+        || game.equals("bw"))
+            return "SEXP";
+        // WarCraft II: Battle.net Edition
+        if (game.equals("w2bn")
+        || game.equals("nb2w")
+        || game.equals("war2")
+        || game.equals("warcraft2")
+        || game.equals("warcraft2bne")
+        || game.equals("wc2"))
+            return "W2BN";
+        // Diablo II
+        if (game.equals("d2dv")
+        || game.equals("vd2d")
+        || game.equals("d2")
+        || game.equals("diablo2"))
+            return "D2DV";
+        // Diablo II: Lord of Destruction
+        if (game.equals("d2xp")
+        || game.equals("px2d")
+        || game.equals("lod")
+        || game.equals("diablo2lod"))
+            return "D2XP";
+        // WarCraft III: Reign of Chaos
+        if (game.equals("war3")
+        || game.equals("3raw")
+        || game.equals("warcraft3")
+        || game.equals("warcraft3roc"))
+            return "WAR3";
+        // WarCraft III: The Frozen Throne
+        if(game.equals("w3xp")
+        || game.equals("px3w")
+        || game.equals("tft")
+        || game.equals("warcraft3tft"))
+            return "W3XP";
+        
+        return game.toUpperCase();
+    }
 
 }

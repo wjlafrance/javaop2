@@ -33,34 +33,37 @@ public class Game {
     public Game(String game) throws LoginException {
         this.game = getCodeFromLongName(game);
     }
-    
+
     /**
      * Takes a user-inputted game name and shortens it to the 4-letter code.
      * @throws LoginException Long name not recognized
      */
-    private String getCodeFromLongName(String game) throws LoginException {
+    private static String getCodeFromLongName(String game) {
         if (game == null)
             return "";
-        
+
         game = game.toLowerCase();
         game = game.replace("iiii", "4"); // who knows?
         game = game.replace("iii", "3");
         game = game.replace("ii", "2");
         game = game.replace(" ", "");
         game = game.replace(":", "");
-        
+
         // StarCraft
-        if (game.equals("starcraft")
-        || game.equals("star")
+        if (game.equals("star")
+        || game.equals("rats")
+        || game.equals("starcraft")
         || game.equals("sc"))
             return "STAR";
         // StarCraft: Brood War
         if (game.equals("sexp")
+        || game.equals("pxes")
         || game.equals("broodwar")
         || game.equals("bw"))
             return "SEXP";
         // WarCraft II: Battle.net Edition
         if (game.equals("w2bn")
+        || game.equals("nb2w")
         || game.equals("war2")
         || game.equals("warcraft2")
         || game.equals("warcraft2bne")
@@ -68,27 +71,30 @@ public class Game {
             return "W2BN";
         // Diablo II
         if (game.equals("d2dv")
+        || game.equals("vd2d")
         || game.equals("d2")
         || game.equals("diablo2"))
             return "D2DV";
         // Diablo II: Lord of Destruction
         if (game.equals("d2xp")
+        || game.equals("px2d")
         || game.equals("lod")
-        || game.equals("diablo2:lod"))
+        || game.equals("diablo2lod"))
             return "D2XP";
         // WarCraft III: Reign of Chaos
         if (game.equals("war3")
+        || game.equals("3raw")
         || game.equals("warcraft3")
         || game.equals("warcraft3roc"))
             return "WAR3";
         // WarCraft III: The Frozen Throne
         if(game.equals("w3xp")
+        || game.equals("px3w")
         || game.equals("tft")
         || game.equals("warcraft3tft"))
             return "W3XP";
-        
-        throw new LoginException("Game name not understood - " + game +
-                "\nValid options: " + getGames().toString());
+
+        return "";
     }
     
     public int getVersionByte() {

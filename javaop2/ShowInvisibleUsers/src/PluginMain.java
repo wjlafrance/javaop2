@@ -79,7 +79,7 @@ public class PluginMain extends GenericPluginInterface implements EventCallback
                 + "to detect invisible users by forcing status updates.";
     }
 
-    public Properties getDefaultSettingValues() 
+    public Properties getDefaultSettingValues() {
         Properties p = new Properties();
         p.setProperty("Check channels", "true");
         p.setProperty("Periodically check the current channel", "false");
@@ -110,9 +110,7 @@ public class PluginMain extends GenericPluginInterface implements EventCallback
         {
             return new JCheckBox("", value.equalsIgnoreCase("true") ? true
                     : false);
-        }
-        else if (settingName.equalsIgnoreCase("Periodical check delay"))
-        {
+        } else if (settingName.equalsIgnoreCase("Periodical check delay")) {
             return new JTextFieldNumeric(value);
         }
 
@@ -194,7 +192,7 @@ public class PluginMain extends GenericPluginInterface implements EventCallback
         if (out.getLocalSettingDefault(getName(), "check channels", "false")
                 .equalsIgnoreCase("true"))
         {
-            String game = out.getLocalVariable("game");
+            String game = (String)out.getLocalVariable("game");
             if (game.equals("D2DV") || game.equals("D2XP")) {
                 out.sendTextPriority("/unsquelch *"
                         + out.getLocalVariable("username"), PRIORITY_LOW);
@@ -209,9 +207,9 @@ public class PluginMain extends GenericPluginInterface implements EventCallback
         public void run() {
             try {
                 if (out.getLocalSettingDefault(getName(), "check channels",
-                        "false") .equalsIgnoreCase("true"))
+                        "false").equalsIgnoreCase("true"))
                 {
-                    String game = out.getLocalVariable("game");
+                    String game = (String)out.getLocalVariable("game");
                     if (game.equals("D2DV") || game.equals("D2XP")) {
                         out.sendTextPriority("/unsquelch *"
                                 + out.getLocalVariable("username"),

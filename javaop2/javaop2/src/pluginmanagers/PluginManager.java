@@ -94,7 +94,6 @@ public class PluginManager {
 
     private static void loadFile(String url, boolean load) {
         try {
-            System.out.println("Opening JAR: " + url);
             loadFile(new URL(url), load);
         } catch (MalformedURLException e) {
             try {

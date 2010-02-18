@@ -188,13 +188,13 @@ class Model extends AbstractTableModel
         {
             if (name.length() > 0)
                 row.setName(name);
-
+            
             if (client.length() > 0)
                 row.setClient(client);
-
+            
             row.setPing(ping);
             row.setFlags(flags);
-
+            
             if (opsOnTop && (flags & Flags.USER_CHANNELOP) > 0 || (flags & Flags.USER_BLIZZREP) > 0
                     || (flags & Flags.USER_ADMIN) > 0)
             {
@@ -358,9 +358,7 @@ class Model extends AbstractTableModel
 
         public ImageIcon getGameIcon()
         {
-            if (client == null || client.isEmpty())
-                return null;
-            else if ((flags & Flags.USER_SQUELCHED) > 0)
+            if ((flags & Flags.USER_SQUELCHED) > 0)
                 return GameIcons.getIcon("SQUELCHED");
             else if ((flags & Flags.USER_ADMIN) > 0)
                 return GameIcons.getIcon("SYSOP");
@@ -371,14 +369,16 @@ class Model extends AbstractTableModel
             else if ((flags & Flags.USER_CHANNELOP) > 0)
                 return GameIcons.getIcon("OPS");
             else
-                return GameIcons.getIcon(client);
+                if (client != null && !client.isEmpty())
+                    return GameIcons.getIcon(client);
+                else
+                    return null;
         }
 
         public ImageIcon getPingIcon()
         {
             if ((flags & Flags.USER_NOUDP) > 0)
                 return GameIcons.getIcon("DISCONNECTED");
-
             else if (ping == 0)
                 return null;
             else if (ping < 200)

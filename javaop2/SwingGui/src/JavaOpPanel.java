@@ -365,13 +365,6 @@ public class JavaOpPanel extends JInternalFrame implements FocusListener,
         		.equalsIgnoreCase("true"))
         {
             Random r = new Random(message.hashCode());
-            /*int blank = r.nextInt(3);
-            String green = blank == 0 ? "00" : PadString.padHex(r.nextInt(130)
-            		+ 55, 2);
-            String blue = blank == 1 ? "00" : PadString.padHex(r.nextInt(130)
-            		+ 55, 2);
-            String red = blank == 2 ? "00" : PadString.padHex(r.nextInt(130)
-            		+ 55, 2);*/
             String green = PadString.padHex(r.nextInt(115) + 70, 2);
             String blue = PadString.padHex(r.nextInt(115) + 70, 2);
             String red = PadString.padHex(r.nextInt(115) + 70, 2);
