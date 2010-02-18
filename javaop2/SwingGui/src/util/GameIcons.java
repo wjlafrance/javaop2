@@ -1,12 +1,12 @@
 /*
  * Created on Jan 17, 2005 By iago
  */
-package util;
+package com.javaop.SwingGui.util;
 
 import java.util.Hashtable;
 import javax.swing.ImageIcon;
 
-import exceptions.LoginException;
+import com.javaop.exceptions.LoginException;
 
 
 /**

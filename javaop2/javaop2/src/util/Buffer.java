@@ -1,4 +1,4 @@
-package util;
+package com.javaop.util;
 
 /**
  * Buffer.java This class makes it easy for the programmer to create an array of

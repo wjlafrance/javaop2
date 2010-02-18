@@ -1,7 +1,7 @@
 /*
  * Created on Apr 19, 2005 By iago
  */
-package gui;
+package com.javaop.SwingGui.gui;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -18,12 +18,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import constants.PacketConstants;
-
-import util.BnetPacket;
-import util.gui.Gui;
-
-import callback_interfaces.PublicExposedFunctions;
+import com.javaop.constants.PacketConstants;
+import com.javaop.util.BnetPacket;
+import com.javaop.util.gui.Gui;
+import com.javaop.callback_interfaces.PublicExposedFunctions;
 
 
 public class ProfileDisplay extends JFrame implements WindowListener

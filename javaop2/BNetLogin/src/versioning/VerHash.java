@@ -1,4 +1,4 @@
-package versioning;
+package com.javaop.BNetLogin.versioning;
 
 import java.io.File;
 import java.io.FileInputStream;

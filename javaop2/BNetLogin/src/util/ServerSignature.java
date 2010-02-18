@@ -1,13 +1,10 @@
-package util;
+package com.javaop.BNetLogin.util;
 
-import util.BnetPacket;
-
-import exceptions.LoginException;
-
-import callback_interfaces.PublicExposedFunctions;
-
-import constants.ErrorLevelConstants;
-
+import com.javaop.util.BnetPacket;
+import com.javaop.exceptions.LoginException;
+import com.javaop.callback_interfaces.PublicExposedFunctions;
+import com.javaop.constants.ErrorLevelConstants;
+import com.javaop.util.BigIntegerEx;
 
 public class ServerSignature {
     

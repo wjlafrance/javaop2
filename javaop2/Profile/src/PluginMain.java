@@ -1,3 +1,5 @@
+package com.javaop.Profile;
+
 import java.io.IOException;
 import java.util.Date;
 import java.util.Hashtable;
@@ -6,19 +8,19 @@ import java.util.Properties;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 
-import callback_interfaces.PluginCallbackRegister;
-import callback_interfaces.PublicExposedFunctions;
-import callback_interfaces.StaticExposedFunctions;
-import exceptions.CommandUsedIllegally;
-import exceptions.CommandUsedImproperly;
-import exceptions.PluginException;
-import plugin_interfaces.CommandCallback;
-import plugin_interfaces.EventCallback;
-import plugin_interfaces.GenericPluginInterface;
-import plugin_interfaces.PacketCallback;
-import util.BnetPacket;
-import util.FileTime;
-import util.TimeReader;
+import com.javaop.callback_interfaces.PluginCallbackRegister;
+import com.javaop.callback_interfaces.PublicExposedFunctions;
+import com.javaop.callback_interfaces.StaticExposedFunctions;
+import com.javaop.exceptions.CommandUsedIllegally;
+import com.javaop.exceptions.CommandUsedImproperly;
+import com.javaop.exceptions.PluginException;
+import com.javaop.plugin_interfaces.CommandCallback;
+import com.javaop.plugin_interfaces.EventCallback;
+import com.javaop.plugin_interfaces.GenericPluginInterface;
+import com.javaop.plugin_interfaces.PacketCallback;
+import com.javaop.util.BnetPacket;
+import com.javaop.util.FileTime;
+import com.javaop.util.TimeReader;
 
 
 /*

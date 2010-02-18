@@ -1,16 +1,16 @@
-import exceptions.*;
-import packets.*;
+package com.javaop.BNetLogin;
 
-import password.BrokenSHA1;
-import password.DoubleHash;
 
-import callback_interfaces.PublicExposedFunctions;
+import com.javaop.callback_interfaces.PublicExposedFunctions;
+import com.javaop.exceptions.*;
+import com.javaop.util.BnetPacket;
+import com.javaop.util.Buffer;
 
-import util.BnetPacket;
-import util.Buffer;
-
-import constants.ErrorLevelConstants;
-import constants.PacketConstants;
+import com.javaop.constants.ErrorLevelConstants;
+import com.javaop.constants.PacketConstants;
+import com.javaop.BNetLogin.password.BrokenSHA1;
+import com.javaop.BNetLogin.password.DoubleHash;
+import com.javaop.BNetLogin.packets.*;
 
 /*
  * Created on Dec 9, 2004 By iago

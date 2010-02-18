@@ -1,9 +1,9 @@
-package plugin_interfaces;
+package com.javaop.plugin_interfaces;
 
 import java.io.IOException;
 
-import exceptions.PluginException;
-import util.BnetPacket;
+import com.javaop.exceptions.PluginException;
+import com.javaop.util.BnetPacket;
 
 
 /*

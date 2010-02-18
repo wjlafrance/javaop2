@@ -1,7 +1,7 @@
 /*
  * Created on Mar 25, 2005 By iago
  */
-package util;
+package com.javaop.util;
 
 public class StringEncoder
 {

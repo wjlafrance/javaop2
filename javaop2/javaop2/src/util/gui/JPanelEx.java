@@ -2,7 +2,7 @@
  * Created on Mar 20, 2005 By iago
  */
 
-package util.gui;
+package com.javaop.util.gui;
 
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;

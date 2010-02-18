@@ -1,3 +1,5 @@
+package com.javaop.War3Clan;
+
 /*
  * Created on Feb 17, 2005 By iago
  */

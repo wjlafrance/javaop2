@@ -1,7 +1,7 @@
 /*
  * Created on Dec 2, 2004 By iago
  */
-package plugin_interfaces;
+package com.javaop.plugin_interfaces;
 
 /**
  * These could be handy for logging or such, or figuring out what is confusing

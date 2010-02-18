@@ -1,3 +1,5 @@
+package com.javaop.SwingGui;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
@@ -12,10 +14,9 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.UIManager;
 
-import util.gui.Gui;
-
-import callback_interfaces.PublicExposedFunctions;
-import callback_interfaces.StaticExposedFunctions;
+import com.javaop.util.gui.Gui;
+import com.javaop.callback_interfaces.PublicExposedFunctions;
+import com.javaop.callback_interfaces.StaticExposedFunctions;
 
 
 /**

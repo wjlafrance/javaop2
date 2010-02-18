@@ -3,7 +3,7 @@
  * 
  * By iago
  */
-package util;
+package com.javaop.util;
 
 public class TimeReader
 {

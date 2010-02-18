@@ -41,6 +41,7 @@
         <delete dir="Version/bin"/>
         <delete dir="War3Clan/bin"/>
         <delete dir="javaop2/bin"/>
+        <delete dir="jar"/>
     </target>
     
     <target name="build">
@@ -168,51 +169,125 @@
         <mkdir dir="${path}" />
         <mkdir dir="${pluginpath}"/>
         <jar destfile="${path}/JavaOp2.jar" basedir="javaop2/bin">
-            <manifest><attribute name="Main-Class" value="_main.BotStart"/></manifest>
+            <manifest><attribute name="Main-Class" value="com.javaop._main.BotStart"/></manifest>
         </jar>
         <jar destfile="${path}/CommandlineConfigure.jar" basedir="javaop2/bin">
-            <manifest><attribute name="Main-Class" value="_main.CommandlineConfigure"/></manifest>
+            <manifest><attribute name="Main-Class" value="com.javaop._main.CommandlineConfigure"/></manifest>
         </jar>
         <jar destfile="${path}/ConfigurePlugins.jar" basedir="javaop2/bin">
-            <manifest><attribute name="Main-Class" value="_main.ConfigurePlugins"/></manifest>
+            <manifest><attribute name="Main-Class" value="com.javaop._main.ConfigurePlugins"/></manifest>
         </jar>
-        <jar destfile="${pluginpath}/Advertisements.jar" basedir="Advertisements/bin" />
-        <jar destfile="${pluginpath}/Alias.jar" basedir="Alias/bin" />
-        <jar destfile="${pluginpath}/AntiFlood.jar" basedir="AntiFlood/bin" />
-        <jar destfile="${pluginpath}/AutoRejoin.jar" basedir="AutoRejoin/bin" />
-        <jar destfile="${pluginpath}/Autoban.jar" basedir="Autoban/bin" />
-        <jar destfile="${pluginpath}/AwayMessage.jar" basedir="AwayMessage/bin" />
-        <jar destfile="${pluginpath}/BNetLogin.jar" basedir="BNetLogin/bin" />
-        <jar destfile="${pluginpath}/BasicCommands.jar" basedir="BasicCommands/bin" />
-        <jar destfile="${pluginpath}/BotMail.jar" basedir="BotMail/bin" />
-        <jar destfile="${pluginpath}/ChannelProtection.jar" basedir="ChannelProtection/bin" />
-        <jar destfile="${pluginpath}/ChannelList.jar" basedir="ChannelList/bin" />
-        <jar destfile="${pluginpath}/Commands.jar" basedir="Commands/bin" />
-        <jar destfile="${pluginpath}/ConnectionCommands.jar" basedir="ConnectionCommands/bin" />
-        <jar destfile="${pluginpath}/ConsoleDisplay.jar" basedir="ConsoleDisplay/bin" />
-        <jar destfile="${pluginpath}/Designate.jar" basedir="Designate/bin" />
-        <jar destfile="${pluginpath}/EmailRegister.jar" basedir="EmailRegister/bin" />
-        <jar destfile="${pluginpath}/Filters.jar" basedir="Filters/bin" />
-        <jar destfile="${pluginpath}/Forwarding.jar" basedir="Forwarding/bin" />
-        <jar destfile="${pluginpath}/FunStuff.jar" basedir="FunStuff/bin" />
-        <jar destfile="${pluginpath}/GlobalCommand.jar" basedir="GlobalCommand/bin" />
-        <jar destfile="${pluginpath}/Greeting.jar" basedir="Greeting/bin" />
-        <jar destfile="${pluginpath}/Help.jar" basedir="Help/bin" />
-        <jar destfile="${pluginpath}/IPBan.jar" basedir="IPBan/bin" />
-        <jar destfile="${pluginpath}/Ladder.jar" basedir="Ladder/bin" />
-        <jar destfile="${pluginpath}/Logging.jar" basedir="Logging/bin" />
-        <jar destfile="${pluginpath}/Moderation.jar" basedir="Moderation/bin" />
-        <jar destfile="${pluginpath}/Ping.jar" basedir="Ping/bin" />
-        <jar destfile="${pluginpath}/Profile.jar" basedir="Profile/bin" />
-        <jar destfile="${pluginpath}/ShellCommands.jar" basedir="ShellCommands/bin" />
-        <jar destfile="${pluginpath}/ShowInvisibleUsers.jar" basedir="ShowInvisibleUsers/bin" />
-        <jar destfile="${pluginpath}/SimpleEventProcess.jar" basedir="SimpleEventProcess/bin" />
-        <jar destfile="${pluginpath}/SweepBan.jar" basedir="SweepBan/bin" />
-        <jar destfile="${pluginpath}/SwingGui.jar" basedir="SwingGui/bin" />
-        <jar destfile="${pluginpath}/UserInformation.jar" basedir="UserInformation/bin" />
-        <jar destfile="${pluginpath}/UserManagement.jar" basedir="UserManagement/bin" />
-        <jar destfile="${pluginpath}/Version.jar" basedir="Version/bin" />
-        <jar destfile="${pluginpath}/War3Clan.jar" basedir="War3Clan/bin" />
+        <jar destfile="${pluginpath}/Advertisements.jar" basedir="Advertisements/bin">
+                <manifest><attribute name="Main-Class" value="com.javaop.Advertisements.PluginMain"/></manifest>
+        </jar>
+        <jar destfile="${pluginpath}/Alias.jar" basedir="Alias/bin">
+                <manifest><attribute name="Main-Class" value="com.javaop.Alias.PluginMain"/></manifest>
+        </jar>
+        <jar destfile="${pluginpath}/AntiFlood.jar" basedir="AntiFlood/bin">
+                <manifest><attribute name="Main-Class" value="com.javaop.AntiFlood.PluginMain"/></manifest>
+        </jar>
+        <jar destfile="${pluginpath}/AutoRejoin.jar" basedir="AutoRejoin/bin">
+                <manifest><attribute name="Main-Class" value="com.javaop.AutoRejoin.PluginMain"/></manifest>
+        </jar>
+        <jar destfile="${pluginpath}/Autoban.jar" basedir="Autoban/bin">
+                <manifest><attribute name="Main-Class" value="com.javaop.Autoban.PluginMain"/></manifest>
+        </jar>
+        <jar destfile="${pluginpath}/AwayMessage.jar" basedir="AwayMessage/bin">
+                <manifest><attribute name="Main-Class" value="com.javaop.AwayMessage.PluginMain"/></manifest>
+        </jar>
+        <jar destfile="${pluginpath}/BNetLogin.jar" basedir="BNetLogin/bin">
+                <manifest><attribute name="Main-Class" value="com.javaop.BNetLogin.PluginMain"/></manifest>
+        </jar>
+        <jar destfile="${pluginpath}/BasicCommands.jar" basedir="BasicCommands/bin">
+                <manifest><attribute name="Main-Class" value="com.javaop.BasicCommands.PluginMain"/></manifest>
+        </jar>
+        <jar destfile="${pluginpath}/BotMail.jar" basedir="BotMail/bin">
+                <manifest><attribute name="Main-Class" value="com.javaop.BotMail.PluginMain"/></manifest>
+        </jar>
+        <jar destfile="${pluginpath}/ChannelProtection.jar" basedir="ChannelProtection/bin">
+                <manifest><attribute name="Main-Class" value="com.javaop.ChannelProtection.PluginMain"/></manifest>
+        </jar>
+        <jar destfile="${pluginpath}/ChannelList.jar" basedir="ChannelList/bin">
+                <manifest><attribute name="Main-Class" value="com.javaop.ChannelList.PluginMain"/></manifest>
+        </jar>
+        <jar destfile="${pluginpath}/Commands.jar" basedir="Commands/bin">
+                <manifest><attribute name="Main-Class" value="com.javaop.Commands.PluginMain"/></manifest>
+        </jar>
+        <jar destfile="${pluginpath}/ConnectionCommands.jar" basedir="ConnectionCommands/bin">
+                <manifest><attribute name="Main-Class" value="com.javaop.ConnectionCommands.PluginMain"/></manifest>
+        </jar>
+        <jar destfile="${pluginpath}/ConsoleDisplay.jar" basedir="ConsoleDisplay/bin">
+                <manifest><attribute name="Main-Class" value="com.javaop.ConsoleDisplay.PluginMain"/></manifest>
+        </jar>
+        <jar destfile="${pluginpath}/Designate.jar" basedir="Designate/bin">
+                <manifest><attribute name="Main-Class" value="com.javaop.Designate.PluginMain"/></manifest>
+        </jar>
+        <jar destfile="${pluginpath}/EmailRegister.jar" basedir="EmailRegister/bin">
+                <manifest><attribute name="Main-Class" value="com.javaop.EmailRegister.PluginMain"/></manifest>
+        </jar>
+        <jar destfile="${pluginpath}/Filters.jar" basedir="Filters/bin">
+                <manifest><attribute name="Main-Class" value="com.javaop.Filters.PluginMain"/></manifest>
+        </jar>
+        <jar destfile="${pluginpath}/Forwarding.jar" basedir="Forwarding/bin">
+                <manifest><attribute name="Main-Class" value="com.javaop.Forwarding.PluginMain"/></manifest>
+        </jar>
+        <jar destfile="${pluginpath}/FunStuff.jar" basedir="FunStuff/bin">
+                <manifest><attribute name="Main-Class" value="com.javaop.FunStuff.PluginMain"/></manifest>
+        </jar>
+        <jar destfile="${pluginpath}/GlobalCommand.jar" basedir="GlobalCommand/bin">
+                <manifest><attribute name="Main-Class" value="com.javaop.GlobalCommand.PluginMain"/></manifest>
+        </jar>
+        <jar destfile="${pluginpath}/Greeting.jar" basedir="Greeting/bin">
+                <manifest><attribute name="Main-Class" value="com.javaop.Greeting.PluginMain"/></manifest>
+        </jar>
+        <jar destfile="${pluginpath}/Help.jar" basedir="Help/bin">
+                <manifest><attribute name="Main-Class" value="com.javaop.Help.PluginMain"/></manifest>
+        </jar>
+        <jar destfile="${pluginpath}/IPBan.jar" basedir="IPBan/bin">
+                <manifest><attribute name="Main-Class" value="com.javaop.IPBan.PluginMain"/></manifest>
+        </jar>
+        <jar destfile="${pluginpath}/Ladder.jar" basedir="Ladder/bin">
+                <manifest><attribute name="Main-Class" value="com.javaop.Ladder.PluginMain"/></manifest>
+        </jar>
+        <jar destfile="${pluginpath}/Logging.jar" basedir="Logging/bin">
+                <manifest><attribute name="Main-Class" value="com.javaop.Logging.PluginMain"/></manifest>
+        </jar>
+        <jar destfile="${pluginpath}/Moderation.jar" basedir="Moderation/bin">
+                <manifest><attribute name="Main-Class" value="com.javaop.Moderation.PluginMain"/></manifest>
+        </jar>
+        <jar destfile="${pluginpath}/Ping.jar" basedir="Ping/bin">
+                <manifest><attribute name="Main-Class" value="com.javaop.Ping.PluginMain"/></manifest>
+        </jar>
+        <jar destfile="${pluginpath}/Profile.jar" basedir="Profile/bin">
+                <manifest><attribute name="Main-Class" value="com.javaop.Profile.PluginMain"/></manifest>
+        </jar>
+        <jar destfile="${pluginpath}/ShellCommands.jar" basedir="ShellCommands/bin">
+                <manifest><attribute name="Main-Class" value="com.javaop.ShellCommands.PluginMain"/></manifest>
+        </jar>
+        <jar destfile="${pluginpath}/ShowInvisibleUsers.jar" basedir="ShowInvisibleUsers/bin">
+                <manifest><attribute name="Main-Class" value="com.javaop.ShowInvisibleUsers.PluginMain"/></manifest>
+        </jar>
+        <jar destfile="${pluginpath}/SimpleEventProcess.jar" basedir="SimpleEventProcess/bin">
+                <manifest><attribute name="Main-Class" value="com.javaop.SimpleEventProcess.PluginMain"/></manifest>
+        </jar>
+        <jar destfile="${pluginpath}/SweepBan.jar" basedir="SweepBan/bin">
+                <manifest><attribute name="Main-Class" value="com.javaop.SweepBan.PluginMain"/></manifest>
+        </jar>
+        <jar destfile="${pluginpath}/SwingGui.jar" basedir="SwingGui/bin">
+                <manifest><attribute name="Main-Class" value="com.javaop.SwingGui.PluginMain"/></manifest>
+        </jar>
+        <jar destfile="${pluginpath}/UserInformation.jar" basedir="UserInformation/bin">
+                <manifest><attribute name="Main-Class" value="com.javaop.UserInformation.PluginMain"/></manifest>
+        </jar>
+        <jar destfile="${pluginpath}/UserManagement.jar" basedir="UserManagement/bin">
+                <manifest><attribute name="Main-Class" value="com.javaop.UserManagement.PluginMain"/></manifest>
+        </jar>
+        <jar destfile="${pluginpath}/Version.jar" basedir="Version/bin">
+                <manifest><attribute name="Main-Class" value="com.javaop.Version.PluginMain"/></manifest>
+        </jar>
+        <jar destfile="${pluginpath}/War3Clan.jar" basedir="War3Clan/bin">
+                <manifest><attribute name="Main-Class" value="com.javaop.War3Clan.PluginMain"/></manifest>
+        </jar>
     </target>
     
 </project>

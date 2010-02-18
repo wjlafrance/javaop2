@@ -1,7 +1,7 @@
 /*
  * Created on Jan 3, 2005 By iago
  */
-package bot;
+package com.javaop.bot;
 
 import java.util.Properties;
 
@@ -10,11 +10,11 @@ import javax.swing.JComponent;
 
 import javax.swing.JComboBox;
 
-import callback_interfaces.PluginCallbackRegister;
-import callback_interfaces.PublicExposedFunctions;
-import callback_interfaces.StaticExposedFunctions;
-import plugin_interfaces.GenericPluginInterface;
-import util.gui.JTextFieldNumeric;
+import com.javaop.callback_interfaces.PluginCallbackRegister;
+import com.javaop.callback_interfaces.PublicExposedFunctions;
+import com.javaop.callback_interfaces.StaticExposedFunctions;
+import com.javaop.plugin_interfaces.GenericPluginInterface;
+import com.javaop.util.gui.JTextFieldNumeric;
 
 
 /**

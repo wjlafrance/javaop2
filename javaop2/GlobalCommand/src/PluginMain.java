@@ -1,18 +1,18 @@
+package com.javaop.GlobalCommand;
+
 import java.util.Properties;
 
 import javax.swing.JComponent;
-
-import callback_interfaces.PluginCallbackRegister;
-import callback_interfaces.PublicExposedFunctions;
-import callback_interfaces.StaticExposedFunctions;
-import plugin_interfaces.CommandCallback;
-import plugin_interfaces.GenericPluginInterface;
-
 import java.io.IOException;
 
-import exceptions.CommandUsedIllegally;
-import exceptions.CommandUsedImproperly;
-import exceptions.PluginException;
+import com.javaop.callback_interfaces.PluginCallbackRegister;
+import com.javaop.callback_interfaces.PublicExposedFunctions;
+import com.javaop.callback_interfaces.StaticExposedFunctions;
+import com.javaop.plugin_interfaces.CommandCallback;
+import com.javaop.plugin_interfaces.GenericPluginInterface;
+import com.javaop.exceptions.CommandUsedIllegally;
+import com.javaop.exceptions.CommandUsedImproperly;
+import com.javaop.exceptions.PluginException;
 
 
 public class PluginMain extends GenericPluginInterface implements CommandCallback

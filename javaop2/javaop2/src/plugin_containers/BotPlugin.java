@@ -1,9 +1,9 @@
 /*
  * Created on Dec 4, 2004 By iago
  */
-package plugin_containers;
+package com.javaop.plugin_containers;
 
-import plugin_interfaces.BotCallback;
+import com.javaop.plugin_interfaces.BotCallback;
 
 
 /**

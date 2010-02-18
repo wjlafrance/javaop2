@@ -1,7 +1,7 @@
 /*
  * Created on Feb 5, 2005 By iago
  */
-package util;
+package com.javaop.util;
 
 import java.math.BigInteger;
 import java.util.Random;

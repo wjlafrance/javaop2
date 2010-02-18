@@ -1,7 +1,7 @@
-package versioning;
+package com.javaop.BNetLogin.versioning;
 
-import util.PersistantMap;
-import util.RelativeFile;
+import com.javaop.util.PersistantMap;
+import com.javaop.util.RelativeFile;
 
 /*
  * Created on Mar 2, 2005 By iago
@@ -33,7 +33,7 @@ public class GameData {
      */
     public int getVersionHash(String game) {
         int calc = VerHash.getVersion(games.getNoWrite(game, "File1", null));
-        if(calc == 0) // File1 is absent
+        if (calc == 0) // File1 is absent
             calc = Integer.parseInt(games.getNoWrite(game, "Version hash", "0"),
                     16);
         return calc;
@@ -65,13 +65,10 @@ public class GameData {
      * Gets a boolean indicating if a certain game takes two keys to log in
      */
     public boolean hasTwoKeys(String game) {
-        if (game.equals("D2XP")) {
+        if (game.equals("D2XP") || game.equals("W3XP"))
             return true;
-        } else if (game.equals("W3XP")) {
-            return true;
-        } else {
+        else
             return false;
-        }
     }
     
     /**

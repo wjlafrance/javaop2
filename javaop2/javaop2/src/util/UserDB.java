@@ -4,7 +4,7 @@
  * Created on April 27, 2004, 11:16 AM
  */
 
-package util;
+package com.javaop.util;
 
 import java.io.File;
 import java.util.Arrays;
@@ -13,7 +13,7 @@ import java.util.Iterator;
 import java.util.TreeSet;
 import java.util.Vector;
 
-import util.PersistantMap;
+import com.javaop.util.PersistantMap;
 
 
 public class UserDB

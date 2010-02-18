@@ -4,7 +4,7 @@
  * Created on May 30, 2004, 2:44 PM
  */
 
-package util;
+package com.javaop.util;
 
 /**
  * 

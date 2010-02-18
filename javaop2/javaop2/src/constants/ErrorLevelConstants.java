@@ -2,7 +2,7 @@
  * Created on Dec 2, 2004
  * By iago
  */
-package constants;
+package com.javaop.constants;
 
 /** A list of constants that I stole from Linux.
  * 

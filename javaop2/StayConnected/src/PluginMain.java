@@ -1,21 +1,20 @@
+package com.javaop.StayConnected;
+
 import java.io.IOException;
 import java.util.Properties;
 import java.util.TimerTask;
 
 import javax.swing.JComponent;
 
-import callback_interfaces.PluginCallbackRegister;
-import callback_interfaces.PublicExposedFunctions;
-import callback_interfaces.StaticExposedFunctions;
-
-import plugin_interfaces.GenericPluginInterface;
-import plugin_interfaces.ConnectionCallback;
-
-import constants.PacketConstants;
-import constants.ErrorLevelConstants;
-import exceptions.PluginException;
-
-import util.BNetPacket;
+import com.javaop.callback_interfaces.PluginCallbackRegister;
+import com.javaop.callback_interfaces.PublicExposedFunctions;
+import com.javaop.callback_interfaces.StaticExposedFunctions;
+import com.javaop.plugin_interfaces.GenericPluginInterface;
+import com.javaop.plugin_interfaces.ConnectionCallback;
+import com.javaop.constants.PacketConstants;
+import com.javaop.constants.ErrorLevelConstants;
+import com.javaop.exceptions.PluginException;
+import com.javaop.util.BNetPacket;
 
 
 /*

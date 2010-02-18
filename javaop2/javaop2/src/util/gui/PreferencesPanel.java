@@ -1,7 +1,7 @@
 /*
  * Created on Mar 20, 2005 By iago
  */
-package util.gui;
+package com.javaop.util.gui;
 
 import java.awt.Color;
 import java.awt.GridBagConstraints;
@@ -21,7 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import util.Uniq;
+import com.javaop.util.Uniq;
 
 
 public class PreferencesPanel extends JPanelEx

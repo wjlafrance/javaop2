@@ -1,7 +1,7 @@
 /*
  * Created on Aug 27, 2004 By iago
  */
-package util;
+package com.javaop.util;
 
 import java.io.Serializable;
 

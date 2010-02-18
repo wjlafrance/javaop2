@@ -1,7 +1,9 @@
+package com.javaop.UserInformation;
+
 import java.util.Hashtable;
 import javax.swing.ImageIcon;
 
-import exceptions.LoginException;
+import com.javaop.exceptions.LoginException;
 
 
 /**

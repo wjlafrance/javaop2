@@ -1,7 +1,7 @@
 /*
  * Created on Feb 4, 2005 By iago
  */
-package util;
+package com.javaop.util;
 
 import java.util.Arrays;
 import java.util.Enumeration;

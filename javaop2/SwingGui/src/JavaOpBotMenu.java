@@ -1,3 +1,5 @@
+package com.javaop.SwingGui;
+
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,13 +13,13 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
-import settings.QuickSettings;
-import settings.SettingWizard;
-import settings.UserDatabaseWizard;
-import util.ColorConstants;
-import util.MenuIcons;
+import com.javaop.util.ColorConstants;
+import com.javaop.callback_interfaces.PublicExposedFunctions;
 
-import callback_interfaces.PublicExposedFunctions;
+import com.javaop.SwingGui.settings.QuickSettings;
+import com.javaop.SwingGui.settings.SettingWizard;
+import com.javaop.SwingGui.settings.UserDatabaseWizard;
+import com.javaop.SwingGui.util.MenuIcons;
 
 
 /**

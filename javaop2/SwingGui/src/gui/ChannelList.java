@@ -1,7 +1,7 @@
 /*
  * Created on Jan 17, 2005 By iago
  */
-package gui;
+package com.javaop.SwingGui.gui;
 
 // import gui.Model.Row;
 
@@ -21,10 +21,10 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
-import constants.Flags;
+import com.javaop.constants.Flags;
 
-import util.GameIcons;
-import util.JMultiLineTooltip;
+import com.javaop.SwingGui.util.GameIcons;
+import com.javaop.SwingGui.util.JMultiLineTooltip;
 
 
 /**

@@ -1,7 +1,7 @@
 /*
  * Created on Dec 4, 2004 By iago
  */
-package plugin_interfaces;
+package com.javaop.plugin_interfaces;
 
 /**
  * These are callbacks for the user database. The flags and such that the user

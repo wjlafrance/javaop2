@@ -3,15 +3,15 @@
  * 
  * By joe
  */
-package versioning;
-
-import util.Buffer;
-import callback_interfaces.PublicExposedFunctions;
-import callback_interfaces.StaticExposedFunctions;
-import constants.ErrorLevelConstants;
-import exceptions.LoginException;
+package com.javaop.BNetLogin.versioning;
 
 import java.io.IOException;
+
+import com.javaop.util.Buffer;
+import com.javaop.callback_interfaces.PublicExposedFunctions;
+import com.javaop.callback_interfaces.StaticExposedFunctions;
+import com.javaop.constants.ErrorLevelConstants;
+import com.javaop.exceptions.LoginException;
 
 /**
  * @author wjlafrance

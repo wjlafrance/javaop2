@@ -1,21 +1,21 @@
+package com.javaop.SweepBan;
+
 import java.io.IOException;
 import java.util.Properties;
 
 import javax.swing.JComponent;
 
-import callback_interfaces.PluginCallbackRegister;
-import callback_interfaces.PublicExposedFunctions;
-import callback_interfaces.StaticExposedFunctions;
-
-import exceptions.CommandUsedIllegally;
-import exceptions.CommandUsedImproperly;
-import exceptions.PluginException;
-import plugin_interfaces.CommandCallback;
-import plugin_interfaces.EventCallback;
-import plugin_interfaces.GenericPluginInterface;
-import plugin_interfaces.PacketCallback;
-import util.BnetPacket;
-
+import com.javaop.callback_interfaces.PluginCallbackRegister;
+import com.javaop.callback_interfaces.PublicExposedFunctions;
+import com.javaop.callback_interfaces.StaticExposedFunctions;
+import com.javaop.exceptions.CommandUsedIllegally;
+import com.javaop.exceptions.CommandUsedImproperly;
+import com.javaop.exceptions.PluginException;
+import com.javaop.plugin_interfaces.CommandCallback;
+import com.javaop.plugin_interfaces.EventCallback;
+import com.javaop.plugin_interfaces.GenericPluginInterface;
+import com.javaop.plugin_interfaces.PacketCallback;
+import com.javaop.util.BnetPacket;
 
 /*
  * Created on Apr 7, 2005 By iago
@@ -36,24 +36,13 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
     {
         this.out = out;
 
-        register.registerCommandPlugin(
-                                       this,
-                                       "sweepban",
-                                       1,
-                                       true,
-                                       "ON",
-                                       "<channel>",
-                                       "Bans everybody in the selected channel.  Two channels may not be sweepbanned at the same time.",
-                                       null);
-        register.registerCommandPlugin(
-                                       this,
-                                       "sweepbanip",
-                                       1,
-                                       true,
-                                       "ON",
-                                       "<channel>",
-                                       "Bans everybody in the selected channel based on their ip.  Two channels may not be sweepbanned at the same time.",
-                                       null);
+        register.registerCommandPlugin(this, "sweepban", 1, true, "ON",
+                "<channel>", "Bans everybody in the selected channel. Two " +
+                "channels may not be sweepbanned at the same time.", null);
+        register.registerCommandPlugin(this, "sweepbanip", 1, true, "ON",
+                "<channel>", "Bans everybody in the selected channel based " +
+                "on their ip. Two channels may not be sweepbanned at the " +
+                "same time.",  null);
         register.registerEventPlugin(this, null);
         register.registerIncomingPacketPlugin(this, SID_READUSERDATA, null);
     }

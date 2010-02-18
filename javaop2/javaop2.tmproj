@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>BNetLogin/src/cdkey/Alpha26Decode.java</string>
+	<string>BNetLogin/src/PluginMain.java</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -330,104 +330,76 @@
 		</dict>
 	</array>
 	<key>fileHierarchyDrawerWidth</key>
-	<integer>200</integer>
+	<integer>263</integer>
 	<key>metaData</key>
 	<dict>
-		<key>BNetLogin/src/cdkey/Alpha16Decode.java</key>
+		<key>BNetLogin/src/PluginMain.java</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>76</integer>
+				<key>line</key>
+				<integer>307</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>286</integer>
+		</dict>
+		<key>BNetLogin/src/password/BrokenSHA1.java</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>177</integer>
+				<integer>0</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>125</integer>
+			<integer>0</integer>
 		</dict>
-		<key>BNetLogin/src/cdkey/Alpha26Decode.java</key>
+		<key>BNetLogin/src/password/DoubleHash.java</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>11</integer>
+				<integer>23</integer>
 				<key>line</key>
-				<integer>250</integer>
+				<integer>18</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>244</integer>
-		</dict>
-		<key>BNetLogin/src/cdkey/Decode.java</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>7</integer>
-				<key>line</key>
-				<integer>107</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
 			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>88</integer>
 		</dict>
-		<key>BNetLogin/src/cdkey/Num13Decode.java</key>
+		<key>BNetLogin/src/util/ServerSignature.java</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>38</integer>
-				<key>line</key>
 				<integer>24</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>BNetLogin/src/versioning/CheckRevision.java</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>7</integer>
 				<key>line</key>
-				<integer>44</integer>
+				<integer>18</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>39</integer>
-		</dict>
-		<key>BNetLogin/src/versioning/Game.java</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>33</integer>
-				<key>line</key>
-				<integer>98</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
 			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>103</integer>
 		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
-		<string>BNetLogin/src/cdkey/Decode.java</string>
-		<string>BNetLogin/src/cdkey/Num13Decode.java</string>
-		<string>BNetLogin/src/cdkey/Alpha26Decode.java</string>
-		<string>BNetLogin/src/cdkey/Alpha16Decode.java</string>
+		<string>BNetLogin/src/util/ServerSignature.java</string>
+		<string>BNetLogin/src/PluginMain.java</string>
+		<string>BNetLogin/src/password/DoubleHash.java</string>
+		<string>BNetLogin/src/password/BrokenSHA1.java</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{210, 4}, {1070, 774}}</string>
+	<string>{{273, 4}, {1007, 774}}</string>
 </dict>
 </plist>

@@ -1,20 +1,22 @@
+package com.javaop.AntiFlood;
+
 import java.io.IOException;
 import java.util.Properties;
 import javax.swing.JComponent;
 import javax.swing.JCheckBox;
 
-import callback_interfaces.PluginCallbackRegister;
-import callback_interfaces.PublicExposedFunctions;
-import callback_interfaces.StaticExposedFunctions;
-import exceptions.CommandUsedIllegally;
-import exceptions.CommandUsedImproperly;
-import exceptions.PluginException;
-import plugin_interfaces.CommandCallback;
-import plugin_interfaces.GenericPluginInterface;
-import plugin_interfaces.OutgoingTextCallback;
-import plugin_interfaces.PacketCallback;
-import util.BnetPacket;
-import util.gui.JTextFieldNumeric;
+import com.javaop.callback_interfaces.PluginCallbackRegister;
+import com.javaop.callback_interfaces.PublicExposedFunctions;
+import com.javaop.callback_interfaces.StaticExposedFunctions;
+import com.javaop.exceptions.CommandUsedIllegally;
+import com.javaop.exceptions.CommandUsedImproperly;
+import com.javaop.exceptions.PluginException;
+import com.javaop.plugin_interfaces.CommandCallback;
+import com.javaop.plugin_interfaces.GenericPluginInterface;
+import com.javaop.plugin_interfaces.OutgoingTextCallback;
+import com.javaop.plugin_interfaces.PacketCallback;
+import com.javaop.util.BnetPacket;
+import com.javaop.util.gui.JTextFieldNumeric;
 
 
 /*

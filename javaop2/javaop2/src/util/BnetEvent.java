@@ -1,7 +1,7 @@
 /*
  * Created on Dec 11, 2004 By iago
  */
-package util;
+package com.javaop.util;
 
 /**
  * @author iago

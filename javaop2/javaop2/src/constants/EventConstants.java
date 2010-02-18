@@ -1,4 +1,4 @@
-package constants;
+package com.javaop.constants;
 
 /*
  * Created on Dec 1, 2004 By iago

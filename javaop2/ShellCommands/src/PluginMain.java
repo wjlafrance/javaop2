@@ -1,3 +1,5 @@
+package com.javaop.ShellCommands;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -6,14 +8,14 @@ import java.util.Properties;
 
 import javax.swing.JComponent;
 
-import callback_interfaces.PluginCallbackRegister;
-import callback_interfaces.PublicExposedFunctions;
-import callback_interfaces.StaticExposedFunctions;
-import exceptions.CommandUsedIllegally;
-import exceptions.CommandUsedImproperly;
-import exceptions.PluginException;
-import plugin_interfaces.CommandCallback;
-import plugin_interfaces.GenericPluginInterface;
+import com.javaop.callback_interfaces.PluginCallbackRegister;
+import com.javaop.callback_interfaces.PublicExposedFunctions;
+import com.javaop.callback_interfaces.StaticExposedFunctions;
+import com.javaop.exceptions.CommandUsedIllegally;
+import com.javaop.exceptions.CommandUsedImproperly;
+import com.javaop.exceptions.PluginException;
+import com.javaop.plugin_interfaces.CommandCallback;
+import com.javaop.plugin_interfaces.GenericPluginInterface;
 
 
 /*

@@ -1,15 +1,15 @@
 /*
  * Created on Dec 1, 2004 By iago
  */
-package plugin_interfaces;
+package com.javaop.plugin_interfaces;
 
 import java.io.IOException;
 
-import util.BnetEvent;
-import util.BnetPacket;
+import com.javaop.util.BnetEvent;
+import com.javaop.util.BnetPacket;
 
-import exceptions.LoginException;
-import exceptions.PluginException;
+import com.javaop.exceptions.LoginException;
+import com.javaop.exceptions.PluginException;
 
 
 /**

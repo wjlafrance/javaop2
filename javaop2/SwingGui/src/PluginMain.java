@@ -1,14 +1,16 @@
+package com.javaop.SwingGui;
+
 import java.util.Properties;
 
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 
-import util.gui.JTextFieldNumeric;
-import callback_interfaces.PluginCallbackRegister;
-import callback_interfaces.PublicExposedFunctions;
-import callback_interfaces.StaticExposedFunctions;
-import plugin_interfaces.GenericPluginInterface;
+import com.javaop.util.gui.JTextFieldNumeric;
+import com.javaop.callback_interfaces.PluginCallbackRegister;
+import com.javaop.callback_interfaces.PublicExposedFunctions;
+import com.javaop.callback_interfaces.StaticExposedFunctions;
+import com.javaop.plugin_interfaces.GenericPluginInterface;
 
 
 /*

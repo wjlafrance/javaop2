@@ -1,3 +1,5 @@
+package com.javaop.BNetLogin;
+
 import java.io.IOException;
 import java.util.Properties;
 
@@ -6,27 +8,27 @@ import javax.swing.JComponent;
 import javax.swing.JComboBox;
 import javax.swing.JPasswordField;
 
-import constants.ErrorLevelConstants;
+import com.javaop.constants.ErrorLevelConstants;
 
-import callback_interfaces.PluginCallbackRegister;
-import callback_interfaces.PublicExposedFunctions;
-import callback_interfaces.StaticExposedFunctions;
+import com.javaop.callback_interfaces.PluginCallbackRegister;
+import com.javaop.callback_interfaces.PublicExposedFunctions;
+import com.javaop.callback_interfaces.StaticExposedFunctions;
 
-import cdkey.Decode;
+import com.javaop.exceptions.*;
 
-import exceptions.*;
+import com.javaop.plugin_interfaces.CommandCallback;
+import com.javaop.plugin_interfaces.ConnectionCallback;
+import com.javaop.plugin_interfaces.GenericPluginInterface;
+import com.javaop.plugin_interfaces.PacketCallback;
 
-import plugin_interfaces.CommandCallback;
-import plugin_interfaces.ConnectionCallback;
-import plugin_interfaces.GenericPluginInterface;
-import plugin_interfaces.PacketCallback;
+import com.javaop.util.BnetPacket;
+import com.javaop.util.gui.JTextFieldNumeric;
 
-import util.BnetPacket;
-import util.gui.JTextFieldNumeric;
+import com.javaop.BNetLogin.cdkey.Decode;
+import com.javaop.BNetLogin.versioning.Game;
+import com.javaop.BNetLogin.versioning.GameData;
 
-import versioning.Game;
-
-import packets.*;
+import com.javaop.BNetLogin.packets.*;
 
 /*
  * Created on Dec 7, 2004 By iago
@@ -78,28 +80,35 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
     public boolean connecting(String server, int port, Object data) {
         try {
             // Verify the cdkey
-            versioning.GameData g = new versioning.GameData();
-            boolean hasTwoKeys = g.hasTwoKeys(pubFuncs.getLocalSetting(getName(), "game"));
+            GameData g = new GameData();
+            boolean hasTwoKeys = g.hasTwoKeys(pubFuncs.getLocalSetting(
+                    getName(), "game"));
                         
             Decode.getDecoder(pubFuncs.getLocalSetting(getName(), "cdkey"));
             if(hasTwoKeys)
-                Decode.getDecoder(pubFuncs.getLocalSetting(getName(), "cdkey2"));
-
+                Decode.getDecoder(pubFuncs.getLocalSetting(getName(),
+                        "cdkey2"));
+            
             return true;
         } catch (IllegalArgumentException iae) {
-            pubFuncs.systemMessage(CRITICAL, "[BNET] Caught exception while validating CD-Keys: " + iae);
+            pubFuncs.systemMessage(CRITICAL, "[BNET] Caught exception while "
+                    + "validating CD-Keys: " + iae);
             return false;
         }
     }
-
-    public void connected(String server, int port, Object data) throws PluginException, IOException {
+    
+    public void connected(String server, int port, Object data) throws
+            PluginException, IOException
+    {
         login = new Login(getName(), srpLogin);
-
-        pubFuncs.systemMessage(INFO, "[BNET] Switching to BnChat protocol. Calculating authorization info..");
+        
+        pubFuncs.systemMessage(INFO, "[BNET] Switching to BnChat protocol and "
+                + "calculating authorization info..");
         pubFuncs.sendPacket(login.getProtocolByte());
         
         BnetPacket sidAuthInfo = SidAuthInfo.getOutgoing(pubFuncs);
-        pubFuncs.systemMessage(INFO, "[BNET] Calculated. Sending authorization info..");
+        pubFuncs.systemMessage(INFO, "[BNET] Calculated. Sending authorization "
+                + "info..");
         pubFuncs.sendPacket(sidAuthInfo);
     }
 
@@ -128,7 +137,7 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
     }
 
     public String getVersion() {
-        return "2.1.2";
+        return "2.1.3";
     }
 
     public String getAuthorName() {
@@ -153,9 +162,9 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
                 + "Warcraft 3 is based on work done by Maddox and Telos, "
                 + "ported to Java by iago. The CheckRevision and SHA1 code "
                 + "used for the legacy products is based on Yobgul's code, "
-                + "again ported to Java by me. Finally, the SRP (WarCraft 3 "
+                + "again ported to Java by iago. Finally, the SRP (WarCraft 3 "
                 + "login) code was reversed and written by Maddox, iago, and "
-                + "TheMinistered and ported to Java by me.";
+                + "TheMinistered and ported to Java by iago.";
     }
 
     public Properties getDefaultSettingValues() {
@@ -170,7 +179,7 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
         p.setProperty("password change", "");
         p.setProperty("cdkey", "<CDKEY GOES HERE>");
         p.setProperty("cdkey2", "");
-        p.setProperty("home channel", "clan hang");
+        p.setProperty("home channel", "clan bot");
         p.setProperty("game", "SEXP");
         p.setProperty("Verify server", "true");
 
@@ -238,7 +247,7 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
         p.setProperty("Enable BNLS", "true");
         return p;
     }
-
+    
     public Properties getGlobalSettingsDescription() {
         Properties p = new Properties();
         p.setProperty("BNLS Server", "The server that is used for versioning "
@@ -248,14 +257,14 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
                 + "BNLS will never handle your CD-Key or password.");
         return p;
     }
-
+    
     public JComponent getGlobalComponent(String settingName, String value) {
         if(settingName.equalsIgnoreCase("Enable BNLS"))
             return new JCheckBox("", value.equalsIgnoreCase("true"));
         
         return null;
     }
-
+    
     public void commandExecuted(String user, String command, String[] args,
             int loudness, Object data) throws IOException, LoginException,
             CommandUsedIllegally, CommandUsedImproperly
@@ -274,13 +283,15 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
                     }
                 }
             } else {
-                pubFuncs.sendTextUserPriority(user, new Game(pubFuncs.getLocalSettingDefault(getName(), "game", "STAR")).toString(), loudness, PRIORITY_LOW);
+                pubFuncs.sendTextUserPriority(user, new Game(pubFuncs
+                        .getLocalSettingDefault(getName(), "game", "STAR"))
+                        .toString(), loudness, PRIORITY_LOW);
             }
         } else if(command.equalsIgnoreCase("home")) {
             pubFuncs.sendPacket(login.getJoinHomeChannel(pubFuncs));
         }
     }
-
+    
     public void processedPacket(BnetPacket buf, Object data) throws
             PluginException, IOException
     {
@@ -288,40 +299,45 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
     
             case SID_CHANGEPASSWORD: // 0x31
                 pubFuncs.sendPacket(login.checkPasswordChange(pubFuncs, buf));
-                pubFuncs.systemMessage(INFO, "[BNET] Password successfully changed, logging in..");
+                pubFuncs.systemMessage(INFO, "[BNET] Password successfully " +
+                        "changed, logging in..");
                 break;
             
             case SID_LOGONRESPONSE2: // 0x3A
                 try {
                     SidLogonResponse2.checkIncoming(pubFuncs, buf);
                     // exception thrown if SID_LOGINRESPONSE2 fails
-                    pubFuncs.systemMessage(INFO, "[BNET] Logon successful! Entering chat.");
+                    pubFuncs.systemMessage(INFO, "[BNET] Logon successful! "
+                            + "Entering chat..");
                     pubFuncs.sendPacket(login.getEnterChat(pubFuncs));
                     pubFuncs.sendPacket(login.getJoinHomeChannel(pubFuncs));
                 } catch(AccountDneException adne) {
                     pubFuncs.systemMessage(ErrorLevelConstants.WARNING,
-                        "[BNET] Account doesn't exist, attempting to create");
+                        "[BNET] Account doesn't exist, attempting to create..");
                     pubFuncs.sendPacket(SidCreateAccount2.getOutgoing(pubFuncs));
                 }
                 break;
             
             case SID_CREATEACCOUNT2: // 0x3D
                 pubFuncs.sendPacket(login.checkCreateAccount(pubFuncs, buf));
-                pubFuncs.systemMessage(INFO, "[BNET] Account successfully created, trying to log in..");
+                pubFuncs.systemMessage(INFO, "[BNET] Account successfully "
+                        + "created, trying to log in..");
                 break;
 
             case SID_AUTH_INFO: // 0x50
-                pubFuncs.systemMessage(INFO, "[BNET] Received response, calculating..");
+                pubFuncs.systemMessage(INFO, "[BNET] Received response, "
+                        + "calculating..");
                 BnetPacket sidAuthCheck = SidAuthCheck.getOutgoing(pubFuncs, buf);
-                pubFuncs.systemMessage(INFO, "[BNET] Calculated. Sending version check..");
+                pubFuncs.systemMessage(INFO, "[BNET] Calculated. Sending "
+                        + "CD-Key and version check..");
                 pubFuncs.sendPacket(sidAuthCheck);
                 break;
     
             case SID_AUTH_CHECK: // 0x51
                 SidAuthCheck.checkIncoming(pubFuncs, buf);
                 // exception thrown if SID_AUTH_CHECK fails
-                pubFuncs.systemMessage(INFO, "[BNET] CDKey and Version check " +
-                    "successful. Attempting to log in.");
+                pubFuncs.systemMessage(INFO, "[BNET] CD-Key and version check "
+                    + "successful. Attempting to log in..");
                 
                 switch((Integer)pubFuncs.getLocalVariable("loginType")) {
                     case 0:
@@ -332,20 +348,23 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
                         pubFuncs.sendPacket(srpLogin.getSidAuthAccountLogon(pubFuncs));
                         break;
                     default:
-                        throw new LoginException("[BNET] Unable to login in with " +
-                                "login type " + (Integer)pubFuncs.getLocalVariable("loginType"));
+                        throw new LoginException("[BNET] Unable to login in "
+                                + "with login type " + (Integer)pubFuncs
+                                .getLocalVariable("loginType"));
                 }
                 break;
             
             case SID_AUTH_ACCOUNTCREATE: // 0x52
                 srpLogin.checkSidAuthCreateAccount(pubFuncs, buf);
-                pubFuncs.systemMessage(INFO, "[BNET] Account successfully created, trying to log in..");
+                pubFuncs.systemMessage(INFO, "[BNET] Account successfully " +
+                        "created, trying to log in..");
                 pubFuncs.sendPacket(srpLogin.getSidAuthAccountLogon(pubFuncs));
                 break;
             
             case SID_AUTH_ACCOUNTLOGON: // 0x53
                 pubFuncs.systemMessage(INFO, "[BNET] Login proof requested..");
-                pubFuncs.sendPacket(srpLogin.getSidAuthAccountLogonProof(pubFuncs, buf));
+                pubFuncs.sendPacket(srpLogin.getSidAuthAccountLogonProof(
+                        pubFuncs, buf));
                 break;
             
             case SID_AUTH_ACCOUNTLOGONPROOF: // 0x54
@@ -357,17 +376,22 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
                 break;
             
             case SID_AUTH_ACCOUNTCHANGE: // 0x55
-                pubFuncs.systemMessage(INFO, "[BNET] Account change info received, replying with proof..");
-                pubFuncs.sendPacket(srpLogin.getSidAuthAccountChangeProof(pubFuncs, buf));
+                pubFuncs.systemMessage(INFO, "[BNET] Password change response "
+                        + "received, replying with proof..");
+                pubFuncs.sendPacket(srpLogin.getSidAuthAccountChangeProof(
+                        pubFuncs, buf));
                 break;
             
             case SID_AUTH_ACCOUNTCHANGEPROOF: // 0x56
-                pubFuncs.systemMessage(INFO, "[BNET] Account change proof received.");
+                pubFuncs.systemMessage(INFO, "[BNET] Account change proof "
+                        + "received.");
                 srpLogin.checkSidAuthAccountLogonProof(pubFuncs, buf);
                 break;
             
             case SID_WARDEN: // 0x5E
-                pubFuncs.systemMessage(ERROR, "[BNET] Ignoring Warden challenge -- Disconnection in two minutes.");
+                pubFuncs.systemMessage(ERROR, "[BNET] Ignoring Warden "
+                        + "challenge. You'll most likely be disconnected in "
+                        + "two minutes.");
                 break;
         }
     }

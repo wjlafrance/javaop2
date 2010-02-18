@@ -4,7 +4,7 @@
  * Created on March 17, 2004, 8:14 AM
  */
 
-package cdkey;
+package com.javaop.BNetLogin.cdkey;
 
 /**
  * This class takes a CD-Key, determines it's type, and returns a decoder

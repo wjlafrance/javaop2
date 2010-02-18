@@ -1,4 +1,4 @@
-package pluginmanagers;
+package com.javaop.pluginmanagers;
 
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -9,47 +9,47 @@ import java.util.Vector;
 import javax.swing.Icon;
 import javax.swing.KeyStroke;
 
-import bot.BotCoreStatic;
-import bot.JavaOpFileStuff;
+import com.javaop.bot.BotCoreStatic;
+import com.javaop.bot.JavaOpFileStuff;
 
-import constants.ErrorLevelConstants;
-import constants.EventConstants;
-import constants.PacketConstants;
+import com.javaop.constants.ErrorLevelConstants;
+import com.javaop.constants.EventConstants;
+import com.javaop.constants.PacketConstants;
 
-import callback_interfaces.PluginCallbackRegister;
-import callback_interfaces.PublicExposedFunctions;
-import exceptions.CommandUsedIllegally;
-import exceptions.CommandUsedImproperly;
-import exceptions.LoginException;
-import exceptions.PluginException;
+import com.javaop.callback_interfaces.PluginCallbackRegister;
+import com.javaop.callback_interfaces.PublicExposedFunctions;
+import com.javaop.exceptions.CommandUsedIllegally;
+import com.javaop.exceptions.CommandUsedImproperly;
+import com.javaop.exceptions.LoginException;
+import com.javaop.exceptions.PluginException;
 
-import plugin_containers.BotPlugin;
-import plugin_containers.CommandPlugin;
-import plugin_containers.ConnectionPlugin;
-import plugin_containers.ErrorPlugin;
-import plugin_containers.EventPlugin;
-import plugin_containers.GuiPlugin;
-import plugin_containers.RawEventPlugin;
-import plugin_containers.OutgoingTextPlugin;
-import plugin_containers.PacketPlugin;
-import plugin_containers.SystemMessagePlugin;
-import plugin_containers.UserDatabasePlugin;
-import plugin_containers.UserErrorPlugin;
-import plugin_interfaces.BotCallback;
-import plugin_interfaces.CommandCallback;
-import plugin_interfaces.ConnectionCallback;
-import plugin_interfaces.ErrorCallback;
-import plugin_interfaces.EventCallback;
-import plugin_interfaces.GuiCallback;
-import plugin_interfaces.RawEventCallback;
-import plugin_interfaces.OutgoingTextCallback;
-import plugin_interfaces.PacketCallback;
-import plugin_interfaces.SystemMessageCallback;
-import plugin_interfaces.UserDatabaseCallback;
-import plugin_interfaces.UserErrorCallback;
-import util.BnetEvent;
-import util.BnetPacket;
-import util.PersistantMap;
+import com.javaop.plugin_containers.BotPlugin;
+import com.javaop.plugin_containers.CommandPlugin;
+import com.javaop.plugin_containers.ConnectionPlugin;
+import com.javaop.plugin_containers.ErrorPlugin;
+import com.javaop.plugin_containers.EventPlugin;
+import com.javaop.plugin_containers.GuiPlugin;
+import com.javaop.plugin_containers.RawEventPlugin;
+import com.javaop.plugin_containers.OutgoingTextPlugin;
+import com.javaop.plugin_containers.PacketPlugin;
+import com.javaop.plugin_containers.SystemMessagePlugin;
+import com.javaop.plugin_containers.UserDatabasePlugin;
+import com.javaop.plugin_containers.UserErrorPlugin;
+import com.javaop.plugin_interfaces.BotCallback;
+import com.javaop.plugin_interfaces.CommandCallback;
+import com.javaop.plugin_interfaces.ConnectionCallback;
+import com.javaop.plugin_interfaces.ErrorCallback;
+import com.javaop.plugin_interfaces.EventCallback;
+import com.javaop.plugin_interfaces.GuiCallback;
+import com.javaop.plugin_interfaces.RawEventCallback;
+import com.javaop.plugin_interfaces.OutgoingTextCallback;
+import com.javaop.plugin_interfaces.PacketCallback;
+import com.javaop.plugin_interfaces.SystemMessageCallback;
+import com.javaop.plugin_interfaces.UserDatabaseCallback;
+import com.javaop.plugin_interfaces.UserErrorCallback;
+import com.javaop.util.BnetEvent;
+import com.javaop.util.BnetPacket;
+import com.javaop.util.PersistantMap;
 
 
 /*

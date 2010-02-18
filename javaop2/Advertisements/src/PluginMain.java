@@ -1,3 +1,5 @@
+package com.javaop.Advertisements;
+
 import java.io.IOException;
 import java.util.Date;
 import java.util.Properties;
@@ -6,15 +8,15 @@ import java.util.TimerTask;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 
-import callback_interfaces.PluginCallbackRegister;
-import callback_interfaces.PublicExposedFunctions;
-import callback_interfaces.StaticExposedFunctions;
-import exceptions.PluginException;
-import plugin_interfaces.GenericPluginInterface;
-import plugin_interfaces.PacketCallback;
-import util.BnetPacket;
-import util.ColorConstants;
-import util.FileTime;
+import com.javaop.callback_interfaces.PluginCallbackRegister;
+import com.javaop.callback_interfaces.PublicExposedFunctions;
+import com.javaop.callback_interfaces.StaticExposedFunctions;
+import com.javaop.exceptions.PluginException;
+import com.javaop.plugin_interfaces.GenericPluginInterface;
+import com.javaop.plugin_interfaces.PacketCallback;
+import com.javaop.util.BnetPacket;
+import com.javaop.util.ColorConstants;
+import com.javaop.util.FileTime;
 
 
 /*

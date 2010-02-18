@@ -1,7 +1,7 @@
 /*
  * Created on Jan 18, 2005 By iago
  */
-package util;
+package com.javaop.util;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -16,7 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import util.gui.Gui;
+import com.javaop.util.gui.Gui;
 
 
 /**

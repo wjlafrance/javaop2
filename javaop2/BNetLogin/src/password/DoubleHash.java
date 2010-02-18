@@ -4,9 +4,9 @@
  * Created on April 13, 2004, 12:55 PM
  */
 
-package password;
+package com.javaop.BNetLogin.password;
 
-import util.Buffer;
+import com.javaop.util.Buffer;
 
 
 

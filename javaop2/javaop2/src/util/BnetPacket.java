@@ -4,7 +4,7 @@
  * Created on March 2, 2004, 11:59 AM
  */
 
-package util;
+package com.javaop.util;
 
 /**
  * This is a Buffer specifically written for battle.net packets. When

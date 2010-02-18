@@ -1,13 +1,13 @@
-package packets;
+package com.javaop.BNetLogin.packets;
 
 // For all packet classes
-import util.BnetPacket;
-import constants.PacketConstants;
-import exceptions.*;
-import callback_interfaces.PublicExposedFunctions;
+import com.javaop.util.BnetPacket;
+import com.javaop.constants.PacketConstants;
+import com.javaop.exceptions.*;
+import com.javaop.callback_interfaces.PublicExposedFunctions;
 
 // For this class only
-import password.DoubleHash;
+import com.javaop.BNetLogin.password.DoubleHash;
 
 /*
  * Created on Sep 25, 2009 by joe

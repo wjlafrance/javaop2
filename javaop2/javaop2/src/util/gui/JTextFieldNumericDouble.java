@@ -1,7 +1,7 @@
 /*
  * Created on May 14, 2005 By iago
  */
-package util.gui;
+package com.javaop.util.gui;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

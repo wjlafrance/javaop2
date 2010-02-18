@@ -1,4 +1,4 @@
-package bot;
+package com.javaop.bot;
 
 /*
  * Created on Dec 27, 2004 By iago

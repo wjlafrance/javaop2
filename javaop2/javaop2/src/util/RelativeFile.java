@@ -2,7 +2,7 @@
  * Created on Dec 4, 2004 By iago
  */
 
-package util;
+package com.javaop.util;
 
 import java.io.File;
 

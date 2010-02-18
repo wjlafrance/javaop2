@@ -1,12 +1,12 @@
-package packets;
+package com.javaop.BNetLogin.packets;
 
-import util.BnetPacket;
-import constants.PacketConstants;
-import exceptions.*;
-import callback_interfaces.PublicExposedFunctions;
-import constants.ErrorLevelConstants;
+import com.javaop.util.BnetPacket;
+import com.javaop.constants.PacketConstants;
+import com.javaop.exceptions.*;
+import com.javaop.callback_interfaces.PublicExposedFunctions;
+import com.javaop.constants.ErrorLevelConstants;
 
-import password.SRP;
+import com.javaop.BNetLogin.password.SRP;
 
 /*
  * Created on Feb 17, 2010 by wjlafrance

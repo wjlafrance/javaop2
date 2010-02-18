@@ -1,7 +1,7 @@
 /*
  * Created on Jan 17, 2005 By iago
  */
-package gui;
+package com.javaop.SwingGui.gui;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;

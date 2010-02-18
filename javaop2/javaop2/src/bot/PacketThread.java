@@ -1,7 +1,7 @@
 /*
  * Created on Dec 6, 2004 By iago
  */
-package bot;
+package com.javaop.bot;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,18 +9,19 @@ import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 
-import callback_interfaces.PublicExposedFunctions;
+import com.javaop.callback_interfaces.PublicExposedFunctions;
 
-import pluginmanagers.PluginRegistration;
+import com.javaop.pluginmanagers.PluginRegistration;
 
-import constants.ErrorLevelConstants;
-import constants.PacketConstants;
-import exceptions.LoginException;
-import exceptions.PluginException;
+import com.javaop.constants.ErrorLevelConstants;
+import com.javaop.constants.PacketConstants;
+import com.javaop.exceptions.LoginException;
+import com.javaop.exceptions.PluginException;
 
-import util.BnetEvent;
-import util.BnetPacket;
-import util.TimeoutSocket;
+import com.javaop.util.BnetEvent;
+import com.javaop.util.BnetPacket;
+import com.javaop.util.TimeoutSocket;
+import com.javaop.util.Buffer;
 
 
 /**
@@ -222,7 +223,8 @@ public class PacketThread extends Thread {
         if (output != null) {
             output.write(data);
             output.flush();
-            out.systemMessage(ErrorLevelConstants.PACKET, "Out:\n" + new util.Buffer(data).toString());
+            out.systemMessage(ErrorLevelConstants.PACKET, "Out:\n"
+                    + new Buffer(data).toString());
         }
     }
 

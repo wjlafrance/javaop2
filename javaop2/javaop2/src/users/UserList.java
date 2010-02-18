@@ -1,12 +1,12 @@
 /*
  * Created on Aug 27, 2004 By iago
  */
-package users;
+package com.javaop.users;
 
 import java.util.Vector;
 
-import util.Pattern;
-import util.User;
+import com.javaop.util.Pattern;
+import com.javaop.util.User;
 
 
 /**

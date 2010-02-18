@@ -1,4 +1,4 @@
-package plugin_interfaces;
+package com.javaop.plugin_interfaces;
 
 import java.util.Hashtable;
 import java.util.Properties;
@@ -7,12 +7,12 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import util.Uniq;
-import util.gui.PreferencesPanel;
+import com.javaop.util.Uniq;
+import com.javaop.util.gui.PreferencesPanel;
 
-import callback_interfaces.PluginCallbackRegister;
-import callback_interfaces.PublicExposedFunctions;
-import callback_interfaces.StaticExposedFunctions;
+import com.javaop.callback_interfaces.PluginCallbackRegister;
+import com.javaop.callback_interfaces.PublicExposedFunctions;
+import com.javaop.callback_interfaces.StaticExposedFunctions;
 
 
 /*

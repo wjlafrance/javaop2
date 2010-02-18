@@ -1,3 +1,5 @@
+package com.javaop.Logging;
+
 /*
  * Created on Jan 31, 2005 By iago
  */
@@ -13,21 +15,21 @@ import java.util.Properties;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 
-import callback_interfaces.PluginCallbackRegister;
-import callback_interfaces.PublicExposedFunctions;
-import callback_interfaces.StaticExposedFunctions;
-import exceptions.LoginException;
-import exceptions.PluginException;
-import plugin_interfaces.ErrorCallback;
-import plugin_interfaces.EventCallback;
-import plugin_interfaces.GenericPluginInterface;
-import plugin_interfaces.OutgoingTextCallback;
-import plugin_interfaces.PacketCallback;
-import plugin_interfaces.SystemMessageCallback;
-import util.BnetEvent;
-import util.BnetPacket;
-import util.RelativeFile;
-import util.Timestamp;
+import com.javaop.callback_interfaces.PluginCallbackRegister;
+import com.javaop.callback_interfaces.PublicExposedFunctions;
+import com.javaop.callback_interfaces.StaticExposedFunctions;
+import com.javaop.exceptions.LoginException;
+import com.javaop.exceptions.PluginException;
+import com.javaop.plugin_interfaces.ErrorCallback;
+import com.javaop.plugin_interfaces.EventCallback;
+import com.javaop.plugin_interfaces.GenericPluginInterface;
+import com.javaop.plugin_interfaces.OutgoingTextCallback;
+import com.javaop.plugin_interfaces.PacketCallback;
+import com.javaop.plugin_interfaces.SystemMessageCallback;
+import com.javaop.util.BnetEvent;
+import com.javaop.util.BnetPacket;
+import com.javaop.util.RelativeFile;
+import com.javaop.util.Timestamp;
 
 
 /**

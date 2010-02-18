@@ -1,3 +1,5 @@
+package com.javaop.SwingGui;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Hashtable;
@@ -8,12 +10,12 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 
-import callback_interfaces.PublicExposedFunctions;
+import com.javaop.callback_interfaces.PublicExposedFunctions;
+import com.javaop.constants.ErrorLevelConstants;
+import com.javaop.constants.PriorityConstants;
 
-import settings.UserDatabaseWizard;
-import util.MenuIcons;
-import constants.ErrorLevelConstants;
-import constants.PriorityConstants;
+import com.javaop.SwingGui.util.MenuIcons;
+import com.javaop.SwingGui.settings.UserDatabaseWizard;
 
 
 /*

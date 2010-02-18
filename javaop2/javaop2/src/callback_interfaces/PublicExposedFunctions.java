@@ -2,7 +2,7 @@
  * Created on Dec 9, 2004 By iago
  */
 
-package callback_interfaces;
+package com.javaop.callback_interfaces;
 
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -12,10 +12,10 @@ import java.util.TimerTask;
 import javax.swing.Icon;
 import javax.swing.KeyStroke;
 
-import exceptions.PluginException;
+import com.javaop.exceptions.PluginException;
 
-import util.Buffer;
-import util.User;
+import com.javaop.util.Buffer;
+import com.javaop.util.User;
 
 
 /**

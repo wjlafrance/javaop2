@@ -1,7 +1,7 @@
 /*
  * Created on Dec 18, 2004 By iago
  */
-package _main;
+package com.javaop._main;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -32,12 +32,12 @@ import javax.swing.JScrollPane;
 import javax.swing.ListCellRenderer;
 import javax.swing.filechooser.FileFilter;
 
-import pluginmanagers.PluginManager;
+import com.javaop.pluginmanagers.PluginManager;
 
-import bot.JavaOpFileStuff;
+import com.javaop.bot.JavaOpFileStuff;
 
-import util.RelativeFile;
-import util.gui.Gui;
+import com.javaop.util.RelativeFile;
+import com.javaop.util.gui.Gui;
 
 
 /**

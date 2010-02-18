@@ -1,12 +1,14 @@
+package com.javaop.ChannelList;
+
 import java.util.Properties;
 
 import javax.swing.JComponent;
 
-import callback_interfaces.PluginCallbackRegister;
-import callback_interfaces.PublicExposedFunctions;
-import callback_interfaces.StaticExposedFunctions;
-import plugin_interfaces.EventCallback;
-import plugin_interfaces.GenericPluginInterface;
+import com.javaop.callback_interfaces.PluginCallbackRegister;
+import com.javaop.callback_interfaces.PublicExposedFunctions;
+import com.javaop.callback_interfaces.StaticExposedFunctions;
+import com.javaop.plugin_interfaces.EventCallback;
+import com.javaop.plugin_interfaces.GenericPluginInterface;
 
 
 /*

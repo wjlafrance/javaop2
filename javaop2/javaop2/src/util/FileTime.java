@@ -4,7 +4,7 @@
  * Created on March 4, 2004, 3:12 PM
  */
 
-package util;
+package com.javaop.util;
 
 /**
  * This class simplifies conversion from Java's date format (64 bit,

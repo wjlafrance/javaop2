@@ -1,11 +1,11 @@
 /*
  * Created on Dec 4, 2004 By iago
  */
-package plugin_interfaces;
+package com.javaop.plugin_interfaces;
 
 import java.io.IOException;
 
-import exceptions.PluginException;
+import com.javaop.exceptions.PluginException;
 
 
 /**

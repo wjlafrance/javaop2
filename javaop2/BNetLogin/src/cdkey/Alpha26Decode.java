@@ -1,18 +1,18 @@
+package com.javaop.BNetLogin.cdkey;
+
 /*
  * Alpha26Decode.java
  * 
  * Created on May 21, 2004, 3:23 AM
  */
 
-package cdkey;
-
-import util.Buffer;
+import com.javaop.util.Buffer;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import password.ByteFromIntArray;
-import password.IntFromByteArray;
+import com.javaop.BNetLogin.password.ByteFromIntArray;
+import com.javaop.BNetLogin.password.IntFromByteArray;
 
 /**
  * 

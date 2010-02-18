@@ -1,4 +1,4 @@
-package bot;
+package com.javaop.bot;
 
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -12,28 +12,28 @@ import java.util.Vector;
 import javax.swing.Icon;
 import javax.swing.KeyStroke;
 
-import callback_interfaces.PublicExposedFunctions;
-import callback_interfaces.StaticExposedFunctions;
+import com.javaop.callback_interfaces.PublicExposedFunctions;
+import com.javaop.callback_interfaces.StaticExposedFunctions;
 
-import constants.ErrorLevelConstants;
-import constants.LoudnessConstants;
-import constants.PriorityConstants;
-import exceptions.CommandUsedIllegally;
-import exceptions.CommandUsedImproperly;
-import exceptions.PluginException;
+import com.javaop.constants.ErrorLevelConstants;
+import com.javaop.constants.LoudnessConstants;
+import com.javaop.constants.PriorityConstants;
+import com.javaop.exceptions.CommandUsedIllegally;
+import com.javaop.exceptions.CommandUsedImproperly;
+import com.javaop.exceptions.PluginException;
 
-import pluginmanagers.PluginRegistration;
-import pluginmanagers.PluginManager;
+import com.javaop.pluginmanagers.PluginRegistration;
+import com.javaop.pluginmanagers.PluginManager;
 
-import users.UserList;
-import util.BnetPacket;
-import util.Buffer;
-import util.ColorConstants;
-import util.PersistantMap;
-import util.Splitter;
-import util.Uniq;
-import util.User;
-import util.UserDB;
+import com.javaop.users.UserList;
+import com.javaop.util.BnetPacket;
+import com.javaop.util.Buffer;
+import com.javaop.util.ColorConstants;
+import com.javaop.util.PersistantMap;
+import com.javaop.util.Splitter;
+import com.javaop.util.Uniq;
+import com.javaop.util.User;
+import com.javaop.util.UserDB;
 
 
 /*

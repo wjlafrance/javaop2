@@ -1,20 +1,20 @@
 /*
  * Created on Apr 11, 2005 By iago
  */
-package bot;
+package com.javaop.bot;
 
 import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Properties;
 import javax.swing.JComponent;
 
-import plugin_interfaces.GenericPluginInterface;
-import pluginmanagers.PluginManager;
-import util.PersistantMap;
-import util.Uniq;
-import callback_interfaces.PublicExposedFunctions;
-import callback_interfaces.StaticExposedFunctions;
-import exceptions.PluginException;
+import com.javaop.plugin_interfaces.GenericPluginInterface;
+import com.javaop.pluginmanagers.PluginManager;
+import com.javaop.util.PersistantMap;
+import com.javaop.util.Uniq;
+import com.javaop.callback_interfaces.PublicExposedFunctions;
+import com.javaop.callback_interfaces.StaticExposedFunctions;
+import com.javaop.exceptions.PluginException;
 
 
 public class BotCoreStatic implements StaticExposedFunctions

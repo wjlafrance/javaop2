@@ -1,7 +1,7 @@
 /*
  * Created on Dec 21, 2004 By iago
  */
-package bot;
+package com.javaop.bot;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,14 +10,14 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Vector;
 
-import plugin_interfaces.GenericPluginInterface;
-import pluginmanagers.PluginManager;
+import com.javaop.plugin_interfaces.GenericPluginInterface;
+import com.javaop.pluginmanagers.PluginManager;
 
-import util.FileManagement;
-import util.PersistantMap;
-import util.RelativeFile;
-import util.Uniq;
-import util.UserDB;
+import com.javaop.util.FileManagement;
+import com.javaop.util.PersistantMap;
+import com.javaop.util.RelativeFile;
+import com.javaop.util.Uniq;
+import com.javaop.util.UserDB;
 
 
 /**

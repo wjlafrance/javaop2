@@ -1,11 +1,11 @@
-package _main;
+package com.javaop._main;
 
 import javax.swing.JOptionPane;
 
-import pluginmanagers.PluginManager;
+import com.javaop.pluginmanagers.PluginManager;
 
-import bot.BotManager;
-import bot.JavaOpFileStuff;
+import com.javaop.bot.BotManager;
+import com.javaop.bot.JavaOpFileStuff;
 
 
 /*

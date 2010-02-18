@@ -1,3 +1,5 @@
+package com.javaop.SwingGui;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -15,14 +17,6 @@ import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.util.Random;
 
-import exceptions.CommandUsedIllegally;
-import exceptions.CommandUsedImproperly;
-import exceptions.LoginException;
-import exceptions.PluginException;
-import gui.ChannelList;
-import gui.ColorTextArea;
-import gui.TextFieldHistory;
-
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JButton;
@@ -34,27 +28,36 @@ import javax.swing.KeyStroke;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
 
-import plugin_interfaces.CommandCallback;
-import plugin_interfaces.ErrorCallback;
-import plugin_interfaces.EventCallback;
-import plugin_interfaces.GuiCallback;
-import plugin_interfaces.SystemMessageCallback;
-import plugin_interfaces.OutgoingTextCallback;
+import com.javaop.exceptions.CommandUsedIllegally;
+import com.javaop.exceptions.CommandUsedImproperly;
+import com.javaop.exceptions.LoginException;
+import com.javaop.exceptions.PluginException;
 
-import constants.ErrorLevelConstants;
-import constants.LoudnessConstants;
-import constants.PriorityConstants;
+import com.javaop.plugin_interfaces.CommandCallback;
+import com.javaop.plugin_interfaces.ErrorCallback;
+import com.javaop.plugin_interfaces.EventCallback;
+import com.javaop.plugin_interfaces.GuiCallback;
+import com.javaop.plugin_interfaces.SystemMessageCallback;
+import com.javaop.plugin_interfaces.OutgoingTextCallback;
 
-import users.Statstring;
-import util.BnetEvent;
-import util.BnetPacket;
-import util.ColorConstants;
-import util.GameIcons;
-import util.PadString;
-import util.Timestamp;
+import com.javaop.constants.ErrorLevelConstants;
+import com.javaop.constants.LoudnessConstants;
+import com.javaop.constants.PriorityConstants;
 
-import callback_interfaces.PluginCallbackRegister;
-import callback_interfaces.PublicExposedFunctions;
+import com.javaop.users.Statstring;
+import com.javaop.util.BnetEvent;
+import com.javaop.util.BnetPacket;
+import com.javaop.util.ColorConstants;
+import com.javaop.util.PadString;
+import com.javaop.util.Timestamp;
+
+import com.javaop.callback_interfaces.PluginCallbackRegister;
+import com.javaop.callback_interfaces.PublicExposedFunctions;
+
+import com.javaop.SwingGui.util.GameIcons;
+import com.javaop.SwingGui.gui.ChannelList;
+import com.javaop.SwingGui.gui.ColorTextArea;
+import com.javaop.SwingGui.gui.TextFieldHistory;
 
 
 /**

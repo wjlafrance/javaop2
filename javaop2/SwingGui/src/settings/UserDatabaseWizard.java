@@ -1,7 +1,7 @@
 /*
  * Created on Apr 9, 2005 By iago
  */
-package settings;
+package com.javaop.SwingGui.settings;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -25,9 +25,8 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import callback_interfaces.PublicExposedFunctions;
-
-import util.gui.Gui;
+import com.javaop.callback_interfaces.PublicExposedFunctions;
+import com.javaop.util.gui.Gui;
 
 
 public class UserDatabaseWizard extends JFrame implements ActionListener, ListSelectionListener

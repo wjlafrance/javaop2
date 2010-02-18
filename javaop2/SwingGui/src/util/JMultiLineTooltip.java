@@ -1,4 +1,4 @@
-package util;
+package com.javaop.SwingGui.util;
 
 // JMultiLineTooltip.java
 import javax.swing.*;

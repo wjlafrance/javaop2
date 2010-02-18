@@ -1,3 +1,5 @@
+package com.javaop.ConsoleDisplay;
+
 /*
  * Created on Dec 12, 2004 By iago
  */

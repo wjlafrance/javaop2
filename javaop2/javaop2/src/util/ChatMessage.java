@@ -1,9 +1,9 @@
 /*
  * Created on Dec 13, 2004 By iago
  */
-package util;
+package com.javaop.util;
 
-import constants.PriorityConstants;
+import com.javaop.constants.PriorityConstants;
 
 
 /**

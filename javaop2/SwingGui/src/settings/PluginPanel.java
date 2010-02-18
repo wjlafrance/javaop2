@@ -1,7 +1,7 @@
 /*
  * Created on Apr 18, 2005 By iago
  */
-package settings;
+package com.javaop.SwingGui.settings;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -13,7 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import callback_interfaces.StaticExposedFunctions;
+import com.javaop.callback_interfaces.StaticExposedFunctions;
 
 
 public class PluginPanel extends JPanel

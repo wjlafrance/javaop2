@@ -1,6 +1,6 @@
-package plugin_containers;
+package com.javaop.plugin_containers;
 
-import plugin_interfaces.UserDatabaseCallback;
+import com.javaop.plugin_interfaces.UserDatabaseCallback;
 
 
 /**

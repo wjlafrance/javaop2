@@ -4,9 +4,9 @@
  * Created on March 18, 2004, 12:25 PM
  */
 
-package users;
+package com.javaop.users;
 
-import util.User;
+import com.javaop.util.User;
 
 
 /**

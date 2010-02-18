@@ -1,4 +1,4 @@
-package versioning;
+package com.javaop.BNetLogin.versioning;
 
 /**
  * This is a small class to hold the version hash, checksum, and EXE

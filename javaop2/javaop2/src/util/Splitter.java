@@ -1,7 +1,7 @@
 /*
  * Created on Jan 16, 2005 By iago
  */
-package util;
+package com.javaop.util;
 
 import java.util.Vector;
 

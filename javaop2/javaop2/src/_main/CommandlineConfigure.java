@@ -2,7 +2,7 @@
  * Created on Feb 12, 2005 By iago
  */
 
-package _main;
+package com.javaop._main;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,11 +12,11 @@ import java.util.Enumeration;
 import java.util.Properties;
 import java.util.Vector;
 
-import plugin_interfaces.GenericPluginInterface;
-import pluginmanagers.PluginManager;
-import util.PersistantMap;
+import com.javaop.plugin_interfaces.GenericPluginInterface;
+import com.javaop.pluginmanagers.PluginManager;
+import com.javaop.util.PersistantMap;
 
-import bot.JavaOpFileStuff;
+import com.javaop.bot.JavaOpFileStuff;
 
 
 /**

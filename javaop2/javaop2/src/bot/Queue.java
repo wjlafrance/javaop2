@@ -1,22 +1,22 @@
 /*
  * Created on Apr 24, 2005 By iago
  */
-package bot;
+package com.javaop.bot;
 
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.TreeSet;
 
-import constants.ErrorLevelConstants;
-import constants.PacketConstants;
+import com.javaop.constants.ErrorLevelConstants;
+import com.javaop.constants.PacketConstants;
 
-import pluginmanagers.PluginRegistration;
+import com.javaop.pluginmanagers.PluginRegistration;
 
-import util.BnetPacket;
-import util.ChatMessage;
+import com.javaop.util.BnetPacket;
+import com.javaop.util.ChatMessage;
 
-import callback_interfaces.PublicExposedFunctions;
+import com.javaop.callback_interfaces.PublicExposedFunctions;
 
 
 public class Queue

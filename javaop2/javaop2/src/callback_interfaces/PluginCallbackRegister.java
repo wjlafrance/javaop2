@@ -2,20 +2,20 @@
  * Created on Dec 10, 2004 By iago
  */
 
-package callback_interfaces;
+package com.javaop.callback_interfaces;
 
-import plugin_interfaces.BotCallback;
-import plugin_interfaces.CommandCallback;
-import plugin_interfaces.ConnectionCallback;
-import plugin_interfaces.ErrorCallback;
-import plugin_interfaces.EventCallback;
-import plugin_interfaces.GuiCallback;
-import plugin_interfaces.RawEventCallback;
-import plugin_interfaces.OutgoingTextCallback;
-import plugin_interfaces.PacketCallback;
-import plugin_interfaces.SystemMessageCallback;
-import plugin_interfaces.UserDatabaseCallback;
-import plugin_interfaces.UserErrorCallback;
+import com.javaop.plugin_interfaces.BotCallback;
+import com.javaop.plugin_interfaces.CommandCallback;
+import com.javaop.plugin_interfaces.ConnectionCallback;
+import com.javaop.plugin_interfaces.ErrorCallback;
+import com.javaop.plugin_interfaces.EventCallback;
+import com.javaop.plugin_interfaces.GuiCallback;
+import com.javaop.plugin_interfaces.RawEventCallback;
+import com.javaop.plugin_interfaces.OutgoingTextCallback;
+import com.javaop.plugin_interfaces.PacketCallback;
+import com.javaop.plugin_interfaces.SystemMessageCallback;
+import com.javaop.plugin_interfaces.UserDatabaseCallback;
+import com.javaop.plugin_interfaces.UserErrorCallback;
 
 
 /**

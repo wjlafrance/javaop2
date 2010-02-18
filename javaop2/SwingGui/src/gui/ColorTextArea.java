@@ -2,7 +2,7 @@
  * Created on Jan 17, 2005 By iago
  */
 
-package gui;
+package com.javaop.SwingGui.gui;
 
 import java.awt.Color;
 
@@ -14,7 +14,7 @@ import javax.swing.text.Style;
 import javax.swing.text.StyleContext;
 import javax.swing.text.StyleConstants;
 
-import util.ColorConstants;
+import com.javaop.util.ColorConstants;
 
 
 /**

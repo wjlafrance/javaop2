@@ -1,7 +1,7 @@
 /*
  * Created on Jun 19, 2005 By iago
  */
-package util;
+package com.javaop.util;
 
 import java.io.IOException;
 import java.net.Socket;

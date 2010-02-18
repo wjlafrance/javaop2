@@ -1,13 +1,13 @@
 /*
  * Created on Dec 1, 2004 By iago
  */
-package plugin_interfaces;
+package com.javaop.plugin_interfaces;
 
 import java.io.IOException;
 
-import exceptions.CommandUsedIllegally;
-import exceptions.CommandUsedImproperly;
-import exceptions.PluginException;
+import com.javaop.exceptions.CommandUsedIllegally;
+import com.javaop.exceptions.CommandUsedImproperly;
+import com.javaop.exceptions.PluginException;
 
 
 /**

@@ -3,7 +3,7 @@
  * 
  * Created on March 10, 2004, 9:05 AM
  */
-package versioning;
+package com.javaop.BNetLogin.versioning;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,9 +18,9 @@ import java.nio.channels.FileChannel;
 
 import java.util.StringTokenizer;
 
-import util.RelativeFile;
+import com.javaop.util.RelativeFile;
 
-import exceptions.LoginException;
+import com.javaop.exceptions.LoginException;
 
 /**
  * This takes care of the CheckRevision() for the main game files of any
@@ -118,7 +118,7 @@ public class CheckRevision {
         char[] opValueSrc1 = new char[4];
         char[] opValueSrc2 = new char[4];
         char[] operation = new char[4];
-
+        
         // Break this apart at the spaces
         StringTokenizer s = new StringTokenizer(formula, " ");
         int currentFormula = 0;
@@ -149,15 +149,15 @@ public class CheckRevision {
                 }
             }
         }
-
+        
         // Now we actually do the hashing for each file
         // Start by hashing A by the hashcode
-
+        
         A ^= hashcodes[mpqNumber];
-
+        
         for(int i = 0; i < 3; i++) {
             byte []data = readFile(new File(files[i]));
-
+            
             for(int j = 0; j < data.length; j += 4) {
                 long S = 0;
                 S |= ((data[j+0] << 0)  & 0x000000FF);
@@ -215,24 +215,24 @@ public class CheckRevision {
         return (int)C;
     }
     
-
+    
     /**
      * Reads a file and returns a byte array.
      */
     public static byte []readFile(File file) throws IOException {
-      int length = (int) file.length();
-      byte []ret = new byte[(length % 1024) == 0 ? length
+        int length = (int) file.length();
+        byte []ret = new byte[(length % 1024) == 0 ? length
             : (length / 1024 * 1024) + 1024];
-
-      InputStream in = new FileInputStream(file);
-      in.read(ret);
-      in.close();
-
-      int value = 0xFF;
-      for(int i = (int) file.length(); i < ret.length; i++)
-        ret[i] = (byte) value--;
-
-      return ret;
+        
+        InputStream in = new FileInputStream(file);
+        in.read(ret);
+        in.close();
+        
+        int value = 0xFF;
+        for(int i = (int) file.length(); i < ret.length; i++)
+          ret[i] = (byte) value--;
+        
+        return ret;
     }
     
     /**

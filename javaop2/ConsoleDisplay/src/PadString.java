@@ -1,3 +1,5 @@
+package com.javaop.ConsoleDisplay;
+
 /*
  * PadString.java
  * 

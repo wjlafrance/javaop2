@@ -1,10 +1,10 @@
-package util;
+package com.javaop.util;
 
 import java.util.Hashtable;
 
-import constants.PacketConstants;
+import com.javaop.constants.PacketConstants;
 
-import util.BnetPacket;
+import com.javaop.util.BnetPacket;
 
 
 /*

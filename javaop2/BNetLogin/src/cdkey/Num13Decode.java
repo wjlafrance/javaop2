@@ -4,10 +4,10 @@
  * Created on June 12, 2008 22:13
  */
 
-package cdkey;
+package com.javaop.BNetLogin.cdkey;
 
-import util.Buffer;
-import password.BrokenSHA1;
+import com.javaop.util.Buffer;
+import com.javaop.BNetLogin.password.BrokenSHA1;
 
 /**
  * This is the CDKey Decoder used for decoding legacy StarCraft keys.

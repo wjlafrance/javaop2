@@ -1,7 +1,7 @@
 /*
  * Gui.java Written by Ron Created 1/17/2005
  */
-package util.gui;
+package com.javaop.util.gui;
 
 import javax.swing.JComponent;
 import java.awt.Toolkit;

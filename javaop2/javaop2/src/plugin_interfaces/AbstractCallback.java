@@ -1,14 +1,14 @@
 /*
  * Created on Dec 2, 2004 By iago
  */
-package plugin_interfaces;
+package com.javaop.plugin_interfaces;
 
-import constants.ErrorLevelConstants;
-import constants.EventConstants;
-import constants.Flags;
-import constants.LoudnessConstants;
-import constants.PacketConstants;
-import constants.PriorityConstants;
+import com.javaop.constants.ErrorLevelConstants;
+import com.javaop.constants.EventConstants;
+import com.javaop.constants.Flags;
+import com.javaop.constants.LoudnessConstants;
+import com.javaop.constants.PacketConstants;
+import com.javaop.constants.PriorityConstants;
 
 
 /**

@@ -1,4 +1,4 @@
-package users;
+package com.javaop.users;
 
 /**
  * Parses statstrings. Information from:

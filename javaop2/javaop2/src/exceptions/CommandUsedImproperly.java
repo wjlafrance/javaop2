@@ -1,7 +1,7 @@
 /*
  * Created on Jan 3, 2005 By iago
  */
-package exceptions;
+package com.javaop.exceptions;
 
 /**
  * @author iago

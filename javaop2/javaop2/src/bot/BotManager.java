@@ -1,14 +1,14 @@
 /*
  * Created on Jan 20, 2005 By iago
  */
-package bot;
+package com.javaop.bot;
 
 import java.io.IOException;
 import java.util.Hashtable;
 
-import util.Uniq;
+import com.javaop.util.Uniq;
 
-import exceptions.PluginException;
+import com.javaop.exceptions.PluginException;
 
 
 /**

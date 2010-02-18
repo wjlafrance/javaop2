@@ -1,7 +1,7 @@
 /*
  * Created on Jan 18, 2005 By iago
  */
-package pluginmanagers;
+package com.javaop.pluginmanagers;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,23 +11,25 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.jar.Attributes;
+import java.net.JarURLConnection;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
-import constants.ErrorLevelConstants;
+import com.javaop.constants.ErrorLevelConstants;
 
-import callback_interfaces.PluginCallbackRegister;
-import callback_interfaces.PublicExposedFunctions;
+import com.javaop.callback_interfaces.PluginCallbackRegister;
+import com.javaop.callback_interfaces.PublicExposedFunctions;
 
-import plugin_interfaces.GenericPluginInterface;
-import util.ErrorMessage;
-import util.RelativeFile;
-import util.Uniq;
+import com.javaop.plugin_interfaces.GenericPluginInterface;
+import com.javaop.util.ErrorMessage;
+import com.javaop.util.RelativeFile;
+import com.javaop.util.Uniq;
 
-import bot.BotCoreStatic;
-import bot.JavaOpFileStuff;
-import bot.PluginMain;
+import com.javaop.bot.BotCoreStatic;
+import com.javaop.bot.JavaOpFileStuff;
+import com.javaop.bot.PluginMain;
 
 
 /**
@@ -36,9 +38,9 @@ import bot.PluginMain;
  */
 public class PluginManager {
     private static Hashtable<String, GenericPluginInterface> allPlugins =
-    		new Hashtable<String, GenericPluginInterface>();
+            new Hashtable<String, GenericPluginInterface>();
     private Hashtable<String, GenericPluginInterface>  activePlugins =
-    		new Hashtable<String, GenericPluginInterface>();
+            new Hashtable<String, GenericPluginInterface>();
 
     /**************
      * These static functions are run exactly once, when the bot loads.
@@ -52,18 +54,18 @@ public class PluginManager {
 
             if (allPlugins.size() == 0) {
                 ErrorMessage.error("Unable to find any plugins.\nPlease download the plugin "
-                		+ "package from \nhttp://javaop.googlecode.com\nand extract them "
-                		+ "somewhere. You will be prompted to find them.", false);
+                        + "package from \nhttp://javaop.googlecode.com\nand extract them "
+                        + "somewhere. You will be prompted to find them.", false);
 
                 try {
                     JFileChooser chooser = new JFileChooser(new RelativeFile(""));
                     chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
                     chooser.setDialogTitle("Please choose the folder where the plugins were "
-                    		+ "extracted to (in the future, place all plugins in this folder!)");
+                            + "extracted to (in the future, place all plugins in this folder!)");
                     int selection = chooser.showOpenDialog(null);
                     if (selection == JFileChooser.CANCEL_OPTION) {
                         JOptionPane.showMessageDialog(null, "The plugin folder must be selected "
-                        		+ "before the bot can load.");
+                                + "before the bot can load.");
                         System.exit(1);
                     }
 
@@ -92,10 +94,11 @@ public class PluginManager {
 
     private static void loadFile(String url, boolean load) {
         try {
+            System.out.println("Opening JAR: " + url);
             loadFile(new URL(url), load);
         } catch (MalformedURLException e) {
             try {
-                loadFile(new URL("file:///" + url), load);
+                loadFile(new URL("jar:file:///" + url + "!/"), load);
             } catch (MalformedURLException e2) {
                 System.err.println("--> Unable to load plugin: " + url);
                 System.out.println(e);
@@ -105,13 +108,19 @@ public class PluginManager {
     }
 
     private static void loadFile(URL url, boolean load) {
+        String mainClass = "PluginMain";
         try {
-            System.out.println("Loading plugin: " + url);
-
-            URL[] urls =
-            { url };
+            URL[] urls = { url };
             URLClassLoader ucl = new URLClassLoader(urls);
-            Class cl = ucl.loadClass("PluginMain");
+            
+            JarURLConnection uc = (JarURLConnection)url.openConnection();
+            Attributes attr = uc.getMainAttributes();
+            if (attr != null)
+                mainClass = attr.getValue(Attributes.Name.MAIN_CLASS);
+                
+            System.out.println("Loading plugin: " + mainClass);
+            
+            Class cl = ucl.loadClass(mainClass);
             GenericPluginInterface plugin = (GenericPluginInterface) cl.newInstance();
 
             allPlugins.put(plugin.getName(), plugin);
@@ -122,12 +131,12 @@ public class PluginManager {
             plugin.setGlobalDefaultSettings(BotCoreStatic.getInstance());
         } catch (ClassNotFoundException e) {
             System.err.println("   --> Load failed (Plugin '" + url
-                    + "' doesn't have required PluginMain.class.");
+                    + "' doesn't have main class: " + mainClass);
             System.err.println(e);
             e.printStackTrace();
         } catch (ClassCastException e) {
             System.err.println("   --> Load failed (Plugin '" + url
-                    + "''s PluginMain.class doesn't implement PluginInterface");
+                    + "''s main class doesn't implement PluginInterface");
         } catch (Exception e) {
             System.err.println("Unable to load plugin file: " + url);
             e.printStackTrace();
@@ -188,10 +197,10 @@ public class PluginManager {
                 }
             }
             out.systemMessage(ErrorLevelConstants.ALERT, "It appears that this bot is new. "
-            		+ "The important plugins have been enabled.  To connect, please select " 
-            		+ "'Configure' under the 'Settings' menu, click on 'Battle.net Login " 
-            		+ "Plugin', and fill in your username, password, cdkey, and game client. "
-            		+ "Then, under the 'Connection' menu, choose 'Connect'");
+                    + "The important plugins have been enabled.  To connect, please select " 
+                    + "'Configure' under the 'Settings' menu, click on 'Battle.net Login " 
+                    + "Plugin', and fill in your username, password, cdkey, and game client. "
+                    + "Then, under the 'Connection' menu, choose 'Connect'");
         }
     }
 

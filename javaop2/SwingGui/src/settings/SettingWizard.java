@@ -1,7 +1,7 @@
 /*
  * Created on Apr 8, 2005 By iago
  */
-package settings;
+package com.javaop.SwingGui.settings;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -24,13 +24,11 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-import plugin_interfaces.GenericPluginInterface;
-
-import callback_interfaces.PublicExposedFunctions;
-
-import util.Uniq;
-import util.gui.Gui;
-import util.gui.PreferencesPanel;
+import com.javaop.plugin_interfaces.GenericPluginInterface;
+import com.javaop.callback_interfaces.PublicExposedFunctions;
+import com.javaop.util.Uniq;
+import com.javaop.util.gui.Gui;
+import com.javaop.util.gui.PreferencesPanel;
 
 
 public class SettingWizard extends JFrame implements ListSelectionListener, WindowListener

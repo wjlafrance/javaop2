@@ -4,9 +4,9 @@
  * Created on May 21, 2004, 11:39 AM
  */
 
-package password;
+package com.javaop.BNetLogin.password;
 
-import util.PadString;
+import com.javaop.util.PadString;
 
 /**
  * This is a class to take care of treating an array of ints like a an array of bytes. Note that this always works in

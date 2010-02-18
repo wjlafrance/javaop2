@@ -1,7 +1,7 @@
 /*
  * Created on Jan 18, 2005 By iago
  */
-package constants;
+package com.javaop.constants;
 
 /**
  * @author iago

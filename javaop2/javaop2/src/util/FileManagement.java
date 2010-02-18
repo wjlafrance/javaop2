@@ -1,7 +1,7 @@
 /*
  * Created on Feb 14, 2005 By iago
  */
-package util;
+package com.javaop.util;
 
 import java.io.BufferedReader;
 import java.io.File;

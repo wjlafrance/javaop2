@@ -4,9 +4,9 @@
  * Created on May 21, 2004, 12:35 PM
  */
 
-package password;
+package com.javaop.BNetLogin.password;
 
-import util.PadString;
+import com.javaop.util.PadString;
 
 /**
  * This is a class to take care of inserting or getting the value of an int in an array of bytes.

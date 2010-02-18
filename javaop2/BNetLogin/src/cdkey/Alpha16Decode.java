@@ -4,10 +4,10 @@
  * Created on April 5, 2004, 3:34 PM
  */
 
-package cdkey;
+package com.javaop.BNetLogin.cdkey;
 
-import util.Buffer;
-import password.BrokenSHA1;
+import com.javaop.util.Buffer;
+import com.javaop.BNetLogin.password.BrokenSHA1;
 
 /**
  * This is the CDKey Decoder used for decoding alphabetic keys - Warcraft 2, Diablo 2, etc.

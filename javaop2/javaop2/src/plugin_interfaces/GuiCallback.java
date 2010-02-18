@@ -2,13 +2,12 @@
  * Created on Aug 20, 2005 By iago
  */
 
-package plugin_interfaces;
+package com.javaop.plugin_interfaces;
 
 import java.awt.event.ActionListener;
 
 import javax.swing.Icon;
 import javax.swing.KeyStroke;
-
 
 public interface GuiCallback extends AbstractCallback
 {

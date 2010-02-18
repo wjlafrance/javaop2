@@ -1,7 +1,7 @@
 /*
  * Created on Dec 13, 2004 By iago
  */
-package plugin_interfaces;
+package com.javaop.plugin_interfaces;
 
 /**
  * @author iago WARNING: Do NOT send outgoing text messages from these

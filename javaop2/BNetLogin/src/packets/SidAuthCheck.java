@@ -1,21 +1,21 @@
-package packets;
+package com.javaop.BNetLogin.packets;
 
 // For all packet classes
-import util.BnetPacket;
-import constants.PacketConstants;
-import exceptions.*;
-import callback_interfaces.PublicExposedFunctions;
+import com.javaop.util.BnetPacket;
+import com.javaop.constants.PacketConstants;
+import com.javaop.exceptions.*;
+import com.javaop.callback_interfaces.PublicExposedFunctions;
 
 // For this class only
 import java.util.Date;
 
-import util.ServerSignature;
+import com.javaop.BNetLogin.util.ServerSignature;
 
-import versioning.CheckRevisionResults;
-import versioning.Versioning;
-import versioning.GameData;
+import com.javaop.BNetLogin.versioning.CheckRevisionResults;
+import com.javaop.BNetLogin.versioning.Versioning;
+import com.javaop.BNetLogin.versioning.GameData;
 
-import constants.ErrorLevelConstants;
+import com.javaop.constants.ErrorLevelConstants;
 
 /*
  * Created on Sep 24, 2009 by joe

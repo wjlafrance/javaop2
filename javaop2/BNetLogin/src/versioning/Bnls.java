@@ -3,18 +3,18 @@
  * 
  * By wjlafrance
  */
-package versioning;
+package com.javaop.BNetLogin.versioning;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.InputStream;
 import java.net.Socket;
 
-import callback_interfaces.StaticExposedFunctions;
-import exceptions.LoginException;
-import util.BnlsPacket;
-import util.TimeoutSocket;
-import constants.PacketConstants;
+import com.javaop.callback_interfaces.StaticExposedFunctions;
+import com.javaop.exceptions.LoginException;
+import com.javaop.util.BnlsPacket;
+import com.javaop.util.TimeoutSocket;
+import com.javaop.constants.PacketConstants;
 
 /**
  * @author wjlafrance

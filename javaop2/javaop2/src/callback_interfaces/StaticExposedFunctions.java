@@ -1,16 +1,16 @@
 /*
  * Created on Apr 8, 2005 By iago
  */
-package callback_interfaces;
+package com.javaop.callback_interfaces;
 
 import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Properties;
 
-import plugin_interfaces.GenericPluginInterface;
-import util.PersistantMap;
+import com.javaop.plugin_interfaces.GenericPluginInterface;
+import com.javaop.util.PersistantMap;
 
-import exceptions.PluginException;
+import com.javaop.exceptions.PluginException;
 
 
 /**

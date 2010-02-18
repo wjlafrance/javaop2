@@ -1,7 +1,7 @@
 /*
  * Created on Apr 8, 2005 By iago
  */
-package settings;
+package com.javaop.SwingGui.settings;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -21,11 +21,10 @@ import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import callback_interfaces.StaticExposedFunctions;
-
-import util.Uniq;
-import util.gui.Gui;
-import util.gui.PreferencesPanel;
+import com.javaop.callback_interfaces.StaticExposedFunctions;
+import com.javaop.util.Uniq;
+import com.javaop.util.gui.Gui;
+import com.javaop.util.gui.PreferencesPanel;
 
 
 public class GlobalSettingWizard extends JFrame implements ListSelectionListener, WindowListener

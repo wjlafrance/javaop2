@@ -1,3 +1,5 @@
+package com.javaop.SwingGui;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -16,15 +18,14 @@ import javax.swing.KeyStroke;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import settings.GlobalSettingWizard;
-import util.MenuIcons;
-import util.PersistantMap;
+import com.javaop.constants.ErrorLevelConstants;
+import com.javaop.callback_interfaces.StaticExposedFunctions;
+import com.javaop.exceptions.PluginException;
+import com.javaop.util.PersistantMap;
 
-import constants.ErrorLevelConstants;
-
-import callback_interfaces.StaticExposedFunctions;
-import exceptions.PluginException;
-import gui.LoadWebsite;
+import com.javaop.SwingGui.settings.GlobalSettingWizard;
+import com.javaop.SwingGui.util.MenuIcons;
+import com.javaop.SwingGui.gui.LoadWebsite;
 
 
 /**

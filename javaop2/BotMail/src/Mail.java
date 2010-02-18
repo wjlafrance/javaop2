@@ -1,8 +1,10 @@
+package com.javaop.BotMail;
+
 import java.util.Date;
 import java.util.Vector;
 
-import util.PersistantMap;
-import util.RelativeFile;
+import com.javaop.util.PersistantMap;
+import com.javaop.util.RelativeFile;
 
 
 /*

@@ -1,3 +1,5 @@
+package com.javaop.FunStuff;
+
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -8,18 +10,18 @@ import java.util.Random;
 
 import javax.swing.JComponent;
 
-import callback_interfaces.PluginCallbackRegister;
-import callback_interfaces.PublicExposedFunctions;
-import callback_interfaces.StaticExposedFunctions;
-import exceptions.CommandUsedIllegally;
-import exceptions.CommandUsedImproperly;
-import exceptions.PluginException;
-import plugin_interfaces.CommandCallback;
-import plugin_interfaces.GenericPluginInterface;
-import util.PersistantMap;
-import util.RelativeFile;
-import util.Uniq;
-import util.gui.JTextFieldNumeric;
+import com.javaop.callback_interfaces.PluginCallbackRegister;
+import com.javaop.callback_interfaces.PublicExposedFunctions;
+import com.javaop.callback_interfaces.StaticExposedFunctions;
+import com.javaop.exceptions.CommandUsedIllegally;
+import com.javaop.exceptions.CommandUsedImproperly;
+import com.javaop.exceptions.PluginException;
+import com.javaop.plugin_interfaces.CommandCallback;
+import com.javaop.plugin_interfaces.GenericPluginInterface;
+import com.javaop.util.PersistantMap;
+import com.javaop.util.RelativeFile;
+import com.javaop.util.Uniq;
+import com.javaop.util.gui.JTextFieldNumeric;
 
 
 /*
