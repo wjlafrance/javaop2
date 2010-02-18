@@ -53,12 +53,12 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
 
     public String getName()
     {
-        return "Sweepban";
+        return "SweepBan";
     }
 
     public String getVersion()
     {
-        return "2.1.2";
+        return "2.1.3";
     }
 
     public String getAuthorName()

@@ -34,6 +34,7 @@
         <delete dir="ShellCommands/bin"/>
         <delete dir="ShowInvisibleUsers/bin"/>
         <delete dir="SimpleEventProcess/bin"/>
+        <delete dir="StayConnected/bin"/>
         <delete dir="SweepBan/bin"/>
         <delete dir="SwingGui/bin"/>
         <delete dir="UserInformation/bin"/>
@@ -139,6 +140,9 @@
                 classpath="javaop2/bin"/>
         <mkdir dir="SimpleEventProcess/bin"/>
         <javac srcdir="SimpleEventProcess/src" destdir="SimpleEventProcess/bin"
+                classpath="javaop2/bin"/>
+        <mkdir dir="StayConnected/bin"/>
+        <javac srcdir="StayConnected/src" destdir="StayConnected/bin"
                 classpath="javaop2/bin"/>
         <mkdir dir="SweepBan/bin"/>
         <javac srcdir="SweepBan/src" destdir="SweepBan/bin"
@@ -269,6 +273,9 @@
         </jar>
         <jar destfile="${pluginpath}/SimpleEventProcess.jar" basedir="SimpleEventProcess/bin">
                 <manifest><attribute name="Main-Class" value="com.javaop.SimpleEventProcess.PluginMain"/></manifest>
+        </jar>
+        <jar destfile="${pluginpath}/StayConnected.jar" basedir="StayConnected/bin">
+                <manifest><attribute name="Main-Class" value="com.javaop.StayConnected.PluginMain"/></manifest>
         </jar>
         <jar destfile="${pluginpath}/SweepBan.jar" basedir="SweepBan/bin">
                 <manifest><attribute name="Main-Class" value="com.javaop.SweepBan.PluginMain"/></manifest>

@@ -36,21 +36,15 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
     {
         this.out = out;
 
-        register.registerCommandPlugin(
-                                       this,
-                                       "disconnect",
-                                       0,
-                                       false,
-                                       "C",
-                                       "",
-                                       "Disconnects the bot from Battle.net.  Not usually a good idea.",
-                                       null);
+        register.registerCommandPlugin(this, "disconnect", 0, false, "C", "",
+                "Disconnects the bot from Battle.net.  Not usually a good "
+                + "idea.", null);
         register.registerCommandPlugin(this, "quit", 0, false, "U", "",
-                                       "Closes the bot, along with all instances.", null);
+                "Closes the bot, along with all instances.", null);
         register.registerCommandPlugin(this, "reconnect", 0, false, "C", "",
-                                       "Reconnects to Battle.net", null);
+                "Reconnects to Battle.net", null);
         register.registerCommandPlugin(this, "close", 0, false, "C", "",
-                                       "Disconnects and cleans up the current instance", null);
+                "Disconnects and cleans up the current instance", null);
     }
 
     public void deactivate(PluginCallbackRegister register)
@@ -64,7 +58,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
 
     public String getVersion()
     {
-        return "2.1.2";
+        return "2.1.3";
     }
 
     public String getAuthorName()

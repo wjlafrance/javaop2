@@ -45,12 +45,12 @@ public class PluginMain extends GenericPluginInterface implements EventCallback
 
     public String getName()
     {
-        return "Auto-Rejoin";
+        return "AutoRejoin";
     }
 
     public String getVersion()
     {
-        return "2.1.2";
+        return "2.1.3";
     }
 
     public String getAuthorName()

@@ -74,7 +74,7 @@ public class PluginMain extends GenericPluginInterface implements RawEventCallba
 
     public String getVersion()
     {
-        return "2.1.2";
+        return "2.1.3";
     }
 
     public String getAuthorName()

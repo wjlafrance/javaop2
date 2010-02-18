@@ -51,7 +51,7 @@ public class PluginMain extends GenericPluginInterface implements EventCallback
     }
 
     public String getName() {
-        return "Show invisible users";
+        return "ShowInvisibleUsers";
     }
 
     public String getVersion() {
@@ -192,7 +192,7 @@ public class PluginMain extends GenericPluginInterface implements EventCallback
         if (out.getLocalSettingDefault(getName(), "check channels", "false")
                 .equalsIgnoreCase("true"))
         {
-            String game = (String)out.getLocalVariable("game");
+            String game = out.getLocalSetting("Battle.net Login Plugin", "game");
             if (game.equals("D2DV") || game.equals("D2XP")) {
                 out.sendTextPriority("/unsquelch *"
                         + out.getLocalVariable("username"), PRIORITY_LOW);
@@ -209,7 +209,8 @@ public class PluginMain extends GenericPluginInterface implements EventCallback
                 if (out.getLocalSettingDefault(getName(), "check channels",
                         "false").equalsIgnoreCase("true"))
                 {
-                    String game = (String)out.getLocalVariable("game");
+                    String game = out.getLocalSetting("Battle.net Login Plugin",
+                            "game");
                     if (game.equals("D2DV") || game.equals("D2XP")) {
                         out.sendTextPriority("/unsquelch *"
                                 + out.getLocalVariable("username"),

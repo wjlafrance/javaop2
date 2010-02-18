@@ -51,12 +51,12 @@ public class PluginMain extends GenericPluginInterface implements OutgoingTextCa
 
     public String getName()
     {
-        return "Away Message";
+        return "AwayMessage";
     }
 
     public String getVersion()
     {
-        return "2.1.2";
+        return "2.1.3";
     }
 
     public String getAuthorName()

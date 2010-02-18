@@ -256,7 +256,7 @@ public class JavaOpFrame extends JFrame {
             Arrays.sort(frames, new Comparator() {
                 public int compare(Object arg0, Object arg1) {
                     return ((JavaOpPanel) arg0).getTitle().compareTo(
-                                                                     ((JavaOpPanel) arg1).getTitle());
+                            ((JavaOpPanel) arg1).getTitle());
                 }
             });
 

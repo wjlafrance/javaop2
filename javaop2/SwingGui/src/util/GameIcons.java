@@ -13,12 +13,10 @@ import com.javaop.exceptions.LoginException;
  * @author iago
  * 
  */
-public class GameIcons
-{
+public class GameIcons {
     private static Hashtable<String, ImageIcon> icons = new Hashtable<String, ImageIcon>();
 
-    static
-    {
+    static {
         icons.put("STAR", new ImageIcon(new byte[] {
             (byte) 0x47, (byte) 0x49, (byte) 0x46, (byte) 0x38, (byte) 0x39, (byte) 0x61,
             (byte) 0x1c, (byte) 0x00, (byte) 0x0e, (byte) 0x00, (byte) 0xc4, (byte) 0x00,
@@ -1564,7 +1562,6 @@ public class GameIcons
     }
 
     public static ImageIcon getIcon(String client) {
-        
         client = getCodeFromLongName(client);
         return (ImageIcon) icons.get(client);
     }
@@ -1575,7 +1572,7 @@ public class GameIcons
     private static String getCodeFromLongName(String game) {
         if (game == null)
             return "";
-
+        
         game = game.toLowerCase();
         game = game.replace("iiii", "4"); // who knows?
         game = game.replace("iii", "3");

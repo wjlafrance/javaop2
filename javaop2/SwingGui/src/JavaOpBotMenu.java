@@ -30,11 +30,11 @@ import com.javaop.SwingGui.util.MenuIcons;
 public class JavaOpBotMenu extends JMenuBar implements ActionListener
 {
     /**
-	 * 
-	 */
-    private static final long         	serialVersionUID = 1L;
+     * 
+     */
+    private static final long           serialVersionUID = 1L;
     // The main menus
-    private final JMenu               	file;
+    private final JMenu                 file;
     private final JMenu                 edit;
     private final JMenu                 connection;
     private final JMenu                 settings;
@@ -61,9 +61,9 @@ public class JavaOpBotMenu extends JMenuBar implements ActionListener
     private final JavaOpPanel            panel;
 
     private final Hashtable<String, JMenu>
-    		menus = new Hashtable<String, JMenu>();
+            menus = new Hashtable<String, JMenu>();
     private final Hashtable<JMenuItem, ActionListener>
-    		callbacks = new Hashtable<JMenuItem, ActionListener>();
+            callbacks = new Hashtable<JMenuItem, ActionListener>();
 
     public JavaOpBotMenu(PublicExposedFunctions out, JavaOpPanel panel)
     {

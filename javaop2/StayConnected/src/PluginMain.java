@@ -14,7 +14,7 @@ import com.javaop.plugin_interfaces.ConnectionCallback;
 import com.javaop.constants.PacketConstants;
 import com.javaop.constants.ErrorLevelConstants;
 import com.javaop.exceptions.PluginException;
-import com.javaop.util.BNetPacket;
+import com.javaop.util.BnetPacket;
 
 
 /*
@@ -24,71 +24,54 @@ import com.javaop.util.BNetPacket;
  * @author joe
  * 
  */
-public class PluginMain extends GenericPluginInterface implements ConnectionCallback
+public class PluginMain extends GenericPluginInterface implements
+        ConnectionCallback
 {
     private PublicExposedFunctions out;
-    // if disabled, won't autoreconnect
     private boolean                enabled = false;
-
-    //
-    // Basic plugin information
-    //
-    public String getName()
-    {
+    
+    public String getName() {
         return "StayConnected";
     }
 
-    public String getVersion()
-    {
-        return "2.1.2";
+    public String getVersion() {
+        return "2.1.3";
     }
 
-    public String getAuthorName()
-    {
+    public String getAuthorName() {
         return "joe";
     }
 
-    public String getAuthorWebsite()
-    {
-        return "forum.x86labs.org";
+    public String getAuthorWebsite() {
+        return "javaop.googlecode.com";
     }
 
-    public String getAuthorEmail()
-    {
-        return "joetheodd@gmail.com";
+    public String getAuthorEmail() {
+        return "wjlafrance@gmail.com";
     }
 
-    public String getShortDescription()
-    {
+    public String getShortDescription() {
         return "Keeps the bot connected.";
     }
 
     public String getLongDescription()
     {
-        return "Stays connected by sending SID_NULL every 30 seconds and detecting"
-                + "Socket errors, and reconnecting if one occurs.";
+        return "Stays connected by sending SID_NULL every 30 seconds and "
+                + "detecting socket errors, and reconnecting if one occurs.";
     }
-
-    //
-    // Non existant plugin settings
-    //
-    public Properties getDefaultSettingValues()
-    {
+    public Properties getDefaultSettingValues() {
         return new Properties();
     }
 
-    public Properties getSettingsDescription()
-    {
+    public Properties getSettingsDescription() {
         return new Properties();
     }
 
-    public Properties getGlobalDefaultSettingValues()
-    {
+    public Properties getGlobalDefaultSettingValues() {
         return new Properties();
     }
 
-    public Properties getGlobalSettingsDescription()
-    {
+    public Properties getGlobalSettingsDescription() {
         return new Properties();
     }
 
@@ -97,41 +80,37 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
         return null;
     }
 
-    public JComponent getGlobalComponent(String settingName, String value)
-    {
+    public JComponent getGlobalComponent(String settingName, String value) {
         return null;
     }
-
-    //
-    // GenericPluginInterface callbacks
-    //
-    public void load(StaticExposedFunctions staticFuncs)
-    {
+    
+    public void load(StaticExposedFunctions staticFuncs) {
     }
 
-    public void deactivate(PluginCallbackRegister register)
-    {
+    public void deactivate(PluginCallbackRegister register) {
     }
 
-    public void activate(PublicExposedFunctions out, PluginCallbackRegister register)
+    public void activate(PublicExposedFunctions out, PluginCallbackRegister
+            register)
     {
         this.out = out;
         out.schedule(new SendNullPacketCallback(), 30 * 1000);
         register.registerConnectionPlugin(this, null);
     }
 
-    public boolean connecting(String host, int port, Object data) throws IOException, PluginException
+    public boolean connecting(String host, int port, Object data) throws
+            IOException, PluginException
     {
         this.enabled = true;
         return true;
     }
 
-    public void connected(String host, int port, Object data) throws IOException, PluginException
+    public void connected(String host, int port, Object data) throws
+            IOException, PluginException
     {
     }
 
-    public boolean disconnecting(Object data)
-    {
+    public boolean disconnecting(Object data) {
         // The magic here is that this function is only called on
         // intentional disconnects. That means that if we're
         // disconnected due to a socket error, enabled will still
@@ -140,27 +119,21 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
         return true;
     }
 
-    public void disconnected(Object data)
-    {
-        if (this.enabled)
-        {
+    public void disconnected(Object data) {
+        if (this.enabled) {
             out.systemMessage(ErrorLevelConstants.ERROR,
-                              "StayConnected: Looks like we disconnected..");
+                    "Disconnection detected. Reconnecting.");
             out.reconnect();
         }
     }
 
-    private class SendNullPacketCallback extends TimerTask
-    {
-        public void run()
-        {
-            try
-            {
-                out.sendPacket(new BNetPacket(PacketConstants.SID_NULL));
-                out.systemMessage(ErrorLevelConstants.DEBUG, "StayConnected: Sending SID_NULL.");
-            }
-            catch (IOException e)
-            {
+    private class SendNullPacketCallback extends TimerTask {
+        public void run() {
+            try {
+                out.sendPacket(new BnetPacket(PacketConstants.SID_NULL));
+                out.systemMessage(ErrorLevelConstants.DEBUG,
+                        "Sending keep-alive..");
+            } catch (IOException e) {
                 disconnected(e);
             }
         }
