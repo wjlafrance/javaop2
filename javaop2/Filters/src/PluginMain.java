@@ -69,7 +69,7 @@ public class PluginMain extends GenericPluginInterface implements RawEventCallba
 
     public String getName()
     {
-        return "Filter plugin";
+        return "Filter";
     }
 
     public String getVersion()

@@ -58,7 +58,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
 
     public String getName()
     {
-        return "Mail plugin";
+        return "BotMail";
     }
 
     public String getVersion()

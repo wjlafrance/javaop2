@@ -32,6 +32,11 @@ public class BotCoreStatic implements StaticExposedFunctions {
         return instance;
     }
     
+    public void newBot(String name) throws PluginException {
+        botStart(name);
+        JavaOpFileStuff.setActivePlugins(name, PluginManager.getAllNames());
+    }
+    
     public void botStart(String name) throws PluginException {
         if (name.matches("[\\w\\_\\-\\.]+") == false)
             throw new PluginException("Bots' names must contain at least one "

@@ -40,7 +40,7 @@ public class PluginMain extends GenericPluginInterface implements EventCallback,
     }
 
     public String getName() {
-        return "Autoban Plugin";
+        return "Autoban";
     }
 
     public String getVersion() {

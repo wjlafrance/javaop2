@@ -67,7 +67,7 @@ public class PluginMain extends GenericPluginInterface implements EventCallback,
 
     public String getName()
     {
-        return "Logging Plugin";
+        return "Logging";
     }
 
     public String getVersion()

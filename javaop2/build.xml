@@ -69,6 +69,9 @@
         <mkdir dir="BNetLogin/bin"/>
         <javac srcdir="BNetLogin/src" destdir="BNetLogin/bin"
                 classpath="javaop2/bin"/>
+        <mkdir dir="BnetEventProcess/bin"/>
+        <javac srcdir="BnetEventProcess/src" destdir="BnetEventProcess/bin"
+                classpath="javaop2/bin"/>
         <mkdir dir="BasicCommands/bin"/>
         <javac srcdir="BasicCommands/src" destdir="BasicCommands/bin"
                 classpath="javaop2/bin"/>
@@ -138,9 +141,6 @@
         <mkdir dir="ShowInvisibleUsers/bin"/>
         <javac srcdir="ShowInvisibleUsers/src" destdir="ShowInvisibleUsers/bin"
                 classpath="javaop2/bin"/>
-        <mkdir dir="SimpleEventProcess/bin"/>
-        <javac srcdir="SimpleEventProcess/src" destdir="SimpleEventProcess/bin"
-                classpath="javaop2/bin"/>
         <mkdir dir="StayConnected/bin"/>
         <javac srcdir="StayConnected/src" destdir="StayConnected/bin"
                 classpath="javaop2/bin"/>
@@ -201,6 +201,9 @@
         </jar>
         <jar destfile="${pluginpath}/BNetLogin.jar" basedir="BNetLogin/bin">
                 <manifest><attribute name="Main-Class" value="com.javaop.BNetLogin.PluginMain"/></manifest>
+        </jar>
+        <jar destfile="${pluginpath}/BnetEventProcess.jar" basedir="BnetEventProcess/bin">
+                <manifest><attribute name="Main-Class" value="com.javaop.BnetEventProcess.PluginMain"/></manifest>
         </jar>
         <jar destfile="${pluginpath}/BasicCommands.jar" basedir="BasicCommands/bin">
                 <manifest><attribute name="Main-Class" value="com.javaop.BasicCommands.PluginMain"/></manifest>
@@ -270,9 +273,6 @@
         </jar>
         <jar destfile="${pluginpath}/ShowInvisibleUsers.jar" basedir="ShowInvisibleUsers/bin">
                 <manifest><attribute name="Main-Class" value="com.javaop.ShowInvisibleUsers.PluginMain"/></manifest>
-        </jar>
-        <jar destfile="${pluginpath}/SimpleEventProcess.jar" basedir="SimpleEventProcess/bin">
-                <manifest><attribute name="Main-Class" value="com.javaop.SimpleEventProcess.PluginMain"/></manifest>
         </jar>
         <jar destfile="${pluginpath}/StayConnected.jar" basedir="StayConnected/bin">
                 <manifest><attribute name="Main-Class" value="com.javaop.StayConnected.PluginMain"/></manifest>

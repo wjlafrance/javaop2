@@ -54,7 +54,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
 
     public String getName()
     {
-        return "Channel Lock";
+        return "ChannelProtection";
     }
 
     public String getVersion()

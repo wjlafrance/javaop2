@@ -53,7 +53,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
 
     public String getName()
     {
-        return "Connection Commands";
+        return "ConnectionCommands";
     }
 
     public String getVersion()

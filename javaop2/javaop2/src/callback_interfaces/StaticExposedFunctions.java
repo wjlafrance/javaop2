@@ -22,6 +22,11 @@ public interface StaticExposedFunctions
     /****************
      * Bot Instances
      */
+    
+    /**
+     * Creates a new bot and activates all plugins
+     */
+    public void newBot(String name) throws PluginException;
 
     /**
      * Start a new bot instance with the specified name.

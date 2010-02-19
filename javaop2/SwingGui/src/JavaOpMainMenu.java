@@ -201,7 +201,7 @@ public class JavaOpMainMenu extends JMenuBar implements ActionListener,
                     if (name == null)
                         return;
                     if (name.matches("[\\w\\_\\-\\.]+")) {
-                    	staticFuncs.botStart(name);
+                    	staticFuncs.newBot(name);
                         return;
                     }
                     JOptionPane.showMessageDialog(null,

@@ -52,7 +52,7 @@ public class PluginMain extends GenericPluginInterface implements
     }
 
     public String getName() {
-        return "Version plugin";
+        return "Version";
     }
 
     public String getVersion() {

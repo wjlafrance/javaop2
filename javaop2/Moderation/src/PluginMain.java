@@ -71,7 +71,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
     }
 
     public String getName() {
-        return "Moderation plugin";
+        return "Moderation";
     }
 
     public String getVersion() {

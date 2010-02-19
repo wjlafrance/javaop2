@@ -60,7 +60,7 @@ public class PluginMain extends GenericPluginInterface {
     }
 
     public String getName() {
-        return "Swing Gui";
+        return "SwingGui";
     }
 
     public String getVersion() {

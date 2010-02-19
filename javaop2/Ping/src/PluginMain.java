@@ -83,7 +83,7 @@ public class PluginMain extends GenericPluginInterface implements PacketCallback
 
     public String getName()
     {
-        return "Ping Plugin";
+        return "Ping";
     }
 
     public String getVersion()

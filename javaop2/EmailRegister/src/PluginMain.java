@@ -49,7 +49,7 @@ public class PluginMain extends GenericPluginInterface implements PacketCallback
 
     public String getName()
     {
-        return "Email Registration Plugin";
+        return "EmailRegister";
     }
 
     public String getVersion()

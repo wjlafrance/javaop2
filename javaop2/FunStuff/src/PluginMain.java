@@ -93,7 +93,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
 
     public String getName()
     {
-        return "Fun stuff";
+        return "FunStuff";
     }
 
     public String getVersion()

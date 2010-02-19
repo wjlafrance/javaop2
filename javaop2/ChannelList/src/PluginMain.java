@@ -44,7 +44,7 @@ public class PluginMain extends GenericPluginInterface implements EventCallback
 
     public String getName()
     {
-        return "Channel list plugin";
+        return "ChannelList";
     }
 
     public String getVersion()

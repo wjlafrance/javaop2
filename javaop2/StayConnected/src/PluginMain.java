@@ -18,10 +18,10 @@ import com.javaop.util.BnetPacket;
 
 
 /*
- * Created on Mar 25, 2009 By joe
+ * Created on Mar 25, 2009 By wjlafrance
  */
 /**
- * @author joe
+ * @author wjlafrance
  * 
  */
 public class PluginMain extends GenericPluginInterface implements
@@ -39,7 +39,7 @@ public class PluginMain extends GenericPluginInterface implements
     }
 
     public String getAuthorName() {
-        return "joe";
+        return "wjlafrance";
     }
 
     public String getAuthorWebsite() {
@@ -56,8 +56,8 @@ public class PluginMain extends GenericPluginInterface implements
 
     public String getLongDescription()
     {
-        return "Stays connected by sending SID_NULL every 30 seconds and "
-                + "detecting socket errors, and reconnecting if one occurs.";
+        return "Stays connected by sending SID_NULL every 30 seconds to "
+                + "detect socket errors, and reconnecting if one occurs.";
     }
     public Properties getDefaultSettingValues() {
         return new Properties();
@@ -94,7 +94,7 @@ public class PluginMain extends GenericPluginInterface implements
             register)
     {
         this.out = out;
-        out.schedule(new SendNullPacketCallback(), 30 * 1000);
+        out.schedule(new SendNullPacketCallback(), 30 * 1000); // 30 seconds
         register.registerConnectionPlugin(this, null);
     }
 
@@ -122,7 +122,7 @@ public class PluginMain extends GenericPluginInterface implements
     public void disconnected(Object data) {
         if (this.enabled) {
             out.systemMessage(ErrorLevelConstants.ERROR,
-                    "Disconnection detected. Reconnecting.");
+                    "Disconnection detected. Reconnecting..");
             out.reconnect();
         }
     }
@@ -131,8 +131,8 @@ public class PluginMain extends GenericPluginInterface implements
         public void run() {
             try {
                 out.sendPacket(new BnetPacket(PacketConstants.SID_NULL));
-                out.systemMessage(ErrorLevelConstants.DEBUG,
-                        "Sending keep-alive..");
+                //out.systemMessage(ErrorLevelConstants.DEBUG,
+                //        "Sending keep-alive..");
             } catch (IOException e) {
                 disconnected(e);
             }

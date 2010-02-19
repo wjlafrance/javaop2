@@ -1,4 +1,4 @@
-package com.javaop.SimpleEventProcess;
+package com.javaop.BnetEventProcess;
 
 import java.io.IOException;
 import java.util.Enumeration;
@@ -64,7 +64,7 @@ public class PluginMain extends GenericPluginInterface implements RawEventCallba
     }
 
     public String getName() {
-        return "Simple event processor";
+        return "BnetEventProcess";
     }
 
     public String getVersion() {
