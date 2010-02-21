@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>build.xml</string>
+	<string>StayConnected/src/PluginMain.java</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -90,7 +90,7 @@
 			<key>filename</key>
 			<string>build.xml</string>
 			<key>lastUsed</key>
-			<date>2010-02-19T05:06:23Z</date>
+			<date>2010-02-19T06:19:28Z</date>
 		</dict>
 		<dict>
 			<key>name</key>
@@ -269,6 +269,8 @@
 			<string>ShowInvisibleUsers</string>
 		</dict>
 		<dict>
+			<key>expanded</key>
+			<true/>
 			<key>name</key>
 			<string>StayConnected</string>
 			<key>regexFolderFilter</key>
@@ -289,8 +291,6 @@
 			<string>SwingGui</string>
 			<key>regexFolderFilter</key>
 			<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
-			<key>selected</key>
-			<true/>
 			<key>sourceDirectory</key>
 			<string>SwingGui</string>
 		</dict>
@@ -737,6 +737,20 @@
 			<key>firstVisibleLine</key>
 			<integer>48</integer>
 		</dict>
+		<key>StayConnected/src/PluginMain.java</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>1</integer>
+				<key>line</key>
+				<integer>28</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
 		<key>SwingGui/src/JavaOpBotMenu.java</key>
 		<dict>
 			<key>caret</key>
@@ -891,6 +905,7 @@
 		<string>javaop2/src/bot/BotCoreStatic.java</string>
 		<string>javaop2/src/callback_interfaces/StaticExposedFunctions.java</string>
 		<string>build.xml</string>
+		<string>StayConnected/src/PluginMain.java</string>
 		<string>SwingGui/src/JavaOpPanel.java</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
