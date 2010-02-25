@@ -501,9 +501,12 @@ public class JavaOpPanel extends JInternalFrame implements FocusListener,
                     + "(ping: " + ping + ", flags: "
                     + flags + ")");
         }
-
+        
         Statstring ss = new Statstring(statstring);
-        addUser(user, ss.getClient(), ss.getClan(), ping, flags);
+        String client = (ss.getClient() != null) ? ss.getClient() : "CHAT";
+        String clan = (ss.getClan() != null) ? ss.getClan() : "";
+        
+        addUser(user, client, clan, ping, flags);
     }
 
     public void error(String user, String statstring, int ping, int flags)

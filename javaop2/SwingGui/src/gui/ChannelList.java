@@ -172,6 +172,14 @@ class Model extends AbstractTableModel
      */
     public void addUser(String name, String client, String clan, int ping, int flags)
     {
+        // Check for bad input
+        if (name == null)
+            return;
+        if (client == null)
+            client = "CHAT";
+        if (clan == null)
+            clan = "";
+            
         Row row = findUser(name);
 
         if (row == null)

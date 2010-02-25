@@ -15,13 +15,6 @@ public class Statstring
         if (statstring.length() >= 4)
         {
             this.tokens = statstring.split(" ", -1);
-
-            /* System.out.print("Raw: " + statstring + "; ");
-            for (int i = 0; i < tokens.length; i++)
-            {
-                System.out.print(i + ": " + tokens[i] + "; ");
-            }
-            System.out.println(); */
         }
     }
 
@@ -30,6 +23,9 @@ public class Statstring
      */
     public String getClient()
     {
+        if (tokens == null)
+            return "CHAT";
+        
         return tokens[0].substring(0, 4);
     }
 
@@ -38,7 +34,7 @@ public class Statstring
      */
     public String getClan()
     {
-        if (tokens.length < 4)
+        if ((tokens == null) || (tokens.length < 4))
             return "";
 
         if (getClient().equals("3RAW") || getClient().equals("PX3W"))
@@ -50,15 +46,16 @@ public class Statstring
     /**
      * @return StarCraft / WarCraft II: Wins
      */
-    public int getWins()
-    {
-        if (tokens.length < 2)
+    public int getWins() {
+        if ((tokens == null) || (tokens.length < 2))
             return 0;
 
-        if (getClient().equals("RATS") || getClient().equals("PXES") || getClient().equals("RTSJ")
-                || getClient().equals("NB2W"))
+        if (getClient().equals("RATS") || getClient().equals("PXES")
+                || getClient().equals("RTSJ") || getClient().equals("NB2W"))
+        {
             return Integer.parseInt(tokens[1]);
-        else
+        } else {
             return 0;
+        }
     }
 }

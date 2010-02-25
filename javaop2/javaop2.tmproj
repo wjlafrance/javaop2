@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>StayConnected/src/PluginMain.java</string>
+	<string>build.xml</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -71,6 +71,8 @@
 			<string>BNetLogin</string>
 		</dict>
 		<dict>
+			<key>expanded</key>
+			<true/>
 			<key>name</key>
 			<string>BnetEventProcess</string>
 			<key>regexFolderFilter</key>
@@ -90,7 +92,9 @@
 			<key>filename</key>
 			<string>build.xml</string>
 			<key>lastUsed</key>
-			<date>2010-02-19T06:19:28Z</date>
+			<date>2010-02-25T03:23:40Z</date>
+			<key>selected</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>name</key>
@@ -203,75 +207,75 @@
 			<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
 			<key>sourceDirectory</key>
 			<string>IPBan</string>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>javaop2</string>
-			<key>regexFolderFilter</key>
-			<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
-			<key>sourceDirectory</key>
-			<string>javaop2</string>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>Ladder</string>
-			<key>regexFolderFilter</key>
-			<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
-			<key>sourceDirectory</key>
-			<string>Ladder</string>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>Logging</string>
-			<key>regexFolderFilter</key>
-			<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
-			<key>sourceDirectory</key>
-			<string>Logging</string>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>Moderation</string>
-			<key>regexFolderFilter</key>
-			<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
-			<key>sourceDirectory</key>
-			<string>Moderation</string>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>Ping</string>
-			<key>regexFolderFilter</key>
-			<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
-			<key>sourceDirectory</key>
-			<string>Ping</string>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>Profile</string>
-			<key>regexFolderFilter</key>
-			<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
-			<key>sourceDirectory</key>
-			<string>Profile</string>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>ShellCommands</string>
-			<key>regexFolderFilter</key>
-			<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
-			<key>sourceDirectory</key>
-			<string>ShellCommands</string>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>ShowInvisibleUsers</string>
-			<key>regexFolderFilter</key>
-			<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
-			<key>sourceDirectory</key>
-			<string>ShowInvisibleUsers</string>
 		</dict>
 		<dict>
 			<key>expanded</key>
 			<true/>
 			<key>name</key>
+			<string>javaop2</string>
+			<key>regexFolderFilter</key>
+			<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
+			<key>sourceDirectory</key>
+			<string>javaop2</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>Ladder</string>
+			<key>regexFolderFilter</key>
+			<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
+			<key>sourceDirectory</key>
+			<string>Ladder</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>Logging</string>
+			<key>regexFolderFilter</key>
+			<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
+			<key>sourceDirectory</key>
+			<string>Logging</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>Moderation</string>
+			<key>regexFolderFilter</key>
+			<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
+			<key>sourceDirectory</key>
+			<string>Moderation</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>Ping</string>
+			<key>regexFolderFilter</key>
+			<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
+			<key>sourceDirectory</key>
+			<string>Ping</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>Profile</string>
+			<key>regexFolderFilter</key>
+			<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
+			<key>sourceDirectory</key>
+			<string>Profile</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>ShellCommands</string>
+			<key>regexFolderFilter</key>
+			<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
+			<key>sourceDirectory</key>
+			<string>ShellCommands</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>ShowInvisibleUsers</string>
+			<key>regexFolderFilter</key>
+			<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
+			<key>sourceDirectory</key>
+			<string>ShowInvisibleUsers</string>
+		</dict>
+		<dict>
+			<key>name</key>
 			<string>StayConnected</string>
 			<key>regexFolderFilter</key>
 			<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
@@ -287,6 +291,8 @@
 			<string>SweepBan</string>
 		</dict>
 		<dict>
+			<key>expanded</key>
+			<true/>
 			<key>name</key>
 			<string>SwingGui</string>
 			<key>regexFolderFilter</key>
@@ -442,6 +448,20 @@
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>57</integer>
+		</dict>
+		<key>BnetEventProcess/src/PluginMain.java</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>61</integer>
+				<key>line</key>
+				<integer>241</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>187</integer>
 		</dict>
 		<key>BotMail/src/PluginMain.java</key>
 		<dict>
@@ -737,20 +757,6 @@
 			<key>firstVisibleLine</key>
 			<integer>48</integer>
 		</dict>
-		<key>StayConnected/src/PluginMain.java</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>1</integer>
-				<key>line</key>
-				<integer>28</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
 		<key>SwingGui/src/JavaOpBotMenu.java</key>
 		<dict>
 			<key>caret</key>
@@ -798,28 +804,44 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>3</integer>
+				<integer>33</integer>
 				<key>line</key>
-				<integer>71</integer>
+				<integer>51</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>48</integer>
+			<integer>32</integer>
 		</dict>
 		<key>build.xml</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>35</integer>
+				<integer>14</integer>
 				<key>line</key>
-				<integer>21</integer>
+				<integer>182</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>156</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>14</integer>
+				<key>line</key>
+				<integer>185</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>14</integer>
+				<key>line</key>
+				<integer>182</integer>
+			</dict>
 		</dict>
 		<key>javaop2/src/_main/CommandlineConfigure.java</key>
 		<dict>
@@ -895,18 +917,58 @@
 			<key>firstVisibleLine</key>
 			<integer>14</integer>
 		</dict>
+		<key>javaop2/src/users/Statstring.java</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>27</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>13</integer>
+		</dict>
+		<key>javaop2/src/users/War3Statstring.java</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>32</integer>
+				<key>line</key>
+				<integer>71</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>53</integer>
+		</dict>
+		<key>javaop2/src/util/PersistantMap.java</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>15</integer>
+				<key>line</key>
+				<integer>251</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>223</integer>
+		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
-		<string>javaop2/src/_main/CommandlineConfigure.java</string>
-		<string>SwingGui/src/JavaOpFrame.java</string>
-		<string>SwingGui/src/JavaOpBotMenu.java</string>
+		<string>javaop2/src/users/Statstring.java</string>
+		<string>javaop2/src/users/War3Statstring.java</string>
+		<string>BnetEventProcess/src/PluginMain.java</string>
 		<string>SwingGui/src/JavaOpMainMenu.java</string>
-		<string>javaop2/src/bot/BotCoreStatic.java</string>
-		<string>javaop2/src/callback_interfaces/StaticExposedFunctions.java</string>
-		<string>build.xml</string>
-		<string>StayConnected/src/PluginMain.java</string>
 		<string>SwingGui/src/JavaOpPanel.java</string>
+		<string>build.xml</string>
+		<string>javaop2/src/util/PersistantMap.java</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
