@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>build.xml</string>
+	<string>StayConnected/src/PluginMain.java</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -92,9 +92,7 @@
 			<key>filename</key>
 			<string>build.xml</string>
 			<key>lastUsed</key>
-			<date>2010-02-25T03:23:40Z</date>
-			<key>selected</key>
-			<true/>
+			<date>2010-02-25T18:38:34Z</date>
 		</dict>
 		<dict>
 			<key>name</key>
@@ -275,6 +273,8 @@
 			<string>ShowInvisibleUsers</string>
 		</dict>
 		<dict>
+			<key>expanded</key>
+			<true/>
 			<key>name</key>
 			<string>StayConnected</string>
 			<key>regexFolderFilter</key>
@@ -757,6 +757,20 @@
 			<key>firstVisibleLine</key>
 			<integer>48</integer>
 		</dict>
+		<key>StayConnected/src/PluginMain.java</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>5</integer>
+				<key>line</key>
+				<integer>75</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>45</integer>
+		</dict>
 		<key>SwingGui/src/JavaOpBotMenu.java</key>
 		<dict>
 			<key>caret</key>
@@ -804,44 +818,42 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>33</integer>
+				<integer>8</integer>
 				<key>line</key>
-				<integer>51</integer>
+				<integer>503</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>32</integer>
+			<integer>474</integer>
+		</dict>
+		<key>SwingGui/src/gui/ChannelList.java</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>9</integer>
+				<key>line</key>
+				<integer>185</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>143</integer>
 		</dict>
 		<key>build.xml</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>14</integer>
+				<integer>61</integer>
 				<key>line</key>
-				<integer>182</integer>
+				<integer>180</integer>
 			</dict>
-			<key>columnSelection</key>
-			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>156</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>14</integer>
-				<key>line</key>
-				<integer>185</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>14</integer>
-				<key>line</key>
-				<integer>182</integer>
-			</dict>
 		</dict>
 		<key>javaop2/src/_main/CommandlineConfigure.java</key>
 		<dict>
@@ -922,14 +934,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>5</integer>
 				<key>line</key>
-				<integer>27</integer>
+				<integer>13</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>13</integer>
+			<integer>0</integer>
 		</dict>
 		<key>javaop2/src/users/War3Statstring.java</key>
 		<dict>
@@ -963,10 +975,12 @@
 	<key>openDocuments</key>
 	<array>
 		<string>javaop2/src/users/Statstring.java</string>
+		<string>StayConnected/src/PluginMain.java</string>
 		<string>javaop2/src/users/War3Statstring.java</string>
 		<string>BnetEventProcess/src/PluginMain.java</string>
 		<string>SwingGui/src/JavaOpMainMenu.java</string>
 		<string>SwingGui/src/JavaOpPanel.java</string>
+		<string>SwingGui/src/gui/ChannelList.java</string>
 		<string>build.xml</string>
 		<string>javaop2/src/util/PersistantMap.java</string>
 	</array>

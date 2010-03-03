@@ -9,11 +9,16 @@ import javax.swing.JComponent;
 import com.javaop.callback_interfaces.PluginCallbackRegister;
 import com.javaop.callback_interfaces.PublicExposedFunctions;
 import com.javaop.callback_interfaces.StaticExposedFunctions;
+
 import com.javaop.plugin_interfaces.GenericPluginInterface;
 import com.javaop.plugin_interfaces.ConnectionCallback;
+import com.javaop.plugin_interfaces.EventCallback;
+
 import com.javaop.constants.PacketConstants;
 import com.javaop.constants.ErrorLevelConstants;
+
 import com.javaop.exceptions.PluginException;
+
 import com.javaop.util.BnetPacket;
 
 
@@ -25,7 +30,7 @@ import com.javaop.util.BnetPacket;
  * 
  */
 public class PluginMain extends GenericPluginInterface implements
-        ConnectionCallback
+        ConnectionCallback, EventCallback
 {
     private PublicExposedFunctions out;
     private boolean                enabled = false;
@@ -96,12 +101,16 @@ public class PluginMain extends GenericPluginInterface implements
         this.out = out;
         out.schedule(new SendNullPacketCallback(), 30 * 1000); // 30 seconds
         register.registerConnectionPlugin(this, null);
+        register.registerEventPlugin(this, null);
     }
+    
+    /*
+     * Connection plugin callbacks
+     */
 
     public boolean connecting(String host, int port, Object data) throws
             IOException, PluginException
     {
-        this.enabled = true;
         return true;
     }
 
@@ -120,19 +129,87 @@ public class PluginMain extends GenericPluginInterface implements
     }
 
     public void disconnected(Object data) {
-        if (this.enabled) {
+        if (enabled) {
             out.systemMessage(ErrorLevelConstants.ERROR,
                     "Disconnection detected. Reconnecting..");
             out.reconnect();
         }
     }
+    
+    
+    /*
+     * Event plugin callbacks
+     */
+     
+     
+    public void talk(String user, String statstring, int ping, int flags)
+            throws IOException, PluginException
+    {
+    }
 
+    public void emote(String user, String statstring, int ping, int flags)
+            throws IOException, PluginException
+    {
+    }
+
+    public void whisperFrom(String user, String statstring, int ping, int flags)
+            throws IOException, PluginException
+    {
+    }
+
+    public void whisperTo(String user, String statstring, int ping, int flags)
+            throws IOException, PluginException
+    {
+    }
+
+    public void userShow(String user, String statstring, int ping, int flags)
+            throws IOException, PluginException
+    {
+    }
+
+    public void userJoin(String user, String statstring, int ping, int flags)
+            throws IOException, PluginException
+    {
+    }
+
+    public void userLeave(String user, String statstring, int ping, int flags)
+            throws IOException, PluginException
+    {
+    }
+
+    public void userFlags(String user, String statstring, int ping, int flags)
+            throws IOException, PluginException
+    {
+    }
+
+    public void error(String user, String statstring, int ping, int flags)
+            throws IOException, PluginException
+    {
+    }
+
+    public void info(String user, String statstring, int ping, int flags)
+            throws IOException, PluginException
+    {
+    }
+
+    public void broadcast(String user, String statstring, int ping, int flags)
+            throws IOException, PluginException
+    {
+    }
+
+    public void channel(String user, String statstring, int ping, int flags)
+            throws IOException, PluginException
+    {
+        this.enabled = true;
+    }
+
+    /**
+     * Timer class for sending SID_NULL packet
+     */
     private class SendNullPacketCallback extends TimerTask {
         public void run() {
             try {
                 out.sendPacket(new BnetPacket(PacketConstants.SID_NULL));
-                //out.systemMessage(ErrorLevelConstants.DEBUG,
-                //        "Sending keep-alive..");
             } catch (IOException e) {
                 disconnected(e);
             }
