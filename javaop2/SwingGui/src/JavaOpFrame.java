@@ -27,61 +27,60 @@ import com.javaop.callback_interfaces.StaticExposedFunctions;
  */
 public class JavaOpFrame extends JFrame {
     private static final long    serialVersionUID  = 1L;
-
+    
     private final Hashtable<String, JavaOpPanel>      bots
-    		= new Hashtable<String, JavaOpPanel>();
-
+        = new Hashtable<String, JavaOpPanel>();
+    
     private final JDesktopPane   desktop;
-
+    
     private final JavaOpMainMenu menu;
-
+    
     private int                  x                 = 1000000000;
     private int                  y                 = 1000000000;
-
+    
     int                          minx              = 5;
     int                          miny              = 5;
-
+    
     private final int            width             = 600;
-
     private final int            height            = 400;
-
+    
     private final int            locationIncrement = 20;
-
+    
     public JavaOpFrame(StaticExposedFunctions staticFuncs) {
-    	
-    	// Try using the native look and feel. If it doesn't work, no big deal
+        
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch(Exception e) {
+            // no native look and feel? no big deal
         }
-
+        
         // Set the program's title
         this.setTitle("JavaOp2 " + staticFuncs.getVersion() + " -- javaop.googlecode.com");
-
+        
         // Create the desktop pane where we'll be storing everything, and make
         // that our content pane
         this.setContentPane(desktop = new JDesktopPane());
-
+        
         // Set my menu bar
         this.setJMenuBar(menu = new JavaOpMainMenu(staticFuncs, desktop, this));
-
+        
         // Set the default size
         this.setSize(800, 500);
-
+        
         // Set the colors
         desktop.setBackground(Color.BLACK);
         desktop.setForeground(Color.WHITE);
-
+        
         // Center the frame
         Gui.center(this);
-
+        
         // Make it visible
         this.setVisible(true);
-
+        
         // Make it end when we close
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
-
+    
     public JavaOpPanel addBot(PublicExposedFunctions out)
     {
         // If the bot already exists, select it

@@ -72,24 +72,24 @@ import com.javaop.SwingGui.gui.TextFieldHistory;
  */
 
 public class JavaOpPanel extends JInternalFrame implements FocusListener,
-		InternalFrameListener, MouseListener, ActionListener, GuiCallback,
-		EventCallback, OutgoingTextCallback, SystemMessageCallback,
-		ErrorCallback, CommandCallback
+        InternalFrameListener, MouseListener, ActionListener, GuiCallback,
+        EventCallback, OutgoingTextCallback, SystemMessageCallback,
+        ErrorCallback, CommandCallback
 {
-    private static final long            serialVersionUID = 1L;
+    private static final long               serialVersionUID = 1L;
 
-    private final PublicExposedFunctions 	out;
-    final private ColorTextArea          	chatWindow;
-    final private ChannelList            	channelList;
-    final private TextFieldHistory       	input;
-    final private JButton                	send;
-    final private JLabel                 	channelName;
-    final private JavaOpBotMenu          	menu;
-    final private JavaOpUserMenu         	userMenu;
-    private String                 			name             = "Swing Gui";
-    private String                       	channel          = "<Not Logged In>";
-    private String                       	lastWhisperTo    = null;
-    private String                       	lastWhisperFrom  = null;
+    private final PublicExposedFunctions    out;
+    final private ColorTextArea             chatWindow;
+    final private ChannelList               channelList;
+    final private TextFieldHistory          input;
+    final private JButton                   send;
+    final private JLabel                    channelName;
+    final private JavaOpBotMenu             menu;
+    final private JavaOpUserMenu            userMenu;
+    private String                          name            = "Swing Gui";
+    private String                          channel         = "<Not Logged In>";
+    private String                          lastWhisperTo   = null;
+    private String                          lastWhisperFrom = null;
 
     public JavaOpPanel(PublicExposedFunctions out, FocusTraversalPolicy policy)
     {
@@ -146,7 +146,7 @@ public class JavaOpPanel extends JInternalFrame implements FocusListener,
         		"chat max length", "false").equalsIgnoreCase("true");
         String fontName = out.getLocalSettingDefault(name, "font", "Serif");
         int fontSize = Integer.parseInt(out.getLocalSettingDefault(name,
-        		"fontsize", "15"));
+        		"Font size", "15"));
         chatWindow = new ColorTextArea(Color.BLACK, Color.WHITE, maxChars,
         		cutTo, holdAtBottom);
         chatWindow.setFont(new Font(fontName, Font.PLAIN, fontSize));

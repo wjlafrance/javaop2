@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>StayConnected/src/PluginMain.java</string>
+	<string>Autoban/src/PluginMain.java</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -31,48 +31,48 @@
 			<string>AntiFlood</string>
 		</dict>
 		<dict>
-			<key>name</key>
-			<string>Autoban</string>
-			<key>regexFolderFilter</key>
-			<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
-			<key>sourceDirectory</key>
-			<string>Autoban</string>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>AutoRejoin</string>
-			<key>regexFolderFilter</key>
-			<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
-			<key>sourceDirectory</key>
-			<string>AutoRejoin</string>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>AwayMessage</string>
-			<key>regexFolderFilter</key>
-			<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
-			<key>sourceDirectory</key>
-			<string>AwayMessage</string>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>BasicCommands</string>
-			<key>regexFolderFilter</key>
-			<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
-			<key>sourceDirectory</key>
-			<string>BasicCommands</string>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>BNetLogin</string>
-			<key>regexFolderFilter</key>
-			<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
-			<key>sourceDirectory</key>
-			<string>BNetLogin</string>
-		</dict>
-		<dict>
 			<key>expanded</key>
 			<true/>
+			<key>name</key>
+			<string>Autoban</string>
+			<key>regexFolderFilter</key>
+			<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
+			<key>sourceDirectory</key>
+			<string>Autoban</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>AutoRejoin</string>
+			<key>regexFolderFilter</key>
+			<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
+			<key>sourceDirectory</key>
+			<string>AutoRejoin</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>AwayMessage</string>
+			<key>regexFolderFilter</key>
+			<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
+			<key>sourceDirectory</key>
+			<string>AwayMessage</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>BasicCommands</string>
+			<key>regexFolderFilter</key>
+			<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
+			<key>sourceDirectory</key>
+			<string>BasicCommands</string>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>BNetLogin</string>
+			<key>regexFolderFilter</key>
+			<string>!.*/(\.[^/]*|CVS|_darcs|_MTN|\{arch\}|blib|.*~\.nib|.*\.(framework|app|pbproj|pbxproj|xcode(proj)?|bundle))$</string>
+			<key>sourceDirectory</key>
+			<string>BNetLogin</string>
+		</dict>
+		<dict>
 			<key>name</key>
 			<string>BnetEventProcess</string>
 			<key>regexFolderFilter</key>
@@ -207,8 +207,6 @@
 			<string>IPBan</string>
 		</dict>
 		<dict>
-			<key>expanded</key>
-			<true/>
 			<key>name</key>
 			<string>javaop2</string>
 			<key>regexFolderFilter</key>
@@ -273,8 +271,6 @@
 			<string>ShowInvisibleUsers</string>
 		</dict>
 		<dict>
-			<key>expanded</key>
-			<true/>
 			<key>name</key>
 			<string>StayConnected</string>
 			<key>regexFolderFilter</key>
@@ -398,14 +394,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>23</integer>
+				<integer>51</integer>
 				<key>line</key>
-				<integer>42</integer>
+				<integer>11</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>22</integer>
+			<integer>0</integer>
 		</dict>
 		<key>AwayMessage/src/PluginMain.java</key>
 		<dict>
@@ -762,14 +758,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>5</integer>
+				<integer>23</integer>
 				<key>line</key>
-				<integer>75</integer>
+				<integer>100</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>45</integer>
+			<integer>0</integer>
 		</dict>
 		<key>SwingGui/src/JavaOpBotMenu.java</key>
 		<dict>
@@ -784,20 +780,6 @@
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>58</integer>
-		</dict>
-		<key>SwingGui/src/JavaOpFrame.java</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>32</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>3</integer>
 		</dict>
 		<key>SwingGui/src/JavaOpMainMenu.java</key>
 		<dict>
@@ -818,14 +800,30 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>8</integer>
+				<integer>50</integer>
 				<key>line</key>
-				<integer>503</integer>
+				<integer>36</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>474</integer>
+			<integer>26</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>50</integer>
+				<key>line</key>
+				<integer>37</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>50</integer>
+				<key>line</key>
+				<integer>36</integer>
+			</dict>
 		</dict>
 		<key>SwingGui/src/gui/ChannelList.java</key>
 		<dict>
@@ -840,6 +838,20 @@
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>143</integer>
+		</dict>
+		<key>SwingGui/src/settings/QuickSettings.java</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>61</integer>
+				<key>line</key>
+				<integer>16</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
 		</dict>
 		<key>build.xml</key>
 		<dict>
@@ -929,6 +941,20 @@
 			<key>firstVisibleLine</key>
 			<integer>14</integer>
 		</dict>
+		<key>javaop2/src/plugin_interfaces/EventCallback.java</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>29</integer>
+				<key>line</key>
+				<integer>12</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>5</integer>
+		</dict>
 		<key>javaop2/src/users/Statstring.java</key>
 		<dict>
 			<key>caret</key>
@@ -974,15 +1000,11 @@
 	</dict>
 	<key>openDocuments</key>
 	<array>
-		<string>javaop2/src/users/Statstring.java</string>
 		<string>StayConnected/src/PluginMain.java</string>
-		<string>javaop2/src/users/War3Statstring.java</string>
-		<string>BnetEventProcess/src/PluginMain.java</string>
-		<string>SwingGui/src/JavaOpMainMenu.java</string>
+		<string>SwingGui/src/settings/QuickSettings.java</string>
+		<string>Autoban/src/PluginMain.java</string>
+		<string>javaop2/src/plugin_interfaces/EventCallback.java</string>
 		<string>SwingGui/src/JavaOpPanel.java</string>
-		<string>SwingGui/src/gui/ChannelList.java</string>
-		<string>build.xml</string>
-		<string>javaop2/src/util/PersistantMap.java</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
