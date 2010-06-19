@@ -196,61 +196,61 @@ public class JavaOpPanel extends JInternalFrame implements FocusListener,
         register.registerEventPlugin(this, null);
         register.registerOutgoingTextPlugin(this, null);
         register.registerErrorPlugin(this, null);
-
+        
         register.registerGuiPlugin(this, null);
-
+        
         register.registerSystemMessagePlugin(this, PACKET, EMERGENCY, null);
-
+        
         register.registerCommandPlugin(this, "reply", 1, false, "U",
-        		"<message>", "Whispers a message back to the last person who "
-        		+ "sent a message", null);
+                "<message>", "Whispers a message back to the last person who "
+                + "sent a message", null);
         register.registerCommandPlugin(this, "rewhisper", 1, false, "U",
-        		"<message>", "Whispers a message to the last person a message "
-        		+ "was whispered to", null);
-
+                "<message>", "Whispers a message to the last person a message "
+                + "was whispered to", null);
+            
         out.addAlias("reply", "r");
         out.addAlias("reply", "re");
         out.addAlias("rewhisper", "rw");
-
+        
     }
-
+    
     public void addUser(String user, String client, String clan, int ping,
-    		int flags)
+        int flags)
     {
         channelList.addUser(user, client, clan, ping, flags);
         channelName.setText(channel + " (" + channelList.getRowCount() + ")");
     }
-
+    
     public void removeUser(String user) {
         channelList.removeUser(user);
         channelName.setText(channel + " (" + channelList.getRowCount() + ")");
     }
-
+    
     public void addText(String text) {
         chatWindow.addText(text);
         channelName.setText(channel + " (" + channelList.getRowCount() + ")");
     }
-
+    
     public void joinChannel(String channel) {
         this.channel = channel;
         channelList.clear();
         channelName.setText(channel + " (" + channelList.getRowCount() + ")");
     }
-
+    
     public void clear() {
         chatWindow.setText("");
         chatWindow.addText(ColorConstants.getColor("info")
-        		+ "Chat window cleared\n");
+            + "Chat window cleared\n");
     }
-
+    
     private boolean doCommand(String str) throws IOException, PluginException {
         if (str.length() > 2 && str.charAt(0) == '/') {
             String[] commandArg = str.substring(1).split(" ", 2);
-
+            
             return out.raiseCommand(null, commandArg[0], commandArg.length
-            		== 2 ? commandArg[1] : "", LoudnessConstants.SILENT, false);
+                    == 2 ? commandArg[1] : "", LoudnessConstants.SILENT, false);
         }
-
+        
         return false;
     }
 
@@ -297,7 +297,7 @@ public class JavaOpPanel extends JInternalFrame implements FocusListener,
         int y = e.getY();
 
         String name = (String) channelList.getValueAt(channelList
-        		.rowAtPoint(new Point(x, y)), 1);
+                .rowAtPoint(new Point(x, y)), 1);
 
         if (name == null)
             return;
@@ -362,22 +362,22 @@ public class JavaOpPanel extends JInternalFrame implements FocusListener,
 
     private String colorMessage(String message) {
         if (out.getLocalSettingDefault(name, "Colored names", "true")
-        		.equalsIgnoreCase("true"))
+                .equalsIgnoreCase("true"))
         {
             Random r = new Random(message.hashCode());
             String green = PadString.padHex(r.nextInt(115) + 70, 2);
             String blue = PadString.padHex(r.nextInt(115) + 70, 2);
             String red = PadString.padHex(r.nextInt(115) + 70, 2);
-
+            
             String color = red + green + blue;
             message = ColorConstants.COLOR + color + message;
         }
-
+        
         return message;
     }
-
+    
     public void talk(String user, String statstring, int ping, int flags)
-    		throws PluginException
+            throws PluginException
     {
         if ((flags & USER_CHANNELOP) > 0) {
             display(ColorConstants.getColor("Op talk brackets") + "<"
@@ -399,21 +399,21 @@ public class JavaOpPanel extends JInternalFrame implements FocusListener,
                     + ColorConstants.getColor("Talk text") + statstring);
         }
     }
-
+    
     public void emote(String user, String statstring, int ping, int flags)
-    		throws PluginException
+            throws PluginException
     {
         display(ColorConstants.getColor("Emote brackets") + "<"
                 + ColorConstants.getColor("Emote name") + colorMessage(user)
                 + " " + ColorConstants.getColor("Emote message") + statstring
                 + ColorConstants.getColor("Emote brackets") + ">");
     }
-
+    
     public void whisperFrom(String user, String statstring, int ping, int flags)
-    		throws PluginException
+            throws PluginException
     {
         this.lastWhisperFrom = user;
-
+        
         display(ColorConstants.getColor("Whisper from brackets") + "<"
                 + ColorConstants.getColor("Whisper from name") + "From: "
                 + colorMessage(user)
