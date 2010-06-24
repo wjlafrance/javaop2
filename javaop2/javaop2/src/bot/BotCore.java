@@ -10,6 +10,7 @@ import java.util.TimerTask;
 import java.util.Vector;
 
 import javax.swing.Icon;
+import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 
 import com.javaop.callback_interfaces.PublicExposedFunctions;
@@ -75,6 +76,8 @@ public class BotCore implements PublicExposedFunctions
     private boolean                           locked       = true;
 
     private final Queue                       queue;
+    
+    private JTextField 						  chatboxInput;
 
     /**
      * If an IOException is thrown from here, it means that the localSettings
@@ -970,4 +973,13 @@ public class BotCore implements PublicExposedFunctions
         }
     }
 
+	@Override
+	public JTextField getChatboxInput() {
+		return this.chatboxInput;
+	}
+
+	@Override
+	public void setChatboxInput(JTextField chatboxInput) {
+		this.chatboxInput = chatboxInput;
+	}
 }

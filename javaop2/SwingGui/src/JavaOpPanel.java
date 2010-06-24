@@ -40,6 +40,10 @@ import com.javaop.plugin_interfaces.GuiCallback;
 import com.javaop.plugin_interfaces.SystemMessageCallback;
 import com.javaop.plugin_interfaces.OutgoingTextCallback;
 
+import com.javaop.SwingGui.gui.ChannelList;
+import com.javaop.SwingGui.gui.ColorTextArea;
+import com.javaop.SwingGui.gui.TextFieldHistory;
+import com.javaop.SwingGui.util.GameIcons;
 import com.javaop.constants.ErrorLevelConstants;
 import com.javaop.constants.LoudnessConstants;
 import com.javaop.constants.PriorityConstants;
@@ -54,10 +58,6 @@ import com.javaop.util.Timestamp;
 import com.javaop.callback_interfaces.PluginCallbackRegister;
 import com.javaop.callback_interfaces.PublicExposedFunctions;
 
-import com.javaop.SwingGui.util.GameIcons;
-import com.javaop.SwingGui.gui.ChannelList;
-import com.javaop.SwingGui.gui.ColorTextArea;
-import com.javaop.SwingGui.gui.TextFieldHistory;
 
 
 /**
@@ -126,6 +126,9 @@ public class JavaOpPanel extends JInternalFrame implements FocusListener,
         inputPanel.setLayout(new BorderLayout());
         inputPanel.add(input = new TextFieldHistory(500), BorderLayout.CENTER);
         inputPanel.add(send = new JButton("Send"), BorderLayout.EAST);
+
+        // Set up input reference for pubFuncs
+        out.setChatboxInput(input);
 
         // Create our channel panel
         JScrollPane scroller = new JScrollPane(channelList = new ChannelList(

@@ -10,12 +10,12 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 
+import com.javaop.SwingGui.settings.UserDatabaseWizard;
+import com.javaop.SwingGui.util.MenuIcons;
 import com.javaop.callback_interfaces.PublicExposedFunctions;
 import com.javaop.constants.ErrorLevelConstants;
 import com.javaop.constants.PriorityConstants;
 
-import com.javaop.SwingGui.util.MenuIcons;
-import com.javaop.SwingGui.settings.UserDatabaseWizard;
 
 
 /*
@@ -75,6 +75,7 @@ public class JavaOpUserMenu {
     private class UserMenuImpl extends JPopupMenu implements ActionListener {
         private static final long serialVersionUID = 1L;
         private final JMenuItem   nameItem;
+        private final JMenuItem   whisper          = new JMenuItem("Whisper");
         private final JMenuItem   ban              = new JMenuItem("Ban");
         private final JMenuItem   banMessage
         		= new JMenuItem("Ban (message)...");
@@ -113,6 +114,7 @@ public class JavaOpUserMenu {
             this.add(nameItem);
             this.addSeparator();
 
+            this.add(whisper);
             this.add(ban);
             this.add(banMessage);
             this.add(kick);
@@ -134,6 +136,7 @@ public class JavaOpUserMenu {
 
             nameItem.setEnabled(false);
 
+            whisper.addActionListener(this);
             ban.addActionListener(this);
             banMessage.addActionListener(this);
             kick.addActionListener(this);
@@ -165,7 +168,11 @@ public class JavaOpUserMenu {
 
         public void actionPerformed(ActionEvent e) {
             try {
-                if (e.getSource() == ban) {
+            	if (e.getSource() == whisper) {
+            		pubFuncs.sendTextPriority("/whisper " + name + " " + pubFuncs.getChatboxInput().getText(),
+                			PriorityConstants.PRIORITY_NORMAL);
+            		pubFuncs.getChatboxInput().setText(null);
+            	} else if (e.getSource() == ban) {
                 	pubFuncs.sendTextPriority("/ban " + name,
                 			PriorityConstants.PRIORITY_HIGH + 1);
                 } else if (e.getSource() == banMessage) {

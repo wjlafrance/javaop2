@@ -10,6 +10,7 @@ import java.util.Properties;
 import java.util.TimerTask;
 
 import javax.swing.Icon;
+import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 
 import com.javaop.exceptions.PluginException;
@@ -356,4 +357,8 @@ public interface PublicExposedFunctions
 
     public void addUserMenuSeparator();
 
+    public void setChatboxInput(JTextField chatboxInput);
+    
+    /** This method <i>will</i> return null if you are not using the SwingGui plugin. */
+    public JTextField getChatboxInput();
 }
