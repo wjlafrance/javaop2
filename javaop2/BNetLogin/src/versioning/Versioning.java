@@ -86,6 +86,7 @@ public class Versioning {
                         "Caught exception when attempting to perform check "
                         + "revision locally. Stack trace available on console. "
                         + "Disconnecting.");
+                e.printStackTrace();
                 pubFuncs.disconnect();
                 return new CheckRevisionResults(0, 0, new byte[] {0});
             }
