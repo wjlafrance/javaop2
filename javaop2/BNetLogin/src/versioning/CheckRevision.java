@@ -18,8 +18,6 @@ import java.nio.channels.FileChannel;
 
 import java.util.StringTokenizer;
 
-import com.javaop.util.RelativeFile;
-
 import com.javaop.exceptions.LoginException;
 
 /**
@@ -109,7 +107,8 @@ public class CheckRevision {
         
         int hashcodes[] = {
                     0xE7F4CB62, 0xF6A14FFC, 0xAA5504AF, 0x871FCDC2,
-                    0x11BF6A18, 0xC57292E6, 0x7927D27E, 0x2FEC8733 };
+                    0x11BF6A18, 0xC57292E6, 0x7927D27E, 0x2FEC8733
+        };
         
         // First, parse the versionString to name=value pairs and put them
         // in the appropriate place
@@ -160,10 +159,13 @@ public class CheckRevision {
             
             for(int j = 0; j < data.length; j += 4) {
                 long S = 0;
-                S |= ((data[j+0] << 0)  & 0x000000FF);
-                S |= ((data[j+1] << 8)  & 0x0000FF00);
-                S |= ((data[j+2] << 16) & 0x00FF0000);
-                S |= ((data[j+3] << 24) & 0xFF000000);
+                S = ((data[j+0] << 0)  & 0x000000FF)
+                        | ((data[j+1] << 8)  & 0x0000FF00)
+                        | ((data[j+2] << 16) & 0x00FF0000)
+                        | ((data[j+3] << 24) & 0xFF000000);
+                
+                if (S == 0)
+                    throw new IOException("Found a 0x000000 in " + files[i]);
 
                 for (int k = 0; k < currentFormula; k++) {
                     long val1 = 0, val2 = 0;
@@ -219,10 +221,12 @@ public class CheckRevision {
     /**
      * Reads a file and returns a byte array.
      */
-    public static byte []readFile(File file) throws IOException {
+    public static byte[] readFile(File file) throws IOException {
         int length = (int) file.length();
-        byte []ret = new byte[(length % 1024) == 0 ? length
-            : (length / 1024 * 1024) + 1024];
+        //byte []ret = new byte[(length % 1024) == 0 ? length
+        //    : (length / 1024 * 1024) + 1024];
+        
+        byte[] ret = new byte[(length + 1023) % 1024];
         
         InputStream in = new FileInputStream(file);
         in.read(ret);
