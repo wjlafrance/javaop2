@@ -44,9 +44,9 @@ public class CheckRevision {
     public static int doCheckRevision(String mpqName, String[] files,
             byte[] formula) throws LoginException, IOException
     {
-        System.out.println("Entered doCheckRevision for MPQ: " + mpqName);
+        System.err.println("Entered doCheckRevision for MPQ: " + mpqName);
         for (int i = 0; i < files.length; i++)
-            System.out.println("File " + i + ": " + files[i]);
+            System.err.println("File " + i + ": " + files[i]);
             
         String mpq = mpqName.toLowerCase();
         
@@ -105,9 +105,9 @@ public class CheckRevision {
     private static int checkrevisionOld(String platform, int mpqNumber,
             String[] files, String formula) throws LoginException, IOException
     {
-        System.out.println("Doing old-style checkrevision for " + platform
+        System.err.println("Doing old-style checkrevision for " + platform
                 + " with MPQ number " + mpqNumber + ".");
-        System.out.println("Formula: " + formula);
+        System.err.println("Formula: " + formula);
         
         if (!platform.equals("IX86"))
             throw new LoginException("Old style CheckRevision not supported "
@@ -163,7 +163,7 @@ public class CheckRevision {
         A ^= hashcodes[mpqNumber];
         
         for(int i = 0; i < 3; i++) {
-            System.out.println("Reading file for checkrevision: " + files[i]);
+            System.err.println("Reading file for checkrevision: " + files[i]);
             byte []data = readFile(new File(files[i]));
             
             for(int j = 0; j < data.length; j += 4) {
