@@ -163,6 +163,7 @@ public class CheckRevision {
         A ^= hashcodes[mpqNumber];
         
         for(int i = 0; i < 3; i++) {
+            System.out.println("Reading file for checkrevision: " + files[i]);
             byte []data = readFile(new File(files[i]));
             
             for(int j = 0; j < data.length; j += 4) {
