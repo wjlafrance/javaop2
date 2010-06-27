@@ -44,6 +44,10 @@ public class CheckRevision {
     public static int doCheckRevision(String mpqName, String[] files,
             byte[] formula) throws LoginException, IOException
     {
+        System.out.println("Entered doCheckRevision for MPQ: " + mpqName);
+        for (int i = 0; i < files.length; i++)
+            System.out.println("File " + i + ": " + files[i]);
+            
         String mpq = mpqName.toLowerCase();
         
         // Windows (IX86)
@@ -53,7 +57,7 @@ public class CheckRevision {
         } else if (mpq.matches("ver-ix86-[0-7].mpq")) {
             int mpqNum = Integer.parseInt(mpq.substring(9, 10));
             return checkrevisionOld("IX86", mpqNum, files, new String(formula));
-        } else if (mpq.matches("lockdown-IX86-[0-1][0-9].mpq")) {
+        } else if (mpq.matches("lockdown-ix86-[0-1][0-9].mpq")) {
             int mpqNum = Integer.parseInt(mpq.substring(14, 16));
             return checkrevisionLockdown("IX86", mpqNum, files, formula);
         }
@@ -65,7 +69,7 @@ public class CheckRevision {
         } else if (mpq.matches("ver-pmac-[0-7].mpq")) {
             int mpqNum = Integer.parseInt(mpq.substring(9, 10));
             return checkrevisionOld("PMAC", mpqNum, files, new String(formula));
-        } else if (mpq.matches("lockdown-PMAC-[0-1][0-9].mpq")) {
+        } else if (mpq.matches("lockdown-pmac-[0-1][0-9].mpq")) {
             int mpqNum = Integer.parseInt(mpq.substring(14, 16));
             return checkrevisionLockdown("PMAC", mpqNum, files, formula);
         }
@@ -77,7 +81,7 @@ public class CheckRevision {
         } else if (mpq.matches("ver-xmac-[0-7].mpq")) {
             int mpqNum = Integer.parseInt(mpq.substring(9, 10));
             return checkrevisionOld("XMAC", mpqNum, files, new String(formula));
-        } else if (mpq.matches("lockdown-XMAC-[0-1][0-9].mpq")) {
+        } else if (mpq.matches("lockdown-xmac-[0-1][0-9].mpq")) {
             int mpqNum = Integer.parseInt(mpq.substring(14, 16));
             return checkrevisionLockdown("XMAC", mpqNum, files, formula);
         }
@@ -101,6 +105,10 @@ public class CheckRevision {
     private static int checkrevisionOld(String platform, int mpqNumber,
             String[] files, String formula) throws LoginException, IOException
     {
+        System.out.println("Doing old-style checkrevision for " + platform
+                + " with MPQ number " + mpqNumber + ".");
+        System.out.println("Formula: " + formula);
+        
         if (!platform.equals("IX86"))
             throw new LoginException("Old style CheckRevision not supported "
                     + " for " + platform);

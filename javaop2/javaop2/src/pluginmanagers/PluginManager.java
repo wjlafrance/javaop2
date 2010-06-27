@@ -111,31 +111,33 @@ public class PluginManager {
         try {
             URL[] urls = { url };
             URLClassLoader ucl = new URLClassLoader(urls);
-            
             JarURLConnection uc = (JarURLConnection)url.openConnection();
             Attributes attr = uc.getMainAttributes();
+            
             if (attr != null)
                 mainClass = attr.getValue(Attributes.Name.MAIN_CLASS);
-                
+            if (mainClass == null)
+                throw new Exception("Plugin specifies null main class.");
+            
             System.out.println("Loading plugin: " + mainClass);
             
             Class cl = ucl.loadClass(mainClass);
             GenericPluginInterface plugin = (GenericPluginInterface) cl.newInstance();
-
+            
             allPlugins.put(plugin.getName(), plugin);
-
+            
             if (load)
                 plugin.load(BotCoreStatic.getInstance());
-
+            
             plugin.setGlobalDefaultSettings(BotCoreStatic.getInstance());
         } catch (ClassNotFoundException e) {
             System.err.println("   --> Load failed (Plugin '" + url
                     + "' doesn't have main class: " + mainClass);
-            System.err.println(e);
             e.printStackTrace();
         } catch (ClassCastException e) {
             System.err.println("   --> Load failed (Plugin '" + url
                     + "''s main class doesn't implement PluginInterface");
+            e.printStackTrace();
         } catch (Exception e) {
             System.err.println("Unable to load plugin file: " + url);
             e.printStackTrace();
@@ -158,24 +160,17 @@ public class PluginManager {
 
                 out.pluginSetDefaultSettings(plugin.getName());
 
-                if (JavaOpFileStuff.isActivePlugin(out.getName(), plugin.getName()) == false) {
-                    if (plugin.getName().equalsIgnoreCase("Battle.net Login Plugin"))
-                        out.systemMessage(ErrorLevelConstants.CRITICAL,
-                                          "WARNING!!! BATTLE.NET LOGIN PLUGIN IS DISABLED!! BOT WILL NOT WORK");
-                    if (plugin.getName().equalsIgnoreCase("SwingGui"))
-                        out.systemMessage(ErrorLevelConstants.ALERT,
-                                          "WARNING!!! SWING GUI PLUGIN IS DISABLED!");
-                } else {
+                if (JavaOpFileStuff.isActivePlugin(out.getName(), plugin.getName())) {
                     System.out.println("Activating plugin: " + plugin.getName());
 
                     plugin.activate(out, register);
                     activePlugins.put(plugin.getName(), plugin);
                 }
             } catch (IllegalAccessException exc) {
-                System.err.println("Unable to load plugin:");
+                System.err.println("Unable to load plugin: IllegalAccessException. Stack trace on console.");
                 exc.printStackTrace();
             } catch (InstantiationException exc) {
-                System.err.println("Unable to load plugin:");
+                System.err.println("Unable to load plugin: InstantiationException. Stack trace on console.");
                 exc.printStackTrace();
             }
         }
@@ -188,10 +183,10 @@ public class PluginManager {
                     GenericPluginInterface plugin = (GenericPluginInterface) (e.nextElement().getClass().newInstance());
                     System.out.println("Plugin: " + plugin.getName());
                 } catch (IllegalAccessException exc) {
-                    System.err.println("Unable to load plugin:");
+                    System.err.println("Unable to load plugin: IllegalAccessException. Stack trace on console.");
                     exc.printStackTrace();
                 } catch (InstantiationException exc) {
-                    System.err.println("Unable to load plugin:");
+                    System.err.println("Unable to load plugin: InstantiationException. Stack trace on console.");
                     exc.printStackTrace();
                 }
             }
