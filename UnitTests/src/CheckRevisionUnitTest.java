@@ -1,12 +1,13 @@
 package com.javaop.UnitTests;
-import junit.framework.*;
 
 import com.javaop.BNetLogin.versioning.CheckRevision;
 import com.javaop.BNetLogin.versioning.CheckRevisionResults;
 import com.javaop.BNetLogin.versioning.Bnls;
 import com.javaop.BNetLogin.versioning.Game;
 
+import java.io.File;
 import java.lang.reflect.Method;
+
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -19,6 +20,10 @@ public class CheckRevisionUnitTest {
     
     private static Class[] CheckRevision_doCheckRevisionReturnType =
             new Class[] { String.class, String[].class, byte[].class };
+
+    public static void main(String args[]) throws Exception {
+        new CheckRevisionUnitTest().testLocalHashAgainstBnls();
+    }
 
     @BeforeClass
     public static void initialSetUp() {
@@ -54,30 +59,21 @@ public class CheckRevisionUnitTest {
 
     @Test
     public void testLocalHashAgainstBnls() throws Exception {
-        
-        CheckRevisionResults d2dvBnlsResults = Bnls.CheckRevision(new Game("D2DV"), "ver-IX86-6.mpq", (long)0x1c75f7003518b00l,
-                new byte[] { 0x41,0x3d,0x33,0x31,0x31,0x36,0x37,0x34,
-                            0x36,0x36,0x31,0x38,0x20,0x42,0x3d,0x33,
-                            0x36,0x32,0x39,0x31,0x39,0x38,0x35,0x35,
-                            0x34,0x20,0x43,0x3d,0x32,0x32,0x39,0x32,
-                            0x37,0x39,0x38,0x36,0x35,0x20,0x34,0x20,
-                            0x41,0x3d,0x41,0x2b,0x53,0x20,0x42,0x3d,
-                            0x42,0x2d,0x43,0x20,0x43,0x3d,0x43,0x5e,
-                            0x41,0x20,0x41,0x3d,0x41,0x5e,0x42 });
+        CheckRevisionResults d2dvBnlsResults = Bnls.CheckRevision(
+                new Game("D2DV"),
+                "ver-IX86-6.mpq",
+                (long)0x1c75f7003518b00l,
+                "A=3116746618 B=3629198554 C=229279865 4 A=A+S B=B-C C=C^A A=A^B".getBytes());
         int d2dvLocalHashChecksum = CheckRevision.doCheckRevision("ver-IX86-6.mpq",
-                new String[] { System.getProperty("user.dir") + "/Hashfiles/D2DV/Game.exe",
-                System.getProperty("user.dir") + "/Hashfiles/D2DV/Bnclient.dll",
-                System.getProperty("user.dir") + "/Hashfiles/D2DV/D2Client.dll"},
-                new byte[] { 0x41,0x3d,0x33,0x31,0x31,0x36,0x37,0x34,
-                            0x36,0x36,0x31,0x38,0x20,0x42,0x3d,0x33,
-                            0x36,0x32,0x39,0x31,0x39,0x38,0x35,0x35,
-                            0x34,0x20,0x43,0x3d,0x32,0x32,0x39,0x32,
-                            0x37,0x39,0x38,0x36,0x35,0x20,0x34,0x20,
-                            0x41,0x3d,0x41,0x2b,0x53,0x20,0x42,0x3d,
-                            0x42,0x2d,0x43,0x20,0x43,0x3d,0x43,0x5e,
-                            0x41,0x20,0x41,0x3d,0x41,0x5e,0x42 });
+                new String[] {
+                        System.getProperty("user.dir") + "/Hashfiles/D2DV/Game.exe",
+                        System.getProperty("user.dir") + "/Hashfiles/D2DV/Bnclient.dll",
+                        System.getProperty("user.dir") + "/Hashfiles/D2DV/D2Client.dll"
+                },
+                "A=3116746618 B=3629198554 C=229279865 4 A=A+S B=B-C C=C^A A=A^B".getBytes());
         Assert.assertEquals(d2dvBnlsResults.checksum, d2dvLocalHashChecksum);
         
-        // TO DO: Remove _GameData.txt and _GlobalSettings.txt from working directory
+        new File("_GameData.txt").delete();
+        new File("_GlobalSettings.txt").delete();
     }
 }

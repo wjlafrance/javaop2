@@ -27,12 +27,18 @@ import com.javaop.exceptions.LoginException;
  * entire files. The majority of the time is spent in i/o, but I've tried to
  * optimize this as much as possible.
  * 
- * I don't think this works anymore.
- * 
  * @author iago, wjlafance
  */
 public class CheckRevision {
     
+    /**
+     * Hashcodes for each MPQ file, for old-style CheckRevisions
+     */
+    private static final int hashcodes[] = {
+            0xE7F4CB62, 0xF6A14FFC, 0xAA5504AF, 0x871FCDC2,
+            0x11BF6A18, 0xC57292E6, 0x7927D27E, 0x2FEC8733
+    };
+
     /**
      * This is the main entry point for doing CheckRevision. This sorts out
      * what kind of CheckRevision we're doing and then calls another function.
@@ -53,37 +59,37 @@ public class CheckRevision {
         // Windows (IX86)
         if(mpq.matches("ix86ver[0-7].mpq")) {
             int mpqNum = Integer.parseInt(mpq.substring(7, 8));
-            return checkrevisionOld("IX86", mpqNum, files, new String(formula));
+            return checkRevisionOld("IX86", mpqNum, files, new String(formula));
         } else if (mpq.matches("ver-ix86-[0-7].mpq")) {
             int mpqNum = Integer.parseInt(mpq.substring(9, 10));
-            return checkrevisionOld("IX86", mpqNum, files, new String(formula));
+            return checkRevisionOld("IX86", mpqNum, files, new String(formula));
         } else if (mpq.matches("lockdown-ix86-[0-1][0-9].mpq")) {
             int mpqNum = Integer.parseInt(mpq.substring(14, 16));
-            return checkrevisionLockdown("IX86", mpqNum, files, formula);
+            return checkRevisionLockdown("IX86", mpqNum, files, formula);
         }
         
         // Power Macintosh
         if (mpq.matches("pmacver[0-7].mpq")) {
             int mpqNum = Integer.parseInt(mpq.substring(7, 8));
-            return checkrevisionOld("PMAC", mpqNum, files, new String(formula));
+            return checkRevisionOld("PMAC", mpqNum, files, new String(formula));
         } else if (mpq.matches("ver-pmac-[0-7].mpq")) {
             int mpqNum = Integer.parseInt(mpq.substring(9, 10));
-            return checkrevisionOld("PMAC", mpqNum, files, new String(formula));
+            return checkRevisionOld("PMAC", mpqNum, files, new String(formula));
         } else if (mpq.matches("lockdown-pmac-[0-1][0-9].mpq")) {
             int mpqNum = Integer.parseInt(mpq.substring(14, 16));
-            return checkrevisionLockdown("PMAC", mpqNum, files, formula);
+            return checkRevisionLockdown("PMAC", mpqNum, files, formula);
         }
         
         // Mac OS X
         if (mpq.matches("xmacver[0-7].mpq")) {
             int mpqNum = Integer.parseInt(mpq.substring(7, 8));
-            return checkrevisionOld("XMAC", mpqNum, files, new String(formula));
+            return checkRevisionOld("XMAC", mpqNum, files, new String(formula));
         } else if (mpq.matches("ver-xmac-[0-7].mpq")) {
             int mpqNum = Integer.parseInt(mpq.substring(9, 10));
-            return checkrevisionOld("XMAC", mpqNum, files, new String(formula));
+            return checkRevisionOld("XMAC", mpqNum, files, new String(formula));
         } else if (mpq.matches("lockdown-xmac-[0-1][0-9].mpq")) {
             int mpqNum = Integer.parseInt(mpq.substring(14, 16));
-            return checkrevisionLockdown("XMAC", mpqNum, files, formula);
+            return checkRevisionLockdown("XMAC", mpqNum, files, formula);
         }
         
         throw new LoginException("MPQ filename (" + mpqName + ") doesn't match "
@@ -102,151 +108,179 @@ public class CheckRevision {
      * @throws IOException If there is an error reading from one of the datafiles.
      * @return The 32-bit CheckRevision hash.
      */
-    private static int checkrevisionOld(String platform, int mpqNumber,
-            String[] files, String formula) throws LoginException, IOException
+    private static int checkRevisionOld(String platform, int mpqNumber,
+            String []files, String formula) throws FileNotFoundException,
+            IOException, LoginException
     {
-        System.err.println("Doing old-style checkrevision for " + platform
-                + " with MPQ number " + mpqNumber + ".");
-        System.err.println("Formula: " + formula);
-        
-        if (!platform.equals("IX86"))
-            throw new LoginException("Old style CheckRevision not supported "
-                    + " for " + platform);
-        
-        int hashcodes[] = {
-                    0xE7F4CB62, 0xF6A14FFC, 0xAA5504AF, 0x871FCDC2,
-                    0x11BF6A18, 0xC57292E6, 0x7927D27E, 0x2FEC8733
-        };
-        
+
+        int checksum = 0;
+
+        StringTokenizer tok = new StringTokenizer(formula, " ");
+
+        long a=0,b=0,c=0;
+
+        for(int x = 0; x<3; x++){
+          String seed = tok.nextToken();
+          if(seed.toLowerCase().startsWith("a=") == true) a = Long.parseLong(seed.substring(2));
+          if(seed.toLowerCase().startsWith("b=") == true) b = Long.parseLong(seed.substring(2));
+          if(seed.toLowerCase().startsWith("c=") == true) c = Long.parseLong(seed.substring(2));
+        }
+        tok.nextToken();
+        if (a == 0 || b == 0 || c == 0)
+                return 0;
+        String formulaChunk;
+
+        formulaChunk = tok.nextToken();
+        if(formulaChunk.matches("A=A.S") == false) checksum
+                = checkRevisionOldSlow(platform, mpqNumber, files, formula);
+        char op1 = formulaChunk.charAt(3);
+
+        formulaChunk = tok.nextToken();
+        if(formulaChunk.matches("B=B.C") == false && checksum == 0) checksum
+                = checkRevisionOldSlow(platform, mpqNumber, files, formula);
+        char op2 = formulaChunk.charAt(3);
+
+        formulaChunk = tok.nextToken();
+        if(formulaChunk.matches("C=C.A") == false && checksum == 0) checksum
+                = checkRevisionOldSlow(platform, mpqNumber, files, formula);
+        char op3 = formulaChunk.charAt(3);
+
+        formulaChunk = tok.nextToken();
+        if(formulaChunk.matches("A=A.B") == false && checksum == 0) checksum
+                = checkRevisionOldSlow(platform, mpqNumber, files, formula);
+        char op4 = formulaChunk.charAt(3);
+
+        if(checksum == 0) {
+          // Now we actually do the hashing for each file
+          // Start by hashing A by the hashcode
+
+          a ^= hashcodes[mpqNumber];
+
+          for(int i = 0; i < files.length; i++)
+          {
+            File currentFile = new File(files[i]);
+
+            byte []data = readFile(currentFile);
+            for(int j = 0; j < data.length; j += 4)
+            {
+                int s = 0;
+                s |= ((data[j+0] << 0) & 0x000000ff);
+                s |= ((data[j+1] << 8) & 0x0000ff00);
+                s |= ((data[j+2] << 16) & 0x00ff0000);
+                s |= ((data[j+3] << 24) & 0xff000000);
+
+                switch (op1) {
+                    case '^': a ^= s; break;
+                    case '+': a += s; break;
+                    case '-': a -= s; break;
+                    case '*': a *= s; break;
+                    case '/': a /= s; break;
+                }
+                switch (op2) {
+                    case '^': b ^= c; break;
+                    case '+': b += c; break;
+                    case '-': b -= c; break;
+                    case '*': b *= c; break;
+                    case '/': b /= c; break;
+                }
+                switch (op3) {
+                    case '^': c ^= a; break;
+                    case '+': c += a; break;
+                    case '-': c -= a; break;
+                    case '*': c *= a; break;
+                    case '/': c /= a; break;
+                }
+                switch (op4) {
+                    case '^': a ^= b; break;
+                    case '+': a += b; break;
+                    case '-': a -= b; break;
+                    case '*': a *= b; break;
+                    case '/': a /= b; break;
+                }
+            }
+          }
+          checksum = (int)c;
+        }
+        return checksum;
+    }
+
+    private static int checkRevisionOldSlow(String platform, int mpqNumber,
+            String []files, String formula) throws FileNotFoundException,
+            IOException, LoginException
+    {
+        System.out.println("Warning: using checkRevisionOldSlow for version string: " + formula);
+
         // First, parse the versionString to name=value pairs and put them
         // in the appropriate place
-        long A = 0, B = 0, C = 0, D = 0;
-        char[] opValueDest = new char[4];
-        char[] opValueSrc1 = new char[4];
-        char[] opValueSrc2 = new char[4];
+        long[] values = new long[4];
+        int[] opValueDest = new int[4];
+        int[] opValueSrc1 = new int[4];
         char[] operation = new char[4];
-        
+        int[] opValueSrc2 = new int[4];
+
         // Break this apart at the spaces
         StringTokenizer s = new StringTokenizer(formula, " ");
         int currentFormula = 0;
-        while (s.hasMoreTokens()) {
+        while(s.hasMoreTokens()){
             String thisToken = s.nextToken();
-            
-            if (thisToken.indexOf('=') > 0) {
+            // As long as there is an '=' in the string
+            if(thisToken.indexOf('=') > 0){
                 // Break it apart at the '='
                 StringTokenizer nameValue = new StringTokenizer(thisToken, "=");
-                if(nameValue.countTokens() != 2)
-                    throw new LoginException("Malformed formula.");
-                
-                String variable = nameValue.nextToken();
+                if(nameValue.countTokens() != 2) return 0;
+
+                int variable = getNum(nameValue.nextToken().charAt(0));
+
                 String value = nameValue.nextToken();
-                
-                if (Character.isDigit(value.charAt(0))) {
-                    switch (variable.charAt(0)) {
-                        case 'A': A = Long.parseLong(value); break;
-                        case 'B': B = Long.parseLong(value); break;
-                        case 'C': C = Long.parseLong(value); break;
-                    }
-                } else {
-                    opValueDest[currentFormula] = variable.charAt(0);
-                    opValueSrc1[currentFormula] = value.charAt(0);
+
+                // If it starts with a number, assign that number to the appropriate variable
+                if(Character.isDigit(value.charAt(0))){
+                    values[variable] = Long.parseLong(value);
+                }else{
+                    opValueDest[currentFormula] = variable;
+
+                    opValueSrc1[currentFormula] = getNum(value.charAt(0));
                     operation[currentFormula] = value.charAt(1);
-                    opValueSrc2[currentFormula] = value.charAt(2);
+                    opValueSrc2[currentFormula] = getNum(value.charAt(2));
+
                     currentFormula++;
                 }
             }
         }
-        
+
         // Now we actually do the hashing for each file
         // Start by hashing A by the hashcode
+          
+        values[0] ^= hashcodes[mpqNumber];
         
-        A ^= hashcodes[mpqNumber];
-        
-        for(int i = 0; i < 3; i++) {
-            System.err.println("Reading file for checkrevision: " + files[i]);
-            byte []data = readFile(new File(files[i]));
-            
-            for(int j = 0; j < data.length; j += 4) {
-                long S = 0;
-                S = ((data[j+0] << 0)  & 0x000000FF)
-                        | ((data[j+1] << 8)  & 0x0000FF00)
-                        | ((data[j+2] << 16) & 0x00FF0000)
-                        | ((data[j+3] << 24) & 0xFF000000);
-                
-                if (S == 0)
-                    throw new IOException("Found a 0x000000 in " + files[i]);
+        for(int i = 0; i < files.length; i++)
+        {
+            File currentFile = new File(files[i]);
 
-                for (int k = 0; k < currentFormula; k++) {
-                    long val1 = 0, val2 = 0;
-                    switch (opValueSrc1[k]) {
-                        case 'A': val1 = A; break;
-                        case 'B': val1 = B; break;
-                        case 'C': val1 = C; break;
-                        case 'S': val1 = S; break;
-                    }
-                    switch (opValueSrc2[k]) {
-                        case 'A': val2 = A; break;
-                        case 'B': val2 = B; break;
-                        case 'C': val2 = C; break;
-                        case 'S': val2 = S; break;
-                    }
-                    
-                    switch (opValueDest[k]) {
-                        case 'A':
-                            switch (operation[k]) {
-                                case '^': A = val1 ^ val2;
-                                case '+': A = val1 + val2;
-                                case '-': A = val1 - val2;
-                                case '*': A = val1 * val2;
-                                case '/': A = val1 / val2;
-                            }
-                            break;
-                        case 'B':
-                            switch (operation[k]) {
-                                case '^': B = val1 ^ val2;
-                                case '+': B = val1 + val2;
-                                case '-': B = val1 - val2;
-                                case '*': B = val1 * val2;
-                                case '/': B = val1 / val2;
-                            }
-                            break;
-                        case 'C':
-                            switch (operation[k]) {
-                                case '^': C = val1 ^ val2;
-                                case '+': C = val1 + val2;
-                                case '-': C = val1 - val2;
-                                case '*': C = val1 * val2;
-                                case '/': C = val1 / val2;
-                            }
-                            break;
+            byte []data = readFile(currentFile);
+
+            for(int j = 0; j < data.length; j += 4)
+            {
+                values[3] = 0;
+                values[3] |= ((data[j+0] << 0) & 0x000000FF);
+                values[3] |= ((data[j+1] << 8) & 0x0000ff00);
+                values[3] |= ((data[j+2] << 16) & 0x00ff0000);
+                values[3] |= ((data[j+3] << 24) & 0xff000000);
+
+                for(int k = 0; k < currentFormula; k++){
+                    switch(operation[k]){
+                        case '^': values[opValueDest[k]] = values[opValueSrc1[k]] ^ values[opValueSrc2[k]]; break;
+                        case '+': values[opValueDest[k]] = values[opValueSrc1[k]] + values[opValueSrc2[k]]; break;
+                        case '-': values[opValueDest[k]] = values[opValueSrc1[k]] - values[opValueSrc2[k]]; break;
+                        case '*': values[opValueDest[k]] = values[opValueSrc1[k]] * values[opValueSrc2[k]]; break;
+                        case '/': values[opValueDest[k]] = values[opValueSrc1[k]] / values[opValueSrc2[k]]; break;
                     }
                 }
              }
         }
-        return (int)C;
+        return (int)values[2];
     }
     
-    
-    /**
-     * Reads a file and returns a byte array.
-     */
-    public static byte[] readFile(File file) throws IOException {
-        int length = (int) file.length();
-        //byte []ret = new byte[(length % 1024) == 0 ? length
-        //    : (length / 1024 * 1024) + 1024];
-        
-        byte[] ret = new byte[(length + 1023) % 1024];
-        
-        InputStream in = new FileInputStream(file);
-        in.read(ret);
-        in.close();
-        
-        int value = 0xFF;
-        for(int i = (int) file.length(); i < ret.length; i++)
-          ret[i] = (byte) value--;
-        
-        return ret;
-    }
     
     /**
      * Performs an lockdown CheckRevision.
@@ -260,11 +294,42 @@ public class CheckRevision {
      * @throws IOException If there is an error reading from one of the datafiles.
      * @return The 32-bit CheckRevision hash.
      */
-    private static int checkrevisionLockdown(String platform, int mpqNumber,
+    private static int checkRevisionLockdown(String platform, int mpqNumber,
             String[] files, byte[] formula) throws LoginException, IOException
     {
         throw new LoginException("Lockdown CheckRevision not supported for "
                 + platform);
+    }
+
+
+
+
+    
+    /**
+     * Reads a file and returns a byte array.
+     */
+    public static byte []readFile(File file) throws IOException
+    {
+      int length = (int) file.length();
+      byte []ret = new byte[(length % 1024) == 0 ? length : (length / 1024 * 1024) + 1024];
+
+      InputStream in = new FileInputStream(file);
+      in.read(ret);
+      in.close();
+
+      int value = 0xFF;
+      for(int i = (int) file.length(); i < ret.length; i++)
+        ret[i] = (byte) value--;
+
+      return ret;
+    }
+
+    private static int getNum(char c) {
+        c = Character.toUpperCase(c);
+        if(c == 'S')
+            return 3;
+
+        return c - 'A';
     }
 
 }
