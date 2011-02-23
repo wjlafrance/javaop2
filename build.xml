@@ -1,12 +1,12 @@
 <project default="main">
-	
-	<description>
-		Ant Buildscript for JavaOp2
-	</description>
+    
+    <description>
+        Ant Buildscript for JavaOp2
+    </description>
     
     <target name="main" depends="build, jar, clean"></target>
 
-	<!-- Configuration Variables -->
+    <!-- Configuration Variables -->
     <property name="JARPATH" value="jar" />
     <property name="PLUGINPATH" value="${JARPATH}/Plugins" />
     
@@ -56,159 +56,159 @@
     <target name="build">
         <mkdir dir="javaop2/bin" />
         <javac srcdir="javaop2/src" destdir="javaop2/bin"
-			includeantruntime="false" />
+            includeantruntime="false" />
         <mkdir dir="Advertisements/bin" />
         <javac srcdir="Advertisements/src" destdir="Advertisements/bin"
                 classpath="javaop2/bin"
-				includeantruntime="false" />
+                includeantruntime="false" />
         <mkdir dir="Alias/bin" />
         <javac srcdir="Alias/src" destdir="Alias/bin"
                 classpath="javaop2/bin"
-				includeantruntime="false"/>
+                includeantruntime="false"/>
         <mkdir dir="AntiFlood/bin" />
         <javac srcdir="AntiFlood/src" destdir="AntiFlood/bin"
                 classpath="javaop2/bin"
-				includeantruntime="false" />
+                includeantruntime="false" />
         <mkdir dir="AutoRejoin/bin" />
         <javac srcdir="AutoRejoin/src" destdir="AutoRejoin/bin"
                 classpath="javaop2/bin"
-				includeantruntime="false" />
+                includeantruntime="false" />
         <mkdir dir="Autoban/bin" />
         <javac srcdir="Autoban/src" destdir="Autoban/bin"
                 classpath="javaop2/bin"
-				includeantruntime="false" />
+                includeantruntime="false" />
         <mkdir dir="AwayMessage/bin" />
         <javac srcdir="AwayMessage/src" destdir="AwayMessage/bin"
                 classpath="javaop2/bin"
-				includeantruntime="false" />
+                includeantruntime="false" />
         <mkdir dir="BNetLogin/bin" />
         <javac srcdir="BNetLogin/src" destdir="BNetLogin/bin"
                 classpath="javaop2/bin"
-				includeantruntime="false" />
+                includeantruntime="false" />
         <mkdir dir="BnetEventProcess/bin" />
         <javac srcdir="BnetEventProcess/src" destdir="BnetEventProcess/bin"
                 classpath="javaop2/bin"
-				includeantruntime="false" />
+                includeantruntime="false" />
         <mkdir dir="BasicCommands/bin" />
         <javac srcdir="BasicCommands/src" destdir="BasicCommands/bin"
                 classpath="javaop2/bin"
-				includeantruntime="false" />
+                includeantruntime="false" />
         <mkdir dir="BotMail/bin" />
         <javac srcdir="BotMail/src" destdir="BotMail/bin"
                 classpath="javaop2/bin"
-				includeantruntime="false" />
+                includeantruntime="false" />
         <mkdir dir="ChannelProtection/bin" />
         <javac srcdir="ChannelProtection/src" destdir="ChannelProtection/bin"
                 classpath="javaop2/bin"
-				includeantruntime="false" />
+                includeantruntime="false" />
         <mkdir dir="ChannelList/bin" />
         <javac srcdir="ChannelList/src" destdir="ChannelList/bin"
                 classpath="javaop2/bin"
-				includeantruntime="false" />
+                includeantruntime="false" />
         <mkdir dir="Commands/bin" />
         <javac srcdir="Commands/src" destdir="Commands/bin"
                 classpath="javaop2/bin"
-				includeantruntime="false" />
+                includeantruntime="false" />
         <mkdir dir="ConnectionCommands/bin" />
         <javac srcdir="ConnectionCommands/src" destdir="ConnectionCommands/bin"
                 classpath="javaop2/bin"
-				includeantruntime="false" />
+                includeantruntime="false" />
         <mkdir dir="ConsoleDisplay/bin" />
         <javac srcdir="ConsoleDisplay/src" destdir="ConsoleDisplay/bin"
                 classpath="javaop2/bin"
-				includeantruntime="false" />
+                includeantruntime="false" />
         <mkdir dir="Designate/bin" />
         <javac srcdir="Designate/src" destdir="Designate/bin"
                 classpath="javaop2/bin"
-				includeantruntime="false" />
+                includeantruntime="false" />
         <mkdir dir="EmailRegister/bin" />
         <javac srcdir="EmailRegister/src" destdir="EmailRegister/bin"
                 classpath="javaop2/bin"
-				includeantruntime="false" />
+                includeantruntime="false" />
         <mkdir dir="Filters/bin" />
         <javac srcdir="Filters/src" destdir="Filters/bin"
                 classpath="javaop2/bin"
-				includeantruntime="false" />
+                includeantruntime="false" />
         <mkdir dir="Forwarding/bin" />
         <javac srcdir="Forwarding/src" destdir="Forwarding/bin"
                 classpath="javaop2/bin"
-				includeantruntime="false" />
+                includeantruntime="false" />
         <mkdir dir="FunStuff/bin" />
         <javac srcdir="FunStuff/src" destdir="FunStuff/bin"
                 classpath="javaop2/bin"
-				includeantruntime="false" />
+                includeantruntime="false" />
         <mkdir dir="GlobalCommand/bin" />
         <javac srcdir="GlobalCommand/src" destdir="GlobalCommand/bin"
                 classpath="javaop2/bin"
-				includeantruntime="false" />
+                includeantruntime="false" />
         <mkdir dir="Greeting/bin" />
         <javac srcdir="Greeting/src" destdir="Greeting/bin"
                 classpath="javaop2/bin"
-				includeantruntime="false" />
+                includeantruntime="false" />
         <mkdir dir="Help/bin" />
         <javac srcdir="Help/src" destdir="Help/bin"
                 classpath="javaop2/bin"
-				includeantruntime="false" />
+                includeantruntime="false" />
         <mkdir dir="IPBan/bin" />
         <javac srcdir="IPBan/src" destdir="IPBan/bin"
                 classpath="javaop2/bin"
-				includeantruntime="false" />
+                includeantruntime="false" />
         <mkdir dir="Ladder/bin" />
         <javac srcdir="Ladder/src" destdir="Ladder/bin"
                 classpath="javaop2/bin"
-				includeantruntime="false" />
+                includeantruntime="false" />
         <mkdir dir="Logging/bin" />
         <javac srcdir="Logging/src" destdir="Logging/bin"
                 classpath="javaop2/bin"
-				includeantruntime="false" />
+                includeantruntime="false" />
         <mkdir dir="Moderation/bin" />
         <javac srcdir="Moderation/src" destdir="Moderation/bin"
                 classpath="javaop2/bin"
-				includeantruntime="false" />
+                includeantruntime="false" />
         <mkdir dir="Ping/bin" />
         <javac srcdir="Ping/src" destdir="Ping/bin"
                 classpath="javaop2/bin"
-				includeantruntime="false" />
+                includeantruntime="false" />
         <mkdir dir="Profile/bin" />
         <javac srcdir="Profile/src" destdir="Profile/bin"
                 classpath="javaop2/bin"
-				includeantruntime="false" />
+                includeantruntime="false" />
         <mkdir dir="ShellCommands/bin" />
         <javac srcdir="ShellCommands/src" destdir="ShellCommands/bin"
                 classpath="javaop2/bin"
-				includeantruntime="false" />
+                includeantruntime="false" />
         <mkdir dir="ShowInvisibleUsers/bin" />
         <javac srcdir="ShowInvisibleUsers/src" destdir="ShowInvisibleUsers/bin"
                 classpath="javaop2/bin"
-				includeantruntime="false" />
+                includeantruntime="false" />
         <mkdir dir="StayConnected/bin" />
         <javac srcdir="StayConnected/src" destdir="StayConnected/bin"
                 classpath="javaop2/bin"
-				includeantruntime="false" />
+                includeantruntime="false" />
         <mkdir dir="SweepBan/bin" />
         <javac srcdir="SweepBan/src" destdir="SweepBan/bin"
                 classpath="javaop2/bin"
-				includeantruntime="false" />
+                includeantruntime="false" />
         <mkdir dir="SwingGui/bin" />
         <javac srcdir="SwingGui/src" destdir="SwingGui/bin"
                 classpath="javaop2/bin"
-				includeantruntime="false" />
+                includeantruntime="false" />
         <mkdir dir="UserInformation/bin" />
         <javac srcdir="UserInformation/src" destdir="UserInformation/bin"
                 classpath="javaop2/bin"
-				includeantruntime="false" />
-        <mkdir dir="UserManagement/bin"	/>
+                includeantruntime="false" />
+        <mkdir dir="UserManagement/bin" />
         <javac srcdir="UserManagement/src" destdir="UserManagement/bin"
                 classpath="javaop2/bin"
-				includeantruntime="false" />
+                includeantruntime="false" />
         <mkdir dir="Version/bin" />
         <javac srcdir="Version/src" destdir="Version/bin"
                 classpath="javaop2/bin"
-				includeantruntime="false" />
+                includeantruntime="false" />
         <mkdir dir="War3Clan/bin" />
         <javac srcdir="War3Clan/src" destdir="War3Clan/bin"
                 classpath="javaop2/bin"
-				includeantruntime="false" />
+                includeantruntime="false" />
     </target>
     
     <target name="jar">
