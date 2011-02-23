@@ -10,6 +10,7 @@ import java.io.OutputStream;
 import java.io.InputStream;
 import java.net.Socket;
 
+import com.javaop.bot.BotCoreStatic;
 import com.javaop.callback_interfaces.StaticExposedFunctions;
 import com.javaop.exceptions.LoginException;
 import com.javaop.util.BnlsPacket;
@@ -23,12 +24,12 @@ import com.javaop.constants.PacketConstants;
  */
 public class Bnls {
 
-    public static int VersionByte(StaticExposedFunctions staticFuncs, Game game)
+    public static int versionByte(Game game)
             throws LoginException, IOException
     {
-        String server = staticFuncs.getGlobalSetting("Battle.net Login Plugin",
-                "BNLS Server");
-        int timeout = Integer.parseInt(staticFuncs.getGlobalSettingDefault(
+        String server = BotCoreStatic.getInstance().getGlobalSettingDefault("Battle.net Login Plugin",
+                "BNLS Server", "wjlafrance.net");
+        int timeout = Integer.parseInt(BotCoreStatic.getInstance().getGlobalSettingDefault(
                 "JavaOp2", "timeout", "30000"));
         
         Socket socket = TimeoutSocket.getSocket(server, 9367, timeout);
@@ -46,13 +47,12 @@ public class Bnls {
         return packet.removeDWord();
     }
     
-    public static CheckRevisionResults CheckRevision(Game game,
-            StaticExposedFunctions staticFuncs, String filename, long timestamp,
+    public static CheckRevisionResults CheckRevision(Game game, String filename, long timestamp,
             byte[] formula) throws LoginException, IOException
     {
-        String server = staticFuncs.getGlobalSetting("Battle.net Login Plugin",
-                "BNLS Server");
-        int timeout = Integer.parseInt(staticFuncs.getGlobalSettingDefault(
+        String server = BotCoreStatic.getInstance().getGlobalSettingDefault("Battle.net Login Plugin",
+                "BNLS Server", "wjlafrance.net");
+        int timeout = Integer.parseInt(BotCoreStatic.getInstance().getGlobalSettingDefault(
                 "JavaOp2", "timeout", "30000"));
         
         Socket socket = TimeoutSocket.getSocket(server, 9367, timeout);

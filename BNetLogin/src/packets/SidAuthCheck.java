@@ -36,6 +36,7 @@ public class SidAuthCheck
         pubFuncs.putLocalVariable("mpqTime",    SidAuthInfo.removeLong());
         pubFuncs.putLocalVariable("mpqName",    SidAuthInfo.removeNTString());
         pubFuncs.putLocalVariable("verFormula", SidAuthInfo.removeNtByteArray());
+
         
         // test signature, will throw exception if invalid
         GameData g = new GameData();
@@ -62,6 +63,13 @@ public class SidAuthCheck
                 Long.toHexString((Long)pubFuncs.getLocalVariable("mpqTime")));
         pubFuncs.systemMessage(ErrorLevelConstants.DEBUG, "[BNET] MPQ filename: " +
                 (String)pubFuncs.getLocalVariable("mpqName"));
+
+        byte[] verFormula = (byte[])pubFuncs.getLocalVariable("verFormula");
+        String verFormulaString = "";
+        for (int i=0; i < verFormula.length; i++) {
+            verFormulaString += Integer.toString( ( verFormula[i] & 0xff ) + 0x100, 16).substring( 1 );
+        }
+        pubFuncs.systemMessage(ErrorLevelConstants.DEBUG, "[BNET] Formula: 0x" + verFormulaString);
         
         
         // END PARSING SID_AUTH_INFO

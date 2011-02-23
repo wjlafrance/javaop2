@@ -44,9 +44,9 @@ public class CheckRevision {
     public static int doCheckRevision(String mpqName, String[] files,
             byte[] formula) throws LoginException, IOException
     {
-        System.err.println("Entered doCheckRevision for MPQ: " + mpqName);
-        for (int i = 0; i < files.length; i++)
-            System.err.println("File " + i + ": " + files[i]);
+        //System.out.println("Entered doCheckRevision for MPQ: " + mpqName);
+        //for (int i = 0; i < files.length; i++)
+            //System.out.println("File " + i + ": " + files[i]);
             
         String mpq = mpqName.toLowerCase();
         

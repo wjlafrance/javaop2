@@ -43,7 +43,7 @@ public class Versioning {
             try {
                 pubFuncs.systemMessage(ErrorLevelConstants.INFO,
                         "[BNLS] Retreiving version byte for " + g.getName());
-                return Bnls.VersionByte(staticFuncs, g);
+                return Bnls.versionByte(g);
             } catch(Exception ex) {
                 bnlsFailed = true;
                 pubFuncs.systemMessage(ErrorLevelConstants.WARNING,
@@ -94,7 +94,7 @@ public class Versioning {
             try {
                 pubFuncs.systemMessage(ErrorLevelConstants.INFO,
                         "[BNLS] Running version check for " + g.getName());
-                return Bnls.CheckRevision(g, staticFuncs, filename, filetime,
+                return Bnls.CheckRevision(g, filename, filetime,
                         formula);
             } catch(Exception ex) {
                 bnlsFailed = true;
