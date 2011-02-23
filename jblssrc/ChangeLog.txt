@@ -1,0 +1,89 @@
+JBLS - Change Log
+Public Version: v3.1
+
+* Fix
++ Addition
+- Removal
+# Change
+/ Note
+
+  v3.1 - Stats - 10-14-07
+    *Malfunctioning admin commands
+    *BNFTP FileTime mathmatics.
+    *Glitch that would cause Lockdown to fail 5% of the time.
+    +Admin Command:
+      Set [Header] [Property] [Value] - Raw Settings.ini access, Writes the data to Settings.ini.
+    -Internal stats
+    +SQL Based stats tracking.
+      /You must have an external MySQL compatible server running.
+      /Create a Database, and user with full access.
+      /And then edit the Settings.ini files to fill in the values
+       [Statistics]
+       Server=The Address to your SQl server
+       Database=The Database JBLS is to use
+       Password=The Password for the SQL Server
+       Username=The Username for the SQl server
+       Queue=How many updates to do at a time. (Usually, Each connection generates 3 updates)
+       BotIDs=Log the IDs of the bots that connect to your server.
+       CheckRevisions=Log the types of checkrevisions that are made ony our server.
+       Connections=Log the number of connections.
+       Include IPs=Include the user's IP address, It is hashed, not plain text.
+       Enable=Set to false to completly disable.
+       Check Schema=Set to false, to disable JBLS from checking the databases's SQL format. 
+         This is required on some hosts who don't allow you to view the list of tabels.
+         You must create the tabels yourself.
+
+        
+  v3.0 - Lockdown - 07-07-07
+    +Added CheckRevisionV3 - Support for Lockdown-IX86-##.dll CheckRevision() formula
+      +The DLLs must be used in the function, so Place them in JBLS/DLLs/
+      +Each client now requires a 'Screen Dump' for lockdown. JBLS/IX86/PROD/PROD.bin
+    -Removed The Admin Server
+    +Added a BotNet Connection
+    #Added Admin commands to the BotNet client
+      /Commands must be whispered to the Server
+      #JBLS Admin Commands:
+        BNFTP [Server] [Files ...] - The JBLS server will attempt to download these files useing Battle.net's FTP protocol.
+        Help - This message.
+        IPAuth [IP] - Displays the statistice for the specified IP
+        IPBan [IP] - Adds the specified IP to the IPBan list.
+        IPs - List all IP address that have special atributes on the server.
+        Kill [All|HTTP|JBLS] - Destroys all client threads associated with the specified server.
+        Respond - Test command, Don't use.
+        Restart [All|HTTP|JBLS] - Restarts the server, Kills all connections and opens up for new ones.
+        SetIp [IP] [Status] - Manually sets the status of the IP to the number specified.
+        Shutdown - Destroys all connection threads, and exits the daemon.
+        Start [All|HTTP|JBLS] - Enable's the noted server.
+        Stop [All|HTTP|JBLS] - Disable's the noted server.
+    #Changed The admin list to Admins.ini
+      Format: Username=Access
+      Currently no Access levels are implemented, so 1 is suffice.
+    #IP Auth info moved to IPs.ini
+    +Tracking statistics of Banned IPs
+      /IP Addess
+      /Attempts to connect seince being Banned
+      /Last Connection attempt time/date
+    #Changed iago's Buffer class to use a char[], supporting signed bytes now.
+    +Fixed a bug that would cause large ammounts of null bytes to sent along with CheckRevision's Exe Info
+    
+  v2.9 - Legacy
+    #Changed Configuration to INI based system, Settings.ini
+    +Added support for legacy clients:
+      /Diablo 1 - Retail: 0x0A
+      /Diablo 1 Shareware: 0x0B
+      /Starcraft Shareware: 0x0C
+  
+  v2.8 - Config
+    +Added Configuration loading from Settings.txt
+      /Current version bytes, hashes paths, etc..
+    *Fixed an issue that required double connections in order to get JBLS to work
+    #Converted all System.out calls to static Out class.
+    +Admin server created, default port 9360
+      /Text based, Login useing telnet, and type 'help' for help.      
+      +Added admin account listing Admins.txt
+        /Format: name password
+    +Added IP Authetication system.
+      +IPbanning/Restricting
+      
+  -----Older Version---
+  Eah.. Created JBLS, added support for most packets.. Never made a change log!
