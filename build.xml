@@ -4,8 +4,8 @@
         Ant Buildscript for JavaOp2
     </description>
     
-    <target name="main" depends="build, jar, clean"></target>
-
+    <target name="main" depends="clean, build, jar, test"></target>
+    
     <!-- Configuration Variables -->
     <property name="JARPATH" value="jar" />
     <property name="PLUGINPATH" value="${JARPATH}/Plugins" />
@@ -46,11 +46,23 @@
         <delete dir="StayConnected/bin" />
         <delete dir="SweepBan/bin" />
         <delete dir="SwingGui/bin" />
+        <delete dir="UnitTests/bin" />
         <delete dir="UserInformation/bin" />
         <delete dir="UserManagement/bin" />
         <delete dir="Version/bin" />
         <delete dir="War3Clan/bin" />
         <delete dir="javaop2/bin" />
+    </target>
+
+    <target name="test">
+        <exec dir="." executable="./.prepjunit.sh" />
+        
+        <mkdir dir="UnitTests/bin" />
+        <javac srcdir="UnitTests/src" destdir="UnitTests/bin"
+                classpath="javaop2/bin:BNetLogin/bin"
+                includeantruntime="false" />
+        
+        <exec dir="." executable="./.runjunit.sh" />
     </target>
     
     <target name="build">
@@ -212,11 +224,11 @@
     </target>
     
     <target name="jar">
-        
         <delete dir="${JARPATH}" />
         <delete dir="${PLUGINPATH}" />
         <mkdir dir="${JARPATH}" />
         <mkdir dir="${PLUGINPATH}"/>
+        
         <jar destfile="${JARPATH}/JavaOp2.jar" basedir="javaop2/bin">
             <manifest><attribute name="Main-Class" value="com.javaop._main.BotStart"/></manifest>
         </jar>
