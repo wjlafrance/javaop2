@@ -99,6 +99,21 @@ public class CheckRevisionUnitTest {
 
     @Test
     public void testDiablo2LocalOldSlowCheckRevisionAgainstBnls() throws Exception {
+        /*
+        Method checkRevisionOldSlow = CheckRevision.class.getMethod("checkRevisionOldSlow", checkRevisionOldSlowArguments);     
+        checkRevisionOldSlow.setAccessible(true);
+        int d2dvLocalHashChecksum = (Integer)checkRevisionOldSlow.invoke(null,
+                new Object[] {
+                    "IX86",
+                    6,
+                    new String[] {
+                        System.getProperty("user.dir") + "/Hashfiles/D2DV/Game.exe",
+                        System.getProperty("user.dir") + "/Hashfiles/D2DV/Bnclient.dll",
+                        System.getProperty("user.dir") + "/Hashfiles/D2DV/D2Client.dll"
+                    },
+                    "A=3116746618 B=3629198554 C=229279865 4 A=A+S B=B-C C=C^A A=A^B"
+                } );
+        */
         CheckRevisionResults d2dvBnlsResults = Bnls.CheckRevision(
                 new Game("D2DV"),
                 "ver-IX86-6.mpq",
