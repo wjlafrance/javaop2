@@ -108,7 +108,7 @@ public class CheckRevision {
      * @throws IOException If there is an error reading from one of the datafiles.
      * @return The 32-bit CheckRevision hash.
      */
-    private static int checkRevisionOld(String platform, int mpqNumber,
+    public static int checkRevisionOld(String platform, int mpqNumber,
             String []files, String formula) throws FileNotFoundException,
             IOException, LoginException
     {
@@ -204,7 +204,7 @@ public class CheckRevision {
         return checksum;
     }
 
-    private static int checkRevisionOldSlow(String platform, int mpqNumber,
+    public static int checkRevisionOldSlow(String platform, int mpqNumber,
             String []files, String formula) throws FileNotFoundException,
             IOException, LoginException
     {
@@ -294,22 +294,18 @@ public class CheckRevision {
      * @throws IOException If there is an error reading from one of the datafiles.
      * @return The 32-bit CheckRevision hash.
      */
-    private static int checkRevisionLockdown(String platform, int mpqNumber,
+    public static int checkRevisionLockdown(String platform, int mpqNumber,
             String[] files, byte[] formula) throws LoginException, IOException
     {
         throw new LoginException("Lockdown CheckRevision not supported for "
                 + platform);
     }
 
-
-
-
     
     /**
      * Reads a file and returns a byte array.
      */
-    public static byte []readFile(File file) throws IOException
-    {
+    private static byte []readFile(File file) throws IOException {
       int length = (int) file.length();
       byte []ret = new byte[(length % 1024) == 0 ? length : (length / 1024 * 1024) + 1024];
 
@@ -324,6 +320,9 @@ public class CheckRevision {
       return ret;
     }
 
+    /**
+     * Utility method for old slow CheckRevision
+     */
     private static int getNum(char c) {
         c = Character.toUpperCase(c);
         if(c == 'S')
