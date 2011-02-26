@@ -4,8 +4,9 @@
         Ant Buildscript for JavaOp2
     </description>
     
-    <target name="main" depends="clean, build, jar, test"></target>
-    
+    <target name="main" depends="clean, build, jar, test" />
+    <target name="notests" depends="clean, build, jar" />
+
     <!-- Configuration Variables -->
     <property name="JARPATH" value="jar" />
     <property name="PLUGINPATH" value="${JARPATH}/Plugins" />
