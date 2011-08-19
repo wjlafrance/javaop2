@@ -115,3 +115,8 @@ task :test do
         
   system("./.runjunit.sh");
 end
+
+
+task :run do
+  system("java -jar jar/JavaOp2.jar")
+end
