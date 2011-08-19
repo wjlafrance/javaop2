@@ -50,6 +50,7 @@ PLUGINS = ["Advertisements",
 
 task :clean do
   ant.delete :dir => "javaop2/bin"
+  ant.delete :dir => "hashes"
   ant.delete :dir => "#{PLUGINPATH}"
   PLUGINS.each do | plugin |
     ant.delete :dir => "#{plugin}/bin"
@@ -71,11 +72,12 @@ task :build do
               :classpath => "javaop2/bin",
               :includeantruntime => "no"
   end
-  puts
 end
 
 
 task :jar do
+  ant.delete :dir => "#{JARPATH}"
+  ant.mkdir :dir => "#{JARPATH}"
   ant.mkdir :dir => "#{PLUGINPATH}"
           
   ant.jar(:jarfile => "#{JARPATH}/JavaOp2.jar", :basedir => "javaop2/bin") do | ant |
@@ -83,27 +85,29 @@ task :jar do
       ant.attribute(:name => 'Main-Class', :value => "com.javaop._main.BotStart")
     end
   end
-  
-  PLUGINS.each do | plugin |
-    ant.jar(:jarfile => "#{JARPATH}/#{plugin}.jar", :basedir => "#{plugin}/bin") do | ant |
-      ant.manifest do | ant |
-        if "#{plugin}" == "CommandlineConfigure"
-          ant.attribute(:name => 'Main-Class', :value => "com.javaop._main.CommandlineConfigure")
-        elsif "#{plugin}" == "ConfigurePlugins"
-          ant.attribute(:name => 'Main-Class', :value => "com.javaop._main.ConfigurePlugins")
-        else
-          ant.attribute(:name => 'Main-Class', :value => "com.javaop.#{plugin}.PluginMain")
-        end
-      end
+  ant.jar(:jarfile => "#{JARPATH}/CommandlineConfigure.jar", :basedir => "javaop2/bin") do | ant |
+    ant.manifest do | ant |
+      ant.attribute(:name => 'Main-Class', :value => "com.javaop._main.CommandlineConfigure")
+    end
+  end
+  ant.jar(:jarfile => "#{JARPATH}/ConfigurePlugins.jar", :basedir => "javaop2/bin") do | ant |
+    ant.manifest do | ant |
+      ant.attribute(:name => 'Main-Class', :value => "com.javaop._main.ConfigurePlugins")
     end
   end
   
-  puts
+  PLUGINS.each do | plugin |
+    ant.jar(:jarfile => "#{PLUGINPATH}/#{plugin}.jar", :basedir => "#{plugin}/bin") do | ant |
+      ant.manifest do | ant |
+        ant.attribute(:name => 'Main-Class', :value => "com.javaop.#{plugin}.PluginMain")
+      end
+    end
+  end
 end
 
 
 task :test do
-  system("./.prepjunit.sh");
+  system("unzip -u junit.jar -d javaop2/bin")
   
   ant.delete :dir => "UnitTests/bin"
   ant.mkdir :dir => "UnitTests/bin"
@@ -113,10 +117,26 @@ task :test do
             :includeantruntime => "no",
             :classpath => "javaop2/bin:BNetLogin/bin"
         
-  system("./.runjunit.sh");
+  classes = ["org.junit.runner.JUnitCore",
+             "com.javaop.UnitTests.CheckRevisionUnitTest"]
+  system("java -classpath javaop2/bin:BNetLogin/bin:UnitTests/bin #{classes.join(" ")}")
 end
 
 
 task :run do
   system("java -jar jar/JavaOp2.jar")
+end
+
+
+task :gethashes do
+  games = ["SSHR", "W2BN", "DSHR", "DRTL", "STAR", "D2DV", "D2XP", "JSTR", "WAR3"]
+  
+  ant.delete :dir => "hashes"
+  ant.mkdir :dir => "hashes"
+  
+  games.each do | game |
+    system("curl http://realityripple.com/Software/Battle.net/Hash_Files/download.php?f=#{game} -o hashes/#{game}.zip")
+    system("unzip hashes/#{game}.zip -d hashes/#{game}")
+    system("rm hashes/#{game}.zip")
+  end
 end
