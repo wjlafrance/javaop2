@@ -1,0 +1,117 @@
+require 'ant'  
+  
+PROJECT_NAME = 'javaop2'
+
+JARPATH = "jar"
+PLUGINPATH = "#{JARPATH}/Plugins"
+
+task :default => [:clean, :build, :jar, :test]
+task :notests => [:clean, :build, :jar]
+
+PLUGINS = ["Advertisements",
+           "Alias",
+           "AntiFlood",
+           "AutoRejoin",
+           "Autoban",
+           "AwayMessage",
+           "BNetLogin",
+           "BnetEventProcess",
+           "BasicCommands",
+           "BotMail",
+           "ChannelProtection",
+           "ChannelList",
+           "Commands",
+           "ConnectionCommands",
+           "ConsoleDisplay",
+           "Designate",
+           "EmailRegister",
+           "Filters",
+           "Forwarding",
+           "FunStuff",
+           "GlobalCommand",
+           "Greeting",
+           "Help",
+           "IPBan",
+           "Ladder",
+           "Logging",
+           "Moderation",
+           "Ping",
+           "Profile",
+           "ShellCommands",
+           "ShowInvisibleUsers",
+           "StayConnected",
+           "SweepBan",
+           "SwingGui",
+           "UserInformation",
+           "UserManagement",
+           "Version",
+           "War3Clan"]
+
+
+task :clean do
+  ant.delete :dir => "javaop2/bin"
+  ant.delete :dir => "#{PLUGINPATH}"
+  PLUGINS.each do | plugin |
+    ant.delete :dir => "#{plugin}/bin"
+  end
+  puts
+end
+
+    
+task :build do
+  ant.mkdir :dir => "javaop2/bin"
+  ant.javac :srcdir => "javaop2/src",
+            :destdir => "javaop2/bin",
+            :includeantruntime => "no"
+  
+  PLUGINS.each do | plugin |
+    ant.mkdir :dir => "#{plugin}/bin"
+    ant.javac :srcdir => "#{plugin}/src",
+              :destdir => "#{plugin}/bin",
+              :classpath => "javaop2/bin",
+              :includeantruntime => "no"
+  end
+  puts
+end
+
+
+task :jar do
+  ant.mkdir :dir => "#{PLUGINPATH}"
+          
+  ant.jar(:jarfile => "#{JARPATH}/JavaOp2.jar", :basedir => "javaop2/bin") do | ant |
+    ant.manifest do | ant |
+      ant.attribute(:name => 'Main-Class', :value => "com.javaop._main.BotStart")
+    end
+  end
+  
+  PLUGINS.each do | plugin |
+    ant.jar(:jarfile => "#{JARPATH}/#{plugin}.jar", :basedir => "#{plugin}/bin") do | ant |
+      ant.manifest do | ant |
+        if "#{plugin}" == "CommandlineConfigure"
+          ant.attribute(:name => 'Main-Class', :value => "com.javaop._main.CommandlineConfigure")
+        elsif "#{plugin}" == "ConfigurePlugins"
+          ant.attribute(:name => 'Main-Class', :value => "com.javaop._main.ConfigurePlugins")
+        else
+          ant.attribute(:name => 'Main-Class', :value => "com.javaop.#{plugin}.PluginMain")
+        end
+      end
+    end
+  end
+  
+  puts
+end
+
+
+task :test do
+  system("./.prepjunit.sh");
+  
+  ant.delete :dir => "UnitTests/bin"
+  ant.mkdir :dir => "UnitTests/bin"
+  
+  ant.javac :srcdir => "UnitTests/src",
+            :destdir => "UnitTests/bin",
+            :includeantruntime => "no",
+            :classpath => "javaop2/bin:BNetLogin/bin"
+        
+  system("./.runjunit.sh");
+end
