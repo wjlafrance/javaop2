@@ -1,34 +1,28 @@
-#package com.javaop.UnitTests;
-
-#import com.javaop.BNetLogin.versioning.CheckRevision;
-#import com.javaop.BNetLogin.versioning.CheckRevisionResults;
-#import com.javaop.BNetLogin.versioning.Bnls;
-#import com.javaop.BNetLogin.versioning.Game;
-
-#import java.io.File;
-#import java.lang.reflect.Method;
-
-#import org.junit.AfterClass;
-#import org.junit.Assert;
-#import org.junit.BeforeClass;
-#import org.junit.Test;
-
 include Java 
 require "test/unit"
+
+#require 'jar/Plugins/*.jar'
+java_import com.javaop.BNetLogin.versioning.CheckRevision;
+java_import com.javaop.BNetLogin.versioning.CheckRevisionResults;
+java_import com.javaop.BNetLogin.versioning.Bnls;
+java_import com.javaop.BNetLogin.versioning.Game;
 
 class TestCheckRevision < Test::Unit::TestCase
 
   def setup
   end
 
-  def teardown 
-    File.delete("_GameData.txt")
-    File.delete("_GlobalSettings.txt")
+  def teardown
+    files_to_delete = ["_GameData.txt", "_GlobalSettings.txt"]
+    files_to_delete.each do | file |
+      Files.delete(file) if File.exists?(file)
+    end
   end
 
 
   def testCheckRevisionClassExists
-        Assert.assertNotNull(CheckRevision.class);
+    checkrevision = CheckRevision.new
+        #Assert.assertNotNull(CheckRevision.class);
   end
 
 
