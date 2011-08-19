@@ -55,7 +55,7 @@ public class JavaOpFrame extends JFrame {
         }
         
         // Set the program's title
-        this.setTitle("JavaOp2 " + staticFuncs.getVersion()");
+        this.setTitle("JavaOp2 " + staticFuncs.getVersion());
         
         // Create the desktop pane where we'll be storing everything, and make
         // that our content pane

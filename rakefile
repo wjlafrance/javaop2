@@ -107,6 +107,13 @@ end
 
 
 task :test do
+  if not File.exists?("junit.jar")
+    system("wget https://github.com/downloads/KentBeck/junit/junit4.9b4.zip")
+    system("unzip junit4.9b4.zip")
+    system("mv junit4.9b4/junit-4.9b4.jar junit.jar")
+    system("rm -rf junit4.9b4 junit4.9b4.zip")
+  end
+
   system("unzip -u junit.jar -d javaop2/bin")
   
   ant.delete :dir => "UnitTests/bin"
@@ -120,6 +127,7 @@ task :test do
   classes = ["org.junit.runner.JUnitCore",
              "com.javaop.UnitTests.CheckRevisionUnitTest"]
   system("java -classpath javaop2/bin:BNetLogin/bin:UnitTests/bin #{classes.join(" ")}")
+  ant.delete :dir => "javaop2/bin/junit"
 end
 
 
