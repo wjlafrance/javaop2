@@ -48,7 +48,7 @@ public class PluginMain extends GenericPluginInterface implements
     }
 
     public String getAuthorWebsite() {
-        return "javaop.googlecode.com";
+        return "javaop.com";
     }
 
     public String getAuthorEmail() {

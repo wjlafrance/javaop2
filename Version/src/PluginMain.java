@@ -64,7 +64,7 @@ public class PluginMain extends GenericPluginInterface implements
     }
 
     public String getAuthorWebsite() {
-        return "javaop.googlecode.com";
+        return "javaop.com";
     }
 
     public String getAuthorEmail() {
@@ -120,7 +120,7 @@ public class PluginMain extends GenericPluginInterface implements
             String osVersion = System.getProperty("os.version");
 
             publicFuncs.sendTextUserPriority(user, "JavaOp2 " + staticFuncs
-            		.getVersion() + " (javaop.googlecode.com)" + " ["
+            		.getVersion() + " ["
             		+ osName + " " + osVersion + " (" + osArch + ")]",
                     loudness, PRIORITY_LOW);
         }

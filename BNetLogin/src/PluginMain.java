@@ -145,7 +145,7 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
     }
 
     public String getAuthorWebsite() {
-        return "javaop.googlecode.com";
+        return "javaop.com";
     }
 
     public String getAuthorEmail() {

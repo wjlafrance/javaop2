@@ -53,9 +53,9 @@ public class PluginManager {
             }
 
             if (allPlugins.size() == 0) {
-                ErrorMessage.error("Unable to find any plugins.\nPlease download the plugin "
-                        + "package from \nhttp://javaop.googlecode.com\nand extract them "
-                        + "somewhere. You will be prompted to find them.", false);
+                ErrorMessage.error("Unable to find any plugins. Please download the plugin "
+                        + "package and extract them somewhere. You will be prompted to find "
+                        + "them.", false);
 
                 try {
                     JFileChooser chooser = new JFileChooser(new RelativeFile(""));

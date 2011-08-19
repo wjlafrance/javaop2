@@ -63,7 +63,7 @@ public class PluginMain extends GenericPluginInterface implements EventCallback
     }
 
     public String getAuthorWebsite() {
-        return "javaop.googlecode.com";
+        return "javaop.com";
     }
 
     public String getAuthorEmail() {

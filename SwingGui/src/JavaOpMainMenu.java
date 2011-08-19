@@ -162,7 +162,7 @@ public class JavaOpMainMenu extends JMenuBar implements ActionListener,
         help.add(faq);
         help.add(credits);
         news.addActionListener(new WebpageLoader(
-        		"http://javaop.googlecode.com"));
+        		"http://javaop.com"));
         news.setMnemonic('n');
         news.setIcon(MenuIcons.getIcon("news"));
         introduction.addActionListener(new WebpageLoader(
