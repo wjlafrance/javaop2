@@ -1,11 +1,10 @@
-include Java 
 require "test/unit"
+require 'java'
 
-#require 'jar/Plugins/*.jar'
-java_import com.javaop.BNetLogin.versioning.CheckRevision;
-java_import com.javaop.BNetLogin.versioning.CheckRevisionResults;
-java_import com.javaop.BNetLogin.versioning.Bnls;
-java_import com.javaop.BNetLogin.versioning.Game;
+include_class 'com.javaop.BNetLogin.versioning.CheckRevision'
+include_class 'com.javaop.BNetLogin.versioning.CheckRevisionResults'
+include_class 'com.javaop.BNetLogin.versioning.Bnls'
+include_class 'com.javaop.BNetLogin.versioning.Game'
 
 class TestCheckRevision < Test::Unit::TestCase
 
