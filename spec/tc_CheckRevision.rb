@@ -1,10 +1,15 @@
 require "test/unit"
-require 'java'
 
-include_class 'com.javaop.BNetLogin.versioning.CheckRevision'
-include_class 'com.javaop.BNetLogin.versioning.CheckRevisionResults'
-include_class 'com.javaop.BNetLogin.versioning.Bnls'
-include_class 'com.javaop.BNetLogin.versioning.Game'
+include Java
+#system("echo `pwd`")
+require "jar/JavaOp2.jar"
+require "jar/Plugins/BNetLogin.jar"
+
+java_import 'com.javaop.exceptions.LoginException'
+java_import 'com.javaop.BNetLogin.versioning.CheckRevision'
+java_import 'com.javaop.BNetLogin.versioning.CheckRevisionResults'
+java_import 'com.javaop.BNetLogin.versioning.Bnls'
+java_import 'com.javaop.BNetLogin.versioning.Game'
 
 class TestCheckRevision < Test::Unit::TestCase
 
@@ -14,14 +19,14 @@ class TestCheckRevision < Test::Unit::TestCase
   def teardown
     files_to_delete = ["_GameData.txt", "_GlobalSettings.txt"]
     files_to_delete.each do | file |
-      Files.delete(file) if File.exists?(file)
+      File.delete(file) if File.exists?(file)
     end
   end
 
 
   def testCheckRevisionClassExists
-    checkrevision = CheckRevision.new
-        #Assert.assertNotNull(CheckRevision.class);
+    cr = CheckRevision.new
+    assert_not_nil cr
   end
 
 
