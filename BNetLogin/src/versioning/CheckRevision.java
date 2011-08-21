@@ -208,7 +208,6 @@ public class CheckRevision {
             String []files, String formula) throws FileNotFoundException,
             IOException, LoginException
     {
-        System.out.println("Warning: using checkRevisionOldSlow for version string: " + formula);
 
         // First, parse the versionString to name=value pairs and put them
         // in the appropriate place
