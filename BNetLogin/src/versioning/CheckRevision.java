@@ -116,6 +116,9 @@ public class CheckRevision {
         int checksum = 0;
 
         StringTokenizer tok = new StringTokenizer(formula, " ");
+        if (tok.countTokens() != 8) {
+            return -1; // malformed formula
+        }
 
         long a=0,b=0,c=0;
 
@@ -219,11 +222,15 @@ public class CheckRevision {
 
         // Break this apart at the spaces
         StringTokenizer s = new StringTokenizer(formula, " ");
+        if (s.countTokens() != 8) {
+			return -1; // malformed formula
+		}
         int currentFormula = 0;
-        while(s.hasMoreTokens()){
+        while (s.hasMoreTokens()) {
+            
             String thisToken = s.nextToken();
             // As long as there is an '=' in the string
-            if(thisToken.indexOf('=') > 0){
+            if (thisToken.indexOf('=') > 0) {
                 // Break it apart at the '='
                 StringTokenizer nameValue = new StringTokenizer(thisToken, "=");
                 if(nameValue.countTokens() != 2) return 0;
@@ -233,9 +240,9 @@ public class CheckRevision {
                 String value = nameValue.nextToken();
 
                 // If it starts with a number, assign that number to the appropriate variable
-                if(Character.isDigit(value.charAt(0))){
+                if (Character.isDigit(value.charAt(0))) {
                     values[variable] = Long.parseLong(value);
-                }else{
+                } else {
                     opValueDest[currentFormula] = variable;
 
                     opValueSrc1[currentFormula] = getNum(value.charAt(0));
@@ -252,19 +259,17 @@ public class CheckRevision {
           
         values[0] ^= hashcodes[mpqNumber];
         
-        for(int i = 0; i < files.length; i++)
-        {
+        for (int i = 0; i < files.length; i++) {
             File currentFile = new File(files[i]);
 
             byte []data = readFile(currentFile);
 
-            for(int j = 0; j < data.length; j += 4)
-            {
+            for (int j = 0; j < data.length; j += 4) {
                 values[3] = 0;
                 values[3] |= ((data[j+0] << 0) & 0x000000FF);
-                values[3] |= ((data[j+1] << 8) & 0x0000ff00);
-                values[3] |= ((data[j+2] << 16) & 0x00ff0000);
-                values[3] |= ((data[j+3] << 24) & 0xff000000);
+                values[3] |= ((data[j+1] << 8) & 0x0000FF00);
+                values[3] |= ((data[j+2] << 16) & 0x00FF0000);
+                values[3] |= ((data[j+3] << 24) & 0xFF000000);
 
                 for(int k = 0; k < currentFormula; k++){
                     switch(operation[k]){

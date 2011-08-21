@@ -75,7 +75,7 @@ class TestCheckRevision < Test::Unit::TestCase
       remote_results = Bnls.check_revision(Game.new(game), mpq, 0x1c75f7003518b00, formula)
       local_hash = CheckRevision.do_check_revision(mpq, files, formula)
       assert_not_nil remote_results
-      assert_equal local_hash, remote_results.checksum
+      assert_equal remote_results.checksum, local_hash
      #puts "local: #{local_hash.to_s(16)}, remote: #{remote_results.checksum.to_s(16)}"
     end
     
@@ -83,7 +83,6 @@ class TestCheckRevision < Test::Unit::TestCase
 
 
   def testSlowCheckRevisionAgainstBnls
-  
     mpq = "ver-IX86-6.mpq"
     files = [(Dir.pwd + "/hashes/D2DV/Game.exe"),
              (Dir.pwd + "/hashes/D2DV/Bnclient.dll"),
@@ -96,9 +95,25 @@ class TestCheckRevision < Test::Unit::TestCase
       remote_results = Bnls.check_revision(Game.new("D2DV"), mpq, 0x1c75f7003518b00, formula.to_java_bytes)
       local_hash = CheckRevision.do_check_revision(mpq, files, formula.to_java_bytes)
       assert_not_nil remote_results
-      assert_equal local_hash, remote_results.checksum
+      assert_equal remote_results.checksum, local_hash
      #puts "local: #{local_hash.to_s(16)}, remote: #{remote_results.checksum.to_s(16)}"
     end
   end
-
+  
+  
+  def testMalformedFormulaDoesntBreakCheckRevision
+    mpq = "ver-IX86-6.mpq"
+    files = [(Dir.pwd + "/hashes/D2DV/Game.exe"),
+             (Dir.pwd + "/hashes/D2DV/Bnclient.dll"),
+             (Dir.pwd + "/hashes/D2DV/D2Client.dll")]
+  
+    bad_formulas = ['A=1 B=1 C=1 4 A=A+A B=B+B C=C+C A=A-A B=B-B',
+                    'A=1 B=1 C=1 2 A=A+A B=B+B C=C+C A=A-A B=B-B',
+                    'A=1 B=1 C=1 4 A=A+A B=B+B C=C+C']
+    bad_formulas.each do | formula |
+      assert_equal -1, CheckRevision.do_check_revision(mpq, files, formula.to_java_bytes)
+      #puts formula
+    end
+  end
+  
 end
