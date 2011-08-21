@@ -50,7 +50,6 @@ PLUGINS = ["Advertisements",
 
 task :clean do
   ant.delete :dir => "javaop2/bin"
-  ant.delete :dir => "hashes"
   ant.delete :dir => "#{PLUGINPATH}"
   PLUGINS.each do | plugin |
     ant.delete :dir => "#{plugin}/bin"
