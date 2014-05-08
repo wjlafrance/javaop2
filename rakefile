@@ -1,5 +1,5 @@
-require 'ant'  
-  
+require 'ant'
+
 PROJECT_NAME = 'javaop2'
 
 JARPATH = "jar"
@@ -57,13 +57,13 @@ task :clean do
   puts
 end
 
-    
+
 task :build do
   ant.mkdir :dir => "javaop2/bin"
   ant.javac :srcdir => "javaop2/src",
             :destdir => "javaop2/bin",
             :includeantruntime => "no"
-  
+
   PLUGINS.each do | plugin |
     ant.mkdir :dir => "#{plugin}/bin"
     ant.javac :srcdir => "#{plugin}/src",
@@ -78,7 +78,7 @@ task :jar do
   ant.delete :dir => "#{JARPATH}"
   ant.mkdir :dir => "#{JARPATH}"
   ant.mkdir :dir => "#{PLUGINPATH}"
-          
+
   ant.jar(:jarfile => "#{JARPATH}/JavaOp2.jar", :basedir => "javaop2/bin") do | ant |
     ant.manifest do | ant |
       ant.attribute(:name => 'Main-Class', :value => "com.javaop._main.BotStart")
@@ -94,7 +94,7 @@ task :jar do
       ant.attribute(:name => 'Main-Class', :value => "com.javaop._main.ConfigurePlugins")
     end
   end
-  
+
   PLUGINS.each do | plugin |
     ant.jar(:jarfile => "#{PLUGINPATH}/#{plugin}.jar", :basedir => "#{plugin}/bin") do | ant |
       ant.manifest do | ant |
@@ -105,11 +105,6 @@ task :jar do
 end
 
 
-task :test do
-  require "spec/ts.rb"
-end
-
-
 task :run do
   system("java -jar jar/JavaOp2.jar")
 end
@@ -117,10 +112,10 @@ end
 
 task :gethashes do
   games = ["SSHR", "W2BN", "DSHR", "DRTL", "STAR", "D2DV", "D2XP", "JSTR", "WAR3"]
-  
+
   ant.delete :dir => "hashes"
   ant.mkdir :dir => "hashes"
-  
+
   games.each do | game |
     system("curl http://realityripple.com/Software/Battle.net/Hash_Files/download.php?f=#{game} -o hashes/#{game}.zip")
     system("unzip hashes/#{game}.zip -d hashes/#{game}")
