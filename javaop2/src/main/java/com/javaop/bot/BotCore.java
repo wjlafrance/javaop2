@@ -703,7 +703,7 @@ public class BotCore implements PublicExposedFunctions
 		checkRunning();
 
 		if (user != null && user.equalsIgnoreCase((String) getLocalVariable("username"))) {
-			return (flagList.indexOf("S") >= 0);
+			return (flagList.contains("S"));
 		}
 
 		return userDB.hasAny(user, flagList, allowMOverride);
