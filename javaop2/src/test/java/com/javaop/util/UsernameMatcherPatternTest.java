@@ -4,8 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class UsernameMatcherPatternTest
-{
+public class UsernameMatcherPatternTest {
 
 	public @Test void testSingleCharacterWildcard() {
 		assertEquals("testuser.", UsernameMatcherPattern.fixPattern("testuser?"));

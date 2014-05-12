@@ -5,8 +5,8 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class UserListTest
-{
+public class UserListTest {
+
 	public @Test void testSize() {
 		// It starts at zero
 		UserList testList = new UserList();
@@ -70,6 +70,9 @@ public class UserListTest
 		// testuser1 remains after testuser2 leaves
 		testList.removeUser("testuser2");
 		assertArrayEquals(new String[] { "testuser1" }, testList.getList());
+
+		// does not crash if user is not in list
+		assertNull(testList.removeUser("imnothere"));
 	}
 
 	public @Test void testMatchNames() {

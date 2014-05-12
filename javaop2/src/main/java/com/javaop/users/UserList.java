@@ -3,100 +3,88 @@
  */
 package com.javaop.users;
 
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.javaop.util.UsernameMatcherPattern;
 import com.javaop.util.User;
-
 
 /**
  * @author iago
  *
  */
-public class UserList
-{
-	private Vector users;
+public class UserList {
 
-	public UserList()
-	{
-		users = new Vector();
-	}
+	/** Not an absolute, but a good rule of thumb. */
+	private static final int CHANNEL_MAXIMUM_CAPACITY = 40;
 
-	public void clear()
-	{
+	private final List<User> users = new ArrayList<>(CHANNEL_MAXIMUM_CAPACITY);
+
+	public void clear() {
 		users.clear();
 	}
 
-	public int size()
-	{
+	public int size() {
 		return users.size();
 	}
 
-	public User addUser(String name, int flags, int ping, String statstring)
-	{
-		User old = removeUser(name);
-		User u = null;
-
-		if (old == null)
-		{
-			u = new UserData(name, ping, flags, statstring);
-		}
-		else
-		{
-			u = new UserData(name, ping, flags, old.getRawStatstring());
-		}
-		users.add(u);
-
-		return u;
-
+	public User addUser(final String name, final int flags, final int ping, final String statstring) {
+		User oldUser = removeUser(name);
+		User newUser = new UserData(name, ping, flags, null == oldUser ? statstring : oldUser.getRawStatstring());
+		users.add(newUser);
+		return newUser;
 	}
 
-	public User removeUser(String name)
-	{
-		for (int i = 0; i < users.size(); i++) {
-			if (((UserData) users.get(i)).equals(name)) {
-				return (User) users.remove(i);
-			}
-		}
-
-		return null;
+	@Deprecated
+	public User removeUser(final String name) {
+		return _removeUser(name).orElse(null);
 	}
 
-	public User getUser(String name)
-	{
-		for (Object user : users) {
-			if (((UserData) user).equals(name)) {
-				return (User) user;
-			}
-		}
-
-		return null;
+	@Deprecated
+	public User getUser(final String name) {
+		return _getUser(name).orElse(null);
 	}
 
-	public String[] matchNames(String pattern)
-	{
-		Vector ret = new Vector();
-		pattern = UsernameMatcherPattern.fixPattern(pattern);
-
-		for (Object user1 : users) {
-			UserData user = (UserData) user1;
-
-			if (user.getName().toLowerCase().matches(pattern)) {
-				ret.add(user.getName());
-			}
-		}
-
+	@Deprecated
+	public String[] matchNames(final String pattern) {
+		List<String> ret = _matchNames(pattern);
 		return (String[]) ret.toArray(new String[ret.size()]);
 	}
 
-	public String[] getList()
-	{
-		Vector ret = new Vector();
-		for (Object user : users) {
-			ret.add(((UserData) user).getName());
-		}
-
+	@Deprecated
+	public String[] getList() {
+		List<String> ret = _getList();
 		return (String[]) ret.toArray(new String[ret.size()]);
+	}
+
+	// These methods will soon replace the above-deprecated methods.
+
+	public Optional<User> _removeUser(final String name) {
+		Optional<User> user = _getUser(name);
+		if (user.isPresent()) {
+			users.remove(user.get());
+		}
+		return user;
+	}
+
+	public Optional<User> _getUser(final String name) {
+		return users.stream().filter(
+				u -> u.getName().equals(name)
+		).findFirst();
+	}
+
+	public List<String> _matchNames(final String pattern) {
+		String regex = UsernameMatcherPattern.fixPattern(pattern);
+
+		return users.stream().filter(
+				u -> u.getName().toLowerCase().matches(regex)
+		).map(User::getName).collect(Collectors.toList());
+	}
+
+	public List<String> _getList() {
+		return users.stream().map(User::getName).collect(Collectors.toList());
 	}
 
 }
