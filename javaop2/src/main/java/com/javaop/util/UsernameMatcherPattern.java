@@ -6,6 +6,8 @@
 
 package com.javaop.util;
 
+import java.util.stream.Collectors;
+
 /**
  * Simple utility to convert username patterns into regular expressions.
  *
@@ -20,31 +22,19 @@ public class UsernameMatcherPattern
 	 * % will match a single numeric character (0-9)
 	 * * will match any number of characters
 	 *
-	 * @param str
-	 *            The original string.
+	 * @param pattern The username pattern to convert.
 	 * @return Regular expression representation of the pattern argument.
 	 */
 	public static String fixPattern(String pattern)
 	{
-		StringBuilder ret = new StringBuilder();
-
-		for (int i = 0; i < pattern.length(); i++)
-		{
-			char thisChar = pattern.charAt(i);
-
-			if (thisChar == '*') {
-				ret.append(".*");
-			} else if (thisChar == '?') {
-				ret.append(".");
-			} else if (thisChar == '%') {
-				ret.append("[0-9]");
-			} else if (!Character.isLetterOrDigit(thisChar)) {
-				ret.append("\\").append(thisChar);
-			} else {
-				ret.append(pattern.charAt(i));
+		return pattern.chars().mapToObj(c -> {
+			switch (c) {
+				case '*': return ".*";
+				case '?': return ".";
+				case '%': return "[0-9]";
+				default: return String.format(Character.isLetterOrDigit(c) ? "%c" : "\\%c", c);
 			}
-		}
-		return ret.toString().toLowerCase();
+		}).collect(Collectors.joining()).toLowerCase();
 	}
 
 }
