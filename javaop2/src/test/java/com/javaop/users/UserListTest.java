@@ -18,7 +18,7 @@ public class UserListTest {
 		assertEquals(1, testList.size());
 
 		// It goes down when a user is removed
-		testList._removeUser("testuser");
+		testList.removeUser("testuser");
 		assertEquals(0, testList.size());
 	}
 
@@ -42,7 +42,7 @@ public class UserListTest {
 
 		// It sets the User object's properties correctly
 		testList.addUser("testuser", 15, 30, "STATSTRING");
-		User testuser = testList._getUser("testuser").get();
+		User testuser = testList.getUser("testuser").get();
 		assertEquals("testuser", testuser.getName());
 		assertEquals(15, testuser.getFlags());
 		assertEquals(30, testuser.getPing());
@@ -53,7 +53,7 @@ public class UserListTest {
 		assertEquals(1, testList.size());
 
 		// The new properties are correct
-		testuser = testList._getUser("testuser").get();
+		testuser = testList.getUser("testuser").get();
 		assertEquals("testuser", testuser.getName());
 		assertEquals(45, testuser.getFlags());
 		assertEquals(60, testuser.getPing());
@@ -69,11 +69,11 @@ public class UserListTest {
 		testList.addUser("testuser2", 0, 0, "");
 
 		// testuser1 remains after testuser2 leaves
-		testList._removeUser("testuser2").get();
-		assertEquals(ImmutableList.of("testuser1"), testList._getList());
+		testList.removeUser("testuser2").get();
+		assertEquals(ImmutableList.of("testuser1"), testList.getList());
 
 		// does not crash if user is not in list
-		assertNull(testList._removeUser("imnothere").orElse(null));
+		assertNull(testList.removeUser("imnothere").orElse(null));
 	}
 
 	public @Test void testMatchNames() {
@@ -83,15 +83,15 @@ public class UserListTest {
 		testList.addUser("bestuser1", 0, 0, "");
 
 		// wildcard matching
-		assertEquals(ImmutableList.of("testuser1", "testuser2"), testList._matchNames("testu*"));
+		assertEquals(ImmutableList.of("testuser1", "testuser2"), testList.matchesName("testu*"));
 		// wildcard matching
-		assertEquals(ImmutableList.of("testuser2"), testList._matchNames("*user2"));
+		assertEquals(ImmutableList.of("testuser2"), testList.matchesName("*user2"));
 		// decimal wildcard matching
-		assertEquals(ImmutableList.of("testuser1", "testuser2"), testList._matchNames("testuser%"));
+		assertEquals(ImmutableList.of("testuser1", "testuser2"), testList.matchesName("testuser%"));
 		// character wildcard matching
-		assertEquals(ImmutableList.of("testuser1", "bestuser1"), testList._matchNames("?estuser1"));
+		assertEquals(ImmutableList.of("testuser1", "bestuser1"), testList.matchesName("?estuser1"));
 		// matching all users
-		assertEquals(ImmutableList.of("testuser1", "testuser2", "bestuser1"), testList._matchNames("*"));
+		assertEquals(ImmutableList.of("testuser1", "testuser2", "bestuser1"), testList.matchesName("*"));
 	}
 
 	public @Test void testGetList() {
@@ -99,7 +99,7 @@ public class UserListTest {
 		testList.addUser("testuser1", 0, 0, "");
 		testList.addUser("testuser2", 0, 0, "");
 
-		assertEquals(ImmutableList.of("testuser1", "testuser2"), testList._getList());
+		assertEquals(ImmutableList.of("testuser1", "testuser2"), testList.getList());
 	}
 
 }

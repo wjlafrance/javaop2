@@ -3,9 +3,7 @@ package com.javaop.bot;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +11,6 @@ import java.util.Optional;
 import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.Vector;
 import java.util.stream.Collectors;
 
 import javax.swing.Icon;
@@ -300,18 +297,18 @@ public class BotCore implements PublicExposedFunctions
 
 	public Optional<User> channelRemoveUser(String name) {
 		checkRunning();
-		return users._removeUser(name);
+		return users.removeUser(name);
 	}
 
 	public Optional<User> channelGetUser(String name) {
 		checkRunning();
-		return users._getUser(name);
+		return users.getUser(name);
 	}
 
 	public List<String> channelGetList() {
 		checkRunning();
 		List<String> ret = new LinkedList<>();
-		for (String user : users._getList()) {
+		for (String user : users.getList()) {
 			ret.add(user);
 		}
 		return ret;
@@ -354,7 +351,7 @@ public class BotCore implements PublicExposedFunctions
 	public String[] channelMatchGetList(String pattern) {
 		checkRunning();
 
-		return users._matchNames(pattern).toArray(new String[] {});
+		return users.matchesName(pattern).toArray(new String[]{});
 	}
 
 	public String[] channelMatchGetListWithAny(String pattern, String flags) {

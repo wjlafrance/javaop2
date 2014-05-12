@@ -31,51 +31,27 @@ public class UserList {
 	}
 
 	public User addUser(final String name, final int flags, final int ping, final String statstring) {
-		Optional<User> oldUser = _removeUser(name);
+		Optional<User> oldUser = removeUser(name);
 		User newUser = new UserData(name, ping, flags, oldUser.map(User::getRawStatstring).orElse(statstring));
 		users.add(newUser);
 		return newUser;
 	}
 
-	@Deprecated
-	public User removeUser(final String name) {
-		return _removeUser(name).orElse(null);
-	}
-
-	@Deprecated
-	public User getUser(final String name) {
-		return _getUser(name).orElse(null);
-	}
-
-	@Deprecated
-	public String[] matchNames(final String pattern) {
-		List<String> ret = _matchNames(pattern);
-		return (String[]) ret.toArray(new String[ret.size()]);
-	}
-
-	@Deprecated
-	public String[] getList() {
-		List<String> ret = _getList();
-		return (String[]) ret.toArray(new String[ret.size()]);
-	}
-
-	// These methods will soon replace the above-deprecated methods.
-
-	public Optional<User> _removeUser(final String name) {
-		Optional<User> user = _getUser(name);
+	public Optional<User> removeUser(final String name) {
+		Optional<User> user = getUser(name);
 		if (user.isPresent()) {
 			users.remove(user.get());
 		}
 		return user;
 	}
 
-	public Optional<User> _getUser(final String name) {
+	public Optional<User> getUser(final String name) {
 		return users.stream().filter(
 				u -> u.getName().equals(name)
 		).findFirst();
 	}
 
-	public List<String> _matchNames(final String pattern) {
+	public List<String> matchesName(final String pattern) {
 		String regex = UsernameMatcherPattern.fixPattern(pattern);
 
 		return users.stream().filter(
@@ -83,7 +59,7 @@ public class UserList {
 		).map(User::getName).collect(Collectors.toList());
 	}
 
-	public List<String> _getList() {
+	public List<String> getList() {
 		return users.stream().map(User::getName).collect(Collectors.toList());
 	}
 
