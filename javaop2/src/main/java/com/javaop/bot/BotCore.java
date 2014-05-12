@@ -2,12 +2,19 @@ package com.javaop.bot;
 
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Vector;
+import java.util.stream.Collectors;
 
 import javax.swing.Icon;
 import javax.swing.JTextField;
@@ -55,29 +62,24 @@ import com.javaop.util.UserDB;
  */
 public class BotCore implements PublicExposedFunctions
 {
-	final protected PersistantMap             localSettings;
-	final protected UserDB                    userDB;
-	final protected Hashtable<Object, Object> localVariables;
-	final protected PluginRegistration        callbacks;
-	final protected String                    botname;
+	protected final Map<Object, Object> localVariables = new HashMap<>();
+	protected final PluginRegistration callbacks = new PluginRegistration(this);
+	protected final UserList users = new UserList();
+	protected final Timer timer = new Timer();
+	protected final Map<TimerTask, JOTimerTask> timerTasks = new HashMap<>();
+	protected final String botname;
+	protected final PluginManager plugins;
+	protected final PersistantMap localSettings;
+	protected final UserDB userDB;
 
-	final protected UserList                  users;
-	protected String                          channelName  = "<not logged in>";
+	private final Queue queue = new Queue(this, callbacks);
 
-	final protected Timer                     timer;
-	final protected Hashtable<TimerTask, JOTimerTask> timerTasks   = new Hashtable<>();
+	protected String channelName    = "<not logged in>";
+	protected PacketThread packetThread;
 
-	final protected PluginManager             plugins;
-
-	protected PacketThread                    packetThread = null;
-
-	private boolean                           running      = true;
-
-	private boolean                           locked       = true;
-
-	private final Queue                       queue;
-
-	private JTextField 						  chatboxInput;
+	private boolean running = true;
+	private boolean locked = true;
+	private JTextField chatboxInput;
 
 	/**
 	 * If an IOException is thrown from here, it means that the localSettings
@@ -88,14 +90,8 @@ public class BotCore implements PublicExposedFunctions
 	{
 		this.botname = botname;
 
-		users = new UserList();
-		localVariables = new Hashtable<>();
-		this.callbacks = new PluginRegistration(this);
-		timer = new Timer();
-
 		localSettings = JavaOpFileStuff.getSettings(botname);
 		userDB = JavaOpFileStuff.getUserDB(botname);
-		queue = new Queue(this, callbacks);
 
 		if (localSettings == null) {
 			throw new IOException("Unable to load the settings file for bot " + botname);
@@ -161,29 +157,33 @@ public class BotCore implements PublicExposedFunctions
 			loudness = LoudnessConstants.SILENT;
 		}
 
-		final Vector<String> splitText;
+		final List<String> splitText;
 
 		if (loudness == LoudnessConstants.SILENT) {
-			splitText = new Vector<>();
+			splitText = new ArrayList<>(1);
 			splitText.add(text);
 		} else {
 			splitText = Splitter.split(text, true);
 		}
 
-		Enumeration<String> e = splitText.elements();
-
-		while (e.hasMoreElements()) {
-			if (loudness == LoudnessConstants.LOUD) {
-				queue.send(user + ": " + e.nextElement(), priority);
-			} else if (loudness == LoudnessConstants.LOUD_NO_NAME) {
-				queue.send("" + e.nextElement(), priority);
-			} else if (loudness == LoudnessConstants.QUIET) {
-				queue.send("/w " + user + " " + e.nextElement(), priority);
-			} else if (loudness == LoudnessConstants.SILENT) {
-				showMessage(ColorConstants.getColor("Silent message") + e.nextElement());
-			} else {
-				systemMessage(ErrorLevelConstants.ERROR, "Unknown 'loudness' setting for message: "
-						+ e.nextElement() + " (loudness was " + loudness + ")");
+		for (String textElement : splitText) {
+			switch (loudness) {
+				case LoudnessConstants.LOUD:
+					queue.send(user + ": " + textElement, priority);
+					break;
+				case LoudnessConstants.LOUD_NO_NAME:
+					queue.send("" + textElement, priority);
+					break;
+				case LoudnessConstants.QUIET:
+					queue.send("/w " + user + " " + textElement, priority);
+					break;
+				case LoudnessConstants.SILENT:
+					showMessage(ColorConstants.getColor("Silent message") + textElement);
+					break;
+				default:
+					systemMessage(ErrorLevelConstants.ERROR, "Unknown 'loudness' setting for message: "
+							+ textElement + " (loudness was " + loudness + ")");
+					break;
 			}
 		}
 
@@ -298,26 +298,30 @@ public class BotCore implements PublicExposedFunctions
 		return users.addUser(name, flags, ping, message);
 	}
 
-	public User channelRemoveUser(String name) {
+	public Optional<User> channelRemoveUser(String name) {
 		checkRunning();
-		return users.removeUser(name);
+		return users._removeUser(name);
 	}
 
-	public User channelGetUser(String name) {
+	public Optional<User> channelGetUser(String name) {
 		checkRunning();
-		return users.getUser(name);
+		return users._getUser(name);
 	}
 
-	public String[] channelGetList() {
+	public List<String> channelGetList() {
 		checkRunning();
-		return users.getList();
+		List<String> ret = new LinkedList<>();
+		for (String user : users._getList()) {
+			ret.add(user);
+		}
+		return ret;
 	}
 
 	public String[] channelGetListWithAny(String flags) {
 		checkRunning();
 
-		String[] users = channelGetList();
-		Vector<String> ret = new Vector<>();
+		List<String> users = channelGetList();
+		List<String> ret = new ArrayList<>(users.size());
 		for (String user : users) {
 			if (dbHasAny(user, flags, false)) {
 				ret.add(user);
@@ -330,13 +334,9 @@ public class BotCore implements PublicExposedFunctions
 	public String[] channelGetListWithAll(String flags) {
 		checkRunning();
 
-		String[] users = channelGetList();
-		Vector<String> ret = new Vector<>();
-		for (String user : users) {
-			if (dbHasAll(user, flags)) {
-				ret.add(user);
-			}
-		}
+		List<String > ret = channelGetList().stream().filter(
+				username -> dbHasAll(username, flags)
+		).collect(Collectors.toList());
 
 		return (String[]) ret.toArray(new String[ret.size()]);
 	}
@@ -344,13 +344,9 @@ public class BotCore implements PublicExposedFunctions
 	public String[] channelGetListWithoutAny(String flags) {
 		checkRunning();
 
-		String[] users = channelGetList();
-		Vector<String> ret = new Vector<>();
-		for (String user : users) {
-			if (!dbHasAny(user, flags, false)) {
-				ret.add(user);
-			}
-		}
+		List<String> ret = channelGetList().stream().filter(
+				username -> !dbHasAny(username, flags, false)
+		).collect(Collectors.toList());
 
 		return (String[]) ret.toArray(new String[ret.size()]);
 	}
@@ -358,14 +354,14 @@ public class BotCore implements PublicExposedFunctions
 	public String[] channelMatchGetList(String pattern) {
 		checkRunning();
 
-		return users.matchNames(pattern);
+		return users._matchNames(pattern).toArray(new String[] {});
 	}
 
 	public String[] channelMatchGetListWithAny(String pattern, String flags) {
 		checkRunning();
 
 		String[] users = channelMatchGetList(pattern);
-		Vector<String> ret = new Vector<>();
+		List<String> ret = new ArrayList<>(users.length);
 		for (String user : users) {
 			if (dbHasAny(user, flags, false)) {
 				ret.add(user);
@@ -379,7 +375,7 @@ public class BotCore implements PublicExposedFunctions
 		checkRunning();
 
 		String[] users = channelMatchGetList(pattern);
-		Vector<String> ret = new Vector<>();
+		List<String> ret = new ArrayList<>(users.length);
 		for (String user : users) {
 			if (dbHasAll(user, flags)) {
 				ret.add(user);
@@ -393,7 +389,7 @@ public class BotCore implements PublicExposedFunctions
 		checkRunning();
 
 		String[] users = channelMatchGetList(pattern);
-		Vector<String> ret = new Vector<>();
+		List<String> ret = new ArrayList<>(users.length);
 		for (String user : users) {
 			if (!dbHasAny(user, flags, false)) {
 				ret.add(user);

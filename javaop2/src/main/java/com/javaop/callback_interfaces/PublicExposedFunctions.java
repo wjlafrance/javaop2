@@ -6,6 +6,7 @@ package com.javaop.callback_interfaces;
 
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.Optional;
 import java.util.Properties;
 import java.util.TimerTask;
 
@@ -181,16 +182,16 @@ public interface PublicExposedFunctions
 	 * Removes a user from the channel, based on their name, and returns a user
 	 * object representing them. Returns null if the user isn't found.
 	 */
-	public User channelRemoveUser(String name);
+	public Optional<User> channelRemoveUser(String name);
 
 	/**
 	 * Gets a User object for a user in the channel, based on their name.
 	 * Returns null if the user isn't found.
 	 */
-	public User channelGetUser(String name);
+	public Optional<User> channelGetUser(String name);
 
 	/** Gets a string list of all users in the channel. */
-	public String[] channelGetList();
+	public java.util.List<String> channelGetList();
 
 	/**
 	 * Gets a string list of all users in the channel that have any of the

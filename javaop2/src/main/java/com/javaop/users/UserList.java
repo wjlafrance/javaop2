@@ -31,8 +31,8 @@ public class UserList {
 	}
 
 	public User addUser(final String name, final int flags, final int ping, final String statstring) {
-		User oldUser = removeUser(name);
-		User newUser = new UserData(name, ping, flags, null == oldUser ? statstring : oldUser.getRawStatstring());
+		Optional<User> oldUser = _removeUser(name);
+		User newUser = new UserData(name, ping, flags, oldUser.map(User::getRawStatstring).orElse(statstring));
 		users.add(newUser);
 		return newUser;
 	}

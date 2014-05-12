@@ -3,6 +3,7 @@ package com.javaop.BasicCommands;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import java.io.IOException;
+import java.util.Optional;
 import java.util.Properties;
 
 import com.javaop.constants.LoudnessConstants;
@@ -198,9 +199,9 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
                 args = new String[]
                 { user };
 
-            User u = out.channelGetUser(args[0]);
+            Optional<User> u = out.channelGetUser(args[0]);
 
-            if (u == null)
+            if (!u.isPresent())
             {
                 if (user != null)
                     out.sendTextPriority("/w " + args[0] + " [ping]" + user, PRIORITY_LOW);
@@ -209,7 +210,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
             }
             else
             {
-                out.sendTextUserPriority(user, args[0] + "'s ping is " + u.getPing() + "ms",
+                out.sendTextUserPriority(user, args[0] + "'s ping is " + u.get().getPing() + "ms",
                                          loudness, PRIORITY_LOW);
             }
         }
