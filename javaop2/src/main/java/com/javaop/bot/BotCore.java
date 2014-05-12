@@ -318,9 +318,9 @@ public class BotCore implements PublicExposedFunctions
 
 		String[] users = channelGetList();
 		Vector<String> ret = new Vector<String>();
-		for (int i = 0; i < users.length; i++) {
-			if (dbHasAny(users[i], flags, false)) {
-				ret.add(users[i]);
+		for (String user : users) {
+			if (dbHasAny(user, flags, false)) {
+				ret.add(user);
 			}
 		}
 
@@ -332,9 +332,9 @@ public class BotCore implements PublicExposedFunctions
 
 		String[] users = channelGetList();
 		Vector<String> ret = new Vector<String>();
-		for (int i = 0; i < users.length; i++) {
-			if (dbHasAll(users[i], flags)) {
-				ret.add(users[i]);
+		for (String user : users) {
+			if (dbHasAll(user, flags)) {
+				ret.add(user);
 			}
 		}
 
@@ -346,9 +346,9 @@ public class BotCore implements PublicExposedFunctions
 
 		String[] users = channelGetList();
 		Vector<String> ret = new Vector<String>();
-		for (int i = 0; i < users.length; i++) {
-			if (!dbHasAny(users[i], flags, false)) {
-				ret.add(users[i]);
+		for (String user : users) {
+			if (!dbHasAny(user, flags, false)) {
+				ret.add(user);
 			}
 		}
 
@@ -366,9 +366,9 @@ public class BotCore implements PublicExposedFunctions
 
 		String[] users = channelMatchGetList(pattern);
 		Vector<String> ret = new Vector<String>();
-		for (int i = 0; i < users.length; i++) {
-			if (dbHasAny(users[i], flags, false)) {
-				ret.add(users[i]);
+		for (String user : users) {
+			if (dbHasAny(user, flags, false)) {
+				ret.add(user);
 			}
 		}
 
@@ -380,9 +380,9 @@ public class BotCore implements PublicExposedFunctions
 
 		String[] users = channelMatchGetList(pattern);
 		Vector<String> ret = new Vector<String>();
-		for (int i = 0; i < users.length; i++) {
-			if (dbHasAll(users[i], flags)) {
-				ret.add(users[i]);
+		for (String user : users) {
+			if (dbHasAll(user, flags)) {
+				ret.add(user);
 			}
 		}
 
@@ -394,9 +394,9 @@ public class BotCore implements PublicExposedFunctions
 
 		String[] users = channelMatchGetList(pattern);
 		Vector<String> ret = new Vector<String>();
-		for (int i = 0; i < users.length; i++) {
-			if (!dbHasAny(users[i], flags, false)) {
-				ret.add(users[i]);
+		for (String user : users) {
+			if (!dbHasAny(user, flags, false)) {
+				ret.add(user);
 			}
 		}
 

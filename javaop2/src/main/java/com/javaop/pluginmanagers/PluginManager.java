@@ -48,8 +48,8 @@ public class PluginManager {
 	public static void initialize(boolean load) {
 		try {
 			String[] searchPaths = JavaOpFileStuff.getAllPlugins();
-			for (int i = 0; i < searchPaths.length; i++) {
-				loadFile(searchPaths[i], load);
+			for (String searchPath : searchPaths) {
+				loadFile(searchPath, load);
 			}
 
 			if (allPlugins.size() == 0) {
@@ -77,8 +77,8 @@ public class PluginManager {
 				}
 
 				searchPaths = JavaOpFileStuff.getAllPlugins();
-				for (int i = 0; i < searchPaths.length; i++) {
-					loadFile(searchPaths[i], load);
+				for (String searchPath : searchPaths) {
+					loadFile(searchPath, load);
 				}
 			}
 

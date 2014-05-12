@@ -96,15 +96,14 @@ abstract public class GenericPluginInterface
 		String[] keys = Uniq.uniq(getDefaultSettingValues().keys());
 		Hashtable<String, JComponent> ret = new Hashtable<String, JComponent>();
 
-		for (int i = 0; i < keys.length; i++)
-		{
-			JComponent component = getComponent(keys[i], values.getProperty(keys[i].toLowerCase()));
+		for (String key : keys) {
+			JComponent component = getComponent(key, values.getProperty(key.toLowerCase()));
 
 			if (component == null) {
-				component = new JTextField(values.getProperty(keys[i].toLowerCase()));
+				component = new JTextField(values.getProperty(key.toLowerCase()));
 			}
 
-			ret.put(keys[i], component);
+			ret.put(key, component);
 		}
 
 		return ret;
@@ -116,16 +115,14 @@ abstract public class GenericPluginInterface
 		String[] keys = Uniq.uniq(getGlobalDefaultSettingValues().keys());
 		Hashtable<String, JComponent> ret = new Hashtable<String, JComponent>();
 
-		for (int i = 0; i < keys.length; i++)
-		{
-			JComponent component = getGlobalComponent(keys[i],
-													  values.getProperty(keys[i].toLowerCase()));
+		for (String key : keys) {
+			JComponent component = getGlobalComponent(key, values.getProperty(key.toLowerCase()));
 
 			if (component == null) {
-				component = new JTextField(values.getProperty(keys[i].toLowerCase()));
+				component = new JTextField(values.getProperty(key.toLowerCase()));
 			}
 
-			ret.put(keys[i], component);
+			ret.put(key, component);
 		}
 
 		return ret;
@@ -166,12 +163,8 @@ abstract public class GenericPluginInterface
 	public void setDefaultSettings(PublicExposedFunctions out)
 	{
 		Properties props = getDefaultSettingValues();
-		String[] defaultSettings = Uniq.uniq(props.keys());
-
-		for (int i = 0; i < defaultSettings.length; i++)
-		{
-			out.getLocalSettingDefault(getName(), defaultSettings[i],
-									   props.getProperty(defaultSettings[i]));
+		for (String settingsKey : Uniq.uniq(props.keys())) {
+			out.getLocalSettingDefault(getName(), settingsKey, props.getProperty(settingsKey));
 		}
 
 	}
@@ -180,10 +173,8 @@ abstract public class GenericPluginInterface
 	public void setGlobalDefaultSettings(StaticExposedFunctions funcs)
 	{
 		Properties props = getGlobalDefaultSettingValues();
-		String[] defaultSettings = Uniq.uniq(props.keys());
-		for (int i = 0; i < defaultSettings.length; i++) {
-			funcs.getGlobalSettingDefault(getName(), defaultSettings[i],
-					props.getProperty(defaultSettings[i]));
+		for (String settingsKey : Uniq.uniq(props.keys())) {
+			funcs.getGlobalSettingDefault(getName(), settingsKey, props.getProperty(settingsKey));
 		}
 	}
 

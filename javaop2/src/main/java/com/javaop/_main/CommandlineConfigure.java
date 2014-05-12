@@ -285,24 +285,18 @@ public class CommandlineConfigure
 
 						Object[] keys = sortEnumeration(defaults.keys());
 
-						for (int i = 0; i < keys.length; i++) {
+						for (Object key : keys) {
 							clear();
 
-							String currentSetting = settings.getNoWrite(
-									pluginName,
-									(String) keys[i],
-									defaults.getProperty((String) keys[i]));
+							String currentSetting = settings.getNoWrite(pluginName, (String) key, defaults.getProperty((String) key));
 							System.out.println();
-							System.out.println(keys[i] + ":");
-							System.out.println("Default setting: "
-									+ defaults.getProperty((String) keys[i]));
+							System.out.println(key + ":");
+							System.out.println("Default setting: " + defaults.getProperty((String) key));
 							System.out.println("Current setting: " + currentSetting);
-							System.out.println("Description: "
-									+ descriptions.getProperty((String) keys[i]));
+							System.out.println("Description: " + descriptions.getProperty((String) key));
 							System.out.println();
 
-							settings.set(thisPlugin.getName(), (String) keys[i],
-									getPatternInput("New value?", currentSetting, ".*"));
+							settings.set(thisPlugin.getName(), (String) key, getPatternInput("New value?", currentSetting, ".*"));
 						}
 					}
 

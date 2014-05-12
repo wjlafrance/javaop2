@@ -43,10 +43,9 @@ public class BotStart
 
 			String[] bots = getBots(args);
 
-			for (int i = 0; i < bots.length; i++)
-			{
-				System.out.println("Loading " + bots[i]);
-				BotManager.startBot(bots[i]);
+			for (String bot : bots) {
+				System.out.println("Loading " + bot);
+				BotManager.startBot(bot);
 				Thread.sleep(2000);
 			}
 		}

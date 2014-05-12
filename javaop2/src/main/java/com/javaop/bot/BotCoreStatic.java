@@ -84,8 +84,8 @@ public class BotCoreStatic implements StaticExposedFunctions {
 
 	public void systemMessage(int level, String message) {
 		PublicExposedFunctions[] bots = botGetAllActive();
-		for (int i = 0; i < bots.length; i++) {
-			bots[i].systemMessage(level, message);
+		for (PublicExposedFunctions bot : bots) {
+			bot.systemMessage(level, message);
 		}
 	}
 

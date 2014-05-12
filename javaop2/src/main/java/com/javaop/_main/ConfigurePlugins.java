@@ -61,8 +61,8 @@ public class ConfigurePlugins extends JFrame implements WindowListener
 		{
 			listData = new DefaultListModel();
 			String[] files = JavaOpFileStuff.getRawPluginPaths();
-			for (int i = 0; i < files.length; i++) {
-				listData.addElement(files[i]);
+			for (String file : files) {
+				listData.addElement(file);
 			}
 
 			this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -201,8 +201,8 @@ public class ConfigurePlugins extends JFrame implements WindowListener
 				if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION)
 				{
 					File[] files = chooser.getSelectedFiles();
-					for (int i = 0; i < files.length; i++) {
-						listData.addElement(files[i].getAbsolutePath());
+					for (File file : files) {
+						listData.addElement(file.getAbsolutePath());
 					}
 					dirty = true;
 				}
@@ -225,8 +225,8 @@ public class ConfigurePlugins extends JFrame implements WindowListener
 				if (selected != null)
 				{
 					// for(int i = selected.length - 1; i >= 0; i++)
-					for (int i = 0; i < selected.length; i++) {
-						listData.remove(selected[i]);
+					for (int aSelected : selected) {
+						listData.remove(aSelected);
 					}
 
 					if (selected[0] >= listData.getSize()) {

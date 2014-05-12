@@ -23,10 +23,8 @@ public class Splitter
 		int padLength = 1 + ((moreTag && allWords.length < maxLength) ? 6 : 0);
 
 		// Sanity check -- make sure that no single word will break this
-		for (int i = 0; i < allWords.length; i++)
-		{
-			if (allWords[i].length() + padLength > maxLength)
-			{
+		for (String allWord : allWords) {
+			if (allWord.length() + padLength > maxLength) {
 				ret.add(str);
 				return ret;
 			}

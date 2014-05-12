@@ -78,8 +78,8 @@ public class FileManagement
 	{
 		PrintWriter out = new PrintWriter(new FileOutputStream(file));
 
-		for (int i = 0; i < data.length; i++) {
-			out.println(data[i]);
+		for (String aData : data) {
+			out.println(aData);
 		}
 
 		out.close();
@@ -130,12 +130,11 @@ public class FileManagement
 		{
 			File[] files = base.listFiles();
 
-			for (int i = 0; i < files.length; i++)
-			{
-				if (files[i].isDirectory()) {
-					ret.addAll(search(files[i], pattern));
-				} else if (files[i].getName().matches(pattern)) {
-					ret.add(new File(files[i].getAbsolutePath()));
+			for (File file : files) {
+				if (file.isDirectory()) {
+					ret.addAll(search(file, pattern));
+				} else if (file.getName().matches(pattern)) {
+					ret.add(new File(file.getAbsolutePath()));
 				}
 			}
 		}

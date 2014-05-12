@@ -211,9 +211,8 @@ public class UserDB
 
 		patterns.append("=> ");
 
-		Iterator i = flags.iterator();
-		while (i.hasNext()) {
-			patterns.append(i.next());
+		for (Object flag : flags) {
+			patterns.append(flag);
 		}
 
 		return patterns.toString();

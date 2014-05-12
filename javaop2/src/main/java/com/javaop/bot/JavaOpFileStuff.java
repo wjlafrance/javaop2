@@ -118,8 +118,8 @@ public class JavaOpFileStuff
 		String[] paths = Uniq.uniq(getPluginPaths());
 		Vector<File> jars = new Vector<File>();
 
-		for (int i = 0; i < paths.length; i++) {
-			jars.addAll(FileManagement.search(new RelativeFile(paths[i]), ".*\\.jar"));
+		for (String path : paths) {
+			jars.addAll(FileManagement.search(new RelativeFile(path), ".*\\.jar"));
 		}
 
 		return Uniq.uniq(jars);
@@ -218,8 +218,8 @@ public class JavaOpFileStuff
 	{
 		FileManagement.deleteFile(JavaOpFileStuff.getPluginFile(bot));
 
-		for (int i = 0; i < plugins.length; i++) {
-			addActivePlugin(bot, plugins[i]);
+		for (String plugin : plugins) {
+			addActivePlugin(bot, plugin);
 		}
 	}
 

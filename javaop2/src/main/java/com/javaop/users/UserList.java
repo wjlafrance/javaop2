@@ -64,9 +64,9 @@ public class UserList
 
 	public User getUser(String name)
 	{
-		for (int i = 0; i < users.size(); i++) {
-			if (((UserData) users.get(i)).equals(name)) {
-				return (User) users.get(i);
+		for (Object user : users) {
+			if (((UserData) user).equals(name)) {
+				return (User) user;
 			}
 		}
 
@@ -78,9 +78,8 @@ public class UserList
 		Vector ret = new Vector();
 		pattern = Pattern.fixPattern(pattern);
 
-		for (int i = 0; i < users.size(); i++)
-		{
-			UserData user = (UserData) users.get(i);
+		for (Object user1 : users) {
+			UserData user = (UserData) user1;
 
 			if (user.getName().toLowerCase().matches(pattern)) {
 				ret.add(user.getName());
@@ -93,8 +92,8 @@ public class UserList
 	public String[] getList()
 	{
 		Vector ret = new Vector();
-		for (int i = 0; i < users.size(); i++) {
-			ret.add(((UserData) users.get(i)).getName());
+		for (Object user : users) {
+			ret.add(((UserData) user).getName());
 		}
 
 		return (String[]) ret.toArray(new String[ret.size()]);

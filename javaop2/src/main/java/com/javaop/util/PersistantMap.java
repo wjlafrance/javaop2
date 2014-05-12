@@ -171,9 +171,8 @@ public class PersistantMap
 				out.println("# By: " + System.getProperty("user.name"));
 				out.println("# Comment: " + comment);
 
-				for (int i = 0; i < sectionArray.length; i++)
-				{
-					String name = sectionArray[i].toString().toLowerCase();
+				for (Object aSectionArray : sectionArray) {
+					String name = aSectionArray.toString().toLowerCase();
 
 					Properties data = (Properties) sections.get(name);
 
@@ -185,10 +184,9 @@ public class PersistantMap
 					// Now get the list of keys from data and add them to a
 					// vector
 					Object[] keys = sortEnumeration(data.keys());
-					for (int j = 0; j < keys.length; j++)
-					{
-						out.println(keys[j].toString().toLowerCase().replaceAll("=", "\\\\=") + "="
-								+ StringEncoder.encode(data.getProperty((String) keys[j])));
+					for (Object key : keys) {
+						out.println(key.toString().toLowerCase().replaceAll("=", "\\\\=") + "="
+								+ StringEncoder.encode(data.getProperty((String) key)));
 						// System.err.println("Saving value: " + keys[j] + " = "
 						// + data.getProperty((String) keys[j]));
 					}

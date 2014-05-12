@@ -33,8 +33,8 @@ public class Profile
 		// (STRING[]) Requested Accounts
 		packet.addNTString(user);
 		// (STRING[]) Requested Keys
-		for (int i = 0; i < fields.length; i++) {
-			packet.addNTString(fields[i]);
+		for (String field : fields) {
+			packet.addNTString(field);
 		}
 
 		users.put("request-" + profileCookie, user);

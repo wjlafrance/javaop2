@@ -213,8 +213,8 @@ public class Buffer
 
 	public void addArray(int[] a)
 	{
-		for (int i = 0; i < a.length; i++) {
-			addDWord(a[i]);
+		for (int anA : a) {
+			addDWord(anA);
 		}
 	}
 
@@ -388,8 +388,8 @@ public class Buffer
 	 */
 	public void addBytes(byte[] b)
 	{
-		for (int i = 0; i < b.length; i++) {
-			addByte(b[i]);
+		for (byte aB : b) {
+			addByte(aB);
 		}
 	}
 
