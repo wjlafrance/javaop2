@@ -7,8 +7,8 @@ import java.util.Properties;
 import com.javaop.callback_interfaces.PluginCallbackRegister;
 import com.javaop.callback_interfaces.PublicExposedFunctions;
 import com.javaop.callback_interfaces.StaticExposedFunctions;
-import com.javaop.exceptions.CommandUsedIllegally;
-import com.javaop.exceptions.CommandUsedImproperly;
+import com.javaop.exceptions.CommandUsedIllegallyException;
+import com.javaop.exceptions.CommandUsedImproperlyException;
 import com.javaop.exceptions.PluginException;
 import com.javaop.plugin_interfaces.CommandCallback;
 import com.javaop.plugin_interfaces.GenericPluginInterface;
@@ -107,10 +107,10 @@ public class PluginMain extends GenericPluginInterface implements
 
     public void commandExecuted(String user, String command, String[] args,
     		int loudness, Object data) throws PluginException, IOException,
-    		CommandUsedIllegally, CommandUsedImproperly
+			CommandUsedIllegallyException, CommandUsedImproperlyException
     {
         if (args.length != 0)
-            throw new CommandUsedImproperly("The version command requires "
+            throw new CommandUsedImproperlyException("The version command requires "
             		+ "no parameters.", user, command);
 
         if (command.equalsIgnoreCase("version")) {

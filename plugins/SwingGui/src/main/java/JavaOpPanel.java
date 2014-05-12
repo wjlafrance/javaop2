@@ -28,8 +28,8 @@ import javax.swing.KeyStroke;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
 
-import com.javaop.exceptions.CommandUsedIllegally;
-import com.javaop.exceptions.CommandUsedImproperly;
+import com.javaop.exceptions.CommandUsedIllegallyException;
+import com.javaop.exceptions.CommandUsedImproperlyException;
 import com.javaop.exceptions.LoginException;
 import com.javaop.exceptions.PluginException;
 
@@ -740,11 +740,11 @@ public class JavaOpPanel extends JInternalFrame implements FocusListener,
 
     public void commandExecuted(String user, String command, String[] args,
     		int loudness, Object data) throws PluginException, IOException,
-    		CommandUsedIllegally, CommandUsedImproperly
+			CommandUsedIllegallyException, CommandUsedImproperlyException
     {
     	if (command.equalsIgnoreCase("say")) {
     		if (args.length == 0) {
-    			throw new CommandUsedImproperly("What do you want to say?",
+    			throw new CommandUsedImproperlyException("What do you want to say?",
     					user, command);
     		}
     	} else if (command.equalsIgnoreCase("reply")) {

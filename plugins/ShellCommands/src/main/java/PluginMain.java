@@ -11,8 +11,8 @@ import javax.swing.JComponent;
 import com.javaop.callback_interfaces.PluginCallbackRegister;
 import com.javaop.callback_interfaces.PublicExposedFunctions;
 import com.javaop.callback_interfaces.StaticExposedFunctions;
-import com.javaop.exceptions.CommandUsedIllegally;
-import com.javaop.exceptions.CommandUsedImproperly;
+import com.javaop.exceptions.CommandUsedIllegallyException;
+import com.javaop.exceptions.CommandUsedImproperlyException;
 import com.javaop.exceptions.PluginException;
 import com.javaop.plugin_interfaces.CommandCallback;
 import com.javaop.plugin_interfaces.GenericPluginInterface;
@@ -129,12 +129,12 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
     }
 
     public void commandExecuted(String user, String command, String[] args, int loudness,
-            Object data) throws PluginException, IOException, CommandUsedIllegally, CommandUsedImproperly
+            Object data) throws PluginException, IOException, CommandUsedIllegallyException, CommandUsedImproperlyException
     {
         if (command.equalsIgnoreCase("run") || command.equalsIgnoreCase("runquiet"))
         {
             if (args.length == 0)
-                throw new CommandUsedImproperly("run requires the name of the program to run",
+                throw new CommandUsedImproperlyException("run requires the name of the program to run",
                         user, command);
 
             thread++;
@@ -146,7 +146,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
         else if (command.equalsIgnoreCase("runstop"))
         {
             if (args.length == 0)
-                throw new CommandUsedImproperly("runstop requires the number of the process", user,
+                throw new CommandUsedImproperlyException("runstop requires the number of the process", user,
                         command);
 
             Run r = (Run) threads.get(args[0]);

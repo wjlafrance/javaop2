@@ -10,10 +10,10 @@ import com.javaop.plugin_interfaces.ConnectionCallback;
  * @author iago
  *
  */
-public class ConnectionPlugin extends AbstractPlugin
-{
-	public ConnectionPlugin(ConnectionCallback callback, Object data)
-	{
+public class ConnectionPlugin extends AbstractPlugin {
+
+	public ConnectionPlugin(ConnectionCallback callback, Object data) {
 		super(callback, data);
 	}
+
 }

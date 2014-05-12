@@ -10,8 +10,8 @@ import javax.swing.JComponent;
 import com.javaop.callback_interfaces.PluginCallbackRegister;
 import com.javaop.callback_interfaces.PublicExposedFunctions;
 import com.javaop.callback_interfaces.StaticExposedFunctions;
-import com.javaop.exceptions.CommandUsedIllegally;
-import com.javaop.exceptions.CommandUsedImproperly;
+import com.javaop.exceptions.CommandUsedIllegallyException;
+import com.javaop.exceptions.CommandUsedImproperlyException;
 import com.javaop.exceptions.PluginException;
 import com.javaop.plugin_interfaces.CommandCallback;
 import com.javaop.plugin_interfaces.GenericPluginInterface;
@@ -175,7 +175,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
     }
 
     public void commandExecuted(String user, String command, String[] args, int loudness,
-            Object data) throws PluginException, IOException, CommandUsedIllegally, CommandUsedImproperly
+            Object data) throws PluginException, IOException, CommandUsedIllegallyException, CommandUsedImproperlyException
     {
         if (command.equalsIgnoreCase("whoami"))
         {
@@ -184,7 +184,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
         else if (command.equalsIgnoreCase("find"))
         {
             if (args.length < 1)
-                throw new CommandUsedImproperly("Find requires at least one parameter.", user,
+                throw new CommandUsedImproperlyException("Find requires at least one parameter.", user,
                         command);
 
             for (int i = 0; i < args.length; i++)
@@ -194,7 +194,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
         else if (command.equalsIgnoreCase("deluser"))
         {
             if (args.length < 1)
-                throw new CommandUsedImproperly("Deluser requires at least one parameter", user,
+                throw new CommandUsedImproperlyException("Deluser requires at least one parameter", user,
                         command);
 
             for (int i = 0; i < args.length; i++)
@@ -214,7 +214,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
         else if (command.equalsIgnoreCase("setuser"))
         {
             if (args.length < 2)
-                throw new CommandUsedImproperly("Setuser requires at least two parameters", user,
+                throw new CommandUsedImproperlyException("Setuser requires at least two parameters", user,
                         command);
 
             // The flags are the last argument
@@ -260,7 +260,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
         else if (command.equalsIgnoreCase("findattr"))
         {
             if (args.length != 1 || args[0].length() != 1)
-                throw new CommandUsedImproperly("findattr requires a single character parameter",
+                throw new CommandUsedImproperlyException("findattr requires a single character parameter",
                         user, command);
 
             String[] users = out.dbFindAttr(args[0].charAt(0));
@@ -275,7 +275,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
         else if (command.equalsIgnoreCase("setaccesslevel"))
         {
             if (args.length != 2)
-                throw new CommandUsedImproperly("setaccesslevel requires two parameters.", user,
+                throw new CommandUsedImproperlyException("setaccesslevel requires two parameters.", user,
                         command);
 
             mymap.set("Definitions", args[0], args[1]);
@@ -285,7 +285,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
         {
 
             if (args.length != 2)
-                throw new CommandUsedImproperly("useaccesslevel requires two parameters.", user,
+                throw new CommandUsedImproperlyException("useaccesslevel requires two parameters.", user,
                         command);
 
             String flags = mymap.getNoWrite("Definitions", args[1], "");
@@ -305,7 +305,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
         else if (command.equalsIgnoreCase("deleteaccesslevel"))
         {
             if (args.length != 1)
-                throw new CommandUsedImproperly("deleteaccesslevel requires one parameter.", user,
+                throw new CommandUsedImproperlyException("deleteaccesslevel requires one parameter.", user,
                         command);
 
             mymap.remove("Definitions", args[0]);

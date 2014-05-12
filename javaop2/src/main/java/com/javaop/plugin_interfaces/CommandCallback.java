@@ -5,8 +5,8 @@ package com.javaop.plugin_interfaces;
 
 import java.io.IOException;
 
-import com.javaop.exceptions.CommandUsedIllegally;
-import com.javaop.exceptions.CommandUsedImproperly;
+import com.javaop.exceptions.CommandUsedIllegallyException;
+import com.javaop.exceptions.CommandUsedImproperlyException;
 import com.javaop.exceptions.PluginException;
 
 
@@ -21,5 +21,5 @@ public interface CommandCallback extends AbstractCallback
 	 * will only get called if the user has the required flags to use it.
 	 */
 	void commandExecuted(String user, String command, String[] args, int loudness, Object data) throws PluginException,
-			IOException, CommandUsedIllegally, CommandUsedImproperly;
+			IOException, CommandUsedIllegallyException, CommandUsedImproperlyException;
 }

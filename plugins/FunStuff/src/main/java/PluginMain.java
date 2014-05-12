@@ -13,8 +13,8 @@ import javax.swing.JComponent;
 import com.javaop.callback_interfaces.PluginCallbackRegister;
 import com.javaop.callback_interfaces.PublicExposedFunctions;
 import com.javaop.callback_interfaces.StaticExposedFunctions;
-import com.javaop.exceptions.CommandUsedIllegally;
-import com.javaop.exceptions.CommandUsedImproperly;
+import com.javaop.exceptions.CommandUsedIllegallyException;
+import com.javaop.exceptions.CommandUsedImproperlyException;
 import com.javaop.exceptions.PluginException;
 import com.javaop.plugin_interfaces.CommandCallback;
 import com.javaop.plugin_interfaces.GenericPluginInterface;
@@ -165,7 +165,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
     }
 
     public void commandExecuted(String user, String command, String[] args, int loudness,
-            Object data) throws PluginException, IOException, CommandUsedIllegally, CommandUsedImproperly
+            Object data) throws PluginException, IOException, CommandUsedIllegallyException, CommandUsedImproperlyException
     {
         if (command.equalsIgnoreCase("quote"))
         {
@@ -188,7 +188,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
         else if (command.equalsIgnoreCase("removequote"))
         {
             if (args.length != 1)
-                throw new CommandUsedImproperly("removequote requires a parameter", user, command);
+                throw new CommandUsedImproperlyException("removequote requires a parameter", user, command);
 
             Properties quote = quotes.getSection(null);
             String[] elements = Uniq.uniq(quote.keys());
@@ -208,7 +208,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
         else if (command.equalsIgnoreCase("addquote"))
         {
             if (args.length != 1)
-                throw new CommandUsedImproperly(
+                throw new CommandUsedImproperlyException(
                         "addquote requires a single parameter (the quote to add)", user, command);
 
             quotes.set(null, System.currentTimeMillis() + "", args[0]);
@@ -231,7 +231,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
         else if (command.equalsIgnoreCase("pickrandom"))
         {
             if (args.length == 0)
-                throw new CommandUsedImproperly(
+                throw new CommandUsedImproperlyException(
                         "pickrandom requires a comma-separated list of choices", user, command);
 
             String[] choices = args[0].split(",");
@@ -257,7 +257,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
                 int max = Integer.parseInt(args[1]);
 
                 if (min > max)
-                    throw new CommandUsedImproperly(
+                    throw new CommandUsedImproperlyException(
                             "In random, the minimum value has to be below the maximum value", user,
                             command);
                 choice = random.nextInt(max - min + 1) + min;
@@ -268,7 +268,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
         else if (command.equalsIgnoreCase("host"))
         {
             if (args.length == 0)
-                throw new CommandUsedImproperly("Must specify an address to look up", user, command);
+                throw new CommandUsedImproperlyException("Must specify an address to look up", user, command);
 
             try
             {
@@ -300,7 +300,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
         else if (command.equalsIgnoreCase("define"))
         {
             if (args.length == 0)
-                throw new CommandUsedImproperly("Must specify a word to define", user, command);
+                throw new CommandUsedImproperlyException("Must specify a word to define", user, command);
 
             new DefineThread(user, loudness, Integer.parseInt(out.getLocalSetting(getName(),
                                                                                   "definitions")),

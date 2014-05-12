@@ -23,8 +23,8 @@ import com.javaop.callback_interfaces.StaticExposedFunctions;
 import com.javaop.constants.ErrorLevelConstants;
 import com.javaop.constants.LoudnessConstants;
 import com.javaop.constants.PriorityConstants;
-import com.javaop.exceptions.CommandUsedIllegally;
-import com.javaop.exceptions.CommandUsedImproperly;
+import com.javaop.exceptions.CommandUsedIllegallyException;
+import com.javaop.exceptions.CommandUsedImproperlyException;
 import com.javaop.exceptions.PluginException;
 
 import com.javaop.pluginmanagers.PluginRegistration;
@@ -837,12 +837,12 @@ public class BotCore implements PublicExposedFunctions
 		{
 			return callbacks.raiseCommand(user, command, args, loudness, errorOnUnknown);
 		}
-		catch (CommandUsedIllegally exception)
+		catch (CommandUsedIllegallyException exception)
 		{
 			exceptionIllegalCommandUsed(user, exception.getUserFlags(),
 										exception.getRequiredFlags(), exception.getCommand());
 		}
-		catch (CommandUsedImproperly exception)
+		catch (CommandUsedImproperlyException exception)
 		{
 			exceptionCommandUsedImproperly(exception.getUser(), exception.getCommand(), command
 					+ " " + args, exception.getMessage());

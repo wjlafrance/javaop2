@@ -10,8 +10,8 @@ import java.util.Properties;
 import com.javaop.callback_interfaces.PluginCallbackRegister;
 import com.javaop.callback_interfaces.PublicExposedFunctions;
 import com.javaop.callback_interfaces.StaticExposedFunctions;
-import com.javaop.exceptions.CommandUsedIllegally;
-import com.javaop.exceptions.CommandUsedImproperly;
+import com.javaop.exceptions.CommandUsedIllegallyException;
+import com.javaop.exceptions.CommandUsedImproperlyException;
 import com.javaop.exceptions.PluginException;
 import com.javaop.plugin_interfaces.CommandCallback;
 import com.javaop.plugin_interfaces.GenericPluginInterface;
@@ -205,12 +205,12 @@ public class PluginMain extends GenericPluginInterface implements RawEventCallba
     }
 
     public void commandExecuted(String user, String command, String[] args, int loudness,
-            Object data) throws PluginException, IOException, CommandUsedIllegally, CommandUsedImproperly
+            Object data) throws PluginException, IOException, CommandUsedIllegallyException, CommandUsedImproperlyException
     {
         if (command.equalsIgnoreCase("filterword") || command.equalsIgnoreCase("filter"))
         {
             if (args.length == 0)
-                throw new CommandUsedImproperly("filter and filterword requires an argument", user,
+                throw new CommandUsedImproperlyException("filter and filterword requires an argument", user,
                         command);
 
             if (command.equalsIgnoreCase("filterword"))
@@ -222,7 +222,7 @@ public class PluginMain extends GenericPluginInterface implements RawEventCallba
         else if (command.equalsIgnoreCase("unfilterword") || command.equalsIgnoreCase("unfilter"))
         {
             if (args.length == 0)
-                throw new CommandUsedImproperly("unfilter and unfilterword require an argument",
+                throw new CommandUsedImproperlyException("unfilter and unfilterword require an argument",
                         user, command);
 
             if (command.equalsIgnoreCase("unfilterword"))

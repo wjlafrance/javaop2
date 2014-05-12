@@ -5,11 +5,8 @@ import java.io.IOException;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Hashtable;
-import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
-import java.util.Vector;
 
 import javax.swing.Icon;
 import javax.swing.KeyStroke;
@@ -23,8 +20,8 @@ import com.javaop.constants.PacketConstants;
 
 import com.javaop.callback_interfaces.PluginCallbackRegister;
 import com.javaop.callback_interfaces.PublicExposedFunctions;
-import com.javaop.exceptions.CommandUsedIllegally;
-import com.javaop.exceptions.CommandUsedImproperly;
+import com.javaop.exceptions.CommandUsedIllegallyException;
+import com.javaop.exceptions.CommandUsedImproperlyException;
 import com.javaop.exceptions.LoginException;
 import com.javaop.exceptions.PluginException;
 
@@ -269,7 +266,7 @@ public class PluginRegistration implements PluginCallbackRegister
 
 	// Command Callbacks:
 	public boolean raiseCommand(String user, String command, String args, int loudness, boolean errorOnUnknown)
-			throws PluginException, CommandUsedImproperly, IOException, CommandUsedIllegally
+			throws PluginException, CommandUsedImproperlyException, IOException, CommandUsedIllegallyException
 	{
 		String newCommand;
 
@@ -307,7 +304,7 @@ public class PluginRegistration implements PluginCallbackRegister
 		String requiredFlags = this.getRequiredFlags(command);
 
 		if (!pubFuncs.dbHasAny(user, requiredFlags, true)) {
-			throw new CommandUsedIllegally("User attempted to use an illegal command", user, command, pubFuncs.dbGetFlags(user), requiredFlags);
+			throw new CommandUsedIllegallyException("User attempted to use an illegal command", user, command, pubFuncs.dbGetFlags(user), requiredFlags);
 		}
 
 		String[] splitArgs = args.length() > 0 ? args.split("\\s+", plugin.getArgs()) : new String[0];

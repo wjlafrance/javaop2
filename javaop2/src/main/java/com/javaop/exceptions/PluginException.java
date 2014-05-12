@@ -7,17 +7,16 @@ package com.javaop.exceptions;
  * @author iago
  *
  */
-public class PluginException extends Exception
-{
+public class PluginException extends Exception {
+
 	private static final long serialVersionUID = 1L;
 
-	public PluginException(String msg)
-	{
-		super(msg);
+	public PluginException(String message) {
+		super(message);
 	}
 
-	public PluginException(Exception e)
-	{
-		super(e);
+	public PluginException(Throwable cause) {
+		super(cause);
 	}
+
 }

@@ -11,8 +11,8 @@ import javax.swing.JComponent;
 import com.javaop.callback_interfaces.PluginCallbackRegister;
 import com.javaop.callback_interfaces.PublicExposedFunctions;
 import com.javaop.callback_interfaces.StaticExposedFunctions;
-import com.javaop.exceptions.CommandUsedIllegally;
-import com.javaop.exceptions.CommandUsedImproperly;
+import com.javaop.exceptions.CommandUsedIllegallyException;
+import com.javaop.exceptions.CommandUsedImproperlyException;
 import com.javaop.exceptions.PluginException;
 import com.javaop.plugin_interfaces.CommandCallback;
 import com.javaop.plugin_interfaces.EventCallback;
@@ -282,12 +282,12 @@ public class PluginMain extends GenericPluginInterface implements PacketCallback
     }
 
     public void commandExecuted(String user, String command, String[] args, int loudness,
-            Object data) throws PluginException, IOException, CommandUsedIllegally, CommandUsedImproperly
+            Object data) throws PluginException, IOException, CommandUsedIllegallyException, CommandUsedImproperlyException
     {
         if (command.equalsIgnoreCase("profile"))
         {
             if (args.length == 0)
-                throw new CommandUsedImproperly("Profile requires at least 1 key", user, command);
+                throw new CommandUsedImproperlyException("Profile requires at least 1 key", user, command);
 
             String[] keys;
 
@@ -303,7 +303,7 @@ public class PluginMain extends GenericPluginInterface implements PacketCallback
         else if (command.equalsIgnoreCase("setprofile"))
         {
             if (args.length == 0)
-                throw new CommandUsedImproperly("setprofile requires a key", user, command);
+                throw new CommandUsedImproperlyException("setprofile requires a key", user, command);
             BnetPacket set = new BnetPacket(SID_WRITEUSERDATA);
             // (DWORD) Number of accounts
             set.addDWord(1);
@@ -323,7 +323,7 @@ public class PluginMain extends GenericPluginInterface implements PacketCallback
         else if (command.equalsIgnoreCase("w3profile"))
         {
             if (args.length == 0)
-                throw new CommandUsedImproperly("w3profile requires a username", user, command);
+                throw new CommandUsedImproperlyException("w3profile requires a username", user, command);
 
             requests.put(cookie + "", new ProfileRequest(user, args[0], null, loudness));
             BnetPacket profile = new BnetPacket(SID_PROFILE);

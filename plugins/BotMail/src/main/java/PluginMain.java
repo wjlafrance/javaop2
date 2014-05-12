@@ -9,8 +9,8 @@ import javax.swing.JComponent;
 import com.javaop.callback_interfaces.PluginCallbackRegister;
 import com.javaop.callback_interfaces.PublicExposedFunctions;
 import com.javaop.callback_interfaces.StaticExposedFunctions;
-import com.javaop.exceptions.CommandUsedIllegally;
-import com.javaop.exceptions.CommandUsedImproperly;
+import com.javaop.exceptions.CommandUsedIllegallyException;
+import com.javaop.exceptions.CommandUsedImproperlyException;
 import com.javaop.exceptions.PluginException;
 import com.javaop.plugin_interfaces.CommandCallback;
 import com.javaop.plugin_interfaces.EventCallback;
@@ -134,7 +134,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
     }
 
     public void commandExecuted(String user, String command, String[] args, int loudness,
-            Object data) throws IOException, PluginException, CommandUsedIllegally, CommandUsedImproperly
+            Object data) throws IOException, PluginException, CommandUsedIllegallyException, CommandUsedImproperlyException
     {
         if (command.equalsIgnoreCase("getmail"))
         {
@@ -179,7 +179,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
         else if (command.equalsIgnoreCase("mail"))
         {
             if (args.length != 2)
-                throw new CommandUsedImproperly("mail requires exactly 2 parameters", user, command);
+                throw new CommandUsedImproperlyException("mail requires exactly 2 parameters", user, command);
 
             mail.add(args[0], user, args[1]);
 
@@ -188,7 +188,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
         else if (command.equalsIgnoreCase("removemail"))
         {
             if (args.length == 0)
-                throw new CommandUsedImproperly(
+                throw new CommandUsedImproperlyException(
                         "removemail requires the list of messages to remove", user, command);
 
             for (int i = 0; i < args.length; i++)

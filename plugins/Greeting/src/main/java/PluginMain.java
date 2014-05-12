@@ -11,8 +11,8 @@ import javax.swing.JComboBox;
 import com.javaop.callback_interfaces.PluginCallbackRegister;
 import com.javaop.callback_interfaces.PublicExposedFunctions;
 import com.javaop.callback_interfaces.StaticExposedFunctions;
-import com.javaop.exceptions.CommandUsedIllegally;
-import com.javaop.exceptions.CommandUsedImproperly;
+import com.javaop.exceptions.CommandUsedIllegallyException;
+import com.javaop.exceptions.CommandUsedImproperlyException;
 import com.javaop.exceptions.PluginException;
 import com.javaop.plugin_interfaces.CommandCallback;
 import com.javaop.plugin_interfaces.EventCallback;
@@ -201,7 +201,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
     }
 
     public void commandExecuted(String user, String command, String[] args, int loudness,
-            Object data) throws PluginException, IOException, CommandUsedIllegally, CommandUsedImproperly
+            Object data) throws PluginException, IOException, CommandUsedIllegallyException, CommandUsedImproperlyException
     {
         if (command.equalsIgnoreCase("idle"))
         {
@@ -216,7 +216,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
                         && args[0].equalsIgnoreCase("count") == false
                         && args[0].equalsIgnoreCase("time") == false)
                 {
-                    throw new CommandUsedImproperly("Valid values: off, count, or time", user,
+                    throw new CommandUsedImproperlyException("Valid values: off, count, or time", user,
                             command);
                 }
 
@@ -252,7 +252,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
                 }
                 catch (NumberFormatException e)
                 {
-                    throw new CommandUsedImproperly("Argument to .idlecount must be numeric", user,
+                    throw new CommandUsedImproperlyException("Argument to .idlecount must be numeric", user,
                             command);
                 }
             }
@@ -273,7 +273,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
                 if (args[0].equalsIgnoreCase("on") == false
                         && args[0].equalsIgnoreCase("off") == false)
                 {
-                    throw new CommandUsedImproperly("Valid values for greet are \"on\" or \"off\"",
+                    throw new CommandUsedImproperlyException("Valid values for greet are \"on\" or \"off\"",
                             user, command);
                 }
 

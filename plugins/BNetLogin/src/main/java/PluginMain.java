@@ -267,7 +267,7 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
     
     public void commandExecuted(String user, String command, String[] args,
             int loudness, Object data) throws IOException, LoginException,
-            CommandUsedIllegally, CommandUsedImproperly
+			CommandUsedIllegallyException, CommandUsedImproperlyException
     {
         if(command.equalsIgnoreCase("game")) {
             if(args.length > 0) {

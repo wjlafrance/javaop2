@@ -4,7 +4,7 @@
 package com.javaop.plugin_containers;
 
 import com.javaop.plugin_interfaces.AbstractCallback;
-
+import lombok.Getter;
 
 /**
  * @author iago
@@ -12,27 +12,15 @@ import com.javaop.plugin_interfaces.AbstractCallback;
  */
 abstract public class AbstractPlugin
 {
-	protected AbstractCallback callback;
-	protected Object           data;
+	protected @Getter AbstractCallback callback;
+	protected @Getter Object           data;
 
-	protected AbstractPlugin(AbstractCallback callback, Object data)
-	{
+	protected AbstractPlugin(AbstractCallback callback, Object data) {
 		this.data = data;
 		this.callback = callback;
 	}
 
-	public AbstractCallback getCallback()
-	{
-		return callback;
-	}
-
-	public Object getData()
-	{
-		return data;
-	}
-
-	public String toString()
-	{
+	public String toString() {
 		return callback.toString();
 	}
 }

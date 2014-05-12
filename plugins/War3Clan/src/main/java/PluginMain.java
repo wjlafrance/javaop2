@@ -8,8 +8,8 @@ import java.util.Properties;
 import com.javaop.callback_interfaces.PluginCallbackRegister;
 import com.javaop.callback_interfaces.PublicExposedFunctions;
 import com.javaop.callback_interfaces.StaticExposedFunctions;
-import com.javaop.exceptions.CommandUsedIllegally;
-import com.javaop.exceptions.CommandUsedImproperly;
+import com.javaop.exceptions.CommandUsedIllegallyException;
+import com.javaop.exceptions.CommandUsedImproperlyException;
 import com.javaop.exceptions.PluginException;
 import com.javaop.plugin_interfaces.CommandCallback;
 import com.javaop.plugin_interfaces.GenericPluginInterface;
@@ -191,12 +191,12 @@ public class PluginMain extends GenericPluginInterface implements PacketCallback
     }
 
     public void commandExecuted(String user, String command, String[] args, int loudness,
-            Object data) throws PluginException, IOException, CommandUsedIllegally, CommandUsedImproperly
+            Object data) throws PluginException, IOException, CommandUsedIllegallyException, CommandUsedImproperlyException
     {
         if (command.equalsIgnoreCase("accept") || command.equalsIgnoreCase("decline"))
         {
             if (args.length != 1)
-                throw new CommandUsedImproperly(
+                throw new CommandUsedImproperlyException(
                         "Accept and decline require the clan name as a parameter", user, command);
 
             Invite invite = (Invite) invites.get(args[0]);

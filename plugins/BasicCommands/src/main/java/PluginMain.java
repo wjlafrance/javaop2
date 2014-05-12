@@ -11,8 +11,8 @@ import com.javaop.constants.LoudnessConstants;
 import com.javaop.callback_interfaces.PluginCallbackRegister;
 import com.javaop.callback_interfaces.PublicExposedFunctions;
 import com.javaop.callback_interfaces.StaticExposedFunctions;
-import com.javaop.exceptions.CommandUsedIllegally;
-import com.javaop.exceptions.CommandUsedImproperly;
+import com.javaop.exceptions.CommandUsedIllegallyException;
+import com.javaop.exceptions.CommandUsedImproperlyException;
 import com.javaop.exceptions.PluginException;
 import com.javaop.plugin_interfaces.CommandCallback;
 import com.javaop.plugin_interfaces.EventCallback;
@@ -126,14 +126,14 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
 	}
 
 	@Override public void commandExecuted(String user, String command, String[] args, int loudness, Object data) throws
-			PluginException, IOException, CommandUsedIllegally, CommandUsedImproperly
+			PluginException, IOException, CommandUsedIllegallyException, CommandUsedImproperlyException
 	{
 		String commandLowerCase = command.toLowerCase();
 
 		switch (command.toLowerCase()) {
 			case "join":
 				if (args.length == 0) {
-					throw new CommandUsedImproperly("join requires a parameter", user, command);
+					throw new CommandUsedImproperlyException("join requires a parameter", user, command);
 				}
 
 				if (out.getLocalSettingDefault(getName(), "Instant joins", "true").equalsIgnoreCase("true")) {
@@ -190,7 +190,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
 
 			case "say":
 				if (args.length == 0 || args[0].length() < 1) {
-					throw new CommandUsedImproperly("Say requires a parameter", user, command);
+					throw new CommandUsedImproperlyException("Say requires a parameter", user, command);
 				}
 
 				if (args[0].charAt(0) == '/' && out.dbHasAny(user, "N", true) == false) {

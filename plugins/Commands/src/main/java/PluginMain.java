@@ -11,8 +11,8 @@ import com.javaop.constants.ErrorLevelConstants;
 import com.javaop.callback_interfaces.PluginCallbackRegister;
 import com.javaop.callback_interfaces.PublicExposedFunctions;
 import com.javaop.callback_interfaces.StaticExposedFunctions;
-import com.javaop.exceptions.CommandUsedIllegally;
-import com.javaop.exceptions.CommandUsedImproperly;
+import com.javaop.exceptions.CommandUsedIllegallyException;
+import com.javaop.exceptions.CommandUsedImproperlyException;
 import com.javaop.exceptions.PluginException;
 import com.javaop.plugin_interfaces.CommandCallback;
 import com.javaop.plugin_interfaces.EventCallback;
@@ -322,7 +322,7 @@ public class PluginMain extends GenericPluginInterface implements EventCallback,
 
     public void commandExecuted(String user, String command, String[] args,
             int loudness, Object data) throws PluginException, IOException,
-            CommandUsedIllegally, CommandUsedImproperly
+			CommandUsedIllegallyException, CommandUsedImproperlyException
     {
         if (command.equalsIgnoreCase("settrigger")) {
             String newTrigger = (args.length == 1 ? args[0] : "");
@@ -330,7 +330,7 @@ public class PluginMain extends GenericPluginInterface implements EventCallback,
             out.sendTextUser(user, "Trigger => " + newTrigger, loudness);
         } else if (command.equalsIgnoreCase("setflagsfor")) {
             if (args.length == 0)
-                throw new CommandUsedImproperly("setflagsfor requires at least "
+                throw new CommandUsedImproperlyException("setflagsfor requires at least "
                         + "one parameter", user, command);
 
             if (out.getCommandOf(args[0]).equalsIgnoreCase(args[0]) == false) {
@@ -354,7 +354,7 @@ public class PluginMain extends GenericPluginInterface implements EventCallback,
                     "<n/a>"), loudness);
         } else if (command.equalsIgnoreCase("getflagsfor")) {
             if (args.length == 0)
-                throw new CommandUsedImproperly("getflagsfor requires at least "
+                throw new CommandUsedImproperlyException("getflagsfor requires at least "
                         + "one parameter", user, command);
 
             if (out.getCommandOf(args[0]).equalsIgnoreCase(args[0]) == false) {

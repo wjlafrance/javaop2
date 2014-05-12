@@ -7,8 +7,8 @@ import java.util.Properties;
 import com.javaop.callback_interfaces.PluginCallbackRegister;
 import com.javaop.callback_interfaces.PublicExposedFunctions;
 import com.javaop.callback_interfaces.StaticExposedFunctions;
-import com.javaop.exceptions.CommandUsedIllegally;
-import com.javaop.exceptions.CommandUsedImproperly;
+import com.javaop.exceptions.CommandUsedIllegallyException;
+import com.javaop.exceptions.CommandUsedImproperlyException;
 import com.javaop.exceptions.PluginException;
 import com.javaop.plugin_interfaces.CommandCallback;
 import com.javaop.plugin_interfaces.GenericPluginInterface;
@@ -111,11 +111,11 @@ public class PluginMain extends GenericPluginInterface
 
     public void commandExecuted(String user, String command, String[] args,
     		int loudness, Object data) throws PluginException, IOException,
-    		CommandUsedIllegally, CommandUsedImproperly
+			CommandUsedIllegallyException, CommandUsedImproperlyException
     {
         if (command.equalsIgnoreCase("addalias")) {
             if (args.length < 2)
-                throw new CommandUsedImproperly("addalias requires at least 2 "
+                throw new CommandUsedImproperlyException("addalias requires at least 2 "
                 		+ "parameters", user, command);
 
             pubFuncs.addAlias(args[1], args[0]);
@@ -123,7 +123,7 @@ public class PluginMain extends GenericPluginInterface
 
         } else if (command.equalsIgnoreCase("removealias")) {
             if (args.length < 1)
-                throw new CommandUsedImproperly("removealias requires at least "
+                throw new CommandUsedImproperlyException("removealias requires at least "
                 		+ "1 parameter", user, command);
 
             StringBuffer s = new StringBuffer("Removed: ");
@@ -137,7 +137,7 @@ public class PluginMain extends GenericPluginInterface
             		loudness);
         } else if (command.equalsIgnoreCase("removealiases")) {
             if (args.length != 1)
-                throw new CommandUsedImproperly("removealiases requires 1 "
+                throw new CommandUsedImproperlyException("removealiases requires 1 "
                 		+ "parameter", user, command);
 
             String[] aliases = pubFuncs.getAliasesOf(args[0]);
@@ -157,7 +157,7 @@ public class PluginMain extends GenericPluginInterface
             		.toString(), loudness);
         } else if (command.equalsIgnoreCase("listaliases")) {
             if (args.length != 1)
-                throw new CommandUsedImproperly("listaliases requires 1 " + 
+                throw new CommandUsedImproperlyException("listaliases requires 1 " +
                 		"parameter", user, command);
 
             String[] aliases = pubFuncs.getAliasesOf(args[0]);
@@ -175,7 +175,7 @@ public class PluginMain extends GenericPluginInterface
             		.toString(), loudness);
         } else if (command.equalsIgnoreCase("getalias")) {
             if (args.length != 1)
-                throw new CommandUsedImproperly("getalias requires 1 "
+                throw new CommandUsedImproperlyException("getalias requires 1 "
                 		+ "parameter", user, command);
 
             String alias = pubFuncs.getCommandOf(args[0]);

@@ -8,8 +8,8 @@ import javax.swing.JComponent;
 import com.javaop.callback_interfaces.PluginCallbackRegister;
 import com.javaop.callback_interfaces.PublicExposedFunctions;
 import com.javaop.callback_interfaces.StaticExposedFunctions;
-import com.javaop.exceptions.CommandUsedIllegally;
-import com.javaop.exceptions.CommandUsedImproperly;
+import com.javaop.exceptions.CommandUsedIllegallyException;
+import com.javaop.exceptions.CommandUsedImproperlyException;
 import com.javaop.plugin_interfaces.CommandCallback;
 import com.javaop.plugin_interfaces.GenericPluginInterface;
 
@@ -145,9 +145,9 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
     }
 
     public void commandExecuted(String user, String command, String[] args, int loudness,
-            Object data) throws IOException, CommandUsedImproperly, CommandUsedIllegally {
+            Object data) throws IOException, CommandUsedImproperlyException, CommandUsedIllegallyException {
         if (args.length == 0 || args[0].length() == 0)
-            throw new CommandUsedImproperly(
+            throw new CommandUsedImproperlyException(
                     "All ban and kick commands require at least one parameter", user, command);
 
         if (command.toLowerCase().matches("ban.*") || command.toLowerCase().matches("kick.*")) {
@@ -225,25 +225,25 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
     }
 
     /** This is a fail-safe function -- to add one more layer of validation. */
-    private void allowedToBan(String banner, String banned) throws CommandUsedIllegally {
+    private void allowedToBan(String banner, String banned) throws CommandUsedIllegallyException {
     	
         // First of all, users with M can never be banned
         if (pubFuncs.dbHasAny(banned, "M", true))
-            throw new CommandUsedIllegally("M can't be banned", banner, "ban/kick",
+            throw new CommandUsedIllegallyException("M can't be banned", banner, "ban/kick",
             		pubFuncs.dbGetFlags(banner), "N/A");
 
         // A user with S can be banned by somebody with N
         String sCanBeBanned = pubFuncs.getLocalSettingDefault(getName(), "S can be banned/kicked by",
                                                          "N");
         if (pubFuncs.dbHasAny(banned, "S", true) && pubFuncs.dbHasAny(banner, sCanBeBanned, true) == false)
-            throw new CommandUsedIllegally("Illegally tried to ban a Safelisted user", banner,
+            throw new CommandUsedIllegallyException("Illegally tried to ban a Safelisted user", banner,
                     "ban/kick", pubFuncs.dbGetFlags(banner), sCanBeBanned);
 
         // A user with F can be banned by anybody with A or N
         String fCanBeBanned = pubFuncs.getLocalSettingDefault(getName(), "F can be banned/kicked by",
                                                          "ON");
         if (pubFuncs.dbHasAny(banned, "F", true) && pubFuncs.dbHasAny(banner, fCanBeBanned, true) == false)
-            throw new CommandUsedIllegally("Illegally tried to ban a Friendlisted user", banner,
+            throw new CommandUsedIllegallyException("Illegally tried to ban a Friendlisted user", banner,
                     "ban/kick", pubFuncs.dbGetFlags(banner), fCanBeBanned);
 
         // A user without M, S, or F can be banned by anybody with A or N
@@ -251,7 +251,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
                                                           "Anybody else can be banned/kicked by",
                                                           "ON");
         if (pubFuncs.dbHasAny(banner, everybodyElse, true) == false)
-            throw new CommandUsedIllegally("Illegally tried to ban somebody", banner, "ban/kick",
+            throw new CommandUsedIllegallyException("Illegally tried to ban somebody", banner, "ban/kick",
             		pubFuncs.dbGetFlags(banner), everybodyElse);
     }
 

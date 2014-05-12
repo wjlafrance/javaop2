@@ -8,8 +8,8 @@ import com.javaop.constants.Flags;
 import com.javaop.callback_interfaces.PluginCallbackRegister;
 import com.javaop.callback_interfaces.PublicExposedFunctions;
 import com.javaop.callback_interfaces.StaticExposedFunctions;
-import com.javaop.exceptions.CommandUsedIllegally;
-import com.javaop.exceptions.CommandUsedImproperly;
+import com.javaop.exceptions.CommandUsedIllegallyException;
+import com.javaop.exceptions.CommandUsedImproperlyException;
 import com.javaop.exceptions.PluginException;
 import com.javaop.plugin_interfaces.CommandCallback;
 import com.javaop.plugin_interfaces.EventCallback;
@@ -133,12 +133,12 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
     }
 
     public void commandExecuted(String user, String command, String[] args, int loudness,
-            Object data) throws PluginException, IOException, CommandUsedIllegally, CommandUsedImproperly
+            Object data) throws PluginException, IOException, CommandUsedIllegallyException, CommandUsedImproperlyException
     {
         if (command.equalsIgnoreCase("ipban"))
         {
             if (args.length != 1)
-                throw new CommandUsedImproperly(".ipban takes one parameter", user, command);
+                throw new CommandUsedImproperlyException(".ipban takes one parameter", user, command);
 
             String[] users = out.channelMatchGetListWithoutAny(args[0], "SFM");
 
@@ -148,7 +148,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
         else if (command.equalsIgnoreCase("unipban"))
         {
             if (args.length != 1)
-                throw new CommandUsedImproperly(".unipban takes one parameter", user, command);
+                throw new CommandUsedImproperlyException(".unipban takes one parameter", user, command);
 
             out.sendTextPriority("/unsquelch " + args[0], PRIORITY_HIGH);
         }

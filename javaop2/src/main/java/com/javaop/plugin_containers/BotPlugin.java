@@ -5,15 +5,14 @@ package com.javaop.plugin_containers;
 
 import com.javaop.plugin_interfaces.BotCallback;
 
-
 /**
  * @author iago
  *
  */
-public class BotPlugin extends AbstractPlugin
-{
-	public BotPlugin(BotCallback callback, Object data)
-	{
+public class BotPlugin extends AbstractPlugin {
+
+	public BotPlugin(BotCallback callback, Object data) {
 		super(callback, data);
 	}
+
 }
