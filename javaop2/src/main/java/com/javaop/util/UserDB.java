@@ -199,7 +199,7 @@ public class UserDB
 				String userFlags = userDB.getNoWrite(null, name, "");
 
 				for (int i = 0; i < userFlags.length(); i++) {
-					flags.add(new Character(userFlags.charAt(i)));
+					flags.add(userFlags.charAt(i));
 				}
 			}
 		}
