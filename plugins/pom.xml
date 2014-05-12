@@ -16,6 +16,44 @@
 	</parent>
 
 	<modules>
+		<module>Advertisements</module>
+		<module>Alias</module>
+		<module>AntiFlood</module>
+		<module>AutoRejoin</module>
+		<module>Autoban</module>
+		<module>AwayMessage</module>
+		<module>BNetLogin</module>
+		<module>BasicCommands</module>
+		<module>BnetEventProcess</module>
+		<module>BotMail</module>
+		<module>ChannelList</module>
+		<module>ChannelProtection</module>
+		<module>Commands</module>
+		<module>ConnectionCommands</module>
+		<module>ConsoleDisplay</module>
+		<module>Designate</module>
+		<module>EmailRegister</module>
+		<module>Filters</module>
+		<module>Forwarding</module>
+		<module>FunStuff</module>
+		<module>GlobalCommand</module>
+		<module>Greeting</module>
+		<module>Help</module>
+		<module>IPBan</module>
+		<module>Ladder</module>
+		<module>Logging</module>
+		<module>Moderation</module>
+		<module>Ping</module>
+		<module>Profile</module>
+		<module>ShellCommands</module>
+		<module>ShowInvisibleUsers</module>
+		<module>StayConnected</module>
+		<module>SweepBan</module>
+		<module>SwingGui</module>
+		<module>UserInformation</module>
+		<module>UserManagement</module>
+		<module>Version</module>
+		<module>War3Clan</module>
 	</modules>
 
 </project>
