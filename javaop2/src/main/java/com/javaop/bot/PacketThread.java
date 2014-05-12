@@ -108,14 +108,7 @@ public class PacketThread extends Thread {
 			input = s.getInputStream();
 
 			callbacks.connected(server, port);
-		} catch (IOException e) {
-			if (stop) {
-				return;
-			}
-			out.systemMessage(ErrorLevelConstants.ERROR, "[BNET] Connect failed: " + e);
-			disconnected();
-			return;
-		} catch (PluginException e) {
+		} catch (IOException | PluginException e) {
 			if (stop) {
 				return;
 			}
@@ -189,7 +182,7 @@ public class PacketThread extends Thread {
 					if (stop) {
 						return;
 					}
-				} catch (LoginException e) {
+				} catch (LoginException | IOException e) {
 					throw e;
 				} catch (PluginException e) {
 					if (stop) {
@@ -197,8 +190,6 @@ public class PacketThread extends Thread {
 					}
 
 					callbacks.pluginException(e);
-				} catch (IOException e) {
-					throw e;
 				} catch (Exception e) {
 					if (stop) {
 						return;
