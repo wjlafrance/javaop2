@@ -76,7 +76,7 @@ public class PacketThread extends Thread {
             String server = out.getLocalSettingDefault("_default", "server", "uswest.battle.net");
             int port = Integer.parseInt(out.getLocalSettingDefault("_default", "port", "6112"));
 
-            if (callbacks.connecting(server, port) == false)
+            if (!callbacks.connecting(server, port))
                 return;
 
             out.lock();

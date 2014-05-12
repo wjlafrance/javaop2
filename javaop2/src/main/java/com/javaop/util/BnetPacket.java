@@ -190,7 +190,7 @@ public class BnetPacket extends Buffer
 
     public boolean equals(Object o)
     {
-        if (o instanceof BnetPacket == false)
+        if (!(o instanceof BnetPacket))
             return false;
 
         BnetPacket packet = (BnetPacket) o;

@@ -197,7 +197,7 @@ public class BnlsPacket extends Buffer
 
     public boolean equals(Object o)
     {
-        if (o instanceof BnlsPacket == false)
+        if (!(o instanceof BnlsPacket))
             return false;
 
         BnlsPacket packet = (BnlsPacket) o;

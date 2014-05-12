@@ -38,7 +38,7 @@ public class BotCoreStatic implements StaticExposedFunctions {
     }
     
     public void botStart(String name) throws PluginException {
-        if (name.matches("[\\w\\_\\-\\.]+") == false)
+        if (!name.matches("[\\w\\_\\-\\.]+"))
             throw new PluginException("Bots' names must contain at least one "
                     + "character, and the only characters a-z, A-Z, 0-9, or "
                     + "'.-_'");

@@ -153,7 +153,7 @@ public class JavaOpFileStuff
 
     private static void addIfExists(Vector v, File f)
     {
-        if (f.exists() && v.contains(f) == false)
+        if (f.exists() && !v.contains(f))
             v.add(f);
     }
 

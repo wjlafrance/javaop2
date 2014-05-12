@@ -35,7 +35,7 @@ public class FileManagement
         String line;
         while ((line = in.readLine()) != null)
         {
-            if (line.equalsIgnoreCase(remove) == false)
+            if (!line.equalsIgnoreCase(remove))
             {
                 lines.add(line);
             }
@@ -58,7 +58,7 @@ public class FileManagement
 
             boolean found = false;
             String line;
-            while ((line = in.readLine()) != null && found == false)
+            while ((line = in.readLine()) != null && !found)
                 if (line.equalsIgnoreCase(search))
                     found = true;
             in.close();
@@ -83,7 +83,7 @@ public class FileManagement
 
     public static String[] getUniqueLines(File file) throws IOException
     {
-        if (file.exists() == false)
+        if (!file.exists())
         {
             file.getParentFile().mkdirs();
             return new String[0];
@@ -94,7 +94,7 @@ public class FileManagement
 
     public static Vector<String> getFile(File file) throws IOException
     {
-        if (file.exists() == false)
+        if (!file.exists())
         {
             file.getParentFile().mkdirs();
             return new Vector<String>();
@@ -113,7 +113,7 @@ public class FileManagement
 
     public static Vector<File> search(File base, String pattern)
     {
-        if (base.exists() == false)
+        if (!base.exists())
         {
             base.getParentFile().mkdirs();
             return new Vector<File>();

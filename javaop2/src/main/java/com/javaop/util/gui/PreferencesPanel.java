@@ -126,6 +126,6 @@ public class PreferencesPanel extends JPanelEx
 
     public boolean hasChanged()
     {
-        return initial.equals(getValues()) == false;
+        return !initial.equals(getValues());
     }
 }

@@ -185,7 +185,7 @@ public class ColorConstants
                         + PadString.padHex(newColor.getGreen(), 2)
                         + PadString.padHex(newColor.getBlue(), 2);
 
-                if (original.equalsIgnoreCase(newString) == false)
+                if (!original.equalsIgnoreCase(newString))
                 {
                     if (JOptionPane.showConfirmDialog(this, "Save new color?", "Save?",
                                                       JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)

@@ -265,9 +265,8 @@ public class PluginRegistration implements PluginCallbackRegister
         String newCommand;
 
         int infiniteLoopChecker = 0;
-        while ((++infiniteLoopChecker < 1000)
-                && (newCommand = getCommandOf(command)).replaceAll(" .*", "")
-                .equalsIgnoreCase(command) == false) {
+        while ((++infiniteLoopChecker < 1000) && !(newCommand = getCommandOf(command)).replaceAll(" .*", "").equalsIgnoreCase(command))
+        {
             String[] commandParams = newCommand.split(" ", 2);
             if (commandParams.length == 2)
             {
@@ -301,7 +300,7 @@ public class PluginRegistration implements PluginCallbackRegister
 
         String requiredFlags = this.getRequiredFlags(command);
 
-        if (pubFuncs.dbHasAny(user, requiredFlags, true) == false)
+        if (!pubFuncs.dbHasAny(user, requiredFlags, true))
             throw new CommandUsedIllegally("User attempted to use an illegal command", user,
                     command, pubFuncs.dbGetFlags(user), requiredFlags);
 
@@ -324,8 +323,8 @@ public class PluginRegistration implements PluginCallbackRegister
         Enumeration<ConnectionPlugin> e = connectionPlugins.elements();
         while (e.hasMoreElements()) {
             ConnectionPlugin plugin = (ConnectionPlugin) e.nextElement();
-            if (((ConnectionCallback) plugin.getCallback()).connecting(server, port,
-                                                                       plugin.getData()) == false)
+            if (!((ConnectionCallback) plugin.getCallback()).connecting(server, port,
+					plugin.getData()))
                 return false;
         }
         return true;
@@ -348,7 +347,7 @@ public class PluginRegistration implements PluginCallbackRegister
         Enumeration<ConnectionPlugin> e = connectionPlugins.elements();
         while (e.hasMoreElements()) {
             ConnectionPlugin plugin = (ConnectionPlugin) e.nextElement();
-            if (((ConnectionCallback) plugin.getCallback()).disconnecting(plugin.getData()) == false)
+            if (!((ConnectionCallback) plugin.getCallback()).disconnecting(plugin.getData()))
                 return false;
         }
 
@@ -637,7 +636,7 @@ public class PluginRegistration implements PluginCallbackRegister
         Enumeration<OutgoingTextPlugin> e = outgoingTextPlugins.elements();
         while (e.hasMoreElements()) {
             OutgoingTextPlugin plugin = (OutgoingTextPlugin) e.nextElement();
-            if (((OutgoingTextCallback) plugin.getCallback()).sendingText(text, plugin.getData()) == false)
+            if (!((OutgoingTextCallback) plugin.getCallback()).sendingText(text, plugin.getData()))
                 return false;
         }
 

@@ -336,7 +336,7 @@ public class BotCore implements PublicExposedFunctions
         String[] users = channelGetList();
         Vector<String> ret = new Vector<String>();
         for (int i = 0; i < users.length; i++)
-            if (dbHasAny(users[i], flags, false) == false)
+            if (!dbHasAny(users[i], flags, false))
                 ret.add(users[i]);
 
         return (String[]) ret.toArray(new String[ret.size()]);
@@ -378,7 +378,7 @@ public class BotCore implements PublicExposedFunctions
         String[] users = channelMatchGetList(pattern);
         Vector<String> ret = new Vector<String>();
         for (int i = 0; i < users.length; i++)
-            if (dbHasAny(users[i], flags, false) == false)
+            if (!dbHasAny(users[i], flags, false))
                 ret.add(users[i]);
 
         return (String[]) ret.toArray(new String[ret.size()]);
@@ -520,7 +520,7 @@ public class BotCore implements PublicExposedFunctions
         if (section == null)
             section = " default";
 
-        if (localSettings.contains(section, key) == false)
+        if (!localSettings.contains(section, key))
         {
             systemMessage(ErrorLevelConstants.ERROR, "Attempted to access a missing setting: "
                     + section + " // " + key);
@@ -756,7 +756,7 @@ public class BotCore implements PublicExposedFunctions
 
         systemMessage(ErrorLevelConstants.DEBUG, "Entering disconnect()");
 
-        if (callbacks.disconnecting() == false)
+        if (!callbacks.disconnecting())
             return;
 
         lock();
@@ -946,7 +946,7 @@ public class BotCore implements PublicExposedFunctions
      */
     private void checkRunning()
     {
-        if (running == false)
+        if (!running)
             throw new Error("Attempting to use a stopped bot instance!");
     }
 

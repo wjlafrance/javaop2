@@ -46,7 +46,7 @@ public class StringEncoder
         if (str.matches("&null;"))
             return null;
 
-        if (str.matches(".*&[0-9]+;.*") == false)
+        if (!str.matches(".*&[0-9]+;.*"))
             return str.replaceAll("&amp;", "&");
 
         for (; str.length() > 0; str = str.substring(1))

@@ -33,7 +33,7 @@ public class Pattern
                 ret.append(".");
             else if (thisChar == '%')
                 ret.append("[0-9]");
-            else if (Character.isLetterOrDigit(thisChar) == false)
+            else if (!Character.isLetterOrDigit(thisChar))
                 ret.append("\\").append(thisChar);
             else
                 ret.append(str.charAt(i));

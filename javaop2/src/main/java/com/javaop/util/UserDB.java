@@ -37,7 +37,7 @@ public class UserDB
 
         if (current.length() == 0)
             userDB.set(null, user, flag + "");
-        else if ((current.indexOf(flag) >= 0) == false)
+        else if (!(current.indexOf(flag) >= 0))
         {
             current = current + flag;
             char[] currentArray = current.toCharArray();
@@ -246,7 +246,7 @@ public class UserDB
         if (user != null)
             user = user.toLowerCase();
 
-        if (allowMOverride && flagList.equals("U") == false)
+        if (allowMOverride && !flagList.equals("U"))
             flagList = flagList + "M";
 
         for (int i = 0; i < flagList.length(); i++)
@@ -261,7 +261,7 @@ public class UserDB
         user = user.toLowerCase();
 
         for (int i = 0; i < flagList.length(); i++)
-            if (hasFlag(user, flagList.charAt(i)) == false)
+            if (!hasFlag(user, flagList.charAt(i)))
                 return false;
 
         return true;
@@ -344,7 +344,7 @@ public class UserDB
                 ret.append(".");
             else if (thisChar == '%')
                 ret.append("[0-9]");
-            else if (Character.isLetterOrDigit(thisChar) == false)
+            else if (!Character.isLetterOrDigit(thisChar))
                 ret.append("\\").append(thisChar);
             else
                 ret.append(str.charAt(i));
