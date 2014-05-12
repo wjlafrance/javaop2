@@ -184,7 +184,7 @@ public class UserDB
 
 		Enumeration e = userDB.propertyNames(null);
 
-		StringBuffer patterns = new StringBuffer();
+		StringBuilder patterns = new StringBuilder();
 		TreeSet flags = new TreeSet();
 
 		// patterns.append(user + ": ");
@@ -360,7 +360,7 @@ public class UserDB
 
 	private static String fixPattern(String str)
 	{
-		StringBuffer ret = new StringBuffer();
+		StringBuilder ret = new StringBuilder();
 
 		for (int i = 0; i < str.length(); i++)
 		{

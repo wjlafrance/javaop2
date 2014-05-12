@@ -136,7 +136,7 @@ public class BnlsPacket extends Buffer
 	public String toString()
 	{
 		byte[] buffer = getBytes();
-		StringBuffer returnString = new StringBuffer((size() * 3) + // The hex
+		StringBuilder returnString = new StringBuilder((size() * 3) + // The hex
 				(size()) + // The ascii
 				(size() / 4) + // The tabs/\n's
 				30); // The text

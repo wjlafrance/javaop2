@@ -75,7 +75,7 @@ public class TimeReader
 		long seconds = time / SECOND;
 		time = time % SECOND;
 
-		StringBuffer s = new StringBuffer();
+		StringBuilder s = new StringBuilder();
 
 		s.append(days > 0 ? days + " day" + (days == 1 ? "" : "s") + ", " : "");
 		s.append(hours > 0 ? hours + " hour" + (hours == 1 ? "" : "s") + ", " : "");

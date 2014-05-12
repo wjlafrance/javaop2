@@ -21,7 +21,7 @@ public class Pattern
 	 */
 	public static String fixPattern(String str)
 	{
-		StringBuffer ret = new StringBuffer();
+		StringBuilder ret = new StringBuilder();
 
 		for (int i = 0; i < str.length(); i++)
 		{

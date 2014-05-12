@@ -7,7 +7,7 @@ public class StringEncoder
 {
 	public static String encode(Object o)
 	{
-		StringBuffer ret = new StringBuffer();
+		StringBuilder ret = new StringBuilder();
 
 		if (o == null) {
 			return "&null;";
@@ -42,7 +42,7 @@ public class StringEncoder
 
 	public static Object decode(String str)
 	{
-		StringBuffer ret = new StringBuffer();
+		StringBuilder ret = new StringBuilder();
 
 		if (str.matches("&null;")) {
 			return null;

@@ -26,7 +26,7 @@ public class Timestamp
 	{
 		Calendar c = Calendar.getInstance();
 
-		StringBuffer s = new StringBuffer();
+		StringBuilder s = new StringBuilder();
 		s.append('[');
 		s.append(PadString.padNumber(c.get(Calendar.HOUR_OF_DAY), 2)).append(':');
 		s.append(PadString.padNumber(c.get(Calendar.MINUTE), 2)).append(':');
@@ -44,7 +44,7 @@ public class Timestamp
 	{
 		Calendar c = Calendar.getInstance();
 
-		StringBuffer s = new StringBuffer();
+		StringBuilder s = new StringBuilder();
 		s.append(PadString.padNumber(c.get(Calendar.YEAR), 4)).append(".");
 		s.append(PadString.padNumber(c.get(Calendar.MONTH) + 1, 2)).append(".");
 		s.append(PadString.padNumber(c.get(Calendar.DAY_OF_MONTH), 2));

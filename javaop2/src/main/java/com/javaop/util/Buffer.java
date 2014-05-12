@@ -297,7 +297,7 @@ public class Buffer
 	 */
 	public String removeString(int i) throws IndexOutOfBoundsException
 	{
-		StringBuffer s = new StringBuffer(i + 1);
+		StringBuilder s = new StringBuilder(i + 1);
 
 		for (int j = 0; j < i; j++)
 		{
@@ -329,7 +329,7 @@ public class Buffer
 	 */
 	public String removeNTString()
 	{
-		StringBuffer s = new StringBuffer();
+		StringBuilder s = new StringBuilder();
 
 		byte b = removeByte();
 
@@ -505,7 +505,7 @@ public class Buffer
 	 */
 	public String toString()
 	{
-		StringBuffer returnString = new StringBuffer((currentLength * 3) + // The
+		StringBuilder returnString = new StringBuilder((currentLength * 3) + // The
 				// hex
 				(currentLength) + // The ascii
 				(currentLength / 4) + // The tabs/\n's
