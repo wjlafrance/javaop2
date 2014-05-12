@@ -20,6 +20,8 @@ import com.javaop.plugin_interfaces.GenericPluginInterface;
 import com.javaop.util.BnetPacket;
 import com.javaop.util.User;
 
+import com.javaop.util.TimeReader;
+
 
 /*
  * Created on Jan 27, 2005 By iago
@@ -27,283 +29,234 @@ import com.javaop.util.User;
 
 /**
  * @author iago
- * 
+ *
  */
 public class PluginMain extends GenericPluginInterface implements CommandCallback, EventCallback
 {
-    private PublicExposedFunctions out;
+	private PublicExposedFunctions out;
+	private static long loaded;
+	private String lastWhisper = "<n/a>";
 
-    private static long            loaded      = 0;
+	@Override public void load(StaticExposedFunctions staticFuncs) {
+		loaded = System.currentTimeMillis();
+	}
 
-    private String                 lastWhisper = "<n/a>";
+	@Override public void activate(PublicExposedFunctions out, PluginCallbackRegister register) {
+		this.out = out;
 
-    public void load(StaticExposedFunctions staticFuncs)
-    {
-        loaded = System.currentTimeMillis();
-    }
+		register.registerCommandPlugin(this, "join", 1, false, "J", "<channel>",
+				"Joins the specified channel", null);
+		register.registerCommandPlugin(this, "rejoin", 0, false, "J", "",
+				"Rejoins the current channel", null);
+		register.registerCommandPlugin(this, "uptime", 0, false, "ALN", "",
+				"Gives the time the bot's been online for", null);
+		register.registerCommandPlugin(this, "ping", 1, false, "AN", "<user>",
+				"Pings the specified user", null);
+		register.registerCommandPlugin(this, "where", 0, false, "ALN", "",
+				"Tells the user where the bot is", null);
+		register.registerCommandPlugin(this, "say", 1, false, "T", "<text>",
+				"Says the specified text out loud", null);
+		register.registerCommandPlugin(this, "lastwhisper", 0, false, "N", "",
+				"Shows the last user to give a command", null);
 
-    public void activate(PublicExposedFunctions out, PluginCallbackRegister register)
-    {
-        this.out = out;
-        // this.activated = System.currentTimeMillis();
+		register.registerEventPlugin(this, null);
+	}
 
-        register.registerCommandPlugin(this, "join", 1, false, "J", "<channel>",
-                                       "Joins the specified channel", null);
-        register.registerCommandPlugin(this, "rejoin", 0, false, "J", "",
-                                       "Rejoins the current channel", null);
-        register.registerCommandPlugin(this, "uptime", 0, false, "ALN", "",
-                                       "Gives the time the bot's been online for", null);
-        register.registerCommandPlugin(this, "ping", 1, false, "AN", "<user>",
-                                       "Pings the specified user", null);
-        register.registerCommandPlugin(this, "where", 0, false, "ALN", "",
-                                       "Tells the user where the bot is", null);
-        register.registerCommandPlugin(this, "say", 1, false, "T", "<text>",
-                                       "Says the specified text out loud", null);
-        register.registerCommandPlugin(this, "lastwhisper", 0, false, "N", "",
-                                       "Shows the last user to give a command", null);
+	@Override public void deactivate(PluginCallbackRegister register) {
+	}
 
-        register.registerEventPlugin(this, null);
-    }
+	@Override public String getName() {
+		return "BasicCommands";
+	}
 
-    public void deactivate(PluginCallbackRegister register)
-    {
-    }
+	@Override public String getVersion() {
+		return "2.1.3";
+	}
 
-    public String getName()
-    {
-        return "BasicCommands";
-    }
+	@Override public String getAuthorName() {
+		return "iago";
+	}
 
-    public String getVersion()
-    {
-        return "2.1.3";
-    }
+	@Override public String getAuthorWebsite() {
+		return "www.javaop.com";
+	}
 
-    public String getAuthorName()
-    {
-        return "iago";
-    }
+	@Override public String getAuthorEmail() {
+		return "iago@valhallalegends.com";
+	}
 
-    public String getAuthorWebsite()
-    {
-        return "www.javaop.com";
-    }
+	public String getShortDescription() {
+		return "Basic commands";
+	}
 
-    public String getAuthorEmail()
-    {
-        return "iago@valhallalegends.com";
-    }
+	@Override public String getLongDescription() {
+		return "A collection of basic commands that most bots have.";
+	}
 
-    public String getShortDescription()
-    {
-        return "Basic commands";
-    }
+	@Override public Properties getDefaultSettingValues() {
+		Properties p = new Properties();
+		p.setProperty("Instant joins", "true");
+		return p;
+	}
 
-    public String getLongDescription()
-    {
-        return "A collection of basic commands that most bots have.";
-    }
+	@Override public Properties getSettingsDescription() {
+		Properties p = new Properties();
+		p.setProperty("Instant joins", "If this is set, joins will happen instantly without waiting for other events to occur.");
+		return p;
+	}
 
-    public Properties getDefaultSettingValues()
-    {
-        Properties p = new Properties();
-        p.setProperty("Instant joins", "true");
-        return p;
-    }
+	@Override public JComponent getComponent(String settingName, String value) {
+		return new JCheckBox("", value.equalsIgnoreCase("true"));
+	}
 
-    public Properties getSettingsDescription()
-    {
-        Properties p = new Properties();
-        p.setProperty("Instant joins",
-                      "If this is set, joins will happen instantly without waiting for other events to occur.");
-        return p;
-    }
+	@Override public Properties getGlobalDefaultSettingValues() {
+		return new Properties();
+	}
 
-    public JComponent getComponent(String settingName, String value)
-    {
-        return new JCheckBox("", value.equalsIgnoreCase("true"));
-    }
+	@Override public Properties getGlobalSettingsDescription() {
+		return new Properties();
+	}
 
-    public Properties getGlobalDefaultSettingValues()
-    {
-        Properties p = new Properties();
-        return p;
-    }
+	@Override public JComponent getGlobalComponent(String settingName, String value) {
+		return null;
+	}
 
-    public Properties getGlobalSettingsDescription()
-    {
-        Properties p = new Properties();
-        return p;
-    }
+	public boolean isRequiredPlugin() {
+		return true;
+	}
 
-    public JComponent getGlobalComponent(String settingName, String value)
-    {
-        return null;
-    }
+	@Override public void commandExecuted(String user, String command, String[] args, int loudness, Object data) throws
+			PluginException, IOException, CommandUsedIllegally, CommandUsedImproperly
+	{
+		String commandLowerCase = command.toLowerCase();
 
-    public boolean isRequiredPlugin()
-    {
-        return true;
-    }
+		switch (command.toLowerCase()) {
+			case "join":
+				if (args.length == 0) {
+					throw new CommandUsedImproperly("join requires a parameter", user, command);
+				}
 
-    public void commandExecuted(String user, String command, String[] args, int loudness,
-            Object data) throws PluginException, IOException, CommandUsedIllegally, CommandUsedImproperly
-    {
-        if (command.equalsIgnoreCase("join"))
-        {
-            if (args.length == 0)
-                throw new CommandUsedImproperly("join requires a parameter", user, command);
+				if (out.getLocalSettingDefault(getName(), "Instant joins", "true").equalsIgnoreCase("true")) {
+					BnetPacket join = new BnetPacket(SID_JOINCHANNEL);
+					join.addDWord(0x02);
+					join.addNTString(args[0]);
+					out.sendPacket(join);
+				} else {
+					out.sendText("/join " + args[0]);
+				}
+				break;
 
-            if (out.getLocalSettingDefault(getName(), "Instant joins", "true").equalsIgnoreCase(
-                                                                                                "true"))
-            {
-                BnetPacket join = new BnetPacket(SID_JOINCHANNEL);
-                join.addDWord(0x02);
-                join.addNTString(args[0]);
-                out.sendPacket(join);
-            }
-            else
-            {
-                out.sendText("/join " + args[0]);
-            }
-        }
-        else if (command.equalsIgnoreCase("rejoin"))
-        {
-            if (out.getLocalSettingDefault(getName(), "Instant joins", "true").equalsIgnoreCase(
-                                                                                                "true"))
-            {
-                BnetPacket leave = new BnetPacket(SID_LEAVECHAT);
-                out.sendPacket(leave);
-                BnetPacket join = new BnetPacket(SID_JOINCHANNEL);
-                join.addDWord(0x02);
-                join.addNTString(out.channelGetName());
-                out.sendPacket(join);
-            }
-            else
-            {
-                String channel = out.channelGetName();
-                out.sendText("/join some random JavaOp-channel!");
-                out.sendText("/join " + channel);
-            }
+			case "rejoin":
+				if (out.getLocalSettingDefault(getName(), "Instant joins", "true").equalsIgnoreCase("true")) {
+					BnetPacket leave = new BnetPacket(SID_LEAVECHAT);
+					out.sendPacket(leave);
+					BnetPacket join = new BnetPacket(SID_JOINCHANNEL);
+					join.addDWord(0x02);
+					join.addNTString(out.channelGetName());
+					out.sendPacket(join);
+				} else {
+					String channel = out.channelGetName();
+					out.sendText("/join some random JavaOp-channel!");
+					out.sendText("/join " + channel);
+				}
+				break;
 
-        }
-        else if (command.equalsIgnoreCase("uptime"))
-        {
-            out.sendTextUserPriority(user, "This bot has been up for "
-                    + TimeReader.timeToString(System.currentTimeMillis() - loaded), loudness,
-                                     PRIORITY_LOW);
-        }
-        else if (command.equalsIgnoreCase("ping"))
-        {
-            if (args.length == 0)
-                args = new String[]
-                { user };
+			case "uptime":
+				out.sendTextUserPriority(user, "This bot has been up for "
+								+ TimeReader.timeToString(System.currentTimeMillis() - loaded), loudness,
+						PRIORITY_LOW);
+				break;
 
-            Optional<User> u = out.channelGetUser(args[0]);
+			case "ping":
+				if (args.length == 0) {
+					args = new String[]{user};
+				}
 
-            if (!u.isPresent())
-            {
-                if (user != null)
-                    out.sendTextPriority("/w " + args[0] + " [ping]" + user, PRIORITY_LOW);
-                else
-                    out.sendText("/w " + args[0] + " [ping]" + "<local>");
-            }
-            else
-            {
-                out.sendTextUserPriority(user, args[0] + "'s ping is " + u.get().getPing() + "ms",
-                                         loudness, PRIORITY_LOW);
-            }
-        }
-        else if (command.equalsIgnoreCase("where"))
-        {
-            out.sendTextUser(user, "I am in channel: " + out.channelGetName(), PRIORITY_LOW);
-        }
-        else if (command.equalsIgnoreCase("say"))
-        {
-            if (args.length == 0 || args[0].length() < 1)
-                throw new CommandUsedImproperly("Say requires a parameter", user, command);
+				Optional<User> u = out.channelGetUser(args[0]);
+				if (u.isPresent()) {
+					out.sendTextUserPriority(user, args[0] + "'s ping is " + u.get().getPing() + "ms", loudness, PRIORITY_LOW);
+				} else {
+					if (user != null) {
+						out.sendTextPriority("/w " + args[0] + " [ping]" + user, PRIORITY_LOW);
+					} else {
+						out.sendText("/w " + args[0] + " [ping]" + "<local>");
+					}
+				}
+				break;
 
-            if (args[0].charAt(0) == '/' && out.dbHasAny(user, "N", true) == false)
-            {
-                args[0] = " " + args[0];
-            }
+			case "where":
+				out.sendTextUser(user, "I am in channel: " + out.channelGetName(), PRIORITY_LOW);
+				break;
 
-            if (out.dbHasAny(user, "M", true))
-                out.sendTextPriority(args[0], PRIORITY_VERY_HIGH + 1);
-            else
-                out.sendTextPriority(args[0], PRIORITY_LOW);
-        }
-        else if (command.equalsIgnoreCase("lastwhisper"))
-        {
-            out.sendTextUserPriority(user, "Last whisper was: " + lastWhisper, QUIET, PRIORITY_LOW);
-        }
-        else
-        {
-            out.sendTextUser(
-                             user,
-                             "There is an error in BasicCommands -- missing a command -- please inform iago",
-                             loudness);
-        }
-    }
+			case "say":
+				if (args.length == 0 || args[0].length() < 1) {
+					throw new CommandUsedImproperly("Say requires a parameter", user, command);
+				}
 
-    public void talk(String user, String statstring, int ping, int flags) throws IOException, PluginException
-    {
-    }
+				if (args[0].charAt(0) == '/' && out.dbHasAny(user, "N", true) == false) {
+					args[0] = " " + args[0];
+				}
 
-    public void emote(String user, String statstring, int ping, int flags) throws IOException, PluginException
-    {
-    }
+				if (out.dbHasAny(user, "M", true)) {
+					out.sendTextPriority(args[0], PRIORITY_VERY_HIGH + 1);
+				} else {
+					out.sendTextPriority(args[0], PRIORITY_LOW);
+				}
+				break;
 
-    public void whisperFrom(String user, String statstring, int ping, int flags) throws IOException, PluginException
-    {
-        this.lastWhisper = "<" + user + "> " + statstring;
-    }
+			case "lastwhisper":
+				out.sendTextUserPriority(user, "Last whisper was: " + lastWhisper, QUIET, PRIORITY_LOW);
+				break;
 
-    public void whisperTo(String user, String statstring, int ping, int flags) throws IOException, PluginException
-    {
-        if (statstring.matches("\\[ping\\].*"))
-        {
-            String username = statstring.replaceAll("\\[ping\\]", "");
+			default:
+				out.sendTextUser(user, "There is an error in BasicCommands -- missing a command -- please inform iago", loudness);
+		}
+	}
 
-            if (user.equalsIgnoreCase("<local>"))
-                out.sendTextUserPriority(username, user + "'s ping is " + ping + "ms",
-                                         LoudnessConstants.SILENT, PRIORITY_LOW);
-            else
-                out.sendTextUserPriority(username, user + "'s ping is " + ping + "ms",
-                                         LoudnessConstants.QUIET, PRIORITY_LOW);
-        }
-    }
+	@Override public void talk(String user, String statstring, int ping, int flags) throws IOException, PluginException {
+	}
 
-    public void userShow(String user, String statstring, int ping, int flags) throws IOException, PluginException
-    {
-    }
+	@Override public void emote(String user, String statstring, int ping, int flags) throws IOException, PluginException {
+	}
 
-    public void userJoin(String user, String statstring, int ping, int flags) throws IOException, PluginException
-    {
-    }
+	@Override public void whisperFrom(String user, String statstring, int ping, int flags) throws IOException, PluginException {
+		this.lastWhisper = "<" + user + "> " + statstring;
+	}
 
-    public void userLeave(String user, String statstring, int ping, int flags) throws IOException, PluginException
-    {
-    }
+	@Override public void whisperTo(String user, String statstring, int ping, int flags) throws IOException, PluginException {
+		if (statstring.matches("\\[ping\\].*")) {
+			String username = statstring.replaceAll("\\[ping\\]", "");
 
-    public void userFlags(String user, String statstring, int ping, int flags) throws IOException, PluginException
-    {
-    }
+			if (user.equalsIgnoreCase("<local>")) {
+				out.sendTextUserPriority(username, user + "'s ping is " + ping + "ms", LoudnessConstants.SILENT, PRIORITY_LOW);
+			} else {
+				out.sendTextUserPriority(username, user + "'s ping is " + ping + "ms", LoudnessConstants.QUIET, PRIORITY_LOW);
+			}
+		}
+	}
 
-    public void error(String user, String statstring, int ping, int flags) throws IOException, PluginException
-    {
-    }
+	@Override public void userShow(String user, String statstring, int ping, int flags) throws IOException, PluginException {
+	}
 
-    public void info(String user, String statstring, int ping, int flags) throws IOException, PluginException
-    {
-    }
+	@Override public void userJoin(String user, String statstring, int ping, int flags) throws IOException, PluginException {
+	}
 
-    public void broadcast(String user, String statstring, int ping, int flags) throws IOException, PluginException
-    {
-    }
+	@Override public void userLeave(String user, String statstring, int ping, int flags) throws IOException, PluginException {
+	}
 
-    public void channel(String user, String statstring, int ping, int flags) throws IOException, PluginException
-    {
-    }
+	@Override public void userFlags(String user, String statstring, int ping, int flags) throws IOException, PluginException {
+	}
+
+	@Override public void error(String user, String statstring, int ping, int flags) throws IOException, PluginException {
+	}
+
+	@Override public void info(String user, String statstring, int ping, int flags) throws IOException, PluginException {
+	}
+
+	@Override public void broadcast(String user, String statstring, int ping, int flags) throws IOException, PluginException {
+	}
+
+	@Override public void channel(String user, String statstring, int ping, int flags) throws IOException, PluginException {
+	}
 
 }

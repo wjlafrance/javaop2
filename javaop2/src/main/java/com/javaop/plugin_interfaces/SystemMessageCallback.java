@@ -23,11 +23,11 @@ public interface SystemMessageCallback extends AbstractCallback
 	 * taken immediately; EMERGENCY - All hell's going on, we're unusable; If
 	 * you want to know where I got the ideas for these levels, "man syslog" :)
 	 */
-	public void systemMessage(int level, String message, Object data);
+	void systemMessage(int level, String message, Object data);
 
 	/**
 	 * Show a message. This can contain color codes, see
 	 * javaop2_pub/util/ColorConstants.java
 	 */
-	public void showMessage(String message, Object data);
+	void showMessage(String message, Object data);
 }

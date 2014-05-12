@@ -22,8 +22,8 @@ import com.javaop.exceptions.PluginException;
 public interface RawEventCallback extends AbstractCallback
 {
 	/** An event is occurring. It can be modified or cancelled at this point. */
-	public BnetEvent eventOccurring(BnetEvent event, Object data) throws IOException, PluginException;
+	BnetEvent eventOccurring(BnetEvent event, Object data) throws IOException, PluginException;
 
 	/** An event has occurred. It can't be modified at this point. */
-	public void eventOccurred(BnetEvent event, Object data) throws IOException, PluginException;
+	void eventOccurred(BnetEvent event, Object data) throws IOException, PluginException;
 }

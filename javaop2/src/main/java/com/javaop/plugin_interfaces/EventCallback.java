@@ -18,27 +18,27 @@ import com.javaop.exceptions.PluginException;
  */
 public interface EventCallback extends AbstractCallback
 {
-	public void talk(String user, String statstring, int ping, int flags) throws IOException, PluginException;
+	void talk(String user, String statstring, int ping, int flags) throws IOException, PluginException;
 
-	public void emote(String user, String statstring, int ping, int flags) throws IOException, PluginException;
+	void emote(String user, String statstring, int ping, int flags) throws IOException, PluginException;
 
-	public void whisperFrom(String user, String statstring, int ping, int flags) throws IOException, PluginException;
+	void whisperFrom(String user, String statstring, int ping, int flags) throws IOException, PluginException;
 
-	public void whisperTo(String user, String statstring, int ping, int flags) throws IOException, PluginException;
+	void whisperTo(String user, String statstring, int ping, int flags) throws IOException, PluginException;
 
-	public void userShow(String user, String statstring, int ping, int flags) throws IOException, PluginException;
+	void userShow(String user, String statstring, int ping, int flags) throws IOException, PluginException;
 
-	public void userJoin(String user, String statstring, int ping, int flags) throws IOException, PluginException;
+	void userJoin(String user, String statstring, int ping, int flags) throws IOException, PluginException;
 
-	public void userLeave(String user, String statstring, int ping, int flags) throws IOException, PluginException;
+	void userLeave(String user, String statstring, int ping, int flags) throws IOException, PluginException;
 
-	public void userFlags(String user, String statstring, int ping, int flags) throws IOException, PluginException;
+	void userFlags(String user, String statstring, int ping, int flags) throws IOException, PluginException;
 
-	public void error(String user, String statstring, int ping, int flags) throws IOException, PluginException;
+	void error(String user, String statstring, int ping, int flags) throws IOException, PluginException;
 
-	public void info(String user, String statstring, int ping, int flags) throws IOException, PluginException;
+	void info(String user, String statstring, int ping, int flags) throws IOException, PluginException;
 
-	public void broadcast(String user, String statstring, int ping, int flags) throws IOException, PluginException;
+	void broadcast(String user, String statstring, int ping, int flags) throws IOException, PluginException;
 
-	public void channel(String user, String statstring, int ping, int flags) throws IOException, PluginException;
+	void channel(String user, String statstring, int ping, int flags) throws IOException, PluginException;
 }
