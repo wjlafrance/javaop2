@@ -11,87 +11,87 @@ import com.javaop.util.User;
 
 /**
  * @author iago
- * 
+ *
  */
 public class UserList
 {
-    private Vector users;
+	private Vector users;
 
-    public UserList()
-    {
-        users = new Vector();
-    }
+	public UserList()
+	{
+		users = new Vector();
+	}
 
-    public void clear()
-    {
-        users.clear();
-    }
+	public void clear()
+	{
+		users.clear();
+	}
 
-    public int size()
-    {
-        return users.size();
-    }
+	public int size()
+	{
+		return users.size();
+	}
 
-    public User addUser(String name, int flags, int ping, String statstring)
-    {
-        User old = removeUser(name);
-        User u = null;
+	public User addUser(String name, int flags, int ping, String statstring)
+	{
+		User old = removeUser(name);
+		User u = null;
 
-        if (old == null)
-        {
-            u = new UserData(name, ping, flags, statstring);
-        }
-        else
-        {
-            u = new UserData(name, ping, flags, old.getRawStatstring());
-        }
-        users.add(u);
+		if (old == null)
+		{
+			u = new UserData(name, ping, flags, statstring);
+		}
+		else
+		{
+			u = new UserData(name, ping, flags, old.getRawStatstring());
+		}
+		users.add(u);
 
-        return u;
+		return u;
 
-    }
+	}
 
-    public User removeUser(String name)
-    {
-        for (int i = 0; i < users.size(); i++)
-            if (((UserData) users.get(i)).equals(name))
-                return (User) users.remove(i);
+	public User removeUser(String name)
+	{
+		for (int i = 0; i < users.size(); i++)
+			if (((UserData) users.get(i)).equals(name))
+				return (User) users.remove(i);
 
-        return null;
-    }
+		return null;
+	}
 
-    public User getUser(String name)
-    {
-        for (int i = 0; i < users.size(); i++)
-            if (((UserData) users.get(i)).equals(name))
-                return (User) users.get(i);
+	public User getUser(String name)
+	{
+		for (int i = 0; i < users.size(); i++)
+			if (((UserData) users.get(i)).equals(name))
+				return (User) users.get(i);
 
-        return null;
-    }
+		return null;
+	}
 
-    public String[] matchNames(String pattern)
-    {
-        Vector ret = new Vector();
-        pattern = Pattern.fixPattern(pattern);
+	public String[] matchNames(String pattern)
+	{
+		Vector ret = new Vector();
+		pattern = Pattern.fixPattern(pattern);
 
-        for (int i = 0; i < users.size(); i++)
-        {
-            UserData user = (UserData) users.get(i);
+		for (int i = 0; i < users.size(); i++)
+		{
+			UserData user = (UserData) users.get(i);
 
-            if (user.getName().toLowerCase().matches(pattern))
-                ret.add(user.getName());
-        }
+			if (user.getName().toLowerCase().matches(pattern))
+				ret.add(user.getName());
+		}
 
-        return (String[]) ret.toArray(new String[ret.size()]);
-    }
+		return (String[]) ret.toArray(new String[ret.size()]);
+	}
 
-    public String[] getList()
-    {
-        Vector ret = new Vector();
-        for (int i = 0; i < users.size(); i++)
-            ret.add(((UserData) users.get(i)).getName());
+	public String[] getList()
+	{
+		Vector ret = new Vector();
+		for (int i = 0; i < users.size(); i++)
+			ret.add(((UserData) users.get(i)).getName());
 
-        return (String[]) ret.toArray(new String[ret.size()]);
-    }
+		return (String[]) ret.toArray(new String[ret.size()]);
+	}
 
 }

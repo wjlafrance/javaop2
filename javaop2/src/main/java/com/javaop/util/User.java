@@ -8,21 +8,21 @@ import java.io.Serializable;
 
 /**
  * @author iago
- * 
+ *
  */
 public interface User extends Serializable
 {
-    public String getName();
+	public String getName();
 
-    public int getPing();
+	public int getPing();
 
-    public int getFlags();
+	public int getFlags();
 
-    public String getPrettyStatstring();
+	public String getPrettyStatstring();
 
-    public String getRawStatstring();
+	public String getRawStatstring();
 
-    public long getJoinTime();
+	public long getJoinTime();
 
-    public String toString();
+	public String toString();
 }

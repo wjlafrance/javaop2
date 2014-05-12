@@ -8,12 +8,12 @@ import com.javaop.plugin_interfaces.ErrorCallback;
 
 /**
  * @author iago
- * 
+ *
  */
 public class ErrorPlugin extends AbstractPlugin
 {
-    public ErrorPlugin(ErrorCallback callback, Object data)
-    {
-        super(callback, data);
-    }
+	public ErrorPlugin(ErrorCallback callback, Object data)
+	{
+		super(callback, data);
+	}
 }

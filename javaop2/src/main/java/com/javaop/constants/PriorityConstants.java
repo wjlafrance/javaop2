@@ -5,13 +5,13 @@ package com.javaop.constants;
 
 /**
  * @author iago
- * 
+ *
  */
 public interface PriorityConstants
 {
-    public static final int PRIORITY_VERY_LOW  = -100;
-    public static final int PRIORITY_LOW       = -50;
-    public static final int PRIORITY_NORMAL    = 0;
-    public static final int PRIORITY_HIGH      = 50;
-    public static final int PRIORITY_VERY_HIGH = 100;
+	public static final int PRIORITY_VERY_LOW  = -100;
+	public static final int PRIORITY_LOW       = -50;
+	public static final int PRIORITY_NORMAL    = 0;
+	public static final int PRIORITY_HIGH      = 50;
+	public static final int PRIORITY_VERY_HIGH = 100;
 }

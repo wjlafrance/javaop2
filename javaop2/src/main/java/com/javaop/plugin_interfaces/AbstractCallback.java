@@ -13,10 +13,10 @@ import com.javaop.constants.PriorityConstants;
 
 /**
  * @author iago
- * 
+ *
  */
 public interface AbstractCallback extends ErrorLevelConstants, EventConstants, PacketConstants,
-        Flags, PriorityConstants, LoudnessConstants
+		Flags, PriorityConstants, LoudnessConstants
 {
 
 }

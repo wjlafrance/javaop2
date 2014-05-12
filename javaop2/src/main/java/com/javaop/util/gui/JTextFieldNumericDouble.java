@@ -11,29 +11,29 @@ import javax.swing.JTextField;
 
 public class JTextFieldNumericDouble extends JTextField implements KeyListener
 {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    public JTextFieldNumericDouble(String text)
-    {
-        super(text);
+	public JTextFieldNumericDouble(String text)
+	{
+		super(text);
 
-        this.addKeyListener(this);
-    }
+		this.addKeyListener(this);
+	}
 
-    public void keyTyped(KeyEvent e)
-    {
-        char code = e.getKeyChar();
+	public void keyTyped(KeyEvent e)
+	{
+		char code = e.getKeyChar();
 
-        if ((code < '0' || code > '9') && code != '.')
-            e.consume();
-    }
+		if ((code < '0' || code > '9') && code != '.')
+			e.consume();
+	}
 
-    public void keyPressed(KeyEvent e)
-    {
-    }
+	public void keyPressed(KeyEvent e)
+	{
+	}
 
-    public void keyReleased(KeyEvent e)
-    {
+	public void keyReleased(KeyEvent e)
+	{
 
-    }
+	}
 }

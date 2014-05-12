@@ -8,12 +8,12 @@ import com.javaop.plugin_interfaces.GuiCallback;
 
 /**
  * @author iago
- * 
+ *
  */
 public class GuiPlugin extends AbstractPlugin
 {
-    public GuiPlugin(GuiCallback callback, Object data)
-    {
-        super(callback, data);
-    }
+	public GuiPlugin(GuiCallback callback, Object data)
+	{
+		super(callback, data);
+	}
 }

@@ -19,117 +19,117 @@ import com.javaop.exceptions.PluginException;
  */
 public interface StaticExposedFunctions
 {
-    /****************
-     * Bot Instances
-     */
-    
-    /**
-     * Creates a new bot and activates all plugins
-     */
-    public void newBot(String name) throws PluginException;
+	/****************
+	 * Bot Instances
+	 */
 
-    /**
-     * Start a new bot instance with the specified name.
-     * IllegalArgumentException is thrown if there is no bot with that name, or
-     * if the bot is already running.
-     */
-    public void botStart(String name) throws PluginException, IOException;
+	/**
+	 * Creates a new bot and activates all plugins
+	 */
+	public void newBot(String name) throws PluginException;
 
-    /**
-     * Kill the bot instance with the specified name. IllegalArgumentException
-     * is thrown if there is no bot with that name, or if the bot isn't running.
-     */
-    public void botStop(String name) throws IOException, IllegalArgumentException;
+	/**
+	 * Start a new bot instance with the specified name.
+	 * IllegalArgumentException is thrown if there is no bot with that name, or
+	 * if the bot is already running.
+	 */
+	public void botStart(String name) throws PluginException, IOException;
 
-    /** Get a list of all bots */
-    public String[] botGetAllNames();
+	/**
+	 * Kill the bot instance with the specified name. IllegalArgumentException
+	 * is thrown if there is no bot with that name, or if the bot isn't running.
+	 */
+	public void botStop(String name) throws IOException, IllegalArgumentException;
 
-    /** Get a list of all running bots */
-    public String[] botGetActiveNames();
+	/** Get a list of all bots */
+	public String[] botGetAllNames();
 
-    /** Get the public function class for all running bots */
-    public PublicExposedFunctions[] botGetAllActive();
+	/** Get a list of all running bots */
+	public String[] botGetActiveNames();
 
-    /** Get the public function class for a specific bot */
-    public PublicExposedFunctions botGet(String name);
+	/** Get the public function class for all running bots */
+	public PublicExposedFunctions[] botGetAllActive();
 
-    /** Send a system message to all active bots */
-    public void systemMessage(int level, String message);
+	/** Get the public function class for a specific bot */
+	public PublicExposedFunctions botGet(String name);
 
-    /** Remove the files for the bot */
-    public void botDelete(String name);
+	/** Send a system message to all active bots */
+	public void systemMessage(int level, String message);
 
-    /** Check if the bot is loaded by default */
-    public boolean botIsDefault(String name) throws IOException;
+	/** Remove the files for the bot */
+	public void botDelete(String name);
 
-    /** Toggle whether or not a bot is loaded by deafult */
-    public void botToggleDefault(String name) throws IOException;
+	/** Check if the bot is loaded by default */
+	public boolean botIsDefault(String name) throws IOException;
 
-    /** Get the settings for this bot */
-    public PersistantMap botGetSettings(String bot);
-    /** Get the customized flags file */
-    ;
+	/** Toggle whether or not a bot is loaded by deafult */
+	public void botToggleDefault(String name) throws IOException;
 
-    public PersistantMap getCustomFlags(String bot);
+	/** Get the settings for this bot */
+	public PersistantMap botGetSettings(String bot);
+	/** Get the customized flags file */
+	;
 
-    /***************
-     * Settings
-     */
+	public PersistantMap getCustomFlags(String bot);
 
-    /** Gets the bot's version */
-    public String getVersion();
+	/***************
+	 * Settings
+	 */
 
-    /** Get a global setting */
-    public String getGlobalSetting(String section, String key);
+	/** Gets the bot's version */
+	public String getVersion();
 
-    /** Get a global section, or write/return the default value */
-    public String getGlobalSettingDefault(String section, String key, String defaultValue);
+	/** Get a global setting */
+	public String getGlobalSetting(String section, String key);
 
-    /** Set a global setting */
-    public void setGlobalSetting(String section, String key, String value);
+	/** Get a global section, or write/return the default value */
+	public String getGlobalSettingDefault(String section, String key, String defaultValue);
 
-    /** Get an entire section of global variables */
-    public Properties getGlobalSection(String section);
+	/** Set a global setting */
+	public void setGlobalSetting(String section, String key, String value);
 
-    /** Get the keys for the specified section (sorted by name) */
-    public String[] getGlobalKeys(String section);
+	/** Get an entire section of global variables */
+	public Properties getGlobalSection(String section);
 
-    /** Set a global variable */
-    public void putGlobalVariable(Object key, Object value);
+	/** Get the keys for the specified section (sorted by name) */
+	public String[] getGlobalKeys(String section);
 
-    /** Get a global variable */
-    public Object getGlobalVariable(Object key);
+	/** Set a global variable */
+	public void putGlobalVariable(Object key, Object value);
 
-    /**************
-     * Plugins
-     */
+	/** Get a global variable */
+	public Object getGlobalVariable(Object key);
 
-    public String[] pluginGetNames();
+	/**************
+	 * Plugins
+	 */
 
-    public GenericPluginInterface pluginGet(String name);
+	public String[] pluginGetNames();
 
-    public Properties pluginGetDefaultSettings(String plugin);
+	public GenericPluginInterface pluginGet(String name);
 
-    public Properties pluginGetGlobalDefaultSettings(String plugin);
+	public Properties pluginGetDefaultSettings(String plugin);
 
-    public Properties pluginGetDescriptions(String plugin);
+	public Properties pluginGetGlobalDefaultSettings(String plugin);
 
-    public Properties pluginGetGlobalDescriptions(String plugin);
+	public Properties pluginGetDescriptions(String plugin);
 
-    public Hashtable pluginGetComponents(String plugin, Properties values);
+	public Properties pluginGetGlobalDescriptions(String plugin);
 
-    public Hashtable pluginGetGlobalComponents(String plugin, Properties values);
+	public Hashtable pluginGetComponents(String plugin, Properties values);
 
-    public GenericPluginInterface[] pluginGetAll(boolean includeDefault);
+	public Hashtable pluginGetGlobalComponents(String plugin, Properties values);
 
-    public String pluginGetFullName(String plugin);
+	public GenericPluginInterface[] pluginGetAll(boolean includeDefault);
 
-    public String pluginGetAuthor(String plugin);
+	public String pluginGetFullName(String plugin);
 
-    public String pluginGetWebsite(String plugin);
+	public String pluginGetAuthor(String plugin);
 
-    public String pluginGetEmail(String plugin);
+	public String pluginGetWebsite(String plugin);
 
-    public String pluginGetLongDescription(String plugin);
+	public String pluginGetEmail(String plugin);
+
+	public String pluginGetLongDescription(String plugin);
 
 }

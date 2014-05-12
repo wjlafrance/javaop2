@@ -16,141 +16,141 @@ import java.util.Vector;
 
 /**
  * @author iago
- * 
+ *
  */
 public class FileManagement
 {
-    public static void addLine(File file, String line) throws IOException
-    {
-        PrintWriter out = new PrintWriter(new FileOutputStream(file, true));
-        out.println(line);
-        out.close();
-    }
+	public static void addLine(File file, String line) throws IOException
+	{
+		PrintWriter out = new PrintWriter(new FileOutputStream(file, true));
+		out.println(line);
+		out.close();
+	}
 
-    public static void removeLine(File file, String remove) throws IOException
-    {
-        BufferedReader in = new BufferedReader(new FileReader(file));
-        Vector<String> lines = new Vector<String>();
+	public static void removeLine(File file, String remove) throws IOException
+	{
+		BufferedReader in = new BufferedReader(new FileReader(file));
+		Vector<String> lines = new Vector<String>();
 
-        String line;
-        while ((line = in.readLine()) != null)
-        {
-            if (!line.equalsIgnoreCase(remove))
-            {
-                lines.add(line);
-            }
-        }
-        in.close();
+		String line;
+		while ((line = in.readLine()) != null)
+		{
+			if (!line.equalsIgnoreCase(remove))
+			{
+				lines.add(line);
+			}
+		}
+		in.close();
 
-        PrintWriter out = new PrintWriter(new FileOutputStream(file, false));
-        Enumeration<String> e = lines.elements();
-        while (e.hasMoreElements())
-            out.println(e.nextElement());
+		PrintWriter out = new PrintWriter(new FileOutputStream(file, false));
+		Enumeration<String> e = lines.elements();
+		while (e.hasMoreElements())
+			out.println(e.nextElement());
 
-        out.close();
-    }
+		out.close();
+	}
 
-    public static boolean findLine(File file, String search) throws IOException
-    {
-        try
-        {
-            BufferedReader in = new BufferedReader(new FileReader(file));
+	public static boolean findLine(File file, String search) throws IOException
+	{
+		try
+		{
+			BufferedReader in = new BufferedReader(new FileReader(file));
 
-            boolean found = false;
-            String line;
-            while ((line = in.readLine()) != null && !found)
-                if (line.equalsIgnoreCase(search))
-                    found = true;
-            in.close();
+			boolean found = false;
+			String line;
+			while ((line = in.readLine()) != null && !found)
+				if (line.equalsIgnoreCase(search))
+					found = true;
+			in.close();
 
-            return found;
-        }
-        catch (FileNotFoundException e)
-        {
-            return false;
-        }
-    }
+			return found;
+		}
+		catch (FileNotFoundException e)
+		{
+			return false;
+		}
+	}
 
-    public static void setFile(File file, String[] data) throws IOException
-    {
-        PrintWriter out = new PrintWriter(new FileOutputStream(file));
+	public static void setFile(File file, String[] data) throws IOException
+	{
+		PrintWriter out = new PrintWriter(new FileOutputStream(file));
 
-        for (int i = 0; i < data.length; i++)
-            out.println(data[i]);
+		for (int i = 0; i < data.length; i++)
+			out.println(data[i]);
 
-        out.close();
-    }
+		out.close();
+	}
 
-    public static String[] getUniqueLines(File file) throws IOException
-    {
-        if (!file.exists())
-        {
-            file.getParentFile().mkdirs();
-            return new String[0];
-        }
+	public static String[] getUniqueLines(File file) throws IOException
+	{
+		if (!file.exists())
+		{
+			file.getParentFile().mkdirs();
+			return new String[0];
+		}
 
-        return Uniq.uniq(getFile(file));
-    }
+		return Uniq.uniq(getFile(file));
+	}
 
-    public static Vector<String> getFile(File file) throws IOException
-    {
-        if (!file.exists())
-        {
-            file.getParentFile().mkdirs();
-            return new Vector<String>();
-        }
+	public static Vector<String> getFile(File file) throws IOException
+	{
+		if (!file.exists())
+		{
+			file.getParentFile().mkdirs();
+			return new Vector<String>();
+		}
 
-        BufferedReader in = new BufferedReader(new FileReader(file));
-        Vector<String> lines = new Vector<String>();
+		BufferedReader in = new BufferedReader(new FileReader(file));
+		Vector<String> lines = new Vector<String>();
 
-        String line;
-        while ((line = in.readLine()) != null)
-            lines.add(line);
-        in.close();
+		String line;
+		while ((line = in.readLine()) != null)
+			lines.add(line);
+		in.close();
 
-        return lines;
-    }
+		return lines;
+	}
 
-    public static Vector<File> search(File base, String pattern)
-    {
-        if (!base.exists())
-        {
-            base.getParentFile().mkdirs();
-            return new Vector<File>();
-        }
+	public static Vector<File> search(File base, String pattern)
+	{
+		if (!base.exists())
+		{
+			base.getParentFile().mkdirs();
+			return new Vector<File>();
+		}
 
-        Vector<File> ret = new Vector<File>();
+		Vector<File> ret = new Vector<File>();
 
-        if (base.isDirectory())
-        {
-            File[] files = base.listFiles();
+		if (base.isDirectory())
+		{
+			File[] files = base.listFiles();
 
-            for (int i = 0; i < files.length; i++)
-            {
-                if (files[i].isDirectory())
-                    ret.addAll(search(files[i], pattern));
-                else if (files[i].getName().matches(pattern))
-                    ret.add(new File(files[i].getAbsolutePath()));
-            }
-        }
-        else if (base.exists())
-        {
-            ret.add(base);
-        }
+			for (int i = 0; i < files.length; i++)
+			{
+				if (files[i].isDirectory())
+					ret.addAll(search(files[i], pattern));
+				else if (files[i].getName().matches(pattern))
+					ret.add(new File(files[i].getAbsolutePath()));
+			}
+		}
+		else if (base.exists())
+		{
+			ret.add(base);
+		}
 
-        return ret;
-    }
+		return ret;
+	}
 
-    public static void copyFile(File oldFile, File newFile) throws IOException
-    {
-        Vector<String> oldData = getFile(oldFile);
+	public static void copyFile(File oldFile, File newFile) throws IOException
+	{
+		Vector<String> oldData = getFile(oldFile);
 
-        String[] oldArray = (String[]) oldData.toArray(new String[oldData.size()]);
-        setFile(newFile, oldArray);
-    }
+		String[] oldArray = (String[]) oldData.toArray(new String[oldData.size()]);
+		setFile(newFile, oldArray);
+	}
 
-    public static void deleteFile(File file)
-    {
-        file.delete();
-    }
+	public static void deleteFile(File file)
+	{
+		file.delete();
+	}
 }

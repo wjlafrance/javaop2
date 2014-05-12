@@ -5,13 +5,13 @@ package com.javaop.exceptions;
 
 /**
  * @author joe
- * 
+ *
  */
 public class LoginException extends PluginException
 {
 
-    public LoginException(String msg)
-    {
-        super(msg);
-    }
+	public LoginException(String msg)
+	{
+		super(msg);
+	}
 }

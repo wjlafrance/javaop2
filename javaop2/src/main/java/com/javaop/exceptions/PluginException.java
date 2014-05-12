@@ -5,19 +5,19 @@ package com.javaop.exceptions;
 
 /**
  * @author iago
- * 
+ *
  */
 public class PluginException extends Exception
 {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    public PluginException(String msg)
-    {
-        super(msg);
-    }
+	public PluginException(String msg)
+	{
+		super(msg);
+	}
 
-    public PluginException(Exception e)
-    {
-        super(e);
-    }
+	public PluginException(Exception e)
+	{
+		super(e);
+	}
 }
