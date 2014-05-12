@@ -5,3 +5,7 @@ jar
 junit.jar
 hashes
 target
+
+.idea
+*.iml
+
