@@ -96,13 +96,7 @@ public class PreferencesPanel extends JPanelEx
 		desc.setWrapStyleWord(true);
 		desc.setFocusable(false);
 
-		defaults.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				Gui.setTextFromComponent(comp, defaultValue);
-			}
-		});
+		defaults.addActionListener(e -> Gui.setTextFromComponent(comp, defaultValue));
 
 		return p;
 	}
