@@ -33,8 +33,9 @@ public class Profile
 		// (STRING[]) Requested Accounts
 		packet.addNTString(user);
 		// (STRING[]) Requested Keys
-		for (int i = 0; i < fields.length; i++)
+		for (int i = 0; i < fields.length; i++) {
 			packet.addNTString(fields[i]);
+		}
 
 		users.put("request-" + profileCookie, user);
 		requests.put("request-" + profileCookie, fields);
@@ -45,29 +46,34 @@ public class Profile
 	public static Hashtable processProfileRequest(int profileCookie, BnetPacket profile)
 	{
 		// (DWORD) Number of accounts
-		if (profile.removeDWord() != 1)
+		if (profile.removeDWord() != 1) {
 			return null;
+		}
 		// (DWORD) Number of keys
 		int keys = profile.removeDWord();
 
 		// (DWORD) Request ID
-		if (profile.removeDWord() != profileCookie)
+		if (profile.removeDWord() != profileCookie) {
 			return null;
+		}
 
 		String user = (String) users.remove("request-" + profileCookie);
 		String[] fields = (String[]) requests.remove("request-" + profileCookie);
 
-		if (user == null || fields == null)
+		if (user == null || fields == null) {
 			return null;
+		}
 
-		if (fields.length != keys)
+		if (fields.length != keys) {
 			return null;
+		}
 
 		// (STRING[]) Requested Key Values
 		Hashtable h = new Hashtable();
 		h.put("username", user);
-		for (int i = 0; i < keys; i++)
+		for (int i = 0; i < keys; i++) {
 			h.put(fields[i], profile.removeNTString());
+		}
 
 		return h;
 	}

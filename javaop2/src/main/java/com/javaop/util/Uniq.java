@@ -12,36 +12,42 @@ public class Uniq
 {
 	public static String[] uniq(Enumeration e)
 	{
-		if (e == null)
+		if (e == null) {
 			return new String[0];
+		}
 
 		Vector v = new Vector();
 
-		while (e.hasMoreElements())
+		while (e.hasMoreElements()) {
 			v.add(e.nextElement());
+		}
 
 		return uniq(v);
 	}
 
 	public static String[] uniq(Vector v)
 	{
-		if (v == null)
+		if (v == null) {
 			return new String[0];
+		}
 
 		String[] s = new String[v.size()];
-		for (int i = 0; i < v.size(); i++)
+		for (int i = 0; i < v.size(); i++) {
 			s[i] = v.get(i).toString();
+		}
 
 		return uniq(s);
 	}
 
 	public static String[] uniq(String[] str)
 	{
-		if (str == null)
+		if (str == null) {
 			return new String[0];
+		}
 
-		if (str.length == 0)
+		if (str.length == 0) {
 			return str;
+		}
 
 		Arrays.sort(str);
 
@@ -51,8 +57,9 @@ public class Uniq
 		ret.add(current);
 		for (int i = 1; i < str.length; i++)
 		{
-			if (current.equalsIgnoreCase(str[i]))
+			if (current.equalsIgnoreCase(str[i])) {
 				continue;
+			}
 
 			current = str[i];
 			ret.add(current);

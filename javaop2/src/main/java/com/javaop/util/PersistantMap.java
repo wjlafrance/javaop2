@@ -68,8 +68,9 @@ public class PersistantMap
 
 	private void load()
 	{
-		if (lastUpdate >= file.lastModified())
+		if (lastUpdate >= file.lastModified()) {
 			return;
+		}
 
 		synchronized (this)
 		{
@@ -90,10 +91,12 @@ public class PersistantMap
 					line = line.trim();
 
 					// Check if it's an empty line or a comment
-					if (line.length() == 0)
+					if (line.length() == 0) {
 						continue;
-					if (line.charAt(0) == '#')
+					}
+					if (line.charAt(0) == '#') {
 						continue;
+					}
 
 					// Check if it's a new section
 					if (line.matches("\\[.*\\]"))
@@ -214,8 +217,9 @@ public class PersistantMap
 	{
 		Vector objectVector = new Vector();
 
-		while (e.hasMoreElements())
+		while (e.hasMoreElements()) {
 			objectVector.add(e.nextElement());
+		}
 
 		Object[] ret = objectVector.toArray();
 		Arrays.sort(ret);
@@ -231,13 +235,15 @@ public class PersistantMap
 		load();
 
 		Properties section = (Properties) sections.get(sectionName);
-		if (section == null)
+		if (section == null) {
 			section = new Properties();
+		}
 
-		if (value == null)
+		if (value == null) {
 			section.remove(key);
-		else
+		} else {
 			section.setProperty(key, value);
+		}
 
 		sections.put(sectionName, section);
 
@@ -252,8 +258,9 @@ public class PersistantMap
 		load();
 
 		Properties section = (Properties) sections.get(sectionName);
-		if (section == null)
+		if (section == null) {
 			return defaultValue;
+		}
 
 		return section.getProperty(key, defaultValue);
 	}
@@ -296,12 +303,14 @@ public class PersistantMap
 		load();
 
 		Properties section = (Properties) sections.get(sectionName);
-		if (section == null)
+		if (section == null) {
 			return;
+		}
 
 		section.remove(key);
-		if (section.size() == 0)
+		if (section.size() == 0) {
 			sections.remove(sectionName);
+		}
 
 		save();
 	}
@@ -313,8 +322,9 @@ public class PersistantMap
 		load();
 
 		Properties section = (Properties) sections.get(sectionName);
-		if (section == null)
+		if (section == null) {
 			return null;
+		}
 
 		return section.keys();
 	}
@@ -333,8 +343,9 @@ public class PersistantMap
 		sectionName = fix(sectionName);
 
 		Properties section = (Properties) sections.get(sectionName);
-		if (section == null)
+		if (section == null) {
 			return 0;
+		}
 
 		return section.size();
 	}
@@ -354,8 +365,9 @@ public class PersistantMap
 		load();
 
 		Properties section = (Properties) sections.get(sectionName);
-		if (section == null)
+		if (section == null) {
 			return false;
+		}
 
 		return section.containsKey(key);
 	}

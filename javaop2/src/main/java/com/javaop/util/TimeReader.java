@@ -14,8 +14,9 @@ public class TimeReader
 
 	public static long stringToTime(String time) throws IllegalArgumentException
 	{
-		if (time == null || time.length() < 1)
+		if (time == null || time.length() < 1) {
 			return 0;
+		}
 
 		time = time.toLowerCase();
 
@@ -36,19 +37,21 @@ public class TimeReader
 
 		time = time.substring(0, time.length() - 1);
 
-		if (time.length() == 0)
+		if (time.length() == 0) {
 			return 0;
+		}
 
 		long baseTime = Long.parseLong(time);
 
-		if (lastChar == 's')
+		if (lastChar == 's') {
 			return baseTime * SECOND;
-		else if (lastChar == 'm')
+		} else if (lastChar == 'm') {
 			return baseTime * MINUTE;
-		else if (lastChar == 'h')
+		} else if (lastChar == 'h') {
 			return baseTime * HOUR;
-		else if (lastChar == 'd')
+		} else if (lastChar == 'd') {
 			return baseTime * DAY;
+		}
 
 		throw new IllegalArgumentException(
 				"Invalid time units.  Valid units are D=Days, M=Minutes, H=Hours, S=Seconds");
@@ -56,8 +59,9 @@ public class TimeReader
 
 	public static String timeToString(long time)
 	{
-		if (time == 0)
+		if (time == 0) {
 			return "0ms";
+		}
 
 		long days = time / DAY;
 		time = time % DAY;

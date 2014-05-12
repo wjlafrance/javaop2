@@ -60,8 +60,9 @@ public class TimeoutSocket extends Thread
 		{
 			s = new Socket(server, port);
 
-			if (cancel)
+			if (cancel) {
 				s.close();
+			}
 		}
 		catch (IOException e)
 		{
@@ -71,8 +72,9 @@ public class TimeoutSocket extends Thread
 
 	private Socket getSocket() throws SocketException
 	{
-		if (failed != null)
+		if (failed != null) {
 			throw new SocketException(failed);
+		}
 		return s;
 	}
 

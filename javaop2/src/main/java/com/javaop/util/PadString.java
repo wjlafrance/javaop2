@@ -38,8 +38,9 @@ public class PadString
 	 */
 	static public String padString(String str, int length, char c)
 	{
-		while (str.length() < length)
+		while (str.length() < length) {
 			str = c + str;
+		}
 
 		return str;
 	}

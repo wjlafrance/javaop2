@@ -28,16 +28,17 @@ public class UserDB
 
 	public void addFlag(String user, char flag)
 	{
-		if (user == null)
+		if (user == null) {
 			return;
+		}
 		flag = Character.toUpperCase(flag);
 		user = user.toLowerCase();
 
 		String current = userDB.getNoWrite(null, user, "");
 
-		if (current.length() == 0)
+		if (current.length() == 0) {
 			userDB.set(null, user, flag + "");
-		else if (!(current.indexOf(flag) >= 0))
+		} else if (!(current.indexOf(flag) >= 0))
 		{
 			current = current + flag;
 			char[] currentArray = current.toCharArray();
@@ -53,11 +54,13 @@ public class UserDB
 
 	public void addFlags(String user, String flags)
 	{
-		if (user == null)
+		if (user == null) {
 			return;
+		}
 
-		for (int i = 0; i < flags.length(); i++)
+		for (int i = 0; i < flags.length(); i++) {
 			addFlag(user, flags.charAt(i));
+		}
 	}
 
 	/**
@@ -72,28 +75,33 @@ public class UserDB
 	 */
 	public void removeFlag(String user, char flag)
 	{
-		if (user == null)
+		if (user == null) {
 			return;
+		}
 
 		flag = Character.toUpperCase(flag);
 		user = user.toLowerCase();
 
 		String current = userDB.getNoWrite(null, user, "");
 
-		if (current.length() > 0)
+		if (current.length() > 0) {
 			userDB.set(null, user, current.replaceAll(flag + "", ""));
+		}
 
-		if (userDB.getNoWrite(null, user, "").length() == 0)
+		if (userDB.getNoWrite(null, user, "").length() == 0) {
 			userDB.remove(null, user);
+		}
 	}
 
 	public void removeFlags(String user, String flags)
 	{
-		if (user == null)
+		if (user == null) {
 			return;
+		}
 
-		for (int i = 0; i < flags.length(); i++)
+		for (int i = 0; i < flags.length(); i++) {
 			removeFlag(user, flags.charAt(i));
+		}
 	}
 
 	/**
@@ -112,29 +120,34 @@ public class UserDB
 	{
 		if (user == null)
 		{
-			if (flag == 'M' || flag == 'U')
+			if (flag == 'M' || flag == 'U') {
 				return true;
+			}
 			return false;
 		}
 
 		user = user.toLowerCase();
 		flag = Character.toUpperCase(flag);
 
-		if (findFlag(user, flag))
+		if (findFlag(user, flag)) {
 			return true;
+		}
 
 		Enumeration e = userDB.propertyNames(null);
 
-		if (e == null)
+		if (e == null) {
 			return false;
+		}
 
 		while (e.hasMoreElements())
 		{
 			String name = (String) e.nextElement();
 
-			if (user.matches(fixPattern(name)))
-				if (findFlag(name, flag))
+			if (user.matches(fixPattern(name))) {
+				if (findFlag(name, flag)) {
 					return true;
+				}
+			}
 		}
 
 		return false;
@@ -142,8 +155,9 @@ public class UserDB
 
 	public String getRawFlags(String user)
 	{
-		if (user == null)
+		if (user == null) {
 			return "MU";
+		}
 
 		user = user.toLowerCase();
 
@@ -162,8 +176,9 @@ public class UserDB
 	 */
 	public String getFlags(String user)
 	{
-		if (user == null)
+		if (user == null) {
 			return "<local user> => MU (always)";
+		}
 
 		user = user.toLowerCase();
 
@@ -183,8 +198,9 @@ public class UserDB
 				patterns.append(name).append(" ");
 				String userFlags = userDB.getNoWrite(null, name, "");
 
-				for (int i = 0; i < userFlags.length(); i++)
+				for (int i = 0; i < userFlags.length(); i++) {
 					flags.add(new Character(userFlags.charAt(i)));
+				}
 			}
 		}
 
@@ -196,8 +212,9 @@ public class UserDB
 		patterns.append("=> ");
 
 		Iterator i = flags.iterator();
-		while (i.hasNext())
+		while (i.hasNext()) {
 			patterns.append(i.next());
+		}
 
 		return patterns.toString();
 	}
@@ -212,8 +229,9 @@ public class UserDB
 	 */
 	public void deleteUser(String user)
 	{
-		if (user == null)
+		if (user == null) {
 			return;
+		}
 
 		user = user.toLowerCase();
 
@@ -243,15 +261,19 @@ public class UserDB
 	 */
 	public boolean hasAny(String user, String flagList, boolean allowMOverride)
 	{
-		if (user != null)
+		if (user != null) {
 			user = user.toLowerCase();
+		}
 
-		if (allowMOverride && !flagList.equals("U"))
+		if (allowMOverride && !flagList.equals("U")) {
 			flagList = flagList + "M";
+		}
 
-		for (int i = 0; i < flagList.length(); i++)
-			if (hasFlag(user, flagList.charAt(i)))
+		for (int i = 0; i < flagList.length(); i++) {
+			if (hasFlag(user, flagList.charAt(i))) {
 				return true;
+			}
+		}
 
 		return false;
 	}
@@ -260,17 +282,20 @@ public class UserDB
 	{
 		user = user.toLowerCase();
 
-		for (int i = 0; i < flagList.length(); i++)
-			if (!hasFlag(user, flagList.charAt(i)))
+		for (int i = 0; i < flagList.length(); i++) {
+			if (!hasFlag(user, flagList.charAt(i))) {
 				return false;
+			}
+		}
 
 		return true;
 	}
 
 	public boolean userExists(String user)
 	{
-		if (user == null)
+		if (user == null) {
 			return true;
+		}
 
 		user = user.toLowerCase();
 
@@ -288,12 +313,14 @@ public class UserDB
 		while (e.hasMoreElements())
 		{
 			String thisUser = (String) e.nextElement();
-			if (userDB.getNoWrite(null, thisUser, "").indexOf(flag) >= 0)
+			if (userDB.getNoWrite(null, thisUser, "").indexOf(flag) >= 0) {
 				users.add(thisUser);
+			}
 		}
 
-		if (flag == 'M' || flag == 'U')
+		if (flag == 'M' || flag == 'U') {
 			users.add("<local user>");
+		}
 
 		return Uniq.uniq(users);
 	}
@@ -304,9 +331,11 @@ public class UserDB
 
 		Vector ret = new Vector();
 
-		if (e != null)
-			while (e.hasMoreElements())
+		if (e != null) {
+			while (e.hasMoreElements()) {
 				ret.add((String) e.nextElement());
+			}
+		}
 
 		return (String[]) ret.toArray(new String[ret.size()]);
 	}
@@ -338,16 +367,17 @@ public class UserDB
 		{
 			char thisChar = str.charAt(i);
 
-			if (thisChar == '*')
+			if (thisChar == '*') {
 				ret.append(".*");
-			else if (thisChar == '?')
+			} else if (thisChar == '?') {
 				ret.append(".");
-			else if (thisChar == '%')
+			} else if (thisChar == '%') {
 				ret.append("[0-9]");
-			else if (!Character.isLetterOrDigit(thisChar))
+			} else if (!Character.isLetterOrDigit(thisChar)) {
 				ret.append("\\").append(thisChar);
-			else
+			} else {
 				ret.append(str.charAt(i));
+			}
 		}
 		return ret.toString().toLowerCase();
 	}

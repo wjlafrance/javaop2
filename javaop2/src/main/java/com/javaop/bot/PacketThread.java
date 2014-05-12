@@ -76,8 +76,9 @@ public class PacketThread extends Thread {
 			String server = out.getLocalSettingDefault("_default", "server", "uswest.battle.net");
 			int port = Integer.parseInt(out.getLocalSettingDefault("_default", "port", "6112"));
 
-			if (!callbacks.connecting(server, port))
+			if (!callbacks.connecting(server, port)) {
 				return;
+			}
 
 			out.lock();
 
@@ -86,15 +87,17 @@ public class PacketThread extends Thread {
 			// Get a list of addresses
 			InetAddress[] addresses = InetAddress.getAllByName(server);
 			int address = (int) (Math.random() * addresses.length);
-			if (stop)
+			if (stop) {
 				return;
+			}
 			out.systemMessage(ErrorLevelConstants.INFO, "[BNET] Got " + addresses.length
 					+ " addresses. Connecting to " + addresses[address] + "..");
 			s = TimeoutSocket.getSocket(addresses[address].getHostAddress(), port,
 			  Integer.parseInt(BotCoreStatic.getInstance().getGlobalSettingDefault("JavaOp2", "timeout", "30000")));
 
-			if (stop)
+			if (stop) {
 				return;
+			}
 
 			callbacks.systemMessage(ErrorLevelConstants.INFO, "[BNET] Connected to "
 					+ s.getRemoteSocketAddress());
@@ -106,21 +109,24 @@ public class PacketThread extends Thread {
 
 			callbacks.connected(server, port);
 		} catch (IOException e) {
-			if (stop)
+			if (stop) {
 				return;
+			}
 			out.systemMessage(ErrorLevelConstants.ERROR, "[BNET] Connect failed: " + e);
 			disconnected();
 			return;
 		} catch (PluginException e) {
-			if (stop)
+			if (stop) {
 				return;
+			}
 			out.systemMessage(ErrorLevelConstants.ERROR, "[BNET] Connect failed: " + e);
 			disconnected();
 			return;
 		}
 
-		if (stop)
+		if (stop) {
 			return;
+		}
 
 		try {
 			out.systemMessage(ErrorLevelConstants.DEBUG, "[BNET] PacketThread entering receive loop.");
@@ -137,69 +143,80 @@ public class PacketThread extends Thread {
 					int len1 = (input.read() & 0x000000FF);
 					int len2 = (input.read() & 0x000000FF) << 8;
 
-					if (FF == -1)
+					if (FF == -1) {
 						throw new IOException("Connection lost");
+					}
 
-					if (FF != 0x000000FF)
+					if (FF != 0x000000FF) {
 						throw new IOException("Packet didn't start with 0xFF (it started with 0x"
 								+ Integer.toHexString(FF) + ") -- Battle.net broke or something.");
+					}
 
 					int length = len1 | len2;
 
 					byte[] packet = new byte[length - 4];
 
-					for (int i = 0; i < packet.length; i++)
+					for (int i = 0; i < packet.length; i++) {
 						packet[i] = (byte) input.read();
+					}
 
 					BnetPacket buf = new BnetPacket(code);
 					buf.add(packet);
 					out.systemMessage(ErrorLevelConstants.PACKET, "In:\n" + buf.toString());
 
 					buf = callbacks.processingIncomingPacket(buf);
-					if (stop)
+					if (stop) {
 						return;
+					}
 
-					if (buf == null)
+					if (buf == null) {
 						continue;
+					}
 
 					if (code == PacketConstants.SID_CHATEVENT) {
 						BnetEvent event = new BnetEvent(buf);
 						event = callbacks.eventOccurring(event);
 
-						if (event == null)
+						if (event == null) {
 							continue;
+						}
 
 						callbacks.eventOccurred(new BnetEvent(event));
 					} else {
 						callbacks.processedIncomingPacket(buf);
 					}
 
-					if (stop)
+					if (stop) {
 						return;
+					}
 				} catch (LoginException e) {
 					throw e;
 				} catch (PluginException e) {
-					if (stop)
+					if (stop) {
 						return;
+					}
 
 					callbacks.pluginException(e);
 				} catch (IOException e) {
 					throw e;
 				} catch (Exception e) {
-					if (stop)
+					if (stop) {
 						return;
+					}
 
 					callbacks.unknownException(e);
 				}
 			} // while(true)
 		} catch (LoginException e) {
-			if (stop)
+			if (stop) {
 				return;
+			}
 
 			callbacks.loginException(e);
 		} catch (IOException e) {
-			if (stop)
+			if (stop) {
 				return;
+			}
 
 			callbacks.ioException(e);
 		}

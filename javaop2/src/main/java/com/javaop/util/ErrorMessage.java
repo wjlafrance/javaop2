@@ -31,8 +31,9 @@ public class ErrorMessage
 
 		t.printStackTrace();
 
-		if (fatal)
+		if (fatal) {
 			System.exit(1);
+		}
 	}
 
 	public static void error(String message, boolean fatal)
@@ -53,8 +54,9 @@ public class ErrorMessage
 			System.err.println(message);
 		}
 
-		if (fatal)
+		if (fatal) {
 			System.exit(1);
+		}
 	}
 
 	public static void setUseGui(boolean useGui)

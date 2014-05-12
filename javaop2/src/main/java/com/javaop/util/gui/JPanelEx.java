@@ -44,8 +44,9 @@ public class JPanelEx extends JPanel implements Scrollable
 
 	public int getScrollableBlockIncrement(Rectangle visibleRect, int orientation, int direction)
 	{
-		if (orientation == SwingConstants.VERTICAL)
+		if (orientation == SwingConstants.VERTICAL) {
 			return visibleRect.height - 10;
+		}
 
 		return visibleRect.width - 10;
 	}

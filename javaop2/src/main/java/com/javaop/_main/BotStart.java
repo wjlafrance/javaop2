@@ -63,8 +63,9 @@ public class BotStart
 	{
 		// If not bots were specified on the commandline, read the
 		// _DefaultBots.txt file.
-		if (base.length == 0)
+		if (base.length == 0) {
 			base = JavaOpFileStuff.getDefaultBots();
+		}
 
 		return base;
 

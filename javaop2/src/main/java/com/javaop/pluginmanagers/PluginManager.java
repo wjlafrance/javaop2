@@ -77,8 +77,9 @@ public class PluginManager {
 				}
 
 				searchPaths = JavaOpFileStuff.getAllPlugins();
-				for (int i = 0; i < searchPaths.length; i++)
+				for (int i = 0; i < searchPaths.length; i++) {
 					loadFile(searchPaths[i], load);
+				}
 			}
 
 			GenericPluginInterface defaultPlugin = new PluginMain();
@@ -114,10 +115,12 @@ public class PluginManager {
 			JarURLConnection uc = (JarURLConnection)url.openConnection();
 			Attributes attr = uc.getMainAttributes();
 
-			if (attr != null)
+			if (attr != null) {
 				mainClass = attr.getValue(Attributes.Name.MAIN_CLASS);
-			if (mainClass == null)
+			}
+			if (mainClass == null) {
 				throw new Exception("Plugin specifies null main class.");
+			}
 
 			System.out.println("Loading plugin: " + mainClass);
 
@@ -126,8 +129,9 @@ public class PluginManager {
 
 			allPlugins.put(plugin.getName(), plugin);
 
-			if (load)
+			if (load) {
 				plugin.load(BotCoreStatic.getInstance());
+			}
 
 			plugin.setGlobalDefaultSettings(BotCoreStatic.getInstance());
 		} catch (ClassNotFoundException e) {
@@ -205,8 +209,9 @@ public class PluginManager {
 	public void deactivatePlugins(PluginCallbackRegister register) {
 		Enumeration<GenericPluginInterface> e = activePlugins.elements();
 
-		while (e.hasMoreElements())
+		while (e.hasMoreElements()) {
 			((GenericPluginInterface) e.nextElement()).deactivate(register);
+		}
 	}
 
 	public static String[] getAllNames() {

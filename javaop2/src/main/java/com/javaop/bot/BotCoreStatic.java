@@ -38,10 +38,11 @@ public class BotCoreStatic implements StaticExposedFunctions {
 	}
 
 	public void botStart(String name) throws PluginException {
-		if (!name.matches("[\\w\\_\\-\\.]+"))
+		if (!name.matches("[\\w\\_\\-\\.]+")) {
 			throw new PluginException("Bots' names must contain at least one "
 					+ "character, and the only characters a-z, A-Z, 0-9, or "
 					+ "'.-_'");
+		}
 
 		try {
 			BotManager.startBot(name);
@@ -66,8 +67,9 @@ public class BotCoreStatic implements StaticExposedFunctions {
 		String[] bots = BotManager.getActiveBots();
 		PublicExposedFunctions[] funcs =
 				new PublicExposedFunctions[bots.length];
-		for (int i = 0; i < funcs.length; i++)
+		for (int i = 0; i < funcs.length; i++) {
 			funcs[i] = botGet(bots[i]);
+		}
 
 		return funcs;
 	}
@@ -82,8 +84,9 @@ public class BotCoreStatic implements StaticExposedFunctions {
 
 	public void systemMessage(int level, String message) {
 		PublicExposedFunctions[] bots = botGetAllActive();
-		for (int i = 0; i < bots.length; i++)
+		for (int i = 0; i < bots.length; i++) {
 			bots[i].systemMessage(level, message);
+		}
 	}
 
 	public void botDelete(String name) {
@@ -113,8 +116,9 @@ public class BotCoreStatic implements StaticExposedFunctions {
 	public String getGlobalSettingDefault(String section, String key,
 			String defaultValue)
 	{
-		if (section == null)
+		if (section == null) {
 			section = " default";
+		}
 		return globalSettings.getWrite(section, key, defaultValue);
 	}
 
@@ -179,8 +183,9 @@ public class BotCoreStatic implements StaticExposedFunctions {
 		GenericPluginInterface[] plugins =
 				new GenericPluginInterface[names.length];
 
-		for (int i = 0; i < plugins.length; i++)
+		for (int i = 0; i < plugins.length; i++) {
 			plugins[i] = pluginGet(names[i]);
+		}
 
 		return plugins;
 	}

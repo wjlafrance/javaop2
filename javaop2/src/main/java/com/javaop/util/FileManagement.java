@@ -44,8 +44,9 @@ public class FileManagement
 
 		PrintWriter out = new PrintWriter(new FileOutputStream(file, false));
 		Enumeration<String> e = lines.elements();
-		while (e.hasMoreElements())
+		while (e.hasMoreElements()) {
 			out.println(e.nextElement());
+		}
 
 		out.close();
 	}
@@ -58,9 +59,11 @@ public class FileManagement
 
 			boolean found = false;
 			String line;
-			while ((line = in.readLine()) != null && !found)
-				if (line.equalsIgnoreCase(search))
+			while ((line = in.readLine()) != null && !found) {
+				if (line.equalsIgnoreCase(search)) {
 					found = true;
+				}
+			}
 			in.close();
 
 			return found;
@@ -75,8 +78,9 @@ public class FileManagement
 	{
 		PrintWriter out = new PrintWriter(new FileOutputStream(file));
 
-		for (int i = 0; i < data.length; i++)
+		for (int i = 0; i < data.length; i++) {
 			out.println(data[i]);
+		}
 
 		out.close();
 	}
@@ -104,8 +108,9 @@ public class FileManagement
 		Vector<String> lines = new Vector<String>();
 
 		String line;
-		while ((line = in.readLine()) != null)
+		while ((line = in.readLine()) != null) {
 			lines.add(line);
+		}
 		in.close();
 
 		return lines;
@@ -127,10 +132,11 @@ public class FileManagement
 
 			for (int i = 0; i < files.length; i++)
 			{
-				if (files[i].isDirectory())
+				if (files[i].isDirectory()) {
 					ret.addAll(search(files[i], pattern));
-				else if (files[i].getName().matches(pattern))
+				} else if (files[i].getName().matches(pattern)) {
 					ret.add(new File(files[i].getAbsolutePath()));
+				}
 			}
 		}
 		else if (base.exists())

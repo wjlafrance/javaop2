@@ -100,8 +100,9 @@ abstract public class GenericPluginInterface
 		{
 			JComponent component = getComponent(keys[i], values.getProperty(keys[i].toLowerCase()));
 
-			if (component == null)
+			if (component == null) {
 				component = new JTextField(values.getProperty(keys[i].toLowerCase()));
+			}
 
 			ret.put(keys[i], component);
 		}
@@ -120,8 +121,9 @@ abstract public class GenericPluginInterface
 			JComponent component = getGlobalComponent(keys[i],
 													  values.getProperty(keys[i].toLowerCase()));
 
-			if (component == null)
+			if (component == null) {
 				component = new JTextField(values.getProperty(keys[i].toLowerCase()));
+			}
 
 			ret.put(keys[i], component);
 		}
@@ -179,9 +181,10 @@ abstract public class GenericPluginInterface
 	{
 		Properties props = getGlobalDefaultSettingValues();
 		String[] defaultSettings = Uniq.uniq(props.keys());
-		for (int i = 0; i < defaultSettings.length; i++)
+		for (int i = 0; i < defaultSettings.length; i++) {
 			funcs.getGlobalSettingDefault(getName(), defaultSettings[i],
-										  props.getProperty(defaultSettings[i]));
+					props.getProperty(defaultSettings[i]));
+		}
 	}
 
 	public String toString()

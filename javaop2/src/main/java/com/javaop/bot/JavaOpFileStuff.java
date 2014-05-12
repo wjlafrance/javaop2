@@ -118,8 +118,9 @@ public class JavaOpFileStuff
 		String[] paths = Uniq.uniq(getPluginPaths());
 		Vector<File> jars = new Vector<File>();
 
-		for (int i = 0; i < paths.length; i++)
+		for (int i = 0; i < paths.length; i++) {
 			jars.addAll(FileManagement.search(new RelativeFile(paths[i]), ".*\\.jar"));
+		}
 
 		return Uniq.uniq(jars);
 	}
@@ -131,9 +132,10 @@ public class JavaOpFileStuff
 			File pluginFile = new RelativeFile(PLUGIN_PATHS);
 			Vector<String> ret = FileManagement.getFile(pluginFile);
 
-			if (ret == null)
+			if (ret == null) {
 				System.err.println("Plugin paths file not found -- using defaults (" + pluginFile
 						+ ")");
+			}
 
 			addIfExists(ret, new RelativeFile("Plugins"));
 			addIfExists(ret, new File("C:\\JavaOp-Plugins"));
@@ -152,8 +154,9 @@ public class JavaOpFileStuff
 
 	private static void addIfExists(Vector v, File f)
 	{
-		if (f.exists() && !v.contains(f))
+		if (f.exists() && !v.contains(f)) {
 			v.add(f);
+		}
 	}
 
 	/**
@@ -215,16 +218,18 @@ public class JavaOpFileStuff
 	{
 		FileManagement.deleteFile(JavaOpFileStuff.getPluginFile(bot));
 
-		for (int i = 0; i < plugins.length; i++)
+		for (int i = 0; i < plugins.length; i++) {
 			addActivePlugin(bot, plugins[i]);
+		}
 	}
 
 	public static boolean isActivePlugin(String bot, String plugin)
 	{
 		try
 		{
-			if (plugin.equalsIgnoreCase(new PluginMain().getName()))
+			if (plugin.equalsIgnoreCase(new PluginMain().getName())) {
 				return true;
+			}
 
 			return FileManagement.findLine(getPluginFile(bot), plugin);
 		}
@@ -240,8 +245,9 @@ public class JavaOpFileStuff
 	{
 		try
 		{
-			if (plugin.equalsIgnoreCase(new PluginMain().getName()))
+			if (plugin.equalsIgnoreCase(new PluginMain().getName())) {
 				return;
+			}
 
 			FileManagement.addLine(JavaOpFileStuff.getPluginFile(bot), plugin);
 		}
@@ -257,8 +263,9 @@ public class JavaOpFileStuff
 	{
 		try
 		{
-			if (plugin.equalsIgnoreCase(new PluginMain().getName()))
+			if (plugin.equalsIgnoreCase(new PluginMain().getName())) {
 				return;
+			}
 
 			FileManagement.removeLine(JavaOpFileStuff.getPluginFile(bot), plugin);
 		}
@@ -272,13 +279,15 @@ public class JavaOpFileStuff
 
 	public static void toggleActivePlugin(String bot, String plugin)
 	{
-		if (plugin.equalsIgnoreCase(new PluginMain().getName()))
+		if (plugin.equalsIgnoreCase(new PluginMain().getName())) {
 			return;
+		}
 
-		if (isActivePlugin(bot, plugin))
+		if (isActivePlugin(bot, plugin)) {
 			removeActivePlugin(bot, plugin);
-		else
+		} else {
 			addActivePlugin(bot, plugin);
+		}
 	}
 
 	/****************
@@ -376,10 +385,11 @@ public class JavaOpFileStuff
 	{
 		try
 		{
-			if (isDefaultBot(bot))
+			if (isDefaultBot(bot)) {
 				FileManagement.removeLine(JavaOpFileStuff.getDefaultBotsFile(), bot);
-			else
+			} else {
 				FileManagement.addLine(JavaOpFileStuff.getDefaultBotsFile(), bot);
+			}
 		}
 		catch (IOException e)
 		{

@@ -23,10 +23,11 @@ public class BotManager
 
 	public static void startBot(String name) throws IOException, PluginException
 	{
-		if (activeBots.get(name) == null)
+		if (activeBots.get(name) == null) {
 			activeBots.put(name, new BotCore(name));
-		else
+		} else {
 			System.err.println("Attempting to load an already active bot!");
+		}
 	}
 
 	public static void stopBot(String name) throws IllegalArgumentException
@@ -35,8 +36,9 @@ public class BotManager
 
 		activeBots.remove(name);
 
-		if (bot != null)
+		if (bot != null) {
 			bot.stop();
+		}
 	}
 
 	public static String[] getAllBots()

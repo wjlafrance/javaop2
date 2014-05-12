@@ -31,20 +31,22 @@ public class BigIntegerEx
 	{
 		this.endian = endian;
 
-		if (endian == BIG_ENDIAN)
+		if (endian == BIG_ENDIAN) {
 			bigInteger = new BigInteger(1, value);
-		else
+		} else {
 			bigInteger = new BigInteger(1, reverseArray(value, value.length));
+		}
 	}
 
 	public BigIntegerEx(int endian, BigInteger base)
 	{
 		this.endian = endian;
 
-		if (endian == LITTLE_ENDIAN)
+		if (endian == LITTLE_ENDIAN) {
 			this.bigInteger = base;
-		else
+		} else {
 			this.bigInteger = new BigInteger(reverseArray(base.toByteArray(), BIGINT_SIZE));
+		}
 	}
 
 	public BigIntegerEx(int endian, int bits)
@@ -60,8 +62,9 @@ public class BigIntegerEx
 
 	public byte[] toByteArray()
 	{
-		if (endian == BIG_ENDIAN)
+		if (endian == BIG_ENDIAN) {
 			return bigInteger.toByteArray();
+		}
 
 		return reverseArray(bigInteger.toByteArray(), BIGINT_SIZE);
 	}
@@ -111,11 +114,13 @@ public class BigIntegerEx
 	{
 		byte[] a = new byte[array.length];
 
-		for (int i = 0; i < array.length; i++)
+		for (int i = 0; i < array.length; i++) {
 			a[array.length - i - 1] = array[i];
+		}
 
-		if (maxLen != 0)
+		if (maxLen != 0) {
 			return trimArray(a, maxLen);
+		}
 		return a;
 	}
 
@@ -123,10 +128,11 @@ public class BigIntegerEx
 	{
 		byte[] a = new byte[size];
 
-		if (array.length > size)
+		if (array.length > size) {
 			System.arraycopy(array, 0, a, 0, size);
-		else
+		} else {
 			System.arraycopy(array, 0, a, 0, array.length);
+		}
 
 		return a;
 	}

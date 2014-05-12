@@ -74,19 +74,21 @@ class UserData implements User
 
 	public String toString()
 	{
-		if (prettyStatstring != null)
+		if (prettyStatstring != null) {
 			return name + "(" + ping + "ms, " + prettyStatstring + ")";
+		}
 		return name + "(" + ping + "ms)";
 	}
 
 	public boolean equals(Object o)
 	{
-		if (o instanceof UserData && ((UserData) o).getName().equalsIgnoreCase(getName()))
+		if (o instanceof UserData && ((UserData) o).getName().equalsIgnoreCase(getName())) {
 			return true;
-		else if (o instanceof String && ((String) o).equalsIgnoreCase(getName()))
+		} else if (o instanceof String && ((String) o).equalsIgnoreCase(getName())) {
 			return true;
-		else
+		} else {
 			return false;
+		}
 
 	}
 

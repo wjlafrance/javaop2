@@ -24,8 +24,9 @@ public class JTextFieldNumeric extends JTextField implements KeyListener
 	{
 		char code = e.getKeyChar();
 
-		if (code < '0' || code > '9')
+		if (code < '0' || code > '9') {
 			e.consume();
+		}
 	}
 
 	public void keyPressed(KeyEvent e)

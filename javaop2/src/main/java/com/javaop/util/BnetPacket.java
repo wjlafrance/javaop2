@@ -136,10 +136,11 @@ public class BnetPacket extends Buffer
 				returnString.append('\t');
 				for (j = i - 16; j < i; j++)
 				{
-					if (buffer[j] < 0x20 || buffer[j] > 0x7F)
+					if (buffer[j] < 0x20 || buffer[j] > 0x7F) {
 						returnString.append('.');
-					else
+					} else {
 						returnString.append((char) buffer[j]);
+					}
 				}
 				// Add a linefeed after the string
 				returnString.append("\n");
@@ -175,10 +176,11 @@ public class BnetPacket extends Buffer
 
 		for (; i >= 0 && j < i; j++)
 		{
-			if (buffer[j] < 0x20 || buffer[j] > 0x7F)
+			if (buffer[j] < 0x20 || buffer[j] > 0x7F) {
 				returnString.append('.');
-			else
+			} else {
 				returnString.append((char) buffer[j]);
+			}
 		}
 
 		// Finally, tidy it all up with a newline
@@ -191,23 +193,28 @@ public class BnetPacket extends Buffer
 
 	public boolean equals(Object o)
 	{
-		if (!(o instanceof BnetPacket))
+		if (!(o instanceof BnetPacket)) {
 			return false;
+		}
 
 		BnetPacket packet = (BnetPacket) o;
 
-		if (packet.getCode() != getCode())
+		if (packet.getCode() != getCode()) {
 			return false;
+		}
 
 		byte[] thisPacket = packet.getBytes();
 		byte[] thatPacket = getBytes();
 
-		if (thisPacket.length != thatPacket.length)
+		if (thisPacket.length != thatPacket.length) {
 			return false;
+		}
 
-		for (int i = 0; i < thisPacket.length; i++)
-			if (thisPacket[i] != thatPacket[i])
+		for (int i = 0; i < thisPacket.length; i++) {
+			if (thisPacket[i] != thatPacket[i]) {
 				return false;
+			}
+		}
 
 		return true;
 	}

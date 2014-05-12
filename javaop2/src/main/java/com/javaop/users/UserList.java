@@ -53,18 +53,22 @@ public class UserList
 
 	public User removeUser(String name)
 	{
-		for (int i = 0; i < users.size(); i++)
-			if (((UserData) users.get(i)).equals(name))
+		for (int i = 0; i < users.size(); i++) {
+			if (((UserData) users.get(i)).equals(name)) {
 				return (User) users.remove(i);
+			}
+		}
 
 		return null;
 	}
 
 	public User getUser(String name)
 	{
-		for (int i = 0; i < users.size(); i++)
-			if (((UserData) users.get(i)).equals(name))
+		for (int i = 0; i < users.size(); i++) {
+			if (((UserData) users.get(i)).equals(name)) {
 				return (User) users.get(i);
+			}
+		}
 
 		return null;
 	}
@@ -78,8 +82,9 @@ public class UserList
 		{
 			UserData user = (UserData) users.get(i);
 
-			if (user.getName().toLowerCase().matches(pattern))
+			if (user.getName().toLowerCase().matches(pattern)) {
 				ret.add(user.getName());
+			}
 		}
 
 		return (String[]) ret.toArray(new String[ret.size()]);
@@ -88,8 +93,9 @@ public class UserList
 	public String[] getList()
 	{
 		Vector ret = new Vector();
-		for (int i = 0; i < users.size(); i++)
+		for (int i = 0; i < users.size(); i++) {
 			ret.add(((UserData) users.get(i)).getName());
+		}
 
 		return (String[]) ret.toArray(new String[ret.size()]);
 	}

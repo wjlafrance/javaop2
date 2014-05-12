@@ -46,24 +46,30 @@ public class CommandlineConfigure
 			System.out.println("0. Quit");
 			System.out.println();
 
-			int choice = Integer.parseInt(getPatternInput("Please make a selection", null,
-					"[1234560]"));
+			int choice = Integer.parseInt(getPatternInput("Please make a selection", null, "[1234560]"));
 
-			if (choice == 1)
-				configurePaths();
-			else if (choice == 2)
-				configureLoadedBots();
-			else if (choice == 3)
-				manageBots();
-			else if (choice == 4)
-				addBot();
-			else if (choice == 5)
-				copyBot();
-			else if (choice == 6)
-				removeBot();
-			else if (choice == 0) {
-				System.out.println("-- exiting");
-				System.exit(0);
+			switch (choice) {
+				case 1:
+					configurePaths();
+					break;
+				case 2:
+					configureLoadedBots();
+					break;
+				case 3:
+					manageBots();
+					break;
+				case 4:
+					addBot();
+					break;
+				case 5:
+					copyBot();
+					break;
+				case 6:
+					removeBot();
+					break;
+				case 0:
+					System.out.println("-- exiting");
+					System.exit(0);
 			}
 		}
 	}
@@ -91,8 +97,9 @@ public class CommandlineConfigure
 
 		int base = getNumericInput("Which bot are we making a copy of?", null, bots.length);
 
-		if (base == 0)
+		if (base == 0) {
 			return;
+		}
 
 		String newName = getPatternInput("What would you like to name the copy?", null,
 										 "[a-zA-Z1-9. -_]+");
@@ -111,8 +118,9 @@ public class CommandlineConfigure
 
 		int remove = getNumericInput("Which bot would you like to remove?", null, bots.length);
 
-		if (remove == 0)
+		if (remove == 0) {
 			return;
+		}
 
 		JavaOpFileStuff.deleteBot(bots[remove - 1]);
 	}
@@ -133,17 +141,18 @@ public class CommandlineConfigure
 
 			int choice = Integer.parseInt(getPatternInput("Please make a selection", null, "[120]"));
 
-			if (choice == 1) {
-				String path = getPatternInput("Please enter the full path", null, ".+");
-				JavaOpFileStuff.addPluginPath(path);
-			} else if (choice == 2) {
-				String[] bots = getAndPrintPluginPaths(true);
-				int bot = getNumericInput("Which bot?", null, bots.length);
-
-				JavaOpFileStuff.removePluginPath(bots[bot - 1]);
-			}
-			if (choice == 0) {
-				return;
+			switch (choice) {
+				case 1:
+					String path = getPatternInput("Please enter the full path", null, ".+");
+					JavaOpFileStuff.addPluginPath(path);
+					break;
+				case 2:
+					String[] bots = getAndPrintPluginPaths(true);
+					int bot = getNumericInput("Which bot?", null, bots.length);
+					JavaOpFileStuff.removePluginPath(bots[bot - 1]);
+					break;
+				case 0:
+					return;
 			}
 		}
 	}
@@ -162,22 +171,18 @@ public class CommandlineConfigure
 			System.out.println();
 
 			int choice = Integer.parseInt(getPatternInput("Please make a selection", null, "[120]"));
-
-
 			switch (choice) {
-			case 1:
-				String[] allBots = getAndPrintAllBots(true);
-				int bot = getNumericInput("Which would you like to load at startup?", null,
-						allBots.length);
-				JavaOpFileStuff.addDefaultBot(allBots[bot - 1]);
-				break;
-			case 2:
-				String[] defaultBots = getAndPrintDefaultBots(true);
-				int num = getNumericInput("Which bot would you like to remove?", null,
-						defaultBots.length);
-				JavaOpFileStuff.removeDefaultBot(defaultBots[num - 1]);
-			default:
-				return;
+				case 1:
+					String[] allBots = getAndPrintAllBots(true);
+					int bot = getNumericInput("Which would you like to load at startup?", null, allBots.length);
+					JavaOpFileStuff.addDefaultBot(allBots[bot - 1]);
+					break;
+				case 2:
+					String[] defaultBots = getAndPrintDefaultBots(true);
+					int num = getNumericInput("Which bot would you like to remove?", null, defaultBots.length);
+					JavaOpFileStuff.removeDefaultBot(defaultBots[num - 1]);
+				default:
+					return;
 			}
 		}
 	}
@@ -191,8 +196,9 @@ public class CommandlineConfigure
 			System.out.println();
 			int bot = getNumericInput("Please choose a bot", null, bots.length);
 
-			if (bot == 0)
+			if (bot == 0) {
 				return;
+			}
 
 			manageBot(bots[bot - 1]);
 		}
@@ -217,108 +223,124 @@ public class CommandlineConfigure
 			int choice = Integer.parseInt(getPatternInput("Please make a selection", null,
 					"[1234560]"));
 
-			if (choice == 1) {
-				String[] plugins = getAndPrintAllPlugins(true);
+			switch (choice) {
+				case 1: {
+					String[] plugins = getAndPrintAllPlugins(true);
 
-				if (plugins.length == 0)
-					System.out.println("(all plugins are being loaded already)");
-				System.out.println();
-				System.out.println("0. Back");
-				System.out.println();
-
-				int plugin = getNumericInput("Please select a plugin to add", null, plugins.length);
-
-				if (plugin != 0)
-					JavaOpFileStuff.addActivePlugin(bot, plugins[plugin - 1]);
-			} else if (choice == 2) {
-				String[] plugins = getAndPrintAllActivePlugins(bot, true);
-				if (plugins.length == 0)
-					System.out.println("(no plugins are being loaded yet)");
-
-				System.out.println();
-				System.out.println("0. Back");
-				System.out.println();
-
-				int plugin = getNumericInput("Please select a plugin to remove", null,
-											 plugins.length);
-				if (plugin != 0)
-					JavaOpFileStuff.removeActivePlugin(bot, plugins[plugin - 1]);
-			} else if (choice == 3) {
-				JavaOpFileStuff.setActivePlugins(bot, PluginManager.getAllNames());
-			} else if (choice == 4) {
-				JavaOpFileStuff.setActivePlugins(bot, new String[] {});
-			} else if (choice == 5) {
-				String[] plugins = getAndPrintAllPlugins(true);
-				System.out.println();
-				System.out.println("0, Back");
-				System.out.println();
-
-				int plugin = getNumericInput("Please select a plugin to configure", null,
-											 plugins.length);
-
-				if (plugin != 0) {
-					plugin--;
-
-					GenericPluginInterface thisPlugin = PluginManager.getPlugin(plugins[plugin]);
-
-					Properties defaults = thisPlugin.getDefaultSettingValues();
-					Properties descriptions = thisPlugin.getSettingsDescription();
-					PersistantMap settings = JavaOpFileStuff.getSettings(bot);
-					String pluginName = thisPlugin.getName();
-
-					Object[] keys = sortEnumeration(defaults.keys());
-
-					for (int i = 0; i < keys.length; i++) {
-						clear();
-
-						String currentSetting = settings.getNoWrite(
-																	pluginName,
-																	(String) keys[i],
-																	defaults.getProperty((String) keys[i]));
-						System.out.println();
-						System.out.println(keys[i] + ":");
-						System.out.println("Default setting: "
-								+ defaults.getProperty((String) keys[i]));
-						System.out.println("Current setting: " + currentSetting);
-						System.out.println("Description: "
-								+ descriptions.getProperty((String) keys[i]));
-						System.out.println();
-
-						settings.set(thisPlugin.getName(), (String) keys[i],
-									 getPatternInput("New value?", currentSetting, ".*"));
+					if (plugins.length == 0) {
+						System.out.println("(all plugins are being loaded already)");
 					}
+					System.out.println();
+					System.out.println("0. Back");
+					System.out.println();
+
+					int plugin = getNumericInput("Please select a plugin to add", null, plugins.length);
+
+					if (plugin != 0) {
+						JavaOpFileStuff.addActivePlugin(bot, plugins[plugin - 1]);
+					}
+					break;
 				}
+				case 2: {
+					String[] plugins = getAndPrintAllActivePlugins(bot, true);
+					if (plugins.length == 0) {
+						System.out.println("(no plugins are being loaded yet)");
+					}
 
-			} else if (choice == 6) {
-				String[] plugins = getAndPrintAllPlugins(true);
-				if (plugins.length == 0)
-					System.out.println("(no plugins are being loaded yet)");
+					System.out.println();
+					System.out.println("0. Back");
+					System.out.println();
 
-				System.out.println();
-				System.out.println("0. Back");
-				System.out.println();
-
-				int num = getNumericInput("Please select a plugin to get info on", null,
-										  plugins.length);
-				if (num != 0) {
-					num--;
-
-					GenericPluginInterface plugin = PluginManager.getPlugin(plugins[num]);
-					clear();
-					System.out.println("Name: " + plugin.getFullName());
-					System.out.println();
-					System.out.println("Author: " + plugin.getAuthorName() + " <"
-							+ plugin.getAuthorEmail() + ">");
-					System.out.println();
-					System.out.println("Website: " + plugin.getAuthorWebsite());
-					System.out.println();
-					System.out.println("Description: " + plugin.getLongDescription());
-					System.out.println();
-					System.out.println("Press enter to continue...");
-					System.in.read();
+					int plugin = getNumericInput("Please select a plugin to remove", null,
+							plugins.length);
+					if (plugin != 0) {
+						JavaOpFileStuff.removeActivePlugin(bot, plugins[plugin - 1]);
+					}
+					break;
 				}
-			} else if (choice == 0) {
-				return;
+				case 3:
+					JavaOpFileStuff.setActivePlugins(bot, PluginManager.getAllNames());
+					break;
+				case 4:
+					JavaOpFileStuff.setActivePlugins(bot, new String[]{});
+					break;
+				case 5: {
+					String[] plugins = getAndPrintAllPlugins(true);
+					System.out.println();
+					System.out.println("0, Back");
+					System.out.println();
+
+					int plugin = getNumericInput("Please select a plugin to configure", null,
+							plugins.length);
+
+					if (plugin != 0) {
+						plugin--;
+
+						GenericPluginInterface thisPlugin = PluginManager.getPlugin(plugins[plugin]);
+
+						Properties defaults = thisPlugin.getDefaultSettingValues();
+						Properties descriptions = thisPlugin.getSettingsDescription();
+						PersistantMap settings = JavaOpFileStuff.getSettings(bot);
+						String pluginName = thisPlugin.getName();
+
+						Object[] keys = sortEnumeration(defaults.keys());
+
+						for (int i = 0; i < keys.length; i++) {
+							clear();
+
+							String currentSetting = settings.getNoWrite(
+									pluginName,
+									(String) keys[i],
+									defaults.getProperty((String) keys[i]));
+							System.out.println();
+							System.out.println(keys[i] + ":");
+							System.out.println("Default setting: "
+									+ defaults.getProperty((String) keys[i]));
+							System.out.println("Current setting: " + currentSetting);
+							System.out.println("Description: "
+									+ descriptions.getProperty((String) keys[i]));
+							System.out.println();
+
+							settings.set(thisPlugin.getName(), (String) keys[i],
+									getPatternInput("New value?", currentSetting, ".*"));
+						}
+					}
+
+					break;
+				}
+				case 6: {
+					String[] plugins = getAndPrintAllPlugins(true);
+					if (plugins.length == 0) {
+						System.out.println("(no plugins are being loaded yet)");
+					}
+
+					System.out.println();
+					System.out.println("0. Back");
+					System.out.println();
+
+					int num = getNumericInput("Please select a plugin to get info on", null,
+							plugins.length);
+					if (num != 0) {
+						num--;
+
+						GenericPluginInterface plugin = PluginManager.getPlugin(plugins[num]);
+						clear();
+						System.out.println("Name: " + plugin.getFullName());
+						System.out.println();
+						System.out.println("Author: " + plugin.getAuthorName() + " <"
+								+ plugin.getAuthorEmail() + ">");
+						System.out.println();
+						System.out.println("Website: " + plugin.getAuthorWebsite());
+						System.out.println();
+						System.out.println("Description: " + plugin.getLongDescription());
+						System.out.println();
+						System.out.println("Press enter to continue...");
+						System.in.read();
+					}
+					break;
+				}
+				case 0:
+					return;
 			}
 		}
 	}
@@ -329,8 +351,9 @@ public class CommandlineConfigure
 					prompt + " (an integer 0 and " + max + ")",
 					defaultIn, "[0-9]+"));
 
-			if (input <= max)
+			if (input <= max) {
 				return input;
+			}
 
 			System.out.println("Error: invalid value");
 		}
@@ -339,16 +362,17 @@ public class CommandlineConfigure
 	private static String getPatternInput(String prompt, String defaultIn, String pattern) {
 		while (true) {
 			try {
-				System.out.print(prompt + (defaultIn == null ? "" : " [" + defaultIn + "]")
-						+ " --> ");
+				System.out.print(prompt + (defaultIn == null ? "" : " [" + defaultIn + "]") + " --> ");
 
 				String text = in.readLine();
 
-				if (text.equals("") && defaultIn != null)
+				if (text.equals("") && defaultIn != null) {
 					return defaultIn;
+				}
 
-				if (text.matches(pattern))
+				if (text.matches(pattern)) {
 					return text;
+				}
 
 				System.out.println("Error, please enter a valid value");
 			} catch (IOException e) {
@@ -361,8 +385,9 @@ public class CommandlineConfigure
 	private static void clear() {
 		if (CLEAR) {
 			System.out.println("Yes, this is a crappy way to clear; but it's the only easy platform independant one, and Windows doesn't support ANSI by default, so shush.");
-			for (int i = 0; i < 100; i++)
+			for (int i = 0; i < 100; i++) {
 				System.out.println();
+			}
 		} else {
 			System.out.println();
 			System.out.println();
@@ -371,30 +396,34 @@ public class CommandlineConfigure
 
 	private static String[] getAndPrintPluginPaths(boolean printNumbers) throws IOException {
 		String[] allPlugins = JavaOpFileStuff.getRawPluginPaths();
-		for (int i = 0; i < allPlugins.length; i++)
+		for (int i = 0; i < allPlugins.length; i++) {
 			System.out.println((printNumbers ? ((i + 1) + ". ") : "* ") + allPlugins[i]);
+		}
 		return allPlugins;
 	}
 
 	private static String[] getAndPrintDefaultBots(boolean printNumbers) throws IOException {
 		String[] defaultBots = JavaOpFileStuff.getDefaultBots();
-		for (int i = 0; i < defaultBots.length; i++)
+		for (int i = 0; i < defaultBots.length; i++) {
 			System.out.println((printNumbers ? ((i + 1) + ". ") : "* ") + defaultBots[i]);
+		}
 		return defaultBots;
 	}
 
 	private static String[] getAndPrintAllBots(boolean printNumbers) throws IOException {
 		String[] allBots = JavaOpFileStuff.getAllBots();
-		for (int i = 0; i < allBots.length; i++)
+		for (int i = 0; i < allBots.length; i++) {
 			System.out.println((printNumbers ? ((i + 1) + ". ") : "* ") + allBots[i]);
+		}
 		return allBots;
 	}
 
 	private static String[] getAndPrintAllPlugins(boolean printNumbers) throws IOException {
 		String[] plugins = PluginManager.getAllNames();
 
-		for (int i = 0; i < plugins.length - 1; i++)
+		for (int i = 0; i < plugins.length - 1; i++) {
 			System.out.println((printNumbers ? ((i + 1) + ". ") : "* ") + plugins[i]);
+		}
 
 		return plugins;
 	}
@@ -402,8 +431,9 @@ public class CommandlineConfigure
 	private static String[] getAndPrintAllActivePlugins(String bot, boolean printNumbers) throws IOException {
 		String[] plugins = JavaOpFileStuff.getActivePlugins(bot);
 
-		for (int i = 0; i < plugins.length; i++)
+		for (int i = 0; i < plugins.length; i++) {
 			System.out.println((printNumbers ? ((i + 1) + ". ") : "* ") + plugins[i]);
+		}
 
 		return plugins;
 	}
@@ -411,8 +441,9 @@ public class CommandlineConfigure
 	private static Object[] sortEnumeration(Enumeration<Object> e) {
 		Vector<Object> objectVector = new Vector<Object>();
 
-		while (e.hasMoreElements())
+		while (e.hasMoreElements()) {
 			objectVector.add(e.nextElement());
+		}
 
 		Object[] ret = objectVector.toArray();
 		Arrays.sort(ret);

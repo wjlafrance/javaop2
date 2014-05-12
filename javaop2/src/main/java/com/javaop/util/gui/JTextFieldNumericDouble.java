@@ -24,8 +24,9 @@ public class JTextFieldNumericDouble extends JTextField implements KeyListener
 	{
 		char code = e.getKeyChar();
 
-		if ((code < '0' || code > '9') && code != '.')
+		if ((code < '0' || code > '9') && code != '.') {
 			e.consume();
+		}
 	}
 
 	public void keyPressed(KeyEvent e)

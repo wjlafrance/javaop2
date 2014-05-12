@@ -52,11 +52,13 @@ public class ChatMessage implements PriorityConstants, Comparable<ChatMessage>
 	/** Throws a ClassCastException if o isn't a ChatMessage */
 	public int compareTo(ChatMessage o)
 	{
-		if (o == this)
+		if (o == this) {
 			return 0;
+		}
 
-		if (((ChatMessage) o).priority == priority)
+		if (((ChatMessage) o).priority == priority) {
 			return time > ((ChatMessage) o).time ? 1 : -1;
+		}
 
 		return priority > ((ChatMessage) o).priority ? -1 : 1;
 	}

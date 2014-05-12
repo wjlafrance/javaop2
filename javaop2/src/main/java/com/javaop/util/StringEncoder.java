@@ -9,8 +9,9 @@ public class StringEncoder
 	{
 		StringBuffer ret = new StringBuffer();
 
-		if (o == null)
+		if (o == null) {
 			return "&null;";
+		}
 
 		if (o instanceof String)
 		{
@@ -43,11 +44,13 @@ public class StringEncoder
 	{
 		StringBuffer ret = new StringBuffer();
 
-		if (str.matches("&null;"))
+		if (str.matches("&null;")) {
 			return null;
+		}
 
-		if (!str.matches(".*&[0-9]+;.*"))
+		if (!str.matches(".*&[0-9]+;.*")) {
 			return str.replaceAll("&amp;", "&");
+		}
 
 		for (; str.length() > 0; str = str.substring(1))
 		{

@@ -97,35 +97,40 @@ public class PluginRegistration implements PluginCallbackRegister
 		Enumeration<String> commands = commandPlugins.keys();
 		Vector<String> ret = new Vector<String>();
 
-		while (commands.hasMoreElements())
+		while (commands.hasMoreElements()) {
 			ret.add(commands.nextElement());
+		}
 
 		return (String[]) ret.toArray(new String[ret.size()]);
 	}
 
 	public String getHelp(String command) {
 		CommandPlugin plugin = (CommandPlugin) commandPlugins.get(command);
-		if (plugin == null)
+		if (plugin == null) {
 			return null;
+		}
 		return plugin.getHelp();
 	}
 
 	public String getUsage(String command) {
 		CommandPlugin plugin = (CommandPlugin) commandPlugins.get(command);
-		if (plugin == null)
+		if (plugin == null) {
 			return null;
+		}
 		return plugin.getUsage();
 	}
 
 	public String getRequiredFlags(String command) {
 		CommandPlugin plugin = (CommandPlugin) commandPlugins.get(command);
-		if (plugin == null)
+		if (plugin == null) {
 			return null;
+		}
 
 		String requiredFlags = plugin.getRequiredFlags();
 		String customFlags = customCommandFlags.getNoWrite(null, plugin.getName(), "");
-		if (customFlags.length() > 0)
+		if (customFlags.length() > 0) {
 			requiredFlags = customFlags;
+		}
 
 		return requiredFlags;
 	}
@@ -139,8 +144,9 @@ public class PluginRegistration implements PluginCallbackRegister
 		Vector<String> v = new Vector<String>();
 		while (e.hasMoreElements()) {
 			String s = (String) e.nextElement();
-			if (commandAliases.getNoWrite(null, s, "").equals(command))
+			if (commandAliases.getNoWrite(null, s, "").equals(command)) {
 				v.add(0, s);
+			}
 		}
 
 		return (String[]) (v.toArray(new String[v.size()]));
@@ -173,16 +179,18 @@ public class PluginRegistration implements PluginCallbackRegister
 	}
 
 	public void registerRawEventPlugin(RawEventCallback callback, int event, Object data) {
-		if (rawEventPlugins[event] == null)
+		if (rawEventPlugins[event] == null) {
 			rawEventPlugins[event] = new Vector<RawEventPlugin>();
+		}
 
 		rawEventPlugins[event].add(new RawEventPlugin(callback, event, data));
 	}
 
 	public void registerRawEventPlugin(RawEventCallback callback, int minEvent, int maxEvent,
 			Object data) {
-		for (int i = minEvent; i <= maxEvent; i++)
+		for (int i = minEvent; i <= maxEvent; i++) {
 			registerRawEventPlugin(callback, i, data);
+		}
 	}
 
 	public void registerEventPlugin(EventCallback callback, Object data) {
@@ -194,28 +202,32 @@ public class PluginRegistration implements PluginCallbackRegister
 	}
 
 	public void registerIncomingPacketPlugin(PacketCallback callback, int packet, Object data) {
-		if (incomingPacketPlugins[packet] == null)
+		if (incomingPacketPlugins[packet] == null) {
 			incomingPacketPlugins[packet] = new Vector<PacketPlugin>();
+		}
 
 		incomingPacketPlugins[packet].add(new PacketPlugin(callback, packet, data));
 	}
 
 	public void registerIncomingPacketPlugin(PacketCallback callback, int minPacket, int maxPacket,
 			Object data) {
-		for (int i = minPacket; i <= maxPacket; i++)
+		for (int i = minPacket; i <= maxPacket; i++) {
 			registerIncomingPacketPlugin(callback, i, data);
+		}
 	}
 
 	public void registerOutgoingPacketPlugin(PacketCallback callback, int packet, Object data) {
-		if (outgoingPacketPlugins[packet] == null)
+		if (outgoingPacketPlugins[packet] == null) {
 			outgoingPacketPlugins[packet] = new Vector<PacketPlugin>();
+		}
 		outgoingPacketPlugins[packet].add(new PacketPlugin(callback, packet, data));
 	}
 
 	public void registerOutgoingPacketPlugin(PacketCallback callback, int minPacket, int maxPacket,
 			Object data) {
-		for (int i = minPacket; i <= maxPacket; i++)
+		for (int i = minPacket; i <= maxPacket; i++) {
 			registerOutgoingPacketPlugin(callback, i, data);
+		}
 	}
 
 	public void registerSystemMessagePlugin(SystemMessageCallback callback, int minLevel,
@@ -293,16 +305,18 @@ public class PluginRegistration implements PluginCallbackRegister
 		CommandPlugin plugin = (CommandPlugin) commandPlugins.get(command);
 
 		if (plugin == null) {
-			if (errorOnUnknown)
+			if (errorOnUnknown) {
 				this.unknownCommandUsed(user, command);
+			}
 			return false;
 		}
 
 		String requiredFlags = this.getRequiredFlags(command);
 
-		if (!pubFuncs.dbHasAny(user, requiredFlags, true))
+		if (!pubFuncs.dbHasAny(user, requiredFlags, true)) {
 			throw new CommandUsedIllegally("User attempted to use an illegal command", user,
 					command, pubFuncs.dbGetFlags(user), requiredFlags);
+		}
 
 		String[] splitArgs = args.length() > 0 ? args.split("\\s+", plugin.getArgs())
 				: new String[0];
@@ -324,8 +338,9 @@ public class PluginRegistration implements PluginCallbackRegister
 		while (e.hasMoreElements()) {
 			ConnectionPlugin plugin = (ConnectionPlugin) e.nextElement();
 			if (!((ConnectionCallback) plugin.getCallback()).connecting(server, port,
-					plugin.getData()))
+					plugin.getData())) {
 				return false;
+			}
 		}
 		return true;
 	}
@@ -347,8 +362,9 @@ public class PluginRegistration implements PluginCallbackRegister
 		Enumeration<ConnectionPlugin> e = connectionPlugins.elements();
 		while (e.hasMoreElements()) {
 			ConnectionPlugin plugin = (ConnectionPlugin) e.nextElement();
-			if (!((ConnectionCallback) plugin.getCallback()).disconnecting(plugin.getData()))
+			if (!((ConnectionCallback) plugin.getCallback()).disconnecting(plugin.getData())) {
 				return false;
+			}
 		}
 
 		return true;
@@ -445,8 +461,9 @@ public class PluginRegistration implements PluginCallbackRegister
 		Enumeration<RawEventPlugin> e = rawEventPlugins[event.getCode()].elements();
 		while (e.hasMoreElements()) {
 			RawEventPlugin plugin = (RawEventPlugin) e.nextElement();
-			if ((event = ((RawEventCallback) plugin.getCallback()).eventOccurring(event, plugin.getData())) == null)
+			if ((event = ((RawEventCallback) plugin.getCallback()).eventOccurring(event, plugin.getData())) == null) {
 				return null;
+			}
 		}
 
 		return event;
@@ -454,8 +471,9 @@ public class PluginRegistration implements PluginCallbackRegister
 
 	/** This is called when an event the implementor is registered for occurs. */
 	public void eventOccurred(BnetEvent event) throws IOException, PluginException {
-		if (rawEventPlugins[event.getCode()] == null)
+		if (rawEventPlugins[event.getCode()] == null) {
 			return;
+		}
 
 		Enumeration<RawEventPlugin> e = rawEventPlugins[event.getCode()].elements();
 		while (e.hasMoreElements()) {
@@ -584,8 +602,9 @@ public class PluginRegistration implements PluginCallbackRegister
 		while (e.hasMoreElements()) {
 			OutgoingTextPlugin plugin = (OutgoingTextPlugin) e.nextElement();
 			if ((text = ((OutgoingTextCallback) plugin.getCallback()).queuingText(text,
-					plugin.getData())) == null)
+					plugin.getData())) == null) {
 				return null;
+			}
 		}
 
 		return text;
@@ -609,8 +628,9 @@ public class PluginRegistration implements PluginCallbackRegister
 		while (e.hasMoreElements()) {
 			OutgoingTextPlugin plugin = (OutgoingTextPlugin) e.nextElement();
 			if ((text = ((OutgoingTextCallback) plugin.getCallback()).nextInLine(text,
-						plugin.getData())) == null)
+						plugin.getData())) == null) {
 				return null;
+			}
 		}
 
 		return text;
@@ -636,8 +656,9 @@ public class PluginRegistration implements PluginCallbackRegister
 		Enumeration<OutgoingTextPlugin> e = outgoingTextPlugins.elements();
 		while (e.hasMoreElements()) {
 			OutgoingTextPlugin plugin = (OutgoingTextPlugin) e.nextElement();
-			if (!((OutgoingTextCallback) plugin.getCallback()).sendingText(text, plugin.getData()))
+			if (!((OutgoingTextCallback) plugin.getCallback()).sendingText(text, plugin.getData())) {
 				return false;
+			}
 		}
 
 		return true;
@@ -676,8 +697,9 @@ public class PluginRegistration implements PluginCallbackRegister
 			PacketPlugin plugin = (PacketPlugin) e.nextElement();
 
 			if ((buf = ((PacketCallback) plugin.getCallback()).processingPacket(
-					new BnetPacket(buf), plugin.getData())) == null)
+					new BnetPacket(buf), plugin.getData())) == null) {
 				return null;
+			}
 		}
 		return buf;
 	}
@@ -688,8 +710,9 @@ public class PluginRegistration implements PluginCallbackRegister
 	 */
 	public void processedIncomingPacket(BnetPacket buf) throws IOException, PluginException {
 		int code = buf.getCode() & 0x000000FF;
-		if (incomingPacketPlugins[code] == null)
+		if (incomingPacketPlugins[code] == null) {
 			return;
+		}
 
 		Enumeration<PacketPlugin> e = incomingPacketPlugins[code].elements();
 		while (e.hasMoreElements()) {
@@ -714,8 +737,9 @@ public class PluginRegistration implements PluginCallbackRegister
 			PacketPlugin plugin = (PacketPlugin) e.nextElement();
 
 			if ((buf = ((PacketCallback) plugin.getCallback()).processingPacket(buf,
-					plugin.getData())) == null)
+					plugin.getData())) == null) {
 				return null;
+			}
 		}
 		return buf;
 	}
@@ -726,8 +750,9 @@ public class PluginRegistration implements PluginCallbackRegister
 	 */
 	public void processedOutgoingPacket(BnetPacket buf) throws IOException, PluginException {
 		int code = buf.getCode() & 0x000000FF;
-		if (outgoingPacketPlugins[code] == null)
+		if (outgoingPacketPlugins[code] == null) {
 			return;
+		}
 
 		Enumeration<PacketPlugin> e = outgoingPacketPlugins[code].elements();
 		while (e.hasMoreElements()) {
@@ -752,9 +777,10 @@ public class PluginRegistration implements PluginCallbackRegister
 		Enumeration<SystemMessagePlugin> e = systemMessagePlugins.elements();
 		while (e.hasMoreElements()) {
 			SystemMessagePlugin plugin = (SystemMessagePlugin) e.nextElement();
-			if (level >= plugin.getMinLevel() && level <= plugin.getMaxLevel())
+			if (level >= plugin.getMinLevel() && level <= plugin.getMaxLevel()) {
 				((SystemMessageCallback) plugin.getCallback()).systemMessage(level, message,
-																			 plugin.getData());
+						plugin.getData());
+			}
 		}
 	}
 

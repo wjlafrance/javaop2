@@ -27,16 +27,17 @@ public class Pattern
 		{
 			char thisChar = str.charAt(i);
 
-			if (thisChar == '*')
+			if (thisChar == '*') {
 				ret.append(".*");
-			else if (thisChar == '?')
+			} else if (thisChar == '?') {
 				ret.append(".");
-			else if (thisChar == '%')
+			} else if (thisChar == '%') {
 				ret.append("[0-9]");
-			else if (!Character.isLetterOrDigit(thisChar))
+			} else if (!Character.isLetterOrDigit(thisChar)) {
 				ret.append("\\").append(thisChar);
-			else
+			} else {
 				ret.append(str.charAt(i));
+			}
 		}
 		return ret.toString().toLowerCase();
 	}

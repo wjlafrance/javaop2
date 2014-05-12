@@ -19,28 +19,30 @@ public class Gui
 {
 	public static String getTextFromComponent(JComponent c)
 	{
-		if (c instanceof JTextComponent)
+		if (c instanceof JTextComponent) {
 			return ((JTextComponent) c).getText();
-		else if (c instanceof AbstractButton)
+		} else if (c instanceof AbstractButton) {
 			return ((AbstractButton) c).isSelected() ? "true" : "false";
-		else if (c instanceof JComboBox)
+		} else if (c instanceof JComboBox) {
 			return ((JComboBox) c).getSelectedItem() + "";
-		else if (c instanceof JLabel)
+		} else if (c instanceof JLabel) {
 			return ((JLabel) c).getText();
-		else
+		} else {
 			throw new Error("Unrecognized component: " + c);
+		}
 	}
 
 	public static void setTextFromComponent(JComponent c, String text)
 	{
-		if (c instanceof JTextComponent)
+		if (c instanceof JTextComponent) {
 			((JTextComponent) c).setText(text);
-		else if (c instanceof AbstractButton)
+		} else if (c instanceof AbstractButton) {
 			((AbstractButton) c).setSelected(text.equalsIgnoreCase("true"));
-		else if (c instanceof JComboBox)
+		} else if (c instanceof JComboBox) {
 			((JComboBox) c).setSelectedItem(text);
-		else
+		} else {
 			throw new Error("Unrecognized component: " + c);
+		}
 	}
 
 	public static void center(Window w)

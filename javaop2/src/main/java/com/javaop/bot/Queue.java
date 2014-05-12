@@ -39,8 +39,9 @@ public class Queue
 	public synchronized void send(String text, int priority)
 	{
 		text = plugins.queuingText(text);
-		if (text == null)
+		if (text == null) {
 			return;
+		}
 		queue.add(new ChatMessage(text, priority));
 		plugins.queuedText(text);
 
@@ -52,11 +53,13 @@ public class Queue
 		String text = null;
 		do
 		{
-			if (up != null)
+			if (up != null) {
 				return;
+			}
 
-			if (queue.size() == 0)
+			if (queue.size() == 0) {
 				return;
+			}
 
 			up = (ChatMessage) queue.first();
 			queue.remove(up);
@@ -71,8 +74,9 @@ public class Queue
 
 	public synchronized void clear()
 	{
-		if (current != null)
+		if (current != null) {
 			current.cancel();
+		}
 
 		queue.clear();
 		up = null;

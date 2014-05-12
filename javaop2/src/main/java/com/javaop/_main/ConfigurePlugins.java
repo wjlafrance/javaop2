@@ -61,8 +61,9 @@ public class ConfigurePlugins extends JFrame implements WindowListener
 		{
 			listData = new DefaultListModel();
 			String[] files = JavaOpFileStuff.getRawPluginPaths();
-			for (int i = 0; i < files.length; i++)
+			for (int i = 0; i < files.length; i++) {
 				listData.addElement(files[i]);
+			}
 
 			this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 			this.getContentPane().setLayout(new BorderLayout(5, 5));
@@ -136,10 +137,11 @@ public class ConfigurePlugins extends JFrame implements WindowListener
 				ret.setForeground(Color.BLACK);
 				ret.add(c);
 
-				if (isSelected)
+				if (isSelected) {
 					ret.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-				else
+				} else {
 					ret.setBorder(BorderFactory.createLineBorder(list.getBackground(), 2));
+				}
 
 				return ret;
 			}
@@ -199,8 +201,9 @@ public class ConfigurePlugins extends JFrame implements WindowListener
 				if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION)
 				{
 					File[] files = chooser.getSelectedFiles();
-					for (int i = 0; i < files.length; i++)
+					for (int i = 0; i < files.length; i++) {
 						listData.addElement(files[i].getAbsolutePath());
+					}
 					dirty = true;
 				}
 
@@ -222,13 +225,15 @@ public class ConfigurePlugins extends JFrame implements WindowListener
 				if (selected != null)
 				{
 					// for(int i = selected.length - 1; i >= 0; i++)
-					for (int i = 0; i < selected.length; i++)
+					for (int i = 0; i < selected.length; i++) {
 						listData.remove(selected[i]);
+					}
 
-					if (selected[0] >= listData.getSize())
+					if (selected[0] >= listData.getSize()) {
 						list.setSelectedIndex(listData.getSize() - 1);
-					else
+					} else {
 						list.setSelectedIndex(selected[0]);
+					}
 
 					dirty = true;
 				}
@@ -269,8 +274,9 @@ public class ConfigurePlugins extends JFrame implements WindowListener
 
 		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(pluginFile)));
 		Enumeration elements = listData.elements();
-		while (elements.hasMoreElements())
+		while (elements.hasMoreElements()) {
 			out.println(elements.nextElement());
+		}
 
 		out.close();
 
@@ -291,19 +297,15 @@ public class ConfigurePlugins extends JFrame implements WindowListener
 		if (dirty)
 		{
 			int result = JOptionPane.showConfirmDialog(this, "Do you want to save before exiting?",
-													   "Save?", JOptionPane.YES_NO_CANCEL_OPTION);
+					"Save?", JOptionPane.YES_NO_CANCEL_OPTION);
 
-			if (result == JOptionPane.CANCEL_OPTION)
+			if (result == JOptionPane.CANCEL_OPTION) {
 				return;
-			else if (result == JOptionPane.YES_OPTION)
-			{
-				try
-				{
+			} else if (result == JOptionPane.YES_OPTION) {
+				try {
 					save();
 					System.exit(0);
-				}
-				catch (IOException exception)
-				{
+				} catch (IOException exception) {
 					JOptionPane.showMessageDialog(null, "An error occurred writing to the file: "
 							+ exception.toString());
 				}

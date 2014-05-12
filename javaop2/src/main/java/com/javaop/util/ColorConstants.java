@@ -201,8 +201,9 @@ public class ColorConstants
 			trySave();
 
 			currentKey = (String) list.getSelectedValue();
-			if (currentKey == null)
+			if (currentKey == null) {
 				return;
+			}
 
 			String color = colors.getNoWrite(null, currentKey, "");
 			chooser.setColor(Color.decode("#" + color));

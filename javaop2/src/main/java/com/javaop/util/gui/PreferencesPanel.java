@@ -42,8 +42,9 @@ public class PreferencesPanel extends JPanelEx
 
 		String[] keys = Uniq.uniq(defaultSettings.keys());
 
-		if (keys.length == 0)
+		if (keys.length == 0) {
 			this.add(new JLabel("There are no settings for this plugin"));
+		}
 
 		for (int i = 0; i < keys.length; i++)
 		{
@@ -52,8 +53,9 @@ public class PreferencesPanel extends JPanelEx
 			JComponent currentComponent = (JComponent) components.get(keys[i]);
 			String description = descriptions.getProperty(keys[i], "<ERROR no description set>");
 
-			if (currentComponent == null)
+			if (currentComponent == null) {
 				currentComponent = new JTextField(currentSetting);
+			}
 
 			JPanel thisPanel = getSettingPanel(keys[i], defaultSetting, description,
 											   currentComponent);

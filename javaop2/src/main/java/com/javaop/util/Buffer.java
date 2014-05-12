@@ -91,8 +91,9 @@ public class Buffer
 	private void verifyLength(int bytes)
 	{
 		// If we already have enough, just return
-		if ((currentLength + bytes) <= maxLength)
+		if ((currentLength + bytes) <= maxLength) {
 			return;
+		}
 
 		while ((currentLength + bytes) > maxLength)
 		{
@@ -150,9 +151,10 @@ public class Buffer
 	 */
 	public byte removeByte() throws IndexOutOfBoundsException
 	{
-		if (currentLength == 0)
+		if (currentLength == 0) {
 			throw new IndexOutOfBoundsException(
 					"Attempted to remove data from the buffer that wasn't there.");
+		}
 		return remove(1)[0];
 	}
 
@@ -211,8 +213,9 @@ public class Buffer
 
 	public void addArray(int[] a)
 	{
-		for (int i = 0; i < a.length; i++)
+		for (int i = 0; i < a.length; i++) {
 			addDWord(a[i]);
+		}
 	}
 
 	/**
@@ -385,8 +388,9 @@ public class Buffer
 	 */
 	public void addBytes(byte[] b)
 	{
-		for (int i = 0; i < b.length; i++)
+		for (int i = 0; i < b.length; i++) {
 			addByte(b[i]);
+		}
 	}
 
 	/**
@@ -517,10 +521,11 @@ public class Buffer
 				returnString.append('\t');
 				for (j = i - 16; j < i; j++)
 				{
-					if (buffer[j] < 0x20 || buffer[j] > 0x7F)
+					if (buffer[j] < 0x20 || buffer[j] > 0x7F) {
 						returnString.append('.');
-					else
+					} else {
 						returnString.append((char) buffer[j]);
+					}
 				}
 				// Add a linefeed after the string
 				returnString.append("\n");
@@ -556,10 +561,11 @@ public class Buffer
 
 		for (; i >= 0 && j < i; j++)
 		{
-			if (buffer[j] < 0x20 || buffer[j] > 0x7F)
+			if (buffer[j] < 0x20 || buffer[j] > 0x7F) {
 				returnString.append('.');
-			else
+			} else {
 				returnString.append((char) buffer[j]);
+			}
 		}
 
 		// Finally, tidy it all up with a newline

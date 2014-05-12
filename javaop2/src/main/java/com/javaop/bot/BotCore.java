@@ -97,10 +97,12 @@ public class BotCore implements PublicExposedFunctions
 		userDB = JavaOpFileStuff.getUserDB(botname);
 		queue = new Queue(this, callbacks);
 
-		if (localSettings == null)
+		if (localSettings == null) {
 			throw new IOException("Unable to load the settings file for bot " + botname);
-		if (userDB == null)
+		}
+		if (userDB == null) {
 			throw new IOException("Unable to load the user database for bot " + botname);
+		}
 
 		plugins = new PluginManager();
 		plugins.activatePlugins(this, callbacks);
@@ -109,8 +111,9 @@ public class BotCore implements PublicExposedFunctions
 
 		systemMessage(ErrorLevelConstants.NOTICE, "Bot '" + botname + "' has been started.");
 
-		if (getLocalSettingDefault(null, "connect automatically", "false").equalsIgnoreCase("true"))
+		if (getLocalSettingDefault(null, "connect automatically", "false").equalsIgnoreCase("true")) {
 			connect();
+		}
 	}
 
 	public void sendPacket(Buffer packet) throws IOException {
@@ -119,8 +122,9 @@ public class BotCore implements PublicExposedFunctions
 		try {
 			if (packet instanceof BnetPacket) {
 				packet = callbacks.processingOutgoingPacket((BnetPacket) packet);
-				if (packet == null)
+				if (packet == null) {
 					return;
+				}
 				callbacks.processedOutgoingPacket((BnetPacket) packet);
 			}
 			packetThread.send(packet.getBytes());
@@ -153,8 +157,9 @@ public class BotCore implements PublicExposedFunctions
 	public void sendTextUserPriority(String user, String text, int loudness, int priority) throws IOException{
 		checkRunning();
 
-		if (user == null)
+		if (user == null) {
 			loudness = LoudnessConstants.SILENT;
+		}
 
 		final Vector<String> splitText;
 
@@ -168,17 +173,18 @@ public class BotCore implements PublicExposedFunctions
 		Enumeration<String> e = splitText.elements();
 
 		while (e.hasMoreElements()) {
-			if (loudness == LoudnessConstants.LOUD)
+			if (loudness == LoudnessConstants.LOUD) {
 				queue.send(user + ": " + e.nextElement(), priority);
-			else if (loudness == LoudnessConstants.LOUD_NO_NAME)
+			} else if (loudness == LoudnessConstants.LOUD_NO_NAME) {
 				queue.send("" + e.nextElement(), priority);
-			else if (loudness == LoudnessConstants.QUIET)
+			} else if (loudness == LoudnessConstants.QUIET) {
 				queue.send("/w " + user + " " + e.nextElement(), priority);
-			else if (loudness == LoudnessConstants.SILENT)
+			} else if (loudness == LoudnessConstants.SILENT) {
 				showMessage(ColorConstants.getColor("Silent message") + e.nextElement());
-			else
+			} else {
 				systemMessage(ErrorLevelConstants.ERROR, "Unknown 'loudness' setting for message: "
 						+ e.nextElement() + " (loudness was " + loudness + ")");
+			}
 		}
 
 	}
@@ -195,8 +201,9 @@ public class BotCore implements PublicExposedFunctions
 	public void unschedule(TimerTask task) {
 		JOTimerTask thatTask = (JOTimerTask) timerTasks.get(task);
 
-		if (thatTask != null)
+		if (thatTask != null) {
 			thatTask.cancel();
+		}
 
 		timerTasks.remove(task);
 
@@ -311,9 +318,11 @@ public class BotCore implements PublicExposedFunctions
 
 		String[] users = channelGetList();
 		Vector<String> ret = new Vector<String>();
-		for (int i = 0; i < users.length; i++)
-			if (dbHasAny(users[i], flags, false))
+		for (int i = 0; i < users.length; i++) {
+			if (dbHasAny(users[i], flags, false)) {
 				ret.add(users[i]);
+			}
+		}
 
 		return (String[]) ret.toArray(new String[ret.size()]);
 	}
@@ -323,9 +332,11 @@ public class BotCore implements PublicExposedFunctions
 
 		String[] users = channelGetList();
 		Vector<String> ret = new Vector<String>();
-		for (int i = 0; i < users.length; i++)
-			if (dbHasAll(users[i], flags))
+		for (int i = 0; i < users.length; i++) {
+			if (dbHasAll(users[i], flags)) {
 				ret.add(users[i]);
+			}
+		}
 
 		return (String[]) ret.toArray(new String[ret.size()]);
 	}
@@ -335,9 +346,11 @@ public class BotCore implements PublicExposedFunctions
 
 		String[] users = channelGetList();
 		Vector<String> ret = new Vector<String>();
-		for (int i = 0; i < users.length; i++)
-			if (!dbHasAny(users[i], flags, false))
+		for (int i = 0; i < users.length; i++) {
+			if (!dbHasAny(users[i], flags, false)) {
 				ret.add(users[i]);
+			}
+		}
 
 		return (String[]) ret.toArray(new String[ret.size()]);
 	}
@@ -353,9 +366,11 @@ public class BotCore implements PublicExposedFunctions
 
 		String[] users = channelMatchGetList(pattern);
 		Vector<String> ret = new Vector<String>();
-		for (int i = 0; i < users.length; i++)
-			if (dbHasAny(users[i], flags, false))
+		for (int i = 0; i < users.length; i++) {
+			if (dbHasAny(users[i], flags, false)) {
 				ret.add(users[i]);
+			}
+		}
 
 		return (String[]) ret.toArray(new String[ret.size()]);
 	}
@@ -365,9 +380,11 @@ public class BotCore implements PublicExposedFunctions
 
 		String[] users = channelMatchGetList(pattern);
 		Vector<String> ret = new Vector<String>();
-		for (int i = 0; i < users.length; i++)
-			if (dbHasAll(users[i], flags))
+		for (int i = 0; i < users.length; i++) {
+			if (dbHasAll(users[i], flags)) {
 				ret.add(users[i]);
+			}
+		}
 
 		return (String[]) ret.toArray(new String[ret.size()]);
 	}
@@ -377,9 +394,11 @@ public class BotCore implements PublicExposedFunctions
 
 		String[] users = channelMatchGetList(pattern);
 		Vector<String> ret = new Vector<String>();
-		for (int i = 0; i < users.length; i++)
-			if (!dbHasAny(users[i], flags, false))
+		for (int i = 0; i < users.length; i++) {
+			if (!dbHasAny(users[i], flags, false)) {
 				ret.add(users[i]);
+			}
+		}
 
 		return (String[]) ret.toArray(new String[ret.size()]);
 	}
@@ -398,11 +417,13 @@ public class BotCore implements PublicExposedFunctions
 		} catch (Exception e) {
 		}
 
-		if (packetThread != null)
+		if (packetThread != null) {
 			packetThread.stopThread();
+		}
 
-		if (plugins != null)
+		if (plugins != null) {
 			plugins.deactivatePlugins(callbacks);
+		}
 
 		localVariables.clear();
 		users.clear();
@@ -517,8 +538,9 @@ public class BotCore implements PublicExposedFunctions
 	{
 		checkRunning();
 
-		if (section == null)
+		if (section == null) {
 			section = " default";
+		}
 
 		if (!localSettings.contains(section, key))
 		{
@@ -534,8 +556,9 @@ public class BotCore implements PublicExposedFunctions
 	{
 		checkRunning();
 
-		if (section == null)
+		if (section == null) {
 			section = " default";
+		}
 
 		return localSettings.getWrite(section, key, defaultValue);
 	}
@@ -592,12 +615,13 @@ public class BotCore implements PublicExposedFunctions
 		userDB.removeFlags(user, remove);
 		String newFlags = dbGetRawFlags(user);
 
-		if (oldFlags == null || oldFlags.length() == 0)
+		if (oldFlags == null || oldFlags.length() == 0) {
 			callbacks.userAdded(user, newFlags);
-		else if (newFlags == null || newFlags.length() == 0)
+		} else if (newFlags == null || newFlags.length() == 0) {
 			callbacks.userRemoved(user, oldFlags);
-		else
+		} else {
 			callbacks.userChanged(user, oldFlags, newFlags);
+		}
 	}
 
 	public void dbAddFlags(String user, String flags)
@@ -606,10 +630,11 @@ public class BotCore implements PublicExposedFunctions
 
 		String oldFlags = dbGetRawFlags(user);
 		userDB.addFlags(user, flags);
-		if (oldFlags == null || oldFlags.length() == 0)
+		if (oldFlags == null || oldFlags.length() == 0) {
 			callbacks.userAdded(user, dbGetRawFlags(user));
-		else
+		} else {
 			callbacks.userChanged(user, oldFlags, dbGetRawFlags(user));
+		}
 	}
 
 	public void dbRemoveFlag(String user, char flag)
@@ -617,24 +642,27 @@ public class BotCore implements PublicExposedFunctions
 		checkRunning();
 
 		String oldFlags = dbGetRawFlags(user);
-		if (oldFlags == null || oldFlags.length() == 0)
+		if (oldFlags == null || oldFlags.length() == 0) {
 			return;
+		}
 
 		userDB.removeFlag(user, flag);
 
 		String newFlags = dbGetRawFlags(user);
-		if (newFlags == null || newFlags.length() == 0)
+		if (newFlags == null || newFlags.length() == 0) {
 			callbacks.userRemoved(user, oldFlags);
-		else
+		} else {
 			callbacks.userChanged(user, oldFlags, newFlags);
+		}
 	}
 
 	public void dbRemoveFlags(String user, String flags)
 	{
 		checkRunning();
 
-		for (int i = 0; i < flags.length(); i++)
+		for (int i = 0; i < flags.length(); i++) {
 			dbRemoveFlag(user, flags.charAt(i));
+		}
 	}
 
 	public String dbGetRawFlags(String user)
@@ -642,8 +670,9 @@ public class BotCore implements PublicExposedFunctions
 		checkRunning();
 
 		// The user himself will only ever have "S"
-		if (user != null && user.equalsIgnoreCase((String) getLocalVariable("username")))
+		if (user != null && user.equalsIgnoreCase((String) getLocalVariable("username"))) {
 			return "S";
+		}
 
 		return userDB.getRawFlags(user);
 	}
@@ -673,8 +702,9 @@ public class BotCore implements PublicExposedFunctions
 	{
 		checkRunning();
 
-		if (user != null && user.equalsIgnoreCase((String) getLocalVariable("username")))
+		if (user != null && user.equalsIgnoreCase((String) getLocalVariable("username"))) {
 			return (flagList.indexOf("S") >= 0);
+		}
 
 		return userDB.hasAny(user, flagList, allowMOverride);
 	}
@@ -683,8 +713,9 @@ public class BotCore implements PublicExposedFunctions
 	{
 		checkRunning();
 
-		if (user != null && user.equalsIgnoreCase((String) getLocalVariable("username")))
+		if (user != null && user.equalsIgnoreCase((String) getLocalVariable("username"))) {
 			return (flagList.equalsIgnoreCase("S"));
+		}
 
 		return userDB.hasAll(user, flagList);
 	}
@@ -693,8 +724,9 @@ public class BotCore implements PublicExposedFunctions
 	{
 		checkRunning();
 
-		if (user != null && user.equalsIgnoreCase((String) getLocalVariable("username")))
+		if (user != null && user.equalsIgnoreCase((String) getLocalVariable("username"))) {
 			return true;
+		}
 
 		return userDB.userExists(user);
 	}
@@ -756,16 +788,19 @@ public class BotCore implements PublicExposedFunctions
 
 		systemMessage(ErrorLevelConstants.DEBUG, "Entering disconnect()");
 
-		if (!callbacks.disconnecting())
+		if (!callbacks.disconnecting()) {
 			return;
+		}
 
 		lock();
 
-		if (packetThread != null)
+		if (packetThread != null) {
 			packetThread.stopThread();
+		}
 
-		if (callbacks != null)
+		if (callbacks != null) {
 			callbacks.disconnected();
+		}
 	}
 
 	/** Simply performs a disconnect, then a connect. */
@@ -786,10 +821,11 @@ public class BotCore implements PublicExposedFunctions
 
 	public void pluginSetActive(String name, boolean active)
 	{
-		if (active && JavaOpFileStuff.isActivePlugin(getName(), name))
+		if (active && JavaOpFileStuff.isActivePlugin(getName(), name)) {
 			JavaOpFileStuff.removeActivePlugin(getName(), name);
-		else if (!active && !JavaOpFileStuff.isActivePlugin(getName(), name))
+		} else if (!active && !JavaOpFileStuff.isActivePlugin(getName(), name)) {
 			JavaOpFileStuff.addActivePlugin(getName(), name);
+		}
 	}
 
 	public void pluginSetDefaultSettings(String plugin)
@@ -946,8 +982,9 @@ public class BotCore implements PublicExposedFunctions
 	 */
 	private void checkRunning()
 	{
-		if (!running)
+		if (!running) {
 			throw new Error("Attempting to use a stopped bot instance!");
+		}
 	}
 
 	public String getName()
@@ -968,8 +1005,9 @@ public class BotCore implements PublicExposedFunctions
 
 		public void run()
 		{
-			if (!locked)
+			if (!locked) {
 				realTimerTask.run();
+			}
 		}
 	}
 
