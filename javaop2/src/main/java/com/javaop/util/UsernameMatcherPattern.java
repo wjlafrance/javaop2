@@ -7,25 +7,30 @@
 package com.javaop.util;
 
 /**
+ * Simple utility to convert username patterns into regular expressions.
  *
  * @author Ron - Home
  */
-public class Pattern
+public class UsernameMatcherPattern
 {
 	/**
 	 * Fixes the name to escape and replace characters.
 	 *
+	 * ? will match a single character
+	 * % will match a single numeric character (0-9)
+	 * * will match any number of characters
+	 *
 	 * @param str
 	 *            The original string.
-	 * @return The new string.
+	 * @return Regular expression representation of the pattern argument.
 	 */
-	public static String fixPattern(String str)
+	public static String fixPattern(String pattern)
 	{
 		StringBuilder ret = new StringBuilder();
 
-		for (int i = 0; i < str.length(); i++)
+		for (int i = 0; i < pattern.length(); i++)
 		{
-			char thisChar = str.charAt(i);
+			char thisChar = pattern.charAt(i);
 
 			if (thisChar == '*') {
 				ret.append(".*");
@@ -36,7 +41,7 @@ public class Pattern
 			} else if (!Character.isLetterOrDigit(thisChar)) {
 				ret.append("\\").append(thisChar);
 			} else {
-				ret.append(str.charAt(i));
+				ret.append(pattern.charAt(i));
 			}
 		}
 		return ret.toString().toLowerCase();

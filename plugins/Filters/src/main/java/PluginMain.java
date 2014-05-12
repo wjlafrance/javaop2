@@ -17,7 +17,7 @@ import com.javaop.plugin_interfaces.CommandCallback;
 import com.javaop.plugin_interfaces.GenericPluginInterface;
 import com.javaop.plugin_interfaces.RawEventCallback;
 import com.javaop.util.BnetEvent;
-import com.javaop.util.Pattern;
+import com.javaop.util.UsernameMatcherPattern;
 
 
 /*
@@ -188,7 +188,7 @@ public class PluginMain extends GenericPluginInterface implements RawEventCallba
                 if (nameValue.length != 2)
                     out.systemMessage(ERROR, "Invalid line in filters: '" + filters[i] + "'");
                 else
-                    message = message.replaceAll(Pattern.fixPattern(nameValue[0]), nameValue[1]);
+                    message = message.replaceAll(UsernameMatcherPattern.fixPattern(nameValue[0]), nameValue[1]);
 
                 // If the message was cleared, return
                 if (message.length() == 0)

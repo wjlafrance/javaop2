@@ -5,7 +5,7 @@ package com.javaop.users;
 
 import java.util.Vector;
 
-import com.javaop.util.Pattern;
+import com.javaop.util.UsernameMatcherPattern;
 import com.javaop.util.User;
 
 
@@ -76,7 +76,7 @@ public class UserList
 	public String[] matchNames(String pattern)
 	{
 		Vector ret = new Vector();
-		pattern = Pattern.fixPattern(pattern);
+		pattern = UsernameMatcherPattern.fixPattern(pattern);
 
 		for (Object user1 : users) {
 			UserData user = (UserData) user1;
