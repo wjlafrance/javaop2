@@ -62,7 +62,7 @@ public class ConfigurePlugins extends JFrame implements WindowListener
             listData = new DefaultListModel();
             String[] files = JavaOpFileStuff.getRawPluginPaths();
             for (int i = 0; i < files.length; i++)
-                listData.addElement(files[i].toString());
+                listData.addElement(files[i]);
 
             this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
             this.getContentPane().setLayout(new BorderLayout(5, 5));

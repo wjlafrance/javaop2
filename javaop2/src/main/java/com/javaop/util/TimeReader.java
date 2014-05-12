@@ -76,7 +76,7 @@ public class TimeReader
         s.append(days > 0 ? days + " day" + (days == 1 ? "" : "s") + ", " : "");
         s.append(hours > 0 ? hours + " hour" + (hours == 1 ? "" : "s") + ", " : "");
         s.append(minutes > 0 ? minutes + " minute" + (minutes == 1 ? "" : "s") + ", " : "");
-        s.append(seconds + " second" + (seconds == 1 ? "" : "s"));
+        s.append(seconds).append(" second").append(seconds == 1 ? "" : "s");
         // s.append(time > 0 ? time + "ms" : "");
 
         return s.toString();

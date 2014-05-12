@@ -526,8 +526,8 @@ public class Buffer
                 returnString.append("\n");
             }
 
-            returnString.append(Integer.toString((buffer[i] & 0xF0) >> 4, 16)
-                    + Integer.toString((buffer[i] & 0x0F) >> 0, 16));
+            returnString.append(Integer.toString((buffer[i] & 0xF0) >> 4, 16));
+            returnString.append(Integer.toString((buffer[i] & 0x0F) >> 0, 16));
             returnString.append(' ');
         }
 
@@ -542,7 +542,7 @@ public class Buffer
         // Add the tab for alignment
         returnString.append('\t');
 
-        // Add final chararacters at right, after padding
+        // Add final characters at right, after padding
 
         // If it was at the end of a line, print out the full line
         if (i > 0 && (i % 16) == 0)
@@ -563,8 +563,9 @@ public class Buffer
         }
 
         // Finally, tidy it all up with a newline
+        returnString.append("\nLength: ");
+        returnString.append(currentLength);
         returnString.append('\n');
-        returnString.append("Length: " + currentLength + '\n');
 
         return returnString.toString();
     }

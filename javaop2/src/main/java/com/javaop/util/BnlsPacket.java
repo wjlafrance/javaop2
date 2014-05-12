@@ -158,8 +158,8 @@ public class BnlsPacket extends Buffer
                 // Add a linefeed after the string
                 returnString.append("\n");
             }
-            returnString.append(Integer.toString((buffer[i] & 0xF0) >> 4, 16)
-                    + Integer.toString((buffer[i] & 0x0F) >> 0, 16));
+            returnString.append(Integer.toString((buffer[i] & 0xF0) >> 4, 16));
+            returnString.append(Integer.toString((buffer[i] & 0x0F) >> 0, 16));
             returnString.append(' ');
         }
         // Add padding spaces if it's not a multiple of 16
@@ -190,8 +190,9 @@ public class BnlsPacket extends Buffer
                 returnString.append((char) buffer[j]);
         }
         // Finally, tidy it all up with a newline
+        returnString.append("\nLength: ");
+        returnString.append(size());
         returnString.append('\n');
-        returnString.append("Length: " + size() + '\n');
         return returnString.toString();
     }
 

@@ -145,8 +145,8 @@ public class BnetPacket extends Buffer
                 returnString.append("\n");
             }
 
-            returnString.append(Integer.toString((buffer[i] & 0xF0) >> 4, 16)
-                    + Integer.toString((buffer[i] & 0x0F) >> 0, 16));
+            returnString.append(Integer.toString((buffer[i] & 0xF0) >> 4, 16));
+            returnString.append(Integer.toString((buffer[i] & 0x0F) >> 0, 16));
             returnString.append(' ');
         }
 
@@ -182,8 +182,9 @@ public class BnetPacket extends Buffer
         }
 
         // Finally, tidy it all up with a newline
-        returnString.append('\n');
-        returnString.append("Length: " + size() + '\n');
+        returnString.append("\nLength: ");
+        returnString.append(size());
+		returnString.append('\n');
 
         return returnString.toString();
     }

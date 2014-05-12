@@ -29,7 +29,7 @@ public class StringEncoder
                 }
                 else
                 {
-                    ret.append("&" + ((int) thisChar) + ";");
+                    ret.append("&").append((int) thisChar).append(";");
                 }
             }
 
