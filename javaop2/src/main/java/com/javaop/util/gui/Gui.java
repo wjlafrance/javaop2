@@ -36,7 +36,7 @@ public class Gui
         if (c instanceof JTextComponent)
             ((JTextComponent) c).setText(text);
         else if (c instanceof AbstractButton)
-            ((AbstractButton) c).setSelected(text.equalsIgnoreCase("true") ? true : false);
+            ((AbstractButton) c).setSelected(text.equalsIgnoreCase("true"));
         else if (c instanceof JComboBox)
             ((JComboBox) c).setSelectedItem(text);
         else

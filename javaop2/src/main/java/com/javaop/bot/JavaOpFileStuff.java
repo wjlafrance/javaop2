@@ -11,7 +11,6 @@ import java.net.URLClassLoader;
 import java.util.Vector;
 
 import com.javaop.plugin_interfaces.GenericPluginInterface;
-import com.javaop.pluginmanagers.PluginManager;
 
 import com.javaop.util.FileManagement;
 import com.javaop.util.PersistantMap;
