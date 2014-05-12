@@ -433,7 +433,7 @@ public class CommandlineConfigure
 	}
 
 	private static Object[] sortEnumeration(Enumeration<Object> e) {
-		Vector<Object> objectVector = new Vector<Object>();
+		Vector<Object> objectVector = new Vector<>();
 
 		while (e.hasMoreElements()) {
 			objectVector.add(e.nextElement());

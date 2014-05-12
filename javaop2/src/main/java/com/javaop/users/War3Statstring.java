@@ -18,14 +18,14 @@ public class War3Statstring
 	private static Hashtable<String, String> iconNames;
 
 	static {
-		raceNames = new Hashtable<String, String>();
+		raceNames = new Hashtable<>();
 		raceNames.put("R", "Random");
 		raceNames.put("O", "Orc");
 		raceNames.put("N", "Night Elf");
 		raceNames.put("U", "Unknown");
 		raceNames.put("H", "Human");
 
-		iconNames = new Hashtable<String, String>();
+		iconNames = new Hashtable<>();
 		iconNames.put("R0", "Unknown");
 		iconNames.put("R1", "Peon");
 		iconNames.put("R2", "Green Dragon Whelp");

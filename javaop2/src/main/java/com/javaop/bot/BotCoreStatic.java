@@ -19,7 +19,7 @@ import com.javaop.exceptions.PluginException;
 public class BotCoreStatic implements StaticExposedFunctions {
 
 	private final static Hashtable<Object, Object>  globalVariables
-			= new Hashtable<Object, Object>();
+			= new Hashtable<>();
 	private final static PersistantMap              globalSettings
 			= JavaOpFileStuff.getGlobalSettings();
 	private static BotCoreStatic                    instance

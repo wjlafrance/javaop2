@@ -94,7 +94,7 @@ abstract public class GenericPluginInterface
 	public Hashtable<String, JComponent> getComponents(Properties values)
 	{
 		String[] keys = Uniq.uniq(getDefaultSettingValues().keys());
-		Hashtable<String, JComponent> ret = new Hashtable<String, JComponent>();
+		Hashtable<String, JComponent> ret = new Hashtable<>();
 
 		for (String key : keys) {
 			JComponent component = getComponent(key, values.getProperty(key.toLowerCase()));
@@ -113,7 +113,7 @@ abstract public class GenericPluginInterface
 	public Hashtable<String, JComponent> getGlobalComponents(Properties values)
 	{
 		String[] keys = Uniq.uniq(getGlobalDefaultSettingValues().keys());
-		Hashtable<String, JComponent> ret = new Hashtable<String, JComponent>();
+		Hashtable<String, JComponent> ret = new Hashtable<>();
 
 		for (String key : keys) {
 			JComponent component = getGlobalComponent(key, values.getProperty(key.toLowerCase()));

@@ -66,23 +66,23 @@ import com.javaop.util.PersistantMap;
  */
 public class PluginRegistration implements PluginCallbackRegister
 {
-	private Vector<BotPlugin>      				botPlugins            = new Vector<BotPlugin>();
-	private Vector<ConnectionPlugin> 			connectionPlugins     = new Vector<ConnectionPlugin>();
-	private Vector<ErrorPlugin>    				errorPlugins          = new Vector<ErrorPlugin>();
-	private Vector<OutgoingTextPlugin>  		outgoingTextPlugins   = new Vector<OutgoingTextPlugin>();
-	private Vector<SystemMessagePlugin>			systemMessagePlugins  = new Vector<SystemMessagePlugin>();
-	private Vector<UserDatabasePlugin> 			userDatabasePlugins   = new Vector<UserDatabasePlugin>();
-	private Vector<UserErrorPlugin>				userErrorPlugins      = new Vector<UserErrorPlugin>();
-	private Vector<EventPlugin>					eventPlugins          = new Vector<EventPlugin>();
-	private Vector<GuiPlugin>					guiPlugins            = new Vector<GuiPlugin>();
+	private Vector<BotPlugin>                botPlugins            = new Vector<>();
+	private Vector<ConnectionPlugin>         connectionPlugins     = new Vector<>();
+	private Vector<ErrorPlugin>              errorPlugins          = new Vector<>();
+	private Vector<OutgoingTextPlugin>       outgoingTextPlugins   = new Vector<>();
+	private Vector<SystemMessagePlugin>      systemMessagePlugins  = new Vector<>();
+	private Vector<UserDatabasePlugin>       userDatabasePlugins   = new Vector<>();
+	private Vector<UserErrorPlugin>          userErrorPlugins      = new Vector<>();
+	private Vector<EventPlugin>              eventPlugins          = new Vector<>();
+	private Vector<GuiPlugin>                guiPlugins            = new Vector<>();
 
-	private Vector<RawEventPlugin>[]			rawEventPlugins       = new Vector[EventConstants.MAX_EVENT + 1];
-	private Vector<PacketPlugin>[]				incomingPacketPlugins = new Vector[255];
-	private Vector<PacketPlugin>[]				outgoingPacketPlugins = new Vector[255];
+	private Vector<RawEventPlugin>[]         rawEventPlugins       = new Vector[EventConstants.MAX_EVENT + 1];
+	private Vector<PacketPlugin>[]           incomingPacketPlugins = new Vector[255];
+	private Vector<PacketPlugin>[]           outgoingPacketPlugins = new Vector[255];
 
-	private Hashtable<String, CommandPlugin>	commandPlugins        = new Hashtable<String, CommandPlugin>();
-	private final PersistantMap    				commandAliases;
-	private final PersistantMap    				customCommandFlags;
+	private Hashtable<String, CommandPlugin> commandPlugins        = new Hashtable<>();
+	private final PersistantMap              commandAliases;
+	private final PersistantMap              customCommandFlags;
 
 	private PublicExposedFunctions pubFuncs;
 
@@ -95,7 +95,7 @@ public class PluginRegistration implements PluginCallbackRegister
 
 	public String[] getCommands() {
 		Enumeration<String> commands = commandPlugins.keys();
-		Vector<String> ret = new Vector<String>();
+		Vector<String> ret = new Vector<>();
 
 		while (commands.hasMoreElements()) {
 			ret.add(commands.nextElement());
@@ -141,7 +141,7 @@ public class PluginRegistration implements PluginCallbackRegister
 
 	public String[] getAliasesOf(String command) {
 		Enumeration<String> e = commandAliases.propertyNames(null);
-		Vector<String> v = new Vector<String>();
+		Vector<String> v = new Vector<>();
 		while (e.hasMoreElements()) {
 			String s = (String) e.nextElement();
 			if (commandAliases.getNoWrite(null, s, "").equals(command)) {
@@ -180,7 +180,7 @@ public class PluginRegistration implements PluginCallbackRegister
 
 	public void registerRawEventPlugin(RawEventCallback callback, int event, Object data) {
 		if (rawEventPlugins[event] == null) {
-			rawEventPlugins[event] = new Vector<RawEventPlugin>();
+			rawEventPlugins[event] = new Vector<>();
 		}
 
 		rawEventPlugins[event].add(new RawEventPlugin(callback, event, data));
@@ -203,7 +203,7 @@ public class PluginRegistration implements PluginCallbackRegister
 
 	public void registerIncomingPacketPlugin(PacketCallback callback, int packet, Object data) {
 		if (incomingPacketPlugins[packet] == null) {
-			incomingPacketPlugins[packet] = new Vector<PacketPlugin>();
+			incomingPacketPlugins[packet] = new Vector<>();
 		}
 
 		incomingPacketPlugins[packet].add(new PacketPlugin(callback, packet, data));
@@ -218,7 +218,7 @@ public class PluginRegistration implements PluginCallbackRegister
 
 	public void registerOutgoingPacketPlugin(PacketCallback callback, int packet, Object data) {
 		if (outgoingPacketPlugins[packet] == null) {
-			outgoingPacketPlugins[packet] = new Vector<PacketPlugin>();
+			outgoingPacketPlugins[packet] = new Vector<>();
 		}
 		outgoingPacketPlugins[packet].add(new PacketPlugin(callback, packet, data));
 	}

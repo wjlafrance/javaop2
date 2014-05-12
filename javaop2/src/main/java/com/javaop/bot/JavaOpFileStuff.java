@@ -116,7 +116,7 @@ public class JavaOpFileStuff
 	public static String[] getAllPlugins()
 	{
 		String[] paths = Uniq.uniq(getPluginPaths());
-		Vector<File> jars = new Vector<File>();
+		Vector<File> jars = new Vector<>();
 
 		for (String path : paths) {
 			jars.addAll(FileManagement.search(new RelativeFile(path), ".*\\.jar"));

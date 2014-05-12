@@ -30,7 +30,7 @@ public class FileManagement
 	public static void removeLine(File file, String remove) throws IOException
 	{
 		BufferedReader in = new BufferedReader(new FileReader(file));
-		Vector<String> lines = new Vector<String>();
+		Vector<String> lines = new Vector<>();
 
 		String line;
 		while ((line = in.readLine()) != null)
@@ -101,11 +101,11 @@ public class FileManagement
 		if (!file.exists())
 		{
 			file.getParentFile().mkdirs();
-			return new Vector<String>();
+			return new Vector<>();
 		}
 
 		BufferedReader in = new BufferedReader(new FileReader(file));
-		Vector<String> lines = new Vector<String>();
+		Vector<String> lines = new Vector<>();
 
 		String line;
 		while ((line = in.readLine()) != null) {
@@ -121,10 +121,10 @@ public class FileManagement
 		if (!base.exists())
 		{
 			base.getParentFile().mkdirs();
-			return new Vector<File>();
+			return new Vector<>();
 		}
 
-		Vector<File> ret = new Vector<File>();
+		Vector<File> ret = new Vector<>();
 
 		if (base.isDirectory())
 		{

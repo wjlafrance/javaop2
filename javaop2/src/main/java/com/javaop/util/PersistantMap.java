@@ -41,15 +41,13 @@ import java.util.Vector;
 
 public class PersistantMap
 {
-	private final File   	tempFile   = new File(System.getProperty("user.home") + "/.javaop2-tmp-"
-											+ Math.random());
-	private final File   	file;
-	private final String 	comment;
+	private final File   tempFile   = new File(System.getProperty("user.home") + "/.javaop2-tmp-" + Math.random());
+	private final File   file;
+	private final String comment;
+	private long         lastUpdate = 0;
 
-	private Hashtable<String, Properties>
-							sections   = new Hashtable<String, Properties>();
+	private Hashtable<String, Properties> sections = new Hashtable<>();
 
-	private long         	lastUpdate = 0;
 
 	/**
 	 * If an IOException is thrown, that means that there was no data file
@@ -78,7 +76,7 @@ public class PersistantMap
 			{
 				// System.err.println("Loading");
 
-				Hashtable<String, Properties> temp = new Hashtable<String, Properties>();
+				Hashtable<String, Properties> temp = new Hashtable<>();
 				Properties currentSection = new Properties();
 				String sectionName = "default";
 

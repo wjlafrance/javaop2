@@ -38,9 +38,9 @@ import com.javaop.bot.PluginMain;
  */
 public class PluginManager {
 	private static Hashtable<String, GenericPluginInterface> allPlugins =
-			new Hashtable<String, GenericPluginInterface>();
+			new Hashtable<>();
 	private Hashtable<String, GenericPluginInterface>  activePlugins =
-			new Hashtable<String, GenericPluginInterface>();
+			new Hashtable<>();
 
 	/**************
 	 * These static functions are run exactly once, when the bot loads.

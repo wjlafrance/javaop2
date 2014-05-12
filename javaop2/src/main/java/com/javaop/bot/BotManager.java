@@ -19,7 +19,7 @@ import com.javaop.exceptions.PluginException;
  */
 public class BotManager
 {
-	private static final Hashtable<String, BotCore> activeBots = new Hashtable<String, BotCore>();
+	private static final Hashtable<String, BotCore> activeBots = new Hashtable<>();
 
 	public static void startBot(String name) throws IOException, PluginException
 	{

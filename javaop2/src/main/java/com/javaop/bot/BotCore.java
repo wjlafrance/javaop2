@@ -65,7 +65,7 @@ public class BotCore implements PublicExposedFunctions
 	protected String                          channelName  = "<not logged in>";
 
 	final protected Timer                     timer;
-	final protected Hashtable<TimerTask, JOTimerTask> timerTasks   = new Hashtable<TimerTask, JOTimerTask>();
+	final protected Hashtable<TimerTask, JOTimerTask> timerTasks   = new Hashtable<>();
 
 	final protected PluginManager             plugins;
 
@@ -89,7 +89,7 @@ public class BotCore implements PublicExposedFunctions
 		this.botname = botname;
 
 		users = new UserList();
-		localVariables = new Hashtable<Object, Object>();
+		localVariables = new Hashtable<>();
 		this.callbacks = new PluginRegistration(this);
 		timer = new Timer();
 
@@ -164,7 +164,7 @@ public class BotCore implements PublicExposedFunctions
 		final Vector<String> splitText;
 
 		if (loudness == LoudnessConstants.SILENT) {
-			splitText = new Vector<String>();
+			splitText = new Vector<>();
 			splitText.add(text);
 		} else {
 			splitText = Splitter.split(text, true);
@@ -317,7 +317,7 @@ public class BotCore implements PublicExposedFunctions
 		checkRunning();
 
 		String[] users = channelGetList();
-		Vector<String> ret = new Vector<String>();
+		Vector<String> ret = new Vector<>();
 		for (String user : users) {
 			if (dbHasAny(user, flags, false)) {
 				ret.add(user);
@@ -331,7 +331,7 @@ public class BotCore implements PublicExposedFunctions
 		checkRunning();
 
 		String[] users = channelGetList();
-		Vector<String> ret = new Vector<String>();
+		Vector<String> ret = new Vector<>();
 		for (String user : users) {
 			if (dbHasAll(user, flags)) {
 				ret.add(user);
@@ -345,7 +345,7 @@ public class BotCore implements PublicExposedFunctions
 		checkRunning();
 
 		String[] users = channelGetList();
-		Vector<String> ret = new Vector<String>();
+		Vector<String> ret = new Vector<>();
 		for (String user : users) {
 			if (!dbHasAny(user, flags, false)) {
 				ret.add(user);
@@ -365,7 +365,7 @@ public class BotCore implements PublicExposedFunctions
 		checkRunning();
 
 		String[] users = channelMatchGetList(pattern);
-		Vector<String> ret = new Vector<String>();
+		Vector<String> ret = new Vector<>();
 		for (String user : users) {
 			if (dbHasAny(user, flags, false)) {
 				ret.add(user);
@@ -379,7 +379,7 @@ public class BotCore implements PublicExposedFunctions
 		checkRunning();
 
 		String[] users = channelMatchGetList(pattern);
-		Vector<String> ret = new Vector<String>();
+		Vector<String> ret = new Vector<>();
 		for (String user : users) {
 			if (dbHasAll(user, flags)) {
 				ret.add(user);
@@ -393,7 +393,7 @@ public class BotCore implements PublicExposedFunctions
 		checkRunning();
 
 		String[] users = channelMatchGetList(pattern);
-		Vector<String> ret = new Vector<String>();
+		Vector<String> ret = new Vector<>();
 		for (String user : users) {
 			if (!dbHasAny(user, flags, false)) {
 				ret.add(user);
