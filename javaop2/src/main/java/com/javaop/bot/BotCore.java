@@ -60,7 +60,6 @@ import com.javaop.util.UserDB;
 public class BotCore implements PublicExposedFunctions
 {
 	protected final Map<Object, Object> localVariables = new HashMap<>();
-	protected final PluginRegistration callbacks = new PluginRegistration(this);
 	protected final UserList users = new UserList();
 	protected final Timer timer = new Timer();
 	protected final Map<TimerTask, JOTimerTask> timerTasks = new HashMap<>();
@@ -69,9 +68,10 @@ public class BotCore implements PublicExposedFunctions
 	protected final PersistantMap localSettings;
 	protected final UserDB userDB;
 
-	private final Queue queue = new Queue(this, callbacks);
+	protected final PluginRegistration callbacks;
+	private Queue queue;
 
-	protected String channelName    = "<not logged in>";
+	protected String channelName = "<not logged in>";
 	protected PacketThread packetThread;
 
 	private boolean running = true;
@@ -87,8 +87,11 @@ public class BotCore implements PublicExposedFunctions
 	{
 		this.botname = botname;
 
+		this.callbacks = new PluginRegistration(this);
+
 		localSettings = JavaOpFileStuff.getSettings(botname);
 		userDB = JavaOpFileStuff.getUserDB(botname);
+		queue = new Queue(this, callbacks);
 
 		if (localSettings == null) {
 			throw new IOException("Unable to load the settings file for bot " + botname);
