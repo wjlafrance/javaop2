@@ -1,6 +1,7 @@
 package com.javaop.Help;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Properties;
 
 import javax.swing.JComponent;
@@ -157,13 +158,13 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
         {
             if (args.length == 0)
             {
-                String[] commands = Uniq.uniq(out.getCommandList());
+                List<String> commands = Uniq.uniq(out.getCommandList());
 
                 StringBuffer list = new StringBuffer("Commands: ");
-                for (int i = 0; i < commands.length; i++)
+                for (int i = 0; i < commands.size(); i++)
                 {
                     if (command.equalsIgnoreCase("helpall") || out.canUse(user, command))
-                        list.append(commands[i]).append(" ");
+                        list.append(commands.get(i)).append(" ");
                 }
 
                 out.sendTextUserPriority(user, list.toString(), loudness, PRIORITY_LOW);

@@ -8,7 +8,9 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.List;
 import java.util.Vector;
+import java.util.stream.Collectors;
 
 import com.javaop.plugin_interfaces.GenericPluginInterface;
 
@@ -77,7 +79,7 @@ public class JavaOpFileStuff
 	/******************
 	 * Plugin Paths
 	 */
-	public static String[] getRawPluginPaths()
+	public static List<String> getRawPluginPaths()
 	{
 		return Uniq.uniq(getPluginPaths());
 	}
@@ -113,12 +115,11 @@ public class JavaOpFileStuff
 	/****************
 	 * Plugins
 	 */
-	public static String[] getAllPlugins()
+	public static List<String> getAllPlugins()
 	{
-		String[] paths = Uniq.uniq(getPluginPaths());
 		Vector<File> jars = new Vector<>();
 
-		for (String path : paths) {
+		for (String path : Uniq.uniq(getPluginPaths())) {
 			jars.addAll(FileManagement.search(new RelativeFile(path), ".*\\.jar"));
 		}
 
@@ -200,21 +201,17 @@ public class JavaOpFileStuff
 	/****************
 	 * Active plugins
 	 */
-	public static String[] getActivePlugins(String bot)
-	{
-		try
-		{
+	public static List<String> getActivePlugins(String bot) {
+		try {
 			return FileManagement.getUniqueLines(JavaOpFileStuff.getPluginFile(bot));
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			System.err.println("Error getting active plugins: " + e);
 			System.exit(0);
 			throw new RuntimeException();
 		}
 	}
 
-	public static void setActivePlugins(String bot, String[] plugins)
+	public static void setActivePlugins(String bot, Iterable<String> plugins)
 	{
 		FileManagement.deleteFile(JavaOpFileStuff.getPluginFile(bot));
 
@@ -295,17 +292,10 @@ public class JavaOpFileStuff
 	 */
 
 	/** The bots are all the *.jbb files in the current folder */
-	public static String[] getAllBots()
-	{
-		String[] bots = Uniq.uniq(FileManagement.search(new RelativeFile(""), ".*\\.jbb"));
-
-		for (int i = 0; i < bots.length; i++)
-		{
-			bots[i] = bots[i].replaceAll("\\" + EXT_SETTINGS + "$", "");
-			bots[i] = bots[i].replaceAll(".*[\\\\/]", "");
-		}
-
-		return bots;
+	public static List<String> getAllBots() {
+		return Uniq.uniq(FileManagement.search(new RelativeFile(""), ".*\\.jbb")).stream().map(
+				s -> s.replaceAll("\\" + EXT_SETTINGS + "$", "").replaceAll(".*[\\\\/]", "")
+		).collect(Collectors.toList());
 	}
 
 	public static void deleteBot(String name)
@@ -353,14 +343,10 @@ public class JavaOpFileStuff
 	 * Default bots
 	 */
 
-	public static String[] getDefaultBots()
-	{
-		try
-		{
+	public static List<String> getDefaultBots() {
+		try {
 			return FileManagement.getUniqueLines(JavaOpFileStuff.getDefaultBotsFile());
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			System.err.println("Error getting default bots: " + e);
 			System.exit(0);
 			throw new RuntimeException();

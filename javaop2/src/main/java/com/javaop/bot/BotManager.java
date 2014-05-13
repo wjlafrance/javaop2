@@ -5,6 +5,7 @@ package com.javaop.bot;
 
 import java.io.IOException;
 import java.util.Hashtable;
+import java.util.List;
 
 import com.javaop.util.Uniq;
 
@@ -41,12 +42,12 @@ public class BotManager
 		}
 	}
 
-	public static String[] getAllBots()
+	public static List<String> getAllBots()
 	{
 		return JavaOpFileStuff.getAllBots();
 	}
 
-	public static String[] getActiveBots()
+	public static List<String>getActiveBots()
 	{
 		return Uniq.uniq(activeBots.keys());
 	}

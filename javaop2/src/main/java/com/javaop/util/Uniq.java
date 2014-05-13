@@ -5,66 +5,53 @@ package com.javaop.util;
 
 import java.util.Arrays;
 import java.util.Enumeration;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 import java.util.Vector;
 
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Lists;
 
-public class Uniq
-{
-	public static String[] uniq(Enumeration e)
-	{
-		if (e == null) {
-			return new String[0];
+/**
+ * These methods currently return a List&lt;String&gt;, but may return a Set later on. Treat the result as an
+ * Iterable if you don't want your code to break.
+ */
+public class Uniq {
+
+	public static <T> List<String> uniq(Enumeration<T> input) {
+		if (input == null) {
+			return null;
 		}
 
-		Vector v = new Vector();
-
-		while (e.hasMoreElements()) {
-			v.add(e.nextElement());
+		ImmutableSet.Builder<String> ret = ImmutableSet.builder();
+		while (input.hasMoreElements()) {
+			ret.add(input.nextElement().toString());
 		}
-
-		return uniq(v);
+		return Lists.newArrayList(ret.build());
 	}
 
-	public static String[] uniq(Vector v)
-	{
-		if (v == null) {
-			return new String[0];
+	public static <T> List<String> uniq(List<T> input) {
+		if (input == null) {
+			return null;
 		}
 
-		String[] s = new String[v.size()];
-		for (int i = 0; i < v.size(); i++) {
-			s[i] = v.get(i).toString();
+		ImmutableSet.Builder<String> ret = ImmutableSet.builder();
+		for (T e : input) {
+			ret.add(e.toString());
 		}
-
-		return uniq(s);
+		return Lists.newArrayList(ret.build());
 	}
 
-	public static String[] uniq(String[] str)
-	{
-		if (str == null) {
-			return new String[0];
+	public static <T> List<String> uniq(T[] input) {
+		if (input == null) {
+			return null;
 		}
 
-		if (str.length == 0) {
-			return str;
+		ImmutableSet.Builder<String> ret = ImmutableSet.builder();
+		for (T e : input) {
+			ret.add(e.toString());
 		}
-
-		Arrays.sort(str);
-
-		Vector ret = new Vector();
-
-		String current = str[0];
-		ret.add(current);
-		for (int i = 1; i < str.length; i++)
-		{
-			if (current.equalsIgnoreCase(str[i])) {
-				continue;
-			}
-
-			current = str[i];
-			ret.add(current);
-		}
-
-		return (String[]) ret.toArray(new String[ret.size()]);
+		return Lists.newArrayList(ret.build());
 	}
 }

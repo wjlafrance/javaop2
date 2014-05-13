@@ -453,13 +453,13 @@ public class BotCore implements PublicExposedFunctions
 	}
 
 	/** Get a list of all running bots */
-	public String[] getRunningBots() {
+	public List<String> getRunningBots() {
 		checkRunning();
 		return BotManager.getActiveBots();
 	}
 
 	/** Get a list of all bots */
-	public String[] getAllBots() {
+	public List<String> getAllBots() {
 		checkRunning();
 		return BotManager.getAllBots();
 	}
@@ -573,7 +573,7 @@ public class BotCore implements PublicExposedFunctions
 		localSettings.remove(section, key);
 	}
 
-	public String[] getLocalKeys(String section)
+	public Iterable<String> getLocalKeys(String section)
 	{
 		checkRunning();
 
@@ -727,7 +727,7 @@ public class BotCore implements PublicExposedFunctions
 		return userDB.userExists(user);
 	}
 
-	public String[] dbFindAttr(char flag)
+	public Iterable<String> dbFindAttr(char flag)
 	{
 		checkRunning();
 

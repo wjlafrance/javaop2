@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JDesktopPane;
@@ -292,11 +293,11 @@ public class JavaOpMainMenu extends JMenuBar implements ActionListener,
             deleteBot.removeAll();
             defaultBots.removeAll();
 
-            String[] bots = staticFuncs.botGetAllNames();
+            List<String> bots = staticFuncs.botGetAllNames();
 
-            for (int i = 0; i < bots.length; i++)
+            for (int i = 0; i < bots.size(); i++)
             {
-                PersistantMap settings = staticFuncs.botGetSettings(bots[i]);
+                PersistantMap settings = staticFuncs.botGetSettings(bots.get(i));
 
                 String info = "'"
                         + settings.getNoWrite("Battle.net Login Plugin", "username", "<unknown>")
@@ -306,21 +307,21 @@ public class JavaOpMainMenu extends JMenuBar implements ActionListener,
                         + settings.getNoWrite("Battle.net Login Plugin", "home channel",
                                               "<unknown>") + "'; game: "
                         + settings.getNoWrite("Battle.net Login Plugin", "game", "<unknown>");
-                JMenuItem item = new JMenuItem(bots[i]);
+                JMenuItem item = new JMenuItem(bots.get(i));
                 item.setToolTipText(info);
                 loadBot.add(item);
                 item.addActionListener(loader);
 
-                item = new JMenuItem(bots[i]);
+                item = new JMenuItem(bots.get(i));
                 item.setToolTipText(info);
                 deleteBot.add(item);
                 item.addActionListener(deleter);
 
                 try
                 {
-                    JCheckBoxMenuItem check = new JCheckBoxMenuItem(bots[i]);
+                    JCheckBoxMenuItem check = new JCheckBoxMenuItem(bots.get(i));
                     check.setToolTipText(info);
-                    check.setSelected(staticFuncs.botIsDefault(bots[i]));
+                    check.setSelected(staticFuncs.botIsDefault(bots.get(i)));
                     check.addActionListener(checker);
                     defaultBots.add(check);
                 }
@@ -330,7 +331,7 @@ public class JavaOpMainMenu extends JMenuBar implements ActionListener,
                 }
             }
 
-            if (bots.length == 0)
+            if (bots.size() == 0)
             {
                 loadBot.add("-- No bots, please create new --");
                 deleteBot.add("-- No bots, please create new --");

@@ -158,7 +158,7 @@ public class ColorConstants
 		{
 			super("Editing colors");
 
-			String[] colorArray = Uniq.uniq(colors.getSection(null).keys());
+			String[] colorArray = (String[]) Uniq.uniq(colors.getSection(null).keys()).toArray();
 			list = new JList(colorArray);
 			list.addListSelectionListener(this);
 			list.setSelectedIndex(0);

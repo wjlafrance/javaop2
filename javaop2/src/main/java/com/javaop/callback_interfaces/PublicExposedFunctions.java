@@ -270,7 +270,7 @@ public interface PublicExposedFunctions
 
 	public void removeLocalSetting(String section, String key);
 
-	public String[] getLocalKeys(String section);
+	public Iterable<String> getLocalKeys(String section);
 
 	public Properties getLocalSettingSection(String section);
 
@@ -306,7 +306,7 @@ public interface PublicExposedFunctions
 
 	public boolean dbUserExists(String user);
 
-	public String[] dbFindAttr(char flag);
+	public Iterable<String> dbFindAttr(char flag);
 
 	public String[] dbGetAllUsers();
 

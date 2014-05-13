@@ -9,6 +9,7 @@ import java.awt.Dimension;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Properties;
 import java.util.Vector;
 
@@ -55,18 +56,17 @@ public class GlobalSettingWizard extends JFrame implements ListSelectionListener
         form.setLayout(new BorderLayout(3, 3));
 
         // Add the list
-        String[] pluginNames = funcs.pluginGetNames();
+        List<String> pluginNames = funcs.pluginGetNames();
         Vector usefulPlugins = new Vector();
-        for (int i = 0; i < pluginNames.length; i++)
-        {
-            if (funcs.getGlobalKeys(pluginNames[i]).length != 0)
+        for (String pluginName : pluginNames) {
+            if (funcs.getGlobalKeys(pluginName).size() != 0)
             {
-                usefulPlugins.add(pluginNames[i]);
-                System.out.println("Useful: " + pluginNames[i]);
+                usefulPlugins.add(pluginName);
+                System.out.println("Useful: " + pluginName);
             }
             else
             {
-                System.out.println("Not useful: " + pluginNames[i]);
+                System.out.println("Not useful: " + pluginName);
             }
         }
 
@@ -91,19 +91,16 @@ public class GlobalSettingWizard extends JFrame implements ListSelectionListener
         // They clicked a new plugin on the list. Load a new panel for the
         // plugin
         String thisPlugin = (String) list.getSelectedValue();
-        String[] settingNames = funcs.getGlobalKeys(thisPlugin);
+        List<String> settingNames = funcs.getGlobalKeys(thisPlugin);
 
         Properties defaultSettings = funcs.pluginGetGlobalDefaultSettings(thisPlugin);
         Properties descriptions = funcs.pluginGetGlobalDescriptions(thisPlugin);
 
         Properties settings = new Properties();
-        for (int i = 0; i < settingNames.length; i++)
-            settings.setProperty(
-                                 settingNames[i],
-                                 funcs.getGlobalSettingDefault(
-                                                               thisPlugin,
-                                                               settingNames[i],
-                                                               defaultSettings.getProperty(settingNames[i])));
+        for (String settingName : settingNames) {
+            settings.setProperty(settingName,
+                funcs.getGlobalSettingDefault(thisPlugin, settingName, defaultSettings.getProperty(settingName)));
+        }
 
         Hashtable components = funcs.pluginGetGlobalComponents(thisPlugin, settings);
 
@@ -176,8 +173,9 @@ public class GlobalSettingWizard extends JFrame implements ListSelectionListener
 
         Properties newPref = rightPreferences.getValues();
 
-        String[] keys = Uniq.uniq(newPref.keys());
-        for (int i = 0; i < keys.length; i++)
-            funcs.setGlobalSetting(currentPlugin, keys[i], newPref.getProperty(keys[i]));
+        List<String> keys = Uniq.uniq(newPref.keys());
+        for (String key : keys) {
+            funcs.setGlobalSetting(currentPlugin, key, newPref.getProperty(key));
+        }
     }
 }

@@ -93,7 +93,7 @@ abstract public class GenericPluginInterface
 	/** This is just to simplify some code */
 	public Hashtable<String, JComponent> getComponents(Properties values)
 	{
-		String[] keys = Uniq.uniq(getDefaultSettingValues().keys());
+		Iterable<String> keys = Uniq.uniq(getDefaultSettingValues().keys());
 		Hashtable<String, JComponent> ret = new Hashtable<>();
 
 		for (String key : keys) {
@@ -112,7 +112,7 @@ abstract public class GenericPluginInterface
 	/** This is just to simplify some code */
 	public Hashtable<String, JComponent> getGlobalComponents(Properties values)
 	{
-		String[] keys = Uniq.uniq(getGlobalDefaultSettingValues().keys());
+		Iterable<String> keys = Uniq.uniq(getGlobalDefaultSettingValues().keys());
 		Hashtable<String, JComponent> ret = new Hashtable<>();
 
 		for (String key : keys) {

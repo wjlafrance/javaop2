@@ -9,6 +9,7 @@ import java.awt.Dimension;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Properties;
 
 import javax.swing.BorderFactory;
@@ -227,9 +228,10 @@ public class SettingWizard extends JFrame implements ListSelectionListener, Wind
 
         Properties newPref = rightPreferences.getValues();
 
-        String[] keys = Uniq.uniq(newPref.keys());
-        for (int i = 0; i < keys.length; i++)
-            out.putLocalSetting(currentPlugin, keys[i], newPref.getProperty(keys[i]));
+        List<String> keys = Uniq.uniq(newPref.keys());
+        for (String key : keys) {
+            out.putLocalSetting(currentPlugin, key, newPref.getProperty(key));
+        }
     }
 
     private class PluginTable extends JTable

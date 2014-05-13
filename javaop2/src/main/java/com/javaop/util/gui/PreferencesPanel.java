@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Properties;
 
 import javax.swing.BorderFactory;
@@ -40,24 +41,24 @@ public class PreferencesPanel extends JPanelEx
 	{
 		super(new GridBagLayout());
 
-		String[] keys = Uniq.uniq(defaultSettings.keys());
+		List<String> keys = Uniq.uniq(defaultSettings.keys());
 
-		if (keys.length == 0) {
+		if (keys.size() == 0) {
 			this.add(new JLabel("There are no settings for this plugin"));
 		}
 
-		for (int i = 0; i < keys.length; i++)
+		for (int i = 0; i < keys.size(); i++)
 		{
-			String defaultSetting = defaultSettings.getProperty(keys[i], "");
-			String currentSetting = currentSettings.getProperty(keys[i], defaultSetting);
-			JComponent currentComponent = (JComponent) components.get(keys[i]);
-			String description = descriptions.getProperty(keys[i], "<ERROR no description set>");
+			String defaultSetting = defaultSettings.getProperty(keys.get(i), "");
+			String currentSetting = currentSettings.getProperty(keys.get(i), defaultSetting);
+			JComponent currentComponent = (JComponent) components.get(keys.get(i));
+			String description = descriptions.getProperty(keys.get(i), "<ERROR no description set>");
 
 			if (currentComponent == null) {
 				currentComponent = new JTextField(currentSetting);
 			}
 
-			JPanel thisPanel = getSettingPanel(keys[i], defaultSetting, description,
+			JPanel thisPanel = getSettingPanel(keys.get(i), defaultSetting, description,
 											   currentComponent);
 			this.add(thisPanel, new GridBagConstraints(0, i, 1, 1, 4, 1, GridBagConstraints.NORTH,
 					GridBagConstraints.HORIZONTAL, new Insets(1, 1, 1, 1), 0, 0));

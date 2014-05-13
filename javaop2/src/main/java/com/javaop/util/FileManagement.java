@@ -10,7 +10,9 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collections;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Vector;
 
 
@@ -85,12 +87,12 @@ public class FileManagement
 		out.close();
 	}
 
-	public static String[] getUniqueLines(File file) throws IOException
+	public static List<String> getUniqueLines(File file) throws IOException
 	{
 		if (!file.exists())
 		{
 			file.getParentFile().mkdirs();
-			return new String[0];
+			return Collections.emptyList();
 		}
 
 		return Uniq.uniq(getFile(file));

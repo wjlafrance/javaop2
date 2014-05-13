@@ -240,9 +240,11 @@ public class PluginMain extends GenericPluginInterface implements RawEventCallba
         }
         else if (command.equalsIgnoreCase("filters"))
         {
-            String[] filters = out.getLocalKeys(getName() + "-filters");
-            for (int i = 0; i < filters.length; i++)
-                out.sendTextUser(user, "Filter " + i + ": " + filters[i], loudness);
+            Iterable<String> filters = out.getLocalKeys(getName() + "-filters");
+            int i = 0;
+            for (String filter : filters){
+                out.sendTextUser(user, "Filter " + ++i + ": " + filter, loudness);
+            }
         }
         else
         {

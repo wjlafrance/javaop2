@@ -5,6 +5,7 @@ package com.javaop.callback_interfaces;
 
 import java.io.IOException;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Properties;
 
 import com.javaop.plugin_interfaces.GenericPluginInterface;
@@ -42,10 +43,10 @@ public interface StaticExposedFunctions
 	public void botStop(String name) throws IOException, IllegalArgumentException;
 
 	/** Get a list of all bots */
-	public String[] botGetAllNames();
+	public List<String> botGetAllNames();
 
 	/** Get a list of all running bots */
-	public String[] botGetActiveNames();
+	public List<String> botGetActiveNames();
 
 	/** Get the public function class for all running bots */
 	public PublicExposedFunctions[] botGetAllActive();
@@ -92,7 +93,7 @@ public interface StaticExposedFunctions
 	public Properties getGlobalSection(String section);
 
 	/** Get the keys for the specified section (sorted by name) */
-	public String[] getGlobalKeys(String section);
+	public List<String> getGlobalKeys(String section);
 
 	/** Set a global variable */
 	public void putGlobalVariable(Object key, Object value);
@@ -104,7 +105,7 @@ public interface StaticExposedFunctions
 	 * Plugins
 	 */
 
-	public String[] pluginGetNames();
+	public List<String> pluginGetNames();
 
 	public GenericPluginInterface pluginGet(String name);
 

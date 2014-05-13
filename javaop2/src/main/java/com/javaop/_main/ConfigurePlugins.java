@@ -60,8 +60,7 @@ public class ConfigurePlugins extends JFrame implements WindowListener
 		try
 		{
 			listData = new DefaultListModel();
-			String[] files = JavaOpFileStuff.getRawPluginPaths();
-			for (String file : files) {
+			for (String file : JavaOpFileStuff.getRawPluginPaths()) {
 				listData.addElement(file);
 			}
 

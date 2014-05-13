@@ -3,6 +3,7 @@ package com.javaop.War3Clan;
 import javax.swing.JComponent;
 import java.io.IOException;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Properties;
 
 import com.javaop.callback_interfaces.PluginCallbackRegister;
@@ -223,13 +224,12 @@ public class PluginMain extends GenericPluginInterface implements PacketCallback
         }
         else if (command.equalsIgnoreCase("invites"))
         {
-            String[] clans = Uniq.uniq(invites.keys());
-            out.sendTextUserPriority(user, "You have " + clans.length + " pending invitations",
+            List<String> clans = Uniq.uniq(invites.keys());
+            out.sendTextUserPriority(user, "You have " + clans.size() + " pending invitations",
                                      loudness, PRIORITY_LOW);
 
-            for (int i = 0; i < clans.length; i++)
-                out.sendTextUserPriority(user, (i + 1) + ": " + invites.get(clans[i]).toString(),
-                                         loudness, PRIORITY_LOW);
+            for (int i = 0; i < clans.size(); i++)
+                out.sendTextUserPriority(user, (i + 1) + ": " + invites.get(clans.get(i)).toString(), loudness, PRIORITY_LOW);
         }
         else if (command.equalsIgnoreCase("invite"))
         {

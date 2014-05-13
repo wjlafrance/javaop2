@@ -1,9 +1,11 @@
 package com.javaop.GlobalCommand;
 
+import java.util.List;
 import java.util.Properties;
 
 import javax.swing.JComponent;
 import java.io.IOException;
+import java.util.stream.Collectors;
 
 import com.javaop.callback_interfaces.PluginCallbackRegister;
 import com.javaop.callback_interfaces.PublicExposedFunctions;
@@ -21,21 +23,6 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
     private PublicExposedFunctions        out;
 
     private static StaticExposedFunctions sef;
-
-    String arrayToString(String[] ary, String sep)
-    {
-        StringBuffer result = new StringBuffer("");
-        if (ary.length > 0)
-        {
-            result.append(ary[0]);
-            for (int i = 1; i < ary.length; i++)
-            {
-                result.append(sep);
-                result.append(ary[i]);
-            }
-        }
-        return result.toString();
-    }
 
     public void load(StaticExposedFunctions staticFuncs)
     {
@@ -135,8 +122,8 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
 
         if (command.equalsIgnoreCase("botlist"))
         {
-            String msg[] = sef.botGetActiveNames();
-            String fmsg = arrayToString(msg, ",");
+            List<String> msg = sef.botGetActiveNames();
+            String fmsg = msg.stream().collect(Collectors.joining(","));
             out.sendText(fmsg);
         }
 

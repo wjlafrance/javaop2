@@ -11,6 +11,7 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.jar.Attributes;
 import java.net.JarURLConnection;
 
@@ -47,8 +48,7 @@ public class PluginManager {
 	 */
 	public static void initialize(boolean load) {
 		try {
-			String[] searchPaths = JavaOpFileStuff.getAllPlugins();
-			for (String searchPath : searchPaths) {
+			for (String searchPath : JavaOpFileStuff.getAllPlugins()) {
 				loadFile(searchPath, load);
 			}
 
@@ -76,8 +76,7 @@ public class PluginManager {
 					JavaOpFileStuff.addPluginPath(path);
 				}
 
-				searchPaths = JavaOpFileStuff.getAllPlugins();
-				for (String searchPath : searchPaths) {
+				for (String searchPath : JavaOpFileStuff.getAllPlugins()) {
 					loadFile(searchPath, load);
 				}
 			}
@@ -214,7 +213,7 @@ public class PluginManager {
 		}
 	}
 
-	public static String[] getAllNames() {
+	public static List<String> getAllNames() {
 		return Uniq.uniq(allPlugins.keys());
 	}
 

@@ -5,6 +5,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 import java.util.Random;
 
@@ -170,20 +171,19 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
         if (command.equalsIgnoreCase("quote"))
         {
             Properties quote = quotes.getSection(null);
-            String[] elements = Uniq.uniq(quote.keys());
+            List<String> elements = Uniq.uniq(quote.keys());
 
             int quoteNum;
 
             if (args.length == 0)
-                quoteNum = random.nextInt(elements.length);
+                quoteNum = random.nextInt(elements.size());
             else
                 quoteNum = Integer.parseInt(args[0]) - 1;
 
-            if (quoteNum < 0 || quoteNum >= elements.length)
+            if (quoteNum < 0 || quoteNum >= elements.size())
                 out.sendTextUser(user, "Error: quote #" + (quoteNum + 1) + " not found!", QUIET);
             else
-                out.sendTextPriority((quoteNum + 1) + ": " + quote.getProperty(elements[quoteNum]),
-                                     PRIORITY_VERY_LOW);
+                out.sendTextPriority((quoteNum + 1) + ": " + quote.getProperty(elements.get(quoteNum)), PRIORITY_VERY_LOW);
         }
         else if (command.equalsIgnoreCase("removequote"))
         {
@@ -191,17 +191,17 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
                 throw new CommandUsedImproperlyException("removequote requires a parameter", user, command);
 
             Properties quote = quotes.getSection(null);
-            String[] elements = Uniq.uniq(quote.keys());
+            List<String> elements = Uniq.uniq(quote.keys());
 
             int quoteNum = Integer.parseInt(args[0]) - 1;
 
-            if (quoteNum < 0 || quoteNum >= elements.length)
+            if (quoteNum < 0 || quoteNum >= elements.size())
             {
                 out.sendTextUser(user, "Error: quote #" + (quoteNum + 1) + " not found!", QUIET);
             }
             else
             {
-                quotes.remove(null, elements[quoteNum]);
+                quotes.remove(null, elements.get(quoteNum));
                 out.sendTextUser(user, "Quote #" + (quoteNum + 1) + " removed", QUIET);
             }
         }
@@ -217,9 +217,8 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
         else if (command.equalsIgnoreCase("clearquotes"))
         {
             Properties quote = quotes.getSection(null);
-            String[] keys = Uniq.uniq(quote.keys());
-            for (int i = 0; i < keys.length; i++)
-                quotes.remove(null, keys[i]);
+            List<String> keys = Uniq.uniq(quote.keys());
+            keys.stream().forEach(key -> quotes.remove(null, key));
         }
         else if (command.equalsIgnoreCase("flip"))
         {

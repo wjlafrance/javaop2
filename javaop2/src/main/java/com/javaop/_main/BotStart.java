@@ -1,7 +1,9 @@
 package com.javaop._main;
 
+import java.util.List;
 import javax.swing.JOptionPane;
 
+import com.google.common.collect.ImmutableList;
 import com.javaop.pluginmanagers.PluginManager;
 
 import com.javaop.bot.BotManager;
@@ -41,33 +43,28 @@ public class BotStart
 			JavaOpFileStuff.setBaseDirectory();
 			PluginManager.initialize(true);
 
-			String[] bots = getBots(args);
+			ImmutableList.Builder<String> argsBuilder = ImmutableList.builder();
+			for (String arg : args) {
+				argsBuilder.add(arg);
+			}
+			List<String> bots = getBots(argsBuilder.build());
 
 			for (String bot : bots) {
 				System.out.println("Loading " + bot);
 				BotManager.startBot(bot);
 				Thread.sleep(2000);
 			}
-		}
-		catch (Throwable t)
-		{
+		} catch (Throwable t) {
 			t.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Error loading bots: " + t);
 		}
-
 	}
 
 	/** This will only return if one or more bots were found to load */
-	private static String[] getBots(String[] base)
-	{
+	private static List<String> getBots(List<String> base) {
 		// If not bots were specified on the commandline, read the
 		// _DefaultBots.txt file.
-		if (base.length == 0) {
-			base = JavaOpFileStuff.getDefaultBots();
-		}
-
-		return base;
-
+		return base.size() != 0 ? base : JavaOpFileStuff.getDefaultBots();
 	}
 
 }

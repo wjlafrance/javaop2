@@ -2,8 +2,10 @@ package com.javaop.UserManagement;
 
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Properties;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import javax.swing.JComponent;
 
@@ -263,11 +265,11 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
                 throw new CommandUsedImproperlyException("findattr requires a single character parameter",
                         user, command);
 
-            String[] users = out.dbFindAttr(args[0].charAt(0));
+            Iterable<String> users = out.dbFindAttr(args[0].charAt(0));
 
             StringBuffer s = new StringBuffer("Users with " + args[0] + ": ");
-            for (int i = 0; i < users.length; i++)
-                s.append(users[i] + " ");
+            for (String u : users)
+                s.append(u + " ");
             out.sendTextUser(user, s.toString(), loudness);
 
             // Begin access levels
@@ -313,24 +315,12 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
         }
         else if (command.equalsIgnoreCase("listaccesslevels"))
         {
-            String[] thelist = Uniq.uniq(mymap.propertyNames("Definitions"));
-            String sFinal = "";
+            List<String> thelist = Uniq.uniq(mymap.propertyNames("Definitions"));
+            String sFinal = thelist.stream().collect(Collectors.joining(", "));
 
-            for (int i = 0; i < thelist.length; i++)
-            {
-                sFinal = sFinal + thelist[i];
-                if (i < (thelist.length - 1))
-                {
-                    sFinal = sFinal + ",";
-                }
-            }
-
-            if (sFinal.equalsIgnoreCase(""))
-            {
+            if (sFinal.equalsIgnoreCase("")) {
                 out.sendTextUser(user, "There are no access levels.", QUIET);
-            }
-            else
-            {
+            } else {
                 out.sendTextUser(user, sFinal, loudness);
             }
 

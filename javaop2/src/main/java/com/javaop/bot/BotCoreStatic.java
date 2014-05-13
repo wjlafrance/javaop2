@@ -5,6 +5,7 @@ package com.javaop.bot;
 
 import java.io.IOException;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Properties;
 import javax.swing.JComponent;
 
@@ -55,20 +56,19 @@ public class BotCoreStatic implements StaticExposedFunctions {
 		BotManager.stopBot(name);
 	}
 
-	public String[] botGetAllNames() {
+	public List<String> botGetAllNames() {
 		return BotManager.getAllBots();
 	}
 
-	public String[] botGetActiveNames() {
+	public List<String> botGetActiveNames() {
 		return BotManager.getActiveBots();
 	}
 
 	public PublicExposedFunctions[] botGetAllActive() {
-		String[] bots = BotManager.getActiveBots();
-		PublicExposedFunctions[] funcs =
-				new PublicExposedFunctions[bots.length];
+		List<String> bots = BotManager.getActiveBots();
+		PublicExposedFunctions[] funcs = new PublicExposedFunctions[bots.size()];
 		for (int i = 0; i < funcs.length; i++) {
-			funcs[i] = botGet(bots[i]);
+			funcs[i] = botGet(bots.get(i));
 		}
 
 		return funcs;
@@ -130,7 +130,7 @@ public class BotCoreStatic implements StaticExposedFunctions {
 		return globalSettings.getSection(section);
 	}
 
-	public String[] getGlobalKeys(String section) {
+	public List<String> getGlobalKeys(String section) {
 		return Uniq.uniq(globalSettings.propertyNames(section));
 	}
 
@@ -142,7 +142,7 @@ public class BotCoreStatic implements StaticExposedFunctions {
 		return globalVariables.get(key);
 	}
 
-	public String[] pluginGetNames() {
+	public List<String> pluginGetNames() {
 		return PluginManager.getAllNames();
 	}
 
@@ -179,12 +179,11 @@ public class BotCoreStatic implements StaticExposedFunctions {
 	}
 
 	public GenericPluginInterface[] pluginGetAll(boolean includeDefault) {
-		String[] names = pluginGetNames();
-		GenericPluginInterface[] plugins =
-				new GenericPluginInterface[names.length];
+		List<String> names = pluginGetNames();
+		GenericPluginInterface[] plugins = new GenericPluginInterface[names.size()];
 
 		for (int i = 0; i < plugins.length; i++) {
-			plugins[i] = pluginGet(names[i]);
+			plugins[i] = pluginGet(names.get(i));
 		}
 
 		return plugins;

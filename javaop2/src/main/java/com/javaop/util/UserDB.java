@@ -301,7 +301,7 @@ public class UserDB
 		return userDB.getNoWrite(null, user, "").length() > 0;
 	}
 
-	public String[] findAttr(char flag)
+	public Iterable<String> findAttr(char flag)
 	{
 		flag = Character.toUpperCase(flag);
 
