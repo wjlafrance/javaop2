@@ -7,6 +7,8 @@
 package com.javaop.users;
 
 import com.javaop.util.User;
+import lombok.Getter;
+import lombok.Setter;
 
 
 /**
@@ -18,70 +20,33 @@ class UserData implements User
 {
 	private static final long serialVersionUID = 1L;
 
-	final private int         ping;
-	final private String      name;
-	final private long        joinTime;
+	private final @Getter int ping;
+	private final @Getter String name;
 
-	final private String      prettyStatstring;
-	final private String      rawStatstring;
+	private final @Getter String prettyStatstring;
+	private final @Getter String rawStatstring;
 
-	private int               flags;
+	private @Getter @Setter int flags;
 
-	public UserData(String name, int ping, int flags, String stats)
-	{
+	private final long joinTime;
+
+	public UserData(String name, int ping, int flags, String stats) {
 		this.name = name;
 		this.ping = ping;
 		this.flags = flags;
 		this.joinTime = System.currentTimeMillis();
-
-		rawStatstring = stats;
-		prettyStatstring = stats;
-		//
-		// if(stats.substring(0, 4).equalsIgnoreCase("3raw"))
-		// statstring = War3Statstring.getWar3(stats);
-		// else
+		this.rawStatstring = stats;
+		this.prettyStatstring = stats;
 	}
 
-	public String getName()
-	{
-		return name;
-	}
-
-	public int getPing()
-	{
-		return ping;
-	}
-
-	public int getFlags()
-	{
-		return flags;
-	}
-
-	public String getPrettyStatstring()
-	{
-		return toString();
-	}
-
-	public String getRawStatstring()
-	{
-		return rawStatstring;
-	}
-
-	public void setFlags(int flags)
-	{
-		this.flags = flags;
-	}
-
-	public String toString()
-	{
+	public String toString() {
 		if (prettyStatstring != null) {
 			return name + "(" + ping + "ms, " + prettyStatstring + ")";
 		}
 		return name + "(" + ping + "ms)";
 	}
 
-	public boolean equals(Object o)
-	{
+	public boolean equals(Object o) {
 		if (o instanceof UserData && ((UserData) o).getName().equalsIgnoreCase(getName())) {
 			return true;
 		} else if (o instanceof String && ((String) o).equalsIgnoreCase(getName())) {
@@ -89,11 +54,9 @@ class UserData implements User
 		} else {
 			return false;
 		}
-
 	}
 
-	public long getJoinTime()
-	{
+	@Override public long getJoinTime() {
 		return joinTime;
 	}
 }

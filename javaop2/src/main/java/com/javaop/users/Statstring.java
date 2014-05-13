@@ -8,13 +8,13 @@ package com.javaop.users;
  */
 public class Statstring
 {
-	private String[] tokens;
+	private final String[] tokens;
 
-	public Statstring(String statstring)
-	{
-		if (statstring.length() >= 4)
-		{
+	public Statstring(String statstring) {
+		if (statstring.length() >= 4) {
 			this.tokens = statstring.split(" ", -1);
+		} else {
+			this.tokens = null;
 		}
 	}
 
@@ -24,7 +24,7 @@ public class Statstring
 	public String getClient()
 	{
 		if (tokens == null) {
-			return "CHAT";
+			return "TAHC";
 		}
 
 		return tokens[0].substring(0, 4);
@@ -33,13 +33,12 @@ public class Statstring
 	/**
 	 * @return WarCraft III: Clan name.
 	 */
-	public String getClan()
-	{
-		if ((tokens == null) || (tokens.length < 4)) {
+	public String getClan() {
+		if (tokens == null || tokens.length < 4) {
 			return "";
 		}
 
-		if (getClient().equals("3RAW") || getClient().equals("PX3W")) {
+		if (clientStatstringContainsClan(getClient())) {
 			return new StringBuffer(tokens[3]).reverse().toString();
 		}
 
@@ -50,16 +49,24 @@ public class Statstring
 	 * @return StarCraft / WarCraft II: Wins
 	 */
 	public int getWins() {
-		if ((tokens == null) || (tokens.length < 2)) {
+		if (tokens == null || tokens.length < 2) {
 			return 0;
 		}
 
-		if (getClient().equals("RATS") || getClient().equals("PXES")
-				|| getClient().equals("RTSJ") || getClient().equals("NB2W"))
-		{
+		if (clientStatstringContainsWinCount(getClient())) {
 			return Integer.parseInt(tokens[1]);
 		} else {
 			return 0;
 		}
+	}
+
+	private static boolean clientStatstringContainsClan(final String client) {
+		return "3RAW".equals(client) || "PX3W".equals(client);
+	}
+
+	private static boolean clientStatstringContainsWinCount(final String client) {
+		return "RATS".equals(client) || "PXES".equals(client)
+				|| "RTSJ".equals(client) || "NB2W".equals(client);
+
 	}
 }
