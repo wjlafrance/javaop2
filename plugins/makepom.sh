@@ -27,6 +27,21 @@ tee $DIR/pom.xml <<EOF
 		<relativePath>../ParentPlugin</relativePath>
 	</parent>
 
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>com.javaop.$DIR.PluginMain</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
 </project>
 
 EOF
