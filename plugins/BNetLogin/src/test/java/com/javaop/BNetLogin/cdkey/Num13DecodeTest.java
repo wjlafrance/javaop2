@@ -33,15 +33,8 @@ public class Num13DecodeTest {
 	}
 
 	public @Test void testVerify() {
-		boolean exceptionThrown = false;
-		try {
-			new Num13Decode("0000000000001").verify();
-		} catch (Exception ex) {
-			exceptionThrown = true;
-		}
-		assertTrue(exceptionThrown);
-
-		assertTrue(new Num13Decode("0000000000003").verify());
+		assertFalse(Num13Decode.verify("0000000000001"));
+		assertTrue(Num13Decode.verify("0000000000003"));
 	}
 
 }

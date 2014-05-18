@@ -6,11 +6,11 @@ package com.javaop.BNetLogin.cdkey;
  * Created on May 21, 2004, 3:23 AM
  */
 
-import com.javaop.util.Buffer;
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 import com.javaop.BNetLogin.password.ByteFromIntArray;
 import com.javaop.BNetLogin.password.IntFromByteArray;
 
@@ -20,7 +20,7 @@ import com.javaop.BNetLogin.password.IntFromByteArray;
  */
 class Alpha26Decode extends Decode {
 
-	public final static byte[] KeyTable = {
+	private static final byte[] KeyTable = {
 		(byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF,
 		(byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF,
 		(byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF,
@@ -55,7 +55,7 @@ class Alpha26Decode extends Decode {
 		(byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF, (byte)0xFF
 	};
 
-	public final static byte[] TranslateTable = {
+	private static final byte[] TranslateTable = {
 		0x09, 0x04, 0x07, 0x0F, 0x0D, 0x0A, 0x03, 0x0B, 0x01, 0x02, 0x0C, 0x08, 0x06, 0x0E, 0x05, 0x00,
 		0x09, 0x0B, 0x05, 0x04, 0x08, 0x0F, 0x01, 0x0E, 0x07, 0x00, 0x03, 0x02, 0x0A, 0x06, 0x0D, 0x0C,
 		0x0C, 0x0E, 0x01, 0x04, 0x09, 0x0F, 0x0A, 0x0B, 0x0D, 0x06, 0x00, 0x08, 0x07, 0x02, 0x05, 0x03,
@@ -88,27 +88,24 @@ class Alpha26Decode extends Decode {
 		0x03, 0x0A, 0x0C, 0x04, 0x0D, 0x0B, 0x09, 0x0E, 0x0F, 0x06, 0x01, 0x07, 0x02, 0x00, 0x05, 0x08
 	};
 
-	private int KEYLEN = 26;
-	private int BUFLEN = 52;
+	private int KEY_LENGTH = 26;
+	private int BUFFER_LENGTH = 52;
 
 	private int val1;
 	private byte[] val2;
 	private int product;
 
 	public Alpha26Decode(String cdkey) throws IllegalArgumentException {
+		Preconditions.checkArgument(!Strings.isNullOrEmpty(cdkey), "CD-Key is missing!");
+		Preconditions.checkArgument(KEY_LENGTH == cdkey.length(), "CD-Key is not 26 characters!");
 
-		if(cdkey == null || cdkey.isEmpty())
-			throw new IllegalArgumentException("CD-Key is missing!");
-
-		if(cdkey.length() != KEYLEN)
-			throw new IllegalArgumentException("CDKey is not 26 characters!");
-
-		byte[] table = new byte[BUFLEN];
+		byte[] table = new byte[BUFFER_LENGTH];
 		int[] values = new int[4];
 		tableLookup(cdkey.toUpperCase(), table);
 
-		for (int i = BUFLEN; i > 0; i--)
+		for (int i = BUFFER_LENGTH; i > 0; i--) {
 			Mult(4, 5, values, values, table[i - 1]);
+		}
 
 		decodeKeyTablePass1(values);
 		decodeKeyTablePass2(values);
@@ -129,9 +126,9 @@ class Alpha26Decode extends Decode {
 		int b = 0x21;
 		byte decode;
 
-		for (int i = 0; i < KEYLEN; i++) {
-			a = (b + 0x07B5) % BUFLEN;
-			b = (a + 0x07B5) % BUFLEN;
+		for (int i = 0; i < KEY_LENGTH; i++) {
+			a = (b + 0x07B5) % BUFFER_LENGTH;
+			b = (a + 0x07B5) % BUFFER_LENGTH;
 			decode = KeyTable[key.charAt(i)];
 			buf[a] = (byte) (decode / 5);
 			buf[b] = (byte) (decode % 5);
@@ -208,12 +205,13 @@ class Alpha26Decode extends Decode {
 			ebp = (ebp & (1 << ecx)) >>> ecx;
 			keyTable[edx] = ((ebp & 1) << eax) | (~(1 << eax) & keyTable[edx]);
 			esi += 0x0B;
-			if (esi >= 120)
+			if (esi >= 120) {
 				esi -= 120;
+			}
 		}
 	}
 
-	public int[] getKeyHash(int clientToken, int serverToken) {
+	@Override public int[] getKeyHash(int clientToken, int serverToken) {
 		try {
 			MessageDigest digest = MessageDigest.getInstance("SHA-1");
 
@@ -224,8 +222,9 @@ class Alpha26Decode extends Decode {
 			IntFromByteArray.LITTLEENDIAN.insertInteger(warBuf, 8, getProduct());
 			IntFromByteArray.LITTLEENDIAN.insertInteger(warBuf, 12, getVal1());
 
-			for(int i = 16; i < 26; i++)
+			for (int i = 16; i < 26; i++) {
 				warBuf[i] = getWar3Val2()[i - 16];
+			}
 
 			digest.update(warBuf);
 			return IntFromByteArray.LITTLEENDIAN.getIntArray(digest.digest());
@@ -237,11 +236,11 @@ class Alpha26Decode extends Decode {
 	}
 
 
-	public int getVal1() {
+	@Override public int getVal1() {
 		return val1;
 	}
 
-	public int getVal2() {
+	@Override public int getVal2() {
 		throw new UnsupportedOperationException("Can't use Alpha26Decode's getVal2() as an int");
 	}
 
@@ -249,11 +248,11 @@ class Alpha26Decode extends Decode {
 		return val2;
 	}
 
-	public int getProduct() {
+	@Override public int getProduct() {
 		return product;
 	}
 
-	public String toString() {
+	@Override public String toString() {
 		return "26-character alphanumeric decoder";
 	}
 }

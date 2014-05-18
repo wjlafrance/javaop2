@@ -6,6 +6,9 @@
 
 package com.javaop.BNetLogin.cdkey;
 
+import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
+
 /**
  * This class takes a CD-Key, determines it's type, and returns a decoder
  * (class that extends this class) appropriate for the key type. The below
@@ -18,7 +21,7 @@ package com.javaop.BNetLogin.cdkey;
  *
  * @author iago, joe
  */
-public class Decode {
+public abstract class Decode {
 
 	/**
 	 * Created a new CD-Key decoder
@@ -29,10 +32,9 @@ public class Decode {
 	 *      If the key isn't 13, 16, or 24 characters long
 	 */
 	public static Decode getDecoder(String cdkey) throws IllegalArgumentException {
-		if(cdkey == null || cdkey.length() == 0)
-			throw new IllegalArgumentException("CD-Key is missing!");
+		Preconditions.checkArgument(!Strings.isNullOrEmpty(cdkey), "CD-Key is missing!");
 
-		switch(cdkey.length()) {
+		switch (cdkey.length()) {
 			case 13: // Legacy StarCraft
 				return new Num13Decode(cdkey);
 			case 16: // Legacy Diablo II, current WarCraft II
@@ -54,29 +56,21 @@ public class Decode {
 	 *            Generated client token sent in SID_AUTH_CHECK.
 	 * @return (DWORD[5]) CD-Key hash for SID_AUTH_CHECK.
 	 */
-	public int[] getKeyHash(int serverToken, int clientToken) {
-		return new int[] { 0, 0, 0, 0, 0 };
-	}
+	public abstract int[] getKeyHash(int serverToken, int clientToken);
 
 	/**
 	 * @return Key's product value
 	 */
-	public int getProduct() {
-		return 0;
-	}
+	public abstract int getProduct();
 
 	/**
 	 * @return Key's value1
 	 */
-	public int getVal1() {
-		return 0;
-	}
+	public abstract int getVal1();
 
 	/**
 	 * @return Key's value2
 	 */
-	public int getVal2() {
-		return 0;
-	}
+	public abstract int getVal2();
 
 }
