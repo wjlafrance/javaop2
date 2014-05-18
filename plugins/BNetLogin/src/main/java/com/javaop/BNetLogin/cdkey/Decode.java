@@ -20,50 +20,6 @@ package com.javaop.BNetLogin.cdkey;
  */
 public class Decode {
 
-	 /**
-	  * For testing
-	  */
-	 public static void main(String []args) {
-		 try {
-			 if (args.length != 1) {
-				 System.out.println("Usage: java cdkey/Decode [cdkey]");
-				 System.exit(-1);
-			 }
-			 Decode decoder = Decode.getDecoder(args[0]);
-			 switch (args[0].length()) {
-			 case 26:    // 26-char
-				 System.out.println("Key:     " + args[0]);
-				 System.out.println("Decoder: " + decoder.toString());
-				 System.out.println("Value 1: 0x" +
-						 Integer.toHexString(decoder.getVal1()));
-				 // Value 2
-				 byte[] war3val2 = ((Alpha26Decode)decoder).getWar3Val2();
-				 System.out.print("Value 2: 0x");
-				 for (int i = 0; i < war3val2.length; i++) {
-					 System.out.print(Integer.toHexString(war3val2[i]) + " ");
-				 }
-				 // End ugly value 2 code
-				 System.out.println("\nProduct: 0x" +
-						 Integer.toHexString(decoder.getProduct()));
-				 break;
-
-			 default:    // Other
-				 System.out.println("Key:     " + args[0]);
-				 System.out.println("Decoder: " + decoder.toString());
-				 System.out.println("Value 1: 0x" +
-						 Integer.toHexString(decoder.getVal1()));
-				 System.out.println("Value 2: 0x" +
-						 Integer.toHexString(decoder.getVal2()));
-				 System.out.println("Product: 0x" +
-						 Integer.toHexString(decoder.getProduct()));
-				 break;
-			 }
-		 } catch (Exception e) {
-			 System.err.println(e);
-		 }
-	 }
-
-
 	/**
 	 * Created a new CD-Key decoder
 	 *
