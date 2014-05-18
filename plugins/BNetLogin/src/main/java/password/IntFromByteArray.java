@@ -1,6 +1,6 @@
 /*
  * IntFromByteArray.java
- * 
+ *
  * Created on May 21, 2004, 12:35 PM
  */
 
@@ -10,7 +10,7 @@ import com.javaop.util.PadString;
 
 /**
  * This is a class to take care of inserting or getting the value of an int in an array of bytes.
- * 
+ *
  * @author Ron - Home
  */
 public class IntFromByteArray
@@ -75,7 +75,7 @@ public class IntFromByteArray
 	/**
 	 * This function is used to insert the byte into a specified spot in an int array. This is used to simulate pointers
 	 * used in C++. Note that this works in little endian only.
-	 * 
+	 *
 	 * @param intBuffer
 	 *            The buffer to insert the int into.
 	 * @param b

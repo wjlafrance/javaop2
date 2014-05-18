@@ -21,71 +21,71 @@ import javax.swing.event.HyperlinkListener;
 
 /**
  * @author iago
- * 
+ *
  */
 public class LoadWebsite extends Thread implements ActionListener, HyperlinkListener
 {
-    private final String site;
-    private JFrame       window;
-    private JEditorPane  editor;
+	private final String site;
+	private JFrame       window;
+	private JEditorPane  editor;
 
-    public LoadWebsite(String site)
-    {
-        this.site = site;
-        this.setName("Load-Website");
-        this.start();
-    }
+	public LoadWebsite(String site)
+	{
+		this.site = site;
+		this.setName("Load-Website");
+		this.start();
+	}
 
-    public void run()
-    {
-        try
-        {
-            window = new JFrame(site);
+	public void run()
+	{
+		try
+		{
+			window = new JFrame(site);
 
-            JPanel form = new JPanel();
-            window.getContentPane().add(form);
+			JPanel form = new JPanel();
+			window.getContentPane().add(form);
 
-            form.setLayout(new BorderLayout());
+			form.setLayout(new BorderLayout());
 
-            JButton close = new JButton("Close");
-            close.addActionListener(this);
+			JButton close = new JButton("Close");
+			close.addActionListener(this);
 
-            editor = new JEditorPane(site);
-            editor.setEditable(false);
-            editor.addHyperlinkListener(this);
+			editor = new JEditorPane(site);
+			editor.setEditable(false);
+			editor.addHyperlinkListener(this);
 
-            form.add(new JScrollPane(editor), BorderLayout.CENTER);
-            form.add(close, BorderLayout.SOUTH);
+			form.add(new JScrollPane(editor), BorderLayout.CENTER);
+			form.add(close, BorderLayout.SOUTH);
 
-            window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            window.setSize(450, 450);
-            window.setVisible(true);
-        }
-        catch (IOException exc)
-        {
-            JOptionPane.showMessageDialog(window, "Error loading site: " + exc);
-        }
+			window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			window.setSize(450, 450);
+			window.setVisible(true);
+		}
+		catch (IOException exc)
+		{
+			JOptionPane.showMessageDialog(window, "Error loading site: " + exc);
+		}
 
-    }
+	}
 
-    public void actionPerformed(ActionEvent e)
-    {
-        window.dispose();
-    }
+	public void actionPerformed(ActionEvent e)
+	{
+		window.dispose();
+	}
 
-    public void hyperlinkUpdate(HyperlinkEvent e)
-    {
-        if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED)
-        {
-            try
-            {
-                editor.setPage(e.getURL());
-            }
-            catch (IOException exc)
-            {
-                JOptionPane.showMessageDialog(window, "Error loading site: " + exc);
-            }
-        }
-    }
+	public void hyperlinkUpdate(HyperlinkEvent e)
+	{
+		if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED)
+		{
+			try
+			{
+				editor.setPage(e.getURL());
+			}
+			catch (IOException exc)
+			{
+				JOptionPane.showMessageDialog(window, "Error loading site: " + exc);
+			}
+		}
+	}
 
 }

@@ -18,26 +18,26 @@ import com.javaop.BNetLogin.password.BrokenSHA1;
  */
 public class SidCreateAccount2 {
 
-    public static BnetPacket getOutgoing(PublicExposedFunctions pubFuncs) throws LoginException {
-        String password = pubFuncs.getLocalSetting("Battle.net Login Plugin",
-            "password").toLowerCase();
-        String username = pubFuncs.getLocalSetting("Battle.net Login Plugin",
-            "username");
-        
-        if(username == null || username.isEmpty())
-            throw new LoginException("[BNET] Cannot create account, username is null.");
-        if(password == null || password.isEmpty())
-            throw new LoginException("[BNET] Cannot create account, password is null.");
+	public static BnetPacket getOutgoing(PublicExposedFunctions pubFuncs) throws LoginException {
+		String password = pubFuncs.getLocalSetting("Battle.net Login Plugin",
+			"password").toLowerCase();
+		String username = pubFuncs.getLocalSetting("Battle.net Login Plugin",
+			"username");
 
-        BnetPacket sidCreateAccount2 = new BnetPacket(PacketConstants.SID_CREATEACCOUNT2);
-        // (DWORD[5]) Password
-        int[] passwordHash = BrokenSHA1.calcHashBuffer(password.getBytes());
-        for(int i = 0; i < 5; i++)
-            sidCreateAccount2.addDWord(passwordHash[i]);
-        // (STRING) Username
-        sidCreateAccount2.addNTString(username);
-    
-        return sidCreateAccount2;
-    }
-    
+		if(username == null || username.isEmpty())
+			throw new LoginException("[BNET] Cannot create account, username is null.");
+		if(password == null || password.isEmpty())
+			throw new LoginException("[BNET] Cannot create account, password is null.");
+
+		BnetPacket sidCreateAccount2 = new BnetPacket(PacketConstants.SID_CREATEACCOUNT2);
+		// (DWORD[5]) Password
+		int[] passwordHash = BrokenSHA1.calcHashBuffer(password.getBytes());
+		for(int i = 0; i < 5; i++)
+			sidCreateAccount2.addDWord(passwordHash[i]);
+		// (STRING) Username
+		sidCreateAccount2.addNTString(username);
+
+		return sidCreateAccount2;
+	}
+
 }

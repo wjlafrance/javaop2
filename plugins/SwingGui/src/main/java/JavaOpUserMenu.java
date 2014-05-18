@@ -24,203 +24,203 @@ import com.javaop.constants.PriorityConstants;
 
 /** There should only ever be one instance of this created per bot */
 public class JavaOpUserMenu {
-    /** Stores a list of custom items that will be displayed in the menu */
-    private Vector              					items = new Vector();
-    
-    /** Add this to the "items" vector to put a separator in the list */
-    private final JMenuItem              			separator = new JMenuItem();
-    
-    /** The table of actions for custom items */
-    private final Hashtable<String, ActionListener> actions
-    		= new Hashtable<String, ActionListener>();
-    
-    /** The table if icons for custom items */
-    private final Hashtable<String, Icon>           icons
-    		= new Hashtable<String, Icon>();
+	/** Stores a list of custom items that will be displayed in the menu */
+	private Vector              					items = new Vector();
 
-    private final PublicExposedFunctions pubFuncs;
+	/** Add this to the "items" vector to put a separator in the list */
+	private final JMenuItem              			separator = new JMenuItem();
 
-    public JavaOpUserMenu(PublicExposedFunctions pubFuncs) {
-        this.pubFuncs = pubFuncs;
-    }
+	/** The table of actions for custom items */
+	private final Hashtable<String, ActionListener> actions
+			= new Hashtable<String, ActionListener>();
 
-    public void addItem(String name, int index, Icon icon,
-    		ActionListener callback)
-    {
-        if (index >= 0)
-            items.add(index, name);
-        else
-            items.add(name);
+	/** The table if icons for custom items */
+	private final Hashtable<String, Icon>           icons
+			= new Hashtable<String, Icon>();
 
-        if (icon != null)
-            icons.put(name, icon);
-        if (callback != null)
-            actions.put(name, callback);
-    }
+	private final PublicExposedFunctions pubFuncs;
 
-    public void removeItem(String name) {
-        items.remove(name);
-        actions.remove(name);
-        icons.remove(name);
-    }
+	public JavaOpUserMenu(PublicExposedFunctions pubFuncs) {
+		this.pubFuncs = pubFuncs;
+	}
 
-    public JPopupMenu getMenu(String name) {
-        return new UserMenuImpl(name);
-    }
+	public void addItem(String name, int index, Icon icon,
+			ActionListener callback)
+	{
+		if (index >= 0)
+			items.add(index, name);
+		else
+			items.add(name);
 
-    public void addSeparator() {
-        items.add(separator);
-    }
+		if (icon != null)
+			icons.put(name, icon);
+		if (callback != null)
+			actions.put(name, callback);
+	}
 
-    private class UserMenuImpl extends JPopupMenu implements ActionListener {
-        private static final long serialVersionUID = 1L;
-        private final JMenuItem   nameItem;
-        private final JMenuItem   whisper          = new JMenuItem("Whisper");
-        private final JMenuItem   ban              = new JMenuItem("Ban");
-        private final JMenuItem   banMessage
-        		= new JMenuItem("Ban (message)...");
-        private final JMenuItem   kick             = new JMenuItem("Kick");
-        private final JMenuItem   kickMessage
-        		= new JMenuItem("Kick (message)...");
-        private final JMenuItem   squelch          = new JMenuItem("Squelch");
-        private final JMenuItem   unsquelch        = new JMenuItem("Unsquelch");
-        private final JMenuItem   designate        = new JMenuItem("Designate");
-        private final JMenuItem   op               = new JMenuItem("Op");
-        private final JMenuItem   edit
-        		= new JMenuItem("Edit flags...");
-        private final JMenuItem   profile
-        		= new JMenuItem("Profile...");
-        private final String      name;
+	public void removeItem(String name) {
+		items.remove(name);
+		actions.remove(name);
+		icons.remove(name);
+	}
 
-        public UserMenuImpl(String name) {
-            this.name = name;
-            this.nameItem = new JMenuItem(name);
+	public JPopupMenu getMenu(String name) {
+		return new UserMenuImpl(name);
+	}
 
-            ban.setIcon(MenuIcons.getIcon("ban"));
-            banMessage.setIcon(MenuIcons.getIcon("banm"));
-            kick.setIcon(MenuIcons.getIcon("boot"));
-            kickMessage.setIcon(MenuIcons.getIcon("bootm"));
+	public void addSeparator() {
+		items.add(separator);
+	}
 
-            squelch.setIcon(MenuIcons.getIcon("squelch"));
-            unsquelch.setIcon(MenuIcons.getIcon("unsquelch"));
+	private class UserMenuImpl extends JPopupMenu implements ActionListener {
+		private static final long serialVersionUID = 1L;
+		private final JMenuItem   nameItem;
+		private final JMenuItem   whisper          = new JMenuItem("Whisper");
+		private final JMenuItem   ban              = new JMenuItem("Ban");
+		private final JMenuItem   banMessage
+				= new JMenuItem("Ban (message)...");
+		private final JMenuItem   kick             = new JMenuItem("Kick");
+		private final JMenuItem   kickMessage
+				= new JMenuItem("Kick (message)...");
+		private final JMenuItem   squelch          = new JMenuItem("Squelch");
+		private final JMenuItem   unsquelch        = new JMenuItem("Unsquelch");
+		private final JMenuItem   designate        = new JMenuItem("Designate");
+		private final JMenuItem   op               = new JMenuItem("Op");
+		private final JMenuItem   edit
+				= new JMenuItem("Edit flags...");
+		private final JMenuItem   profile
+				= new JMenuItem("Profile...");
+		private final String      name;
 
-            designate.setIcon(MenuIcons.getIcon("designate"));
-            op.setIcon(MenuIcons.getIcon("op"));
+		public UserMenuImpl(String name) {
+			this.name = name;
+			this.nameItem = new JMenuItem(name);
 
-            edit.setIcon(MenuIcons.getIcon("flags"));
+			ban.setIcon(MenuIcons.getIcon("ban"));
+			banMessage.setIcon(MenuIcons.getIcon("banm"));
+			kick.setIcon(MenuIcons.getIcon("boot"));
+			kickMessage.setIcon(MenuIcons.getIcon("bootm"));
 
-            profile.setIcon(MenuIcons.getIcon("profile"));
+			squelch.setIcon(MenuIcons.getIcon("squelch"));
+			unsquelch.setIcon(MenuIcons.getIcon("unsquelch"));
 
-            this.add(nameItem);
-            this.addSeparator();
+			designate.setIcon(MenuIcons.getIcon("designate"));
+			op.setIcon(MenuIcons.getIcon("op"));
 
-            this.add(whisper);
-            this.add(ban);
-            this.add(banMessage);
-            this.add(kick);
-            this.add(kickMessage);
+			edit.setIcon(MenuIcons.getIcon("flags"));
 
-            this.addSeparator();
-            this.add(squelch);
-            this.add(unsquelch);
+			profile.setIcon(MenuIcons.getIcon("profile"));
 
-            this.addSeparator();
-            this.add(designate);
-            this.add(op);
+			this.add(nameItem);
+			this.addSeparator();
 
-            this.addSeparator();
-            this.add(edit);
+			this.add(whisper);
+			this.add(ban);
+			this.add(banMessage);
+			this.add(kick);
+			this.add(kickMessage);
 
-            this.addSeparator();
-            this.add(profile);
+			this.addSeparator();
+			this.add(squelch);
+			this.add(unsquelch);
 
-            nameItem.setEnabled(false);
+			this.addSeparator();
+			this.add(designate);
+			this.add(op);
 
-            whisper.addActionListener(this);
-            ban.addActionListener(this);
-            banMessage.addActionListener(this);
-            kick.addActionListener(this);
-            kickMessage.addActionListener(this);
+			this.addSeparator();
+			this.add(edit);
 
-            squelch.addActionListener(this);
-            unsquelch.addActionListener(this);
+			this.addSeparator();
+			this.add(profile);
 
-            designate.addActionListener(this);
-            op.addActionListener(this);
+			nameItem.setEnabled(false);
 
-            edit.addActionListener(this);
-            profile.addActionListener(this);
+			whisper.addActionListener(this);
+			ban.addActionListener(this);
+			banMessage.addActionListener(this);
+			kick.addActionListener(this);
+			kickMessage.addActionListener(this);
 
-            for (int i = 0; i < items.size(); i++) {
-                if (items.get(i) == separator) {
-                    this.addSeparator();
-                } else {
-                    String itemName = (String) items.get(i);
-                    JMenuItem item = new JMenuItem(itemName);
-                    item.addActionListener(this);
-                    this.add(item);
-                    Icon icon = (Icon) icons.get(itemName);
-                    if (icon != null)
-                        item.setIcon(icon);
-                }
-            }
-        }
+			squelch.addActionListener(this);
+			unsquelch.addActionListener(this);
 
-        public void actionPerformed(ActionEvent e) {
-            try {
-            	if (e.getSource() == whisper) {
-            		pubFuncs.sendTextPriority("/whisper " + name + " " + pubFuncs.getChatboxInput().getText(),
-                			PriorityConstants.PRIORITY_NORMAL);
-            		pubFuncs.getChatboxInput().setText(null);
-            	} else if (e.getSource() == ban) {
-                	pubFuncs.sendTextPriority("/ban " + name,
-                			PriorityConstants.PRIORITY_HIGH + 1);
-                } else if (e.getSource() == banMessage) {
-                    String message = JOptionPane.showInputDialog(this,
-                    		"Message to ban with?");
-                    if (message != null)
-                    	pubFuncs.sendTextPriority("/ban " + name + " "
-                    			+ message, PriorityConstants.PRIORITY_HIGH + 1);
-                } else if (e.getSource() == kick) {
-                	pubFuncs.sendTextPriority("/kick " + name,
-                			PriorityConstants.PRIORITY_HIGH + 1);
-                } else if (e.getSource() == kickMessage) {
-                    String message = JOptionPane.showInputDialog(this,
-                    		"Message to kick with?");
-                    if (message != null)
-                    	pubFuncs.sendTextPriority("/kick " + name + " "
-                    			+ message, PriorityConstants.PRIORITY_HIGH + 1);
-                } else if (e.getSource() == squelch) {
-                	pubFuncs.sendTextPriority("/squelch " + name,
-                			PriorityConstants.PRIORITY_HIGH + 1);
-                } else if (e.getSource() == unsquelch) {
-                	pubFuncs.sendTextPriority("/unsquelch " + name,
-                			PriorityConstants.PRIORITY_HIGH + 1);
-                } else if (e.getSource() == designate) {
-                	pubFuncs.sendTextPriority("/designate " + name,
-                			PriorityConstants.PRIORITY_HIGH + 1);
-                } else if (e.getSource() == op) {
-                	pubFuncs.sendTextPriority("/designate " + name,
-                			PriorityConstants.PRIORITY_HIGH + 1);
-                	pubFuncs.sendTextPriority("/resign",
-                			PriorityConstants.PRIORITY_HIGH + 1);
-                } else if (e.getSource() == edit) {
-                    new UserDatabaseWizard(pubFuncs, name);
-                } else {
-                    ActionListener listener = (ActionListener) actions
-                    		.get(((JMenuItem) e.getSource()).getText());
-                    if (listener == null) {
-                        JOptionPane.showMessageDialog(null, "To-do");
-                    } else {
-                        ActionEvent newEvent = new ActionEvent(
-                                ((JMenuItem) e.getSource()).getText(), 1, name);
-                        listener.actionPerformed(newEvent);
-                    }
-                }
-            } catch (Exception exc) {
-            	pubFuncs.systemMessage(ErrorLevelConstants.ERROR,
-            			"Unable to complete command: " + exc);
-            }
-        }
-    }
+			designate.addActionListener(this);
+			op.addActionListener(this);
+
+			edit.addActionListener(this);
+			profile.addActionListener(this);
+
+			for (int i = 0; i < items.size(); i++) {
+				if (items.get(i) == separator) {
+					this.addSeparator();
+				} else {
+					String itemName = (String) items.get(i);
+					JMenuItem item = new JMenuItem(itemName);
+					item.addActionListener(this);
+					this.add(item);
+					Icon icon = (Icon) icons.get(itemName);
+					if (icon != null)
+						item.setIcon(icon);
+				}
+			}
+		}
+
+		public void actionPerformed(ActionEvent e) {
+			try {
+				if (e.getSource() == whisper) {
+					pubFuncs.sendTextPriority("/whisper " + name + " " + pubFuncs.getChatboxInput().getText(),
+							PriorityConstants.PRIORITY_NORMAL);
+					pubFuncs.getChatboxInput().setText(null);
+				} else if (e.getSource() == ban) {
+					pubFuncs.sendTextPriority("/ban " + name,
+							PriorityConstants.PRIORITY_HIGH + 1);
+				} else if (e.getSource() == banMessage) {
+					String message = JOptionPane.showInputDialog(this,
+							"Message to ban with?");
+					if (message != null)
+						pubFuncs.sendTextPriority("/ban " + name + " "
+								+ message, PriorityConstants.PRIORITY_HIGH + 1);
+				} else if (e.getSource() == kick) {
+					pubFuncs.sendTextPriority("/kick " + name,
+							PriorityConstants.PRIORITY_HIGH + 1);
+				} else if (e.getSource() == kickMessage) {
+					String message = JOptionPane.showInputDialog(this,
+							"Message to kick with?");
+					if (message != null)
+						pubFuncs.sendTextPriority("/kick " + name + " "
+								+ message, PriorityConstants.PRIORITY_HIGH + 1);
+				} else if (e.getSource() == squelch) {
+					pubFuncs.sendTextPriority("/squelch " + name,
+							PriorityConstants.PRIORITY_HIGH + 1);
+				} else if (e.getSource() == unsquelch) {
+					pubFuncs.sendTextPriority("/unsquelch " + name,
+							PriorityConstants.PRIORITY_HIGH + 1);
+				} else if (e.getSource() == designate) {
+					pubFuncs.sendTextPriority("/designate " + name,
+							PriorityConstants.PRIORITY_HIGH + 1);
+				} else if (e.getSource() == op) {
+					pubFuncs.sendTextPriority("/designate " + name,
+							PriorityConstants.PRIORITY_HIGH + 1);
+					pubFuncs.sendTextPriority("/resign",
+							PriorityConstants.PRIORITY_HIGH + 1);
+				} else if (e.getSource() == edit) {
+					new UserDatabaseWizard(pubFuncs, name);
+				} else {
+					ActionListener listener = (ActionListener) actions
+							.get(((JMenuItem) e.getSource()).getText());
+					if (listener == null) {
+						JOptionPane.showMessageDialog(null, "To-do");
+					} else {
+						ActionEvent newEvent = new ActionEvent(
+								((JMenuItem) e.getSource()).getText(), 1, name);
+						listener.actionPerformed(newEvent);
+					}
+				}
+			} catch (Exception exc) {
+				pubFuncs.systemMessage(ErrorLevelConstants.ERROR,
+						"Unable to complete command: " + exc);
+			}
+		}
+	}
 }
