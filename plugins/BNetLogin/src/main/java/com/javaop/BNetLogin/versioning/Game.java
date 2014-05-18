@@ -10,8 +10,10 @@ import java.io.IOException;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Vector;
 
+import com.google.common.collect.ImmutableList;
 import com.javaop.util.Buffer;
 import com.javaop.util.PadString;
 import com.javaop.util.RelativeFile;
@@ -22,13 +24,9 @@ import com.javaop.exceptions.LoginException;
 
 public class Game {
 
-	private static GameData gameData;
+	private static GameData gameData = new GameData();
 
 	private String game;
-
-	static {
-		gameData = new GameData();
-	}
 
 	public Game(String game) throws LoginException {
 		this.game = getCodeFromLongName(game);
@@ -38,63 +36,59 @@ public class Game {
 	 * Takes a user-inputted game name and shortens it to the 4-letter code.
 	 * @throws LoginException Long name not recognized
 	 */
-	private static String getCodeFromLongName(String game) {
-		if (game == null)
-			return "";
+	private static String getCodeFromLongName(String game) throws LoginException {
+		if (game == null || game.isEmpty()) {
+			throw new LoginException("Game name is blank.");
+		}
 
-		game = game.toLowerCase();
-		game = game.replace("iiii", "4"); // who knows?
-		game = game.replace("iii", "3");
-		game = game.replace("ii", "2");
-		game = game.replace(" ", "");
-		game = game.replace(":", "");
+		String normalizedGame = game.toLowerCase();
+		normalizedGame = normalizedGame.replace("iiii", "4"); // who knows?
+		normalizedGame = normalizedGame.replace("iii", "3");
+		normalizedGame = normalizedGame.replace("ii", "2");
+		normalizedGame = normalizedGame.replace(" ", "");
+		normalizedGame = normalizedGame.replace(":", "");
 
-		// StarCraft
-		if (game.equals("star")
-		|| game.equals("rats")
-		|| game.equals("starcraft")
-		|| game.equals("sc"))
-			return "STAR";
-		// StarCraft: Brood War
-		if (game.equals("sexp")
-		|| game.equals("pxes")
-		|| game.equals("broodwar")
-		|| game.equals("bw"))
-			return "SEXP";
-		// WarCraft II: Battle.net Edition
-		if (game.equals("w2bn")
-		|| game.equals("nb2w")
-		|| game.equals("war2")
-		|| game.equals("warcraft2")
-		|| game.equals("warcraft2bne")
-		|| game.equals("wc2"))
-			return "W2BN";
-		// Diablo II
-		if (game.equals("d2dv")
-		|| game.equals("vd2d")
-		|| game.equals("d2")
-		|| game.equals("diablo2"))
-			return "D2DV";
-		// Diablo II: Lord of Destruction
-		if (game.equals("d2xp")
-		|| game.equals("px2d")
-		|| game.equals("lod")
-		|| game.equals("diablo2lod"))
-			return "D2XP";
-		// WarCraft III: Reign of Chaos
-		if (game.equals("war3")
-		|| game.equals("3raw")
-		|| game.equals("warcraft3")
-		|| game.equals("warcraft3roc"))
-			return "WAR3";
-		// WarCraft III: The Frozen Throne
-		if(game.equals("w3xp")
-		|| game.equals("px3w")
-		|| game.equals("tft")
-		|| game.equals("warcraft3tft"))
-			return "W3XP";
-
-		return "";
+		switch (normalizedGame) {
+			case "star":
+			case "rats":
+			case "starcraft":
+			case "sc":
+				return "STAR";
+			case "sexp":
+			case "pxes":
+			case "broodwar":
+			case "bw":
+				return "SEXP";
+			case "w2bn":
+			case "nb2w":
+			case "war2":
+			case "warcraft2":
+			case "warcraft2bne":
+			case "wc2":
+				return "W2BN";
+			case "d2dv":
+			case "vd2d":
+			case "d2":
+			case "diablo2":
+				return "D2DV";
+			case "d2xp":
+			case "px2d":
+			case "lod":
+			case "diablo2lod":
+				return "D2XP";
+			case "war3":
+			case "3raw":
+			case "warcraft3":
+			case "warcraft3roc":
+				return "WAR3";
+			case "w3xp":
+			case "px3w":
+			case "tft":
+			case "warcraft3tft":
+				return "W3XP";
+			default:
+				throw new LoginException(String.format("Game name is unrecognized: %s", game));
+		}
 	}
 
 	public int getVersionByte() {
@@ -125,7 +119,7 @@ public class Game {
 		Calendar c = Calendar.getInstance();
 		c.setTime(new Date(f.lastModified()));
 
-		StringBuffer exeInfo = new StringBuffer();
+		StringBuilder exeInfo = new StringBuilder();
 
 		// Write to the exeInfo buffer
 		exeInfo.append(f.getName()).append(" ");
@@ -146,11 +140,8 @@ public class Game {
 		return exeInfo.toString();
 	}
 
-	public int doCheckRevision(byte[] formula, String mpqFile) throws
-			LoginException, IOException
-	{
-		return CheckRevision.doCheckRevision(mpqFile, gameData.getFiles(game),
-				formula);
+	public int doCheckRevision(byte[] formula, String mpqFile) throws LoginException, IOException {
+		return CheckRevision.doCheckRevision(mpqFile, gameData.getFiles(game), formula);
 	}
 
 	/**
@@ -158,28 +149,18 @@ public class Game {
 	 *
 	 * @return A Vector of all possible games.
 	 */
-	public static Vector<String> getGames() {
-		Vector<String> v = new Vector<String>();
-		v.add("Starcraft");
-		v.add("Brood War");
-		v.add("Warcraft II");
-		v.add("Diablo II");
-		v.add("Diablo II: LoD");
-		v.add("Warcraft III");
-		v.add("Warcraft III: TFT");
-
-		return v;
+	public static List<String> getGames() {
+		return ImmutableList.of("Starcraft", "Brood War", "Warcraft II", "Diablo II", "Diablo II: LoD",
+				"Warcraft III", "Warcraft III: TFT");
 	}
 
 	/**
 	 * Gets the number of keys, using spawn, and key hash for the cdkey.
 	 */
-	public Buffer getKeyBuffer(String cdkey1, String cdkey2, int clientToken,
-			int serverToken) throws LoginException
-	{
+	public Buffer getKeyBuffer(String cdkey1, String cdkey2, int clientToken, int serverToken) {
 		Buffer ret = new Buffer();
 
-		if(!gameData.hasTwoKeys(game)) {
+		if (!gameData.hasTwoKeys(game)) {
 			ret.addDWord(1);
 			ret.addDWord(0);
 			ret.add(getKeyBlock(cdkey1, clientToken, serverToken));
@@ -192,9 +173,7 @@ public class Game {
 		return ret;
 	}
 
-	private Buffer getKeyBlock(String cdkey, int clientToken, int serverToken)
-			throws LoginException
-	{
+	private Buffer getKeyBlock(String cdkey, int clientToken, int serverToken) {
 		Decode key = Decode.getDecoder(cdkey);
 		int[] hashedKey = key.getKeyHash(clientToken, serverToken);
 
@@ -203,16 +182,15 @@ public class Game {
 		ret.addDWord(key.getProduct());     // (DWORD) Product
 		ret.addDWord(key.getVal1());        // (DWORD) Value 1
 		ret.addDWord(0);                    // (DWORD) Uknown
-		for(int i = 0; i < 5; i++)
+		for (int i = 0; i < 5; i++) {
 			ret.addDWord(hashedKey[i]);     // (DWORD[5]) Hashed key data
+		}
 
 		return ret;
 	}
 
-	public String toString() {
-		return game + " (" + getExeInfo() + ", Version Hash = 0x"
-				+ Integer.toHexString(gameData.getVersionHash(game))
-				+ ", Version Byte = 0x" + Integer.toHexString(gameData
-				.getVersionByte(game)) + ")";
+	@Override public String toString() {
+		return String.format("%s (%s, Version Hash = 0x%X, Version Byte = 0x%X)", game, getExeInfo(),
+				gameData.getVersionHash(game), gameData.getVersionByte(game));
 	}
 }

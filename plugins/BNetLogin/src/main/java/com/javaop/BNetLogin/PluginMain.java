@@ -2,6 +2,8 @@ package com.javaop.BNetLogin;
 
 import java.io.IOException;
 import java.util.Properties;
+import java.util.Vector;
+import java.util.stream.Collectors;
 
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
@@ -229,7 +231,7 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
 		{
 			return new JCheckBox("", value.equalsIgnoreCase("true"));
 		} else if(settingName.equalsIgnoreCase("game")) {
-			JComboBox combo = new JComboBox(Game.getGames());
+			JComboBox combo = new JComboBox(Game.getGames().stream().collect(Collectors.toCollection(Vector::new)));
 			combo.setEditable(true);
 			combo.setSelectedItem(value);
 			return combo;
