@@ -3,57 +3,32 @@
  */
 package com.javaop.util;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.Collections;
 
-/**
- * These methods currently return a List&lt;String&gt;, but may return a Set later on. Treat the result as an
- * Iterable if you don't want your code to break.
- */
 public class Uniq {
 
 	public static <T> List<String> uniq(Enumeration<T> input) {
-		if (input == null) {
-			return null;
-		}
-		//return Collections.list(input).stream().map(x -> x.toString()).collect(Collectors.toList());
-
-		TreeSet<String> set = new TreeSet<String>();
-		while (input.hasMoreElements()) {
-			set.add(input.nextElement().toString());
-		}
-		return List.copyOf(set);
-	}
-
-	public static <T> List<String> uniq(List<T> input) {
-		if (input == null) {
-			return null;
-		}
-		//return input.stream().map(x -> x.toString()).collect(Collectors.toList());
-
-		TreeSet<String> set = new TreeSet<String>();
-		for (T e: input) {
-			set.add(e.toString());
-		}
-		return List.copyOf(set);
+		return uniq(Optional.of(input).map(Collections::list));
 	}
 
 	public static <T> List<String> uniq(T[] input) {
-		if (input == null) {
-			return null;
-		}
-		//return Arrays.asList(input).stream().map(x -> x.toString()).collect(Collectors.toList());
+		return uniq(Optional.of(input).map(Arrays::asList));
+	}
 
-		TreeSet<String> set = new TreeSet<String>();
-		for (T e: input) {
-			set.add(e.toString());
-		}
-		return List.copyOf(set);
+	public static <T> List<String> uniq(List<T> input) {
+		return uniq(Optional.of(input));
+	}
+
+	public static <T> List<String> uniq(Optional<List<T>> input) {
+		return input.map(z -> z.stream()
+			.map(x -> x.toString())
+			.distinct()
+			.collect(Collectors.toList())
+		).orElse(Collections.emptyList());
 	}
 }
