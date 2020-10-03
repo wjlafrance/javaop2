@@ -1,6 +1,7 @@
 package com.javaop.users;
 
-import com.google.common.collect.ImmutableList;
+import java.util.Arrays;
+
 import com.javaop.util.User;
 import org.junit.Test;
 
@@ -70,7 +71,7 @@ public class UserListTest {
 
 		// testuser1 remains after testuser2 leaves
 		testList.removeUser("testuser2").get();
-		assertEquals(ImmutableList.of("testuser1"), testList.getList());
+		assertEquals(Arrays.asList("testuser1"), testList.getList());
 
 		// does not crash if user is not in list
 		assertNull(testList.removeUser("imnothere").orElse(null));
@@ -83,15 +84,15 @@ public class UserListTest {
 		testList.addUser("bestuser1", 0, 0, "");
 
 		// wildcard matching
-		assertEquals(ImmutableList.of("testuser1", "testuser2"), testList.matchesName("testu*"));
+		assertEquals(Arrays.asList("testuser1", "testuser2"), testList.matchesName("testu*"));
 		// wildcard matching
-		assertEquals(ImmutableList.of("testuser2"), testList.matchesName("*user2"));
+		assertEquals(Arrays.asList("testuser2"), testList.matchesName("*user2"));
 		// decimal wildcard matching
-		assertEquals(ImmutableList.of("testuser1", "testuser2"), testList.matchesName("testuser%"));
+		assertEquals(Arrays.asList("testuser1", "testuser2"), testList.matchesName("testuser%"));
 		// character wildcard matching
-		assertEquals(ImmutableList.of("testuser1", "bestuser1"), testList.matchesName("?estuser1"));
+		assertEquals(Arrays.asList("testuser1", "bestuser1"), testList.matchesName("?estuser1"));
 		// matching all users
-		assertEquals(ImmutableList.of("testuser1", "testuser2", "bestuser1"), testList.matchesName("*"));
+		assertEquals(Arrays.asList("testuser1", "testuser2", "bestuser1"), testList.matchesName("*"));
 	}
 
 	public @Test void testGetList() {
@@ -99,7 +100,7 @@ public class UserListTest {
 		testList.addUser("testuser1", 0, 0, "");
 		testList.addUser("testuser2", 0, 0, "");
 
-		assertEquals(ImmutableList.of("testuser1", "testuser2"), testList.getList());
+		assertEquals(Arrays.asList("testuser1", "testuser2"), testList.getList());
 	}
 
 }

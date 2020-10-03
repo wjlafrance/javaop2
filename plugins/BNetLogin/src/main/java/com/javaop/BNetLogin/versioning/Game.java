@@ -8,12 +8,12 @@ package com.javaop.BNetLogin.versioning;
 
 import java.io.IOException;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
-import com.google.common.collect.ImmutableList;
 import com.javaop.util.Buffer;
 import com.javaop.util.PadString;
 import com.javaop.util.RelativeFile;
@@ -150,7 +150,7 @@ public class Game {
 	 * @return A Vector of all possible games.
 	 */
 	public static List<String> getGames() {
-		return ImmutableList.of("Starcraft", "Brood War", "Warcraft II", "Diablo II", "Diablo II: LoD",
+		return Arrays.asList("Starcraft", "Brood War", "Warcraft II", "Diablo II", "Diablo II: LoD",
 				"Warcraft III", "Warcraft III: TFT");
 	}
 

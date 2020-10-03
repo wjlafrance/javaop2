@@ -12,9 +12,9 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import java.util.List;
+import java.util.LinkedList;
 import java.util.StringTokenizer;
 
-import com.google.common.collect.ImmutableList;
 import com.javaop.exceptions.LoginException;
 
 /**
@@ -281,16 +281,16 @@ public class CheckRevision {
 			bytes[i] = (byte) value--;
 		}
 
-		ImmutableList.Builder<Integer> listBuilder = ImmutableList.builder();
+		LinkedList<Integer> words = new LinkedList<Integer>();
 		for (int i = 0; i < bytes.length; i += 4) {
 			int j = ((bytes[i + 0] << 0) & 0x000000ff)
 					| ((bytes[i + 1] << 8) & 0x0000ff00)
 					| ((bytes[i + 2] << 16) & 0x00ff0000)
 					| ((bytes[i + 3] << 24) & 0xff000000);
-			listBuilder.add(j);
+			words.add(j);
 		}
 
-		return listBuilder.build();
+		return words;
 	}
 
 	/**

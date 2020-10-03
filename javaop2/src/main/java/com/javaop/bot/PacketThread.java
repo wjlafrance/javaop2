@@ -8,6 +8,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import com.javaop.callback_interfaces.PublicExposedFunctions;
 
@@ -85,14 +88,18 @@ public class PacketThread extends Thread {
 			out.systemMessage(ErrorLevelConstants.INFO, "[BNET] Looking up " + server + "..");
 
 			// Get a list of addresses
-			InetAddress[] addresses = InetAddress.getAllByName(server);
-			int address = (int) (Math.random() * addresses.length);
+			List<InetAddress> addresses = Arrays.asList(InetAddress.getAllByName(server))
+				.stream()
+				.filter(x -> x.getAddress().length == 4) // IPv4 only
+				.collect(Collectors.toList());
+			int index = (int) (Math.random() * addresses.size());
 			if (stop) {
 				return;
 			}
-			out.systemMessage(ErrorLevelConstants.INFO, "[BNET] Got " + addresses.length
-					+ " addresses. Connecting to " + addresses[address] + "..");
-			s = TimeoutSocket.getSocket(addresses[address].getHostAddress(), port,
+			InetAddress chosenAddress = addresses.get(index);
+			out.systemMessage(ErrorLevelConstants.INFO, "[BNET] Got " + addresses.size()
+					+ " addresses. Connecting to " + chosenAddress + "..");
+			s = TimeoutSocket.getSocket(chosenAddress.getHostAddress(), port,
 			  Integer.parseInt(BotCoreStatic.getInstance().getGlobalSettingDefault("JavaOp2", "timeout", "30000")));
 
 			if (stop) {
@@ -102,7 +109,7 @@ public class PacketThread extends Thread {
 			callbacks.systemMessage(ErrorLevelConstants.INFO, "[BNET] Connected to "
 					+ s.getRemoteSocketAddress());
 
-			out.putLocalVariable("address", addresses[address].getAddress());
+			out.putLocalVariable("address", chosenAddress.getAddress());
 
 			output = s.getOutputStream();
 			input = s.getInputStream();

@@ -1,9 +1,9 @@
 package com.javaop._main;
 
 import java.util.List;
+import java.util.Arrays;
 import javax.swing.JOptionPane;
 
-import com.google.common.collect.ImmutableList;
 import com.javaop.pluginmanagers.PluginManager;
 
 import com.javaop.bot.BotManager;
@@ -43,11 +43,7 @@ public class BotStart
 			JavaOpFileStuff.setBaseDirectory();
 			PluginManager.initialize(true);
 
-			ImmutableList.Builder<String> argsBuilder = ImmutableList.builder();
-			for (String arg : args) {
-				argsBuilder.add(arg);
-			}
-			List<String> bots = getBots(argsBuilder.build());
+			List<String> bots = getBots(Arrays.asList(args));
 
 			for (String bot : bots) {
 				System.out.println("Loading " + bot);

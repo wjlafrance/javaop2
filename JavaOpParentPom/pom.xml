@@ -14,10 +14,10 @@
 		<java.version>1.8</java.version>
 
 		<!-- Maven plugin versions -->
-		<maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
+		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
 
 		<!-- Dependency versions -->
-		<lombok.version>1.12.6</lombok.version>
+		<lombok.version>1.18.12</lombok.version>
 	</properties>
 
 	<dependencies>
@@ -34,12 +34,6 @@
 			<artifactId>junit</artifactId>
 			<version>4.4</version>
 			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>17.0</version>
 		</dependency>
 	</dependencies>
 

@@ -6,8 +6,6 @@
 
 package com.javaop.BNetLogin.cdkey;
 
-import com.google.common.base.Preconditions;
-import com.google.common.base.Strings;
 import com.javaop.util.Buffer;
 import com.javaop.BNetLogin.password.BrokenSHA1;
 
@@ -50,8 +48,12 @@ class Alpha16Decode extends Decode {
 	private int checksum = 0;
 
 	protected Alpha16Decode(String cdkey) throws IllegalArgumentException {
-		Preconditions.checkArgument(!Strings.isNullOrEmpty(cdkey), "CD-Key is missing!");
-		Preconditions.checkArgument(KEY_LENGTH == cdkey.length(), "CD-Key is not 16 characters!");
+		if (null == cdkey || cdkey.length() == 0) {
+			throw new IllegalArgumentException("CD-Key is missing!");
+		}
+		if (KEY_LENGTH != cdkey.length()) {
+			throw new IllegalArgumentException("CD-Key is not 16 characters!");
+		}
 
 		this.cdkey = cdkey;
 

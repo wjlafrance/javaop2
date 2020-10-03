@@ -6,8 +6,6 @@
 
 package com.javaop.BNetLogin.cdkey;
 
-import com.google.common.base.Preconditions;
-import com.google.common.base.Strings;
 
 /**
  * This class takes a CD-Key, determines it's type, and returns a decoder
@@ -32,7 +30,9 @@ public abstract class Decode {
 	 *      If the key isn't 13, 16, or 24 characters long
 	 */
 	public static Decode getDecoder(String cdkey) throws IllegalArgumentException {
-		Preconditions.checkArgument(!Strings.isNullOrEmpty(cdkey), "CD-Key is missing!");
+		if (null == cdkey || cdkey.length() == 0) {
+			throw new IllegalArgumentException("CD-Key is missing!");
+		}
 
 		switch (cdkey.length()) {
 			case 13: // Legacy StarCraft

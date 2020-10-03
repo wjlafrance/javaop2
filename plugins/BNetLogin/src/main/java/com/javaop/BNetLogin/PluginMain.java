@@ -231,7 +231,8 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
 		{
 			return new JCheckBox("", value.equalsIgnoreCase("true"));
 		} else if(settingName.equalsIgnoreCase("game")) {
-			JComboBox combo = new JComboBox(Game.getGames().stream().collect(Collectors.toCollection(Vector::new)));
+			Vector<String> gameOptions = Game.getGames().stream().collect(Collectors.toCollection(Vector::new));
+			JComboBox combo = new JComboBox(gameOptions);
 			combo.setEditable(true);
 			combo.setSelectedItem(value);
 			return combo;
@@ -245,7 +246,7 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
 
 	public Properties getGlobalDefaultSettingValues() {
 		Properties p = new Properties();
-		p.setProperty("BNLS Server", "bnls.mattkv.net");
+		p.setProperty("BNLS Server", "vultr-chi.bnetdocs.org");
 		p.setProperty("Enable BNLS", "true");
 		return p;
 	}

@@ -6,8 +6,6 @@
 
 package com.javaop.BNetLogin.cdkey;
 
-import com.google.common.base.Preconditions;
-import com.google.common.base.Strings;
 import com.javaop.util.Buffer;
 import com.javaop.BNetLogin.password.BrokenSHA1;
 
@@ -23,9 +21,15 @@ class Num13Decode extends Decode {
 	private String cdkey;
 
 	public Num13Decode(String cdkey) throws IllegalArgumentException {
-		Preconditions.checkArgument(!Strings.isNullOrEmpty(cdkey), "CD-Key is missing!");
-		Preconditions.checkArgument(KEY_LENGTH == cdkey.length(), "CD-Key is not 13 characters!");
-		Preconditions.checkArgument(verify(cdkey));
+		if (null == cdkey || cdkey.length() == 0) {
+			throw new IllegalArgumentException("CD-Key is missing!");
+		}
+		if (KEY_LENGTH != cdkey.length()) {
+			throw new IllegalArgumentException("CD-Key is not 13 characters!");
+		} 
+		if (!verify(cdkey)) {
+			throw new IllegalArgumentException("CD-Key check digit does not match!");
+		}
 
 		this.cdkey = cdkey;
 

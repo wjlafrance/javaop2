@@ -9,8 +9,6 @@ package com.javaop.BNetLogin.cdkey;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import com.google.common.base.Preconditions;
-import com.google.common.base.Strings;
 import com.javaop.BNetLogin.password.ByteFromIntArray;
 import com.javaop.BNetLogin.password.IntFromByteArray;
 
@@ -96,8 +94,12 @@ class Alpha26Decode extends Decode {
 	private int product;
 
 	public Alpha26Decode(String cdkey) throws IllegalArgumentException {
-		Preconditions.checkArgument(!Strings.isNullOrEmpty(cdkey), "CD-Key is missing!");
-		Preconditions.checkArgument(KEY_LENGTH == cdkey.length(), "CD-Key is not 26 characters!");
+		if (null == cdkey || cdkey.length() == 0) {
+			throw new IllegalArgumentException("CD-Key is missing!");
+		}
+		if (KEY_LENGTH != cdkey.length()) {
+			throw new IllegalArgumentException("CD-Key is not 26 characters!");
+		}
 
 		byte[] table = new byte[BUFFER_LENGTH];
 		int[] values = new int[4];
