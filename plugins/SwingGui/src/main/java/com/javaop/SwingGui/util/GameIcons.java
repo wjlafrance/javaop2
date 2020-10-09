@@ -6,7 +6,7 @@ package com.javaop.SwingGui.util;
 import java.util.Hashtable;
 import javax.swing.ImageIcon;
 
-import com.javaop.exceptions.LoginException;
+import com.javaop.bot.BotCoreStatic;
 
 
 /**
@@ -1562,70 +1562,11 @@ public class GameIcons {
     }
 
     public static ImageIcon getIcon(String client) {
-	  client = getCodeFromLongName(client);
-	  return (ImageIcon) icons.get(client);
-    }
-
-    /**
-     * Takes a user-inputted game name and shortens it to the 4-letter code.
-     */
-    private static String getCodeFromLongName(String game) {
-	  if (game == null)
-		return "";
-
-	  game = game.toLowerCase();
-	  game = game.replace("iiii", "4"); // who knows?
-	  game = game.replace("iii", "3");
-	  game = game.replace("ii", "2");
-	  game = game.replace(" ", "");
-	  game = game.replace(":", "");
-
-	  // StarCraft
-	  if (game.equals("star")
-	  || game.equals("rats")
-	  || game.equals("starcraft")
-	  || game.equals("sc"))
-		return "STAR";
-	  // StarCraft: Brood War
-	  if (game.equals("sexp")
-	  || game.equals("pxes")
-	  || game.equals("broodwar")
-	  || game.equals("bw"))
-		return "SEXP";
-	  // WarCraft II: Battle.net Edition
-	  if (game.equals("w2bn")
-	  || game.equals("nb2w")
-	  || game.equals("war2")
-	  || game.equals("warcraft2")
-	  || game.equals("warcraft2bne")
-	  || game.equals("wc2"))
-		return "W2BN";
-	  // Diablo II
-	  if (game.equals("d2dv")
-	  || game.equals("vd2d")
-	  || game.equals("d2")
-	  || game.equals("diablo2"))
-		return "D2DV";
-	  // Diablo II: Lord of Destruction
-	  if (game.equals("d2xp")
-	  || game.equals("px2d")
-	  || game.equals("lod")
-	  || game.equals("diablo2lod"))
-		return "D2XP";
-	  // WarCraft III: Reign of Chaos
-	  if (game.equals("war3")
-	  || game.equals("3raw")
-	  || game.equals("warcraft3")
-	  || game.equals("warcraft3roc"))
-		return "WAR3";
-	  // WarCraft III: The Frozen Throne
-	  if(game.equals("w3xp")
-	  || game.equals("px3w")
-	  || game.equals("tft")
-	  || game.equals("warcraft3tft"))
-		return "W3XP";
-
-	  return game.toUpperCase();
+		String gameName = client;
+		try {
+			gameName = BotCoreStatic.getInstance().normalizeGameName(gameName);
+		} catch (IllegalArgumentException ex) { /* discard */ }
+		return (ImageIcon) icons.get(gameName);
     }
 
 }

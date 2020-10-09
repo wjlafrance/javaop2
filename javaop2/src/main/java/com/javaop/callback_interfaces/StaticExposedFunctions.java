@@ -133,4 +133,6 @@ public interface StaticExposedFunctions
 
 	public String pluginGetLongDescription(String plugin);
 
+	public String normalizeGameName(String game);
+
 }

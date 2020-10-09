@@ -61,13 +61,16 @@ public class GameData {
 	}
 
 	/**
-	 * Gets a boolean indicating if a certain game takes two keys to log in
+	 * Gets an int indicating the number of keys needed to log in
 	 */
-	public boolean hasTwoKeys(String game) {
+
+	public int numberOfKeys(String game) {
 		if (game.equals("D2XP") || game.equals("W3XP")) {
-			return true;
+			return 2;
+		} else if (game.equals("DRTL")) {
+			return 0;
 		} else {
-			return false;
+			return 1;
 		}
 	}
 

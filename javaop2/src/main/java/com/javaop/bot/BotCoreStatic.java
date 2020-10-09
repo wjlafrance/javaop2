@@ -208,4 +208,67 @@ public class BotCoreStatic implements StaticExposedFunctions {
 	public String pluginGetLongDescription(String plugin) {
 		return pluginGet(plugin).getLongDescription();
 	}
+	
+	/**
+	 * Takes a user-inputted game name and shortens it to the 4-letter code.
+	 * @throws IllegalArgumentException Long name not recognized
+	 */
+	public String normalizeGameName(String game) throws IllegalArgumentException {
+		if (game == null || game.isEmpty()) {
+			throw new IllegalArgumentException("Game name is blank.");
+		}
+
+		String normalizedGame = game.toLowerCase();
+		normalizedGame = normalizedGame.replace("iiii", "4"); // who knows?
+		normalizedGame = normalizedGame.replace("iii", "3");
+		normalizedGame = normalizedGame.replace("ii", "2");
+		normalizedGame = normalizedGame.replace(" ", "");
+		normalizedGame = normalizedGame.replace(":", "");
+
+		switch (normalizedGame) {
+			case "diablo":
+			case "drtl":
+			case "ltrd":
+				return "DRTL";
+			case "star":
+			case "rats":
+			case "starcraft":
+			case "sc":
+				return "STAR";
+			case "sexp":
+			case "pxes":
+			case "broodwar":
+			case "bw":
+				return "SEXP";
+			case "w2bn":
+			case "nb2w":
+			case "war2":
+			case "warcraft2":
+			case "warcraft2bne":
+			case "wc2":
+				return "W2BN";
+			case "d2dv":
+			case "vd2d":
+			case "d2":
+			case "diablo2":
+				return "D2DV";
+			case "d2xp":
+			case "px2d":
+			case "lod":
+			case "diablo2lod":
+				return "D2XP";
+			case "war3":
+			case "3raw":
+			case "warcraft3":
+			case "warcraft3roc":
+				return "WAR3";
+			case "w3xp":
+			case "px3w":
+			case "tft":
+			case "warcraft3tft":
+				return "W3XP";
+			default:
+				throw new IllegalArgumentException(String.format("Game name is unrecognized: %s", game));
+		}
+	}
 }

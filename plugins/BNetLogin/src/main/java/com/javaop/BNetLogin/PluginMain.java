@@ -81,16 +81,14 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
 
 	public boolean connecting(String server, int port, Object data) {
 		try {
-			// Verify the cdkey
-			GameData g = new GameData();
-			boolean hasTwoKeys = g.hasTwoKeys(pubFuncs.getLocalSetting(
-					getName(), "game"));
-
-			Decode.getDecoder(pubFuncs.getLocalSetting(getName(), "cdkey"));
-			if(hasTwoKeys)
-				Decode.getDecoder(pubFuncs.getLocalSetting(getName(),
-						"cdkey2"));
-
+			// Verify the cdkeys if needed
+			int numberOfKeys = new GameData().numberOfKeys(pubFuncs.getLocalSetting(getName(), "game"));
+			if (numberOfKeys >= 1) {
+				Decode.getDecoder(pubFuncs.getLocalSetting(getName(), "cdkey"));
+			}
+			if (numberOfKeys >= 2) {
+				Decode.getDecoder(pubFuncs.getLocalSetting(getName(), "cdkey2"));
+			}
 			return true;
 		} catch (IllegalArgumentException iae) {
 			pubFuncs.systemMessage(CRITICAL, "[BNET] Caught exception while "

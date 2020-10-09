@@ -96,6 +96,10 @@ public class Bnls {
 		if(g.getName().equalsIgnoreCase("JSTR")) return 0x06;
 		if(g.getName().equalsIgnoreCase("WAR3")) return 0x07;
 		if(g.getName().equalsIgnoreCase("W3XP")) return 0x08;
+		if(g.getName().equalsIgnoreCase("DRTL")) return 0x09; // JBLS
+		if(g.getName().equalsIgnoreCase("DSHR")) return 0x0A; // JBLS
+		if(g.getName().equalsIgnoreCase("SSHR")) return 0x0B; // JBLS
+		if(g.getName().equalsIgnoreCase("W3DM")) return 0x0C; // BN#
 
 		throw new LoginException("[BNLS] Invalid product: " + g.getName());
 	}

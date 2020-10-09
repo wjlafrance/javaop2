@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
+import com.javaop.bot.BotCoreStatic;
 import com.javaop.util.Buffer;
 import com.javaop.util.PadString;
 import com.javaop.util.RelativeFile;
@@ -29,66 +30,7 @@ public class Game {
 	private String game;
 
 	public Game(String game) throws LoginException {
-		this.game = getCodeFromLongName(game);
-	}
-
-	/**
-	 * Takes a user-inputted game name and shortens it to the 4-letter code.
-	 * @throws LoginException Long name not recognized
-	 */
-	private static String getCodeFromLongName(String game) throws LoginException {
-		if (game == null || game.isEmpty()) {
-			throw new LoginException("Game name is blank.");
-		}
-
-		String normalizedGame = game.toLowerCase();
-		normalizedGame = normalizedGame.replace("iiii", "4"); // who knows?
-		normalizedGame = normalizedGame.replace("iii", "3");
-		normalizedGame = normalizedGame.replace("ii", "2");
-		normalizedGame = normalizedGame.replace(" ", "");
-		normalizedGame = normalizedGame.replace(":", "");
-
-		switch (normalizedGame) {
-			case "star":
-			case "rats":
-			case "starcraft":
-			case "sc":
-				return "STAR";
-			case "sexp":
-			case "pxes":
-			case "broodwar":
-			case "bw":
-				return "SEXP";
-			case "w2bn":
-			case "nb2w":
-			case "war2":
-			case "warcraft2":
-			case "warcraft2bne":
-			case "wc2":
-				return "W2BN";
-			case "d2dv":
-			case "vd2d":
-			case "d2":
-			case "diablo2":
-				return "D2DV";
-			case "d2xp":
-			case "px2d":
-			case "lod":
-			case "diablo2lod":
-				return "D2XP";
-			case "war3":
-			case "3raw":
-			case "warcraft3":
-			case "warcraft3roc":
-				return "WAR3";
-			case "w3xp":
-			case "px3w":
-			case "tft":
-			case "warcraft3tft":
-				return "W3XP";
-			default:
-				throw new LoginException(String.format("Game name is unrecognized: %s", game));
-		}
+		this.game = BotCoreStatic.getInstance().normalizeGameName(game);
 	}
 
 	public int getVersionByte() {
@@ -150,8 +92,16 @@ public class Game {
 	 * @return A Vector of all possible games.
 	 */
 	public static List<String> getGames() {
-		return Arrays.asList("Starcraft", "Brood War", "Warcraft II", "Diablo II", "Diablo II: LoD",
-				"Warcraft III", "Warcraft III: TFT");
+		return Arrays.asList(
+			"Diablo",
+			"Starcraft",
+			"Brood War",
+			"Warcraft II",
+			"Diablo II",
+			"Diablo II: LoD",
+			"Warcraft III",
+			"Warcraft III: TFT"
+		);
 	}
 
 	/**
@@ -160,14 +110,13 @@ public class Game {
 	public Buffer getKeyBuffer(String cdkey1, String cdkey2, int clientToken, int serverToken) {
 		Buffer ret = new Buffer();
 
-		if (!gameData.hasTwoKeys(game)) {
-			ret.addDWord(1);
-			ret.addDWord(0);
+		int numberOfKeys = gameData.numberOfKeys(game);
+		ret.addDWord(numberOfKeys);
+		ret.addDWord(0);
+		if (numberOfKeys >= 1) {
 			ret.add(getKeyBlock(cdkey1, clientToken, serverToken));
-		} else {
-			ret.addDWord(2);
-			ret.addDWord(0);
-			ret.add(getKeyBlock(cdkey1, clientToken, serverToken));
+		}
+		if (numberOfKeys >= 2) {
 			ret.add(getKeyBlock(cdkey2, clientToken, serverToken));
 		}
 		return ret;
