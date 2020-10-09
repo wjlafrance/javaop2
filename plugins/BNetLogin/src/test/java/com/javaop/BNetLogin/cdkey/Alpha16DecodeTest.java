@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 
 public class Alpha16DecodeTest {
 
-	static final String TEST_KEY = "74WBHR8P4B22DPEG";
+	static final String TEST_KEY = "74WB-HR8P-4B22-DPEG";
 
 	private Alpha16Decode decoder;
 

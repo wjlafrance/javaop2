@@ -27,22 +27,24 @@ public abstract class Decode {
 	 * @param cdkey The CDKey to decode
 	 * @return CDKeyDecode instance with the decoded details for cdkey
 	 * @throws IllegalArgumentException
-	 *      If the key isn't 13, 16, or 24 characters long
+	 *      If the key isn't 13, 16, or 26 characters long
 	 */
 	public static Decode getDecoder(String cdkey) throws IllegalArgumentException {
-		if (null == cdkey || cdkey.length() == 0) {
+		String processedKey = cdkey.replaceAll("[^A-Za-z0-9]", "");
+		
+		if (null == processedKey || processedKey.length() == 0) {
 			throw new IllegalArgumentException("CD-Key is missing!");
 		}
 
-		switch (cdkey.length()) {
-			case 13: // Legacy StarCraft
-				return new Num13Decode(cdkey);
-			case 16: // Legacy Diablo II, current WarCraft II
-				return new Alpha16Decode(cdkey);
-			case 26: // All products except WarCraft II
-				return new Alpha26Decode(cdkey);
+		switch (processedKey.length()) {
+			case Num13Decode.KEY_LENGTH: // Legacy StarCraft
+				return new Num13Decode(processedKey);
+			case Alpha16Decode.KEY_LENGTH: // Legacy Diablo II, current WarCraft II
+				return new Alpha16Decode(processedKey);
+			case Alpha26Decode.KEY_LENGTH: // All products except WarCraft II
+				return new Alpha26Decode(processedKey);
 			default:
-				throw new IllegalArgumentException("CD-Key type cannot be determined: " + cdkey.toString());
+				throw new IllegalArgumentException("CD-Key type cannot be determined: " + processedKey);
 		}
 	}
 

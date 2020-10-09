@@ -16,7 +16,7 @@ import com.javaop.BNetLogin.password.BrokenSHA1;
  */
 class Num13Decode extends Decode {
 
-	private static final int KEY_LENGTH = 13;
+	static final int KEY_LENGTH = 13;
 
 	private String cdkey;
 

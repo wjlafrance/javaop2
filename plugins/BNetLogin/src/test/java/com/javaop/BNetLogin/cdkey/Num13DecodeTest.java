@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 
 public class Num13DecodeTest {
 
-	static final String TEST_KEY = "2402752278792";
+	static final String TEST_KEY = "2402-75227-8792";
 
 	private Num13Decode decoder;
 

@@ -16,7 +16,7 @@ import com.javaop.BNetLogin.password.BrokenSHA1;
  */
 class Alpha16Decode extends Decode {
 
-	private static final int KEY_LENGTH = 16;
+	static final int KEY_LENGTH = 16;
 
 	private static final int[] alpha16Map = {
 		0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
