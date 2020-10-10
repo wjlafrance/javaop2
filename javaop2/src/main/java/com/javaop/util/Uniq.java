@@ -13,15 +13,15 @@ import java.util.stream.Collectors;
 public class Uniq {
 
 	public static <T> List<String> uniq(Enumeration<T> input) {
-		return uniq(Optional.of(input).map(Collections::list));
+		return uniq(Optional.ofNullable(input).map(Collections::list));
 	}
 
 	public static <T> List<String> uniq(T[] input) {
-		return uniq(Optional.of(input).map(Arrays::asList));
+		return uniq(Optional.ofNullable(input).map(Arrays::asList));
 	}
 
 	public static <T> List<String> uniq(List<T> input) {
-		return uniq(Optional.of(input));
+		return uniq(Optional.ofNullable(input));
 	}
 
 	public static <T> List<String> uniq(Optional<List<T>> input) {
