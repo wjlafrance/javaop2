@@ -39,7 +39,7 @@ public class Statstring
 		}
 
 		if (clientStatstringContainsClan(getClient())) {
-			return new StringBuffer(tokens[3]).reverse().toString();
+			return new StringBuilder(tokens[3]).reverse().toString();
 		}
 
 		return "";

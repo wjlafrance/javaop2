@@ -126,7 +126,7 @@ public class PluginMain extends GenericPluginInterface
 				throw new CommandUsedImproperlyException("removealias requires at least "
 						+ "1 parameter", user, command);
 
-			StringBuffer s = new StringBuffer("Removed: ");
+			StringBuilder s = new StringBuilder("Removed: ");
 
 			for (int i = 0; i < args.length; i++) {
 				s.append(args[i] + ", ");
@@ -148,7 +148,7 @@ public class PluginMain extends GenericPluginInterface
 				return;
 			}
 
-			StringBuffer s = new StringBuffer("Removed: ");
+			StringBuilder s = new StringBuilder("Removed: ");
 			for (int i = 0; i < aliases.length; i++) {
 				pubFuncs.removeAlias(aliases[i]);
 				s.append(aliases[i] + ", ");
@@ -168,7 +168,7 @@ public class PluginMain extends GenericPluginInterface
 				return;
 			}
 
-			StringBuffer s = new StringBuffer(args[0] + ": ");
+			StringBuilder s = new StringBuilder(args[0] + ": ");
 			for (int i = 0; i < aliases.length; i++)
 				s.append(aliases[i] + ", ");
 			pubFuncs.sendTextUser(user, s.substring(0, s.length() - 2)

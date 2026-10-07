@@ -284,7 +284,7 @@ public class Buffer implements Serializable
      */
     public String removeString(int i) throws IndexOutOfBoundsException
     {
-        StringBuffer s = new StringBuffer(i + 1);
+        StringBuilder s = new StringBuilder(i + 1);
 
         for(int j = 0; j < i; j++)
         {
@@ -309,7 +309,7 @@ public class Buffer implements Serializable
      */
     public String removeNTString()
     {
-        StringBuffer s = new StringBuffer();
+        StringBuilder s = new StringBuilder();
 
         char b = removeChar();
 
@@ -425,7 +425,7 @@ public class Buffer implements Serializable
      */
     public String toString()
     {
-        StringBuffer returnString = new StringBuffer( (currentLength * 3) + // The hex
+        StringBuilder returnString = new StringBuilder( (currentLength * 3) + // The hex
                                                       (currentLength) +     // The ascii
                                                       (currentLength / 4) + // The tabs/\n's
                                                       30 );                 // The text

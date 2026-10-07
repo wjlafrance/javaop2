@@ -160,7 +160,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
 			{
 				List<String> commands = Uniq.uniq(out.getCommandList());
 
-				StringBuffer list = new StringBuffer("Commands: ");
+				StringBuilder list = new StringBuilder("Commands: ");
 				for (int i = 0; i < commands.size(); i++)
 				{
 					if (command.equalsIgnoreCase("helpall") || out.canUse(user, command))

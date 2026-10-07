@@ -317,7 +317,7 @@ public class CheckRevisionV1
        Calendar c = Calendar.getInstance();
        c.setTime(new Date(f.lastModified()));
        
-       StringBuffer exeInfo = new StringBuffer();
+       StringBuilder exeInfo = new StringBuilder();
        exeInfo.append(f.getName()).append(" ");
        exeInfo.append(PadString.padNumber(c.get(Calendar.MONTH), 2)).append("/");
        exeInfo.append(PadString.padNumber(c.get(Calendar.DAY_OF_MONTH), 2)).append("/");

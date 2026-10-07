@@ -65,7 +65,7 @@ public class Ini{
 		  try{
 			  BufferedReader inputStream = new BufferedReader(new FileReader(FN));
 			  String line = "";
-        StringBuffer headers = new StringBuffer();
+        StringBuilder headers = new StringBuilder();
 			  while ((line = inputStream.readLine()) != null){
           if(line.length() > 0){
 				    if(line.substring(0,1).equals("[") && line.substring(line.length()-1, line.length()).equals("]"))
@@ -111,7 +111,7 @@ public class Ini{
 	}
 
 	public static void WriteIni(String FN,String Header,String Setting,String Value){
-		StringBuffer StringB = new StringBuffer();
+		StringBuilder StringB = new StringBuilder();
 		String tmpFile;
 		String var="";
 		boolean doneIt=false;

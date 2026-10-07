@@ -280,7 +280,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
 
 				Arrays.sort(strAddresses);
 
-				StringBuffer s = new StringBuffer();
+				StringBuilder s = new StringBuilder();
 				s.append(args[0] + ": ");
 				for (int i = 0; i < addresses.length; i++)
 					s.append(strAddresses[i] + (((i + 1) < addresses.length) ? ", " : ""));

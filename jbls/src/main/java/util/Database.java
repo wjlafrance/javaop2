@@ -38,7 +38,7 @@ public class Database{
   }
   
   public String prepareSQL(String command){
-    StringBuffer s = new StringBuffer();
+    StringBuilder s = new StringBuilder();
 	if(command == null) command = "";
     command = command.replaceAll("\\*", "%");
     for(int x = 0; x < command.length(); x++){

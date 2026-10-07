@@ -60,7 +60,7 @@ public class Statistics{
   
   public void onBotLogin(String botID, String IP){
     if(!Constants.StatsLogBotIDs) return;
-    StringBuffer query = new StringBuffer();
+    StringBuilder query = new StringBuilder();
 	query.append("INSERT INTO `").append(Constants.StatsDatabase).append("`.`botlogins` ");
 	query.append("(`time`,`ip`,`botID`)VALUES(");
 	query.append("'").append((new Timestamp(System.currentTimeMillis())).toString()).append("', ");
@@ -71,7 +71,7 @@ public class Statistics{
   
   public void onCheckRevision(String botID, String IP, String archive, int game){
     if(!Constants.StatsLogCRevs) return;
-    StringBuffer query = new StringBuffer();
+    StringBuilder query = new StringBuilder();
 	query.append("INSERT INTO `").append(Constants.StatsDatabase).append("`.`checkrevisions` ");
 	query.append("(`game`,`version`,`time`,`ip`,`botID`)VALUES(");
 	query.append("'").append(game).append("', ");
@@ -83,7 +83,7 @@ public class Statistics{
   }
   public void onConnection(String IP){
     if(!Constants.StatsLogConns) return;
-    StringBuffer query = new StringBuffer();
+    StringBuilder query = new StringBuilder();
 	query.append("INSERT INTO `").append(Constants.StatsDatabase).append("`.`connections` ");
 	query.append("(`time`,`ip`)VALUES(");
 	query.append("'").append((new Timestamp(System.currentTimeMillis())).toString()).append("', ");

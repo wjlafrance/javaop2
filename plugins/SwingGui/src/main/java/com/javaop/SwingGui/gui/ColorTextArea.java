@@ -33,7 +33,7 @@ public class ColorTextArea extends JTextPane
 
 	private int                styleNum         = 0;
 
-	private final StringBuffer fullText         = new StringBuffer();
+	private final StringBuilder fullText         = new StringBuilder();
 
 	public ColorTextArea(int maxChars, int cutTo, boolean holdAtBottom)
 	{

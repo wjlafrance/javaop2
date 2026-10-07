@@ -267,7 +267,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
 
 			Iterable<String> users = out.dbFindAttr(args[0].charAt(0));
 
-			StringBuffer s = new StringBuffer("Users with " + args[0] + ": ");
+			StringBuilder s = new StringBuilder("Users with " + args[0] + ": ");
 			for (String u : users)
 				s.append(u + " ");
 			out.sendTextUser(user, s.toString(), loudness);

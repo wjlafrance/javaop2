@@ -34,7 +34,7 @@ public class OutPacketBuffer extends Buffer{
 	public String getStringBuffer(){//Unused?
 		//int s=size();
 		//return (char)(byte)((s+3 >> 0) & 0x000000FF) + (char)(byte)((s+3 >> 8) & 0x000000FF) + String.valueOf(super.getBuffer());
-			StringBuffer s=new StringBuffer();
+			StringBuilder s=new StringBuilder();
 			int len=size();
 	        s.append((char)(byte) ((len+3 >> 0) & 0x000000FF));//packet length
 	        s.append((char)(byte) ((len+3 >> 8) & 0x000000FF));

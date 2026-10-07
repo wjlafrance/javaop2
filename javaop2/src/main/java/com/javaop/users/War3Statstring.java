@@ -78,7 +78,7 @@ public class War3Statstring {
 			level = Integer.parseInt(tokens[2]);
 		}
 		if (tokens.length >= 3) {
-			clan = new StringBuffer(tokens[3]).reverse().toString();
+			clan = new StringBuilder(tokens[3]).reverse().toString();
 		}
 
 		icon = getIconName(race, Integer.parseInt(icon));

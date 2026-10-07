@@ -358,7 +358,7 @@ public class PluginMain extends GenericPluginInterface implements PacketCallback
 
 	private String getClanTag(String clan)
 	{
-		StringBuffer ret = new StringBuffer();
+		StringBuilder ret = new StringBuilder();
 
 		for (int i = clan.length() - 1; i >= 0; i--)
 			if (clan.charAt(i) > 0)

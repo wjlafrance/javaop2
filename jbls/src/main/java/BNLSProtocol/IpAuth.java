@@ -71,13 +71,13 @@ public class IpAuth {
 	}
   public static String getList(){
     String[] ips = Ini.headers("./ips.ini");
-    StringBuffer s = new StringBuffer();
+    StringBuilder s = new StringBuilder();
     for(int x = 0; x<ips.length; x++)
       s.append(getIpString(ips[x])).append("\r");
     return s.toString();
   }
   public static String getIpString(String IP){
-  StringBuffer s = new StringBuffer();
+  StringBuilder s = new StringBuilder();
     s.append("IP: ").append(IP);
     s.append(" Status: ");
     int status = Integer.parseInt(Ini.ReadIni("./ips.ini", IP, "Status", "0"));

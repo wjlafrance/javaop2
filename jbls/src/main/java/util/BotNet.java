@@ -223,7 +223,7 @@ public class BotNet extends Thread{
     int access = Integer.parseInt(Ini.ReadIni("./admins.ini", "Admins", names.get(ID), "0"), 10);
     if (access == 0) return;
     String[] args = message.split(" ");
-    StringBuffer response = new StringBuffer();
+    StringBuilder response = new StringBuilder();
     Out.info("Admin", names.get(ID) + " >> " + message);
     if(args[0].equalsIgnoreCase("respond")){
        response.append("Fuck you man! I'm here, I responded, now leave me alone!\r");

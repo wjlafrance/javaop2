@@ -67,7 +67,7 @@ public class Define
 
 		BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
-		StringBuffer fullTextBuf = new StringBuffer();
+		StringBuilder fullTextBuf = new StringBuilder();
 		String line;
 		while ((line = in.readLine()) != null)
 		{
