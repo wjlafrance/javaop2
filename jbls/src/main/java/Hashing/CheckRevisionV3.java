@@ -96,7 +96,7 @@ public class CheckRevisionV3 extends CheckRevisionV1{
     return ret;
   }
   public static CheckrevisionResults checkRevision(String valuestring, int prod, byte plat, String mpq) throws FileNotFoundException, IOException{
-    CheckrevisionResults cacheHit = (CheckrevisionResults)crCache.get(valuestring + mpq + prod + plat);
+    CheckrevisionResults cacheHit = crCache.get(valuestring + mpq + prod + plat);
     if(cacheHit != null){
       Out.println("CREV", "CheckRevision cache hit: " + crCacheHits + " hits, " + crCacheMisses + " misses.");
       crCacheHits++;

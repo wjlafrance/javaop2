@@ -199,7 +199,7 @@ public class BotCore implements PublicExposedFunctions
 	}
 
 	public void unschedule(TimerTask task) {
-		JOTimerTask thatTask = (JOTimerTask) timerTasks.get(task);
+		JOTimerTask thatTask = timerTasks.get(task);
 
 		if (thatTask != null) {
 			thatTask.cancel();

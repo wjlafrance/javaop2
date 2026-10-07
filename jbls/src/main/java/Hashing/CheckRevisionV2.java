@@ -48,7 +48,7 @@ public class CheckRevisionV2 extends CheckRevisionV1
     {
         if(prod > 0x0B || plat > 3 || prod < 0 || plat < 0) return null;
         
-        CheckrevisionResults cacheHit = (CheckrevisionResults)crCache.get(versionString + mpq + prod + plat);
+        CheckrevisionResults cacheHit = crCache.get(versionString + mpq + prod + plat);
         if(cacheHit != null){
             Out.println("CREV", "CheckRevision cache hit: " + crCacheHits + " hits, " + crCacheMisses + " misses.");
             crCacheHits++;

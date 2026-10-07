@@ -161,7 +161,7 @@ public class JavaOpUserMenu {
 					JMenuItem item = new JMenuItem(itemName);
 					item.addActionListener(this);
 					this.add(item);
-					Icon icon = (Icon) icons.get(itemName);
+					Icon icon = icons.get(itemName);
 					if (icon != null)
 						item.setIcon(icon);
 				}

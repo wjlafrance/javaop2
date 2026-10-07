@@ -1567,7 +1567,7 @@ public class GameIcons {
 		try {
 			gameName = BotCoreStatic.getInstance().normalizeGameName(gameName);
 		} catch (IllegalArgumentException ex) { /* discard */ }
-		return (ImageIcon) icons.get(gameName);
+		return icons.get(gameName);
     }
 
 }

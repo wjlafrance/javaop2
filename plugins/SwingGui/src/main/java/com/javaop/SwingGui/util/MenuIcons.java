@@ -4704,6 +4704,6 @@ public class MenuIcons {
 	}
 
 	public static Icon getIcon(String filename) {
-		return (Icon) icons.get(filename.toLowerCase());
+		return icons.get(filename.toLowerCase());
 	}
 }

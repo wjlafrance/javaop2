@@ -85,7 +85,7 @@ public class JavaOpFrame extends JFrame {
 	public JavaOpPanel addBot(PublicExposedFunctions out)
 	{
 		// If the bot already exists, select it
-		JavaOpPanel bot = (JavaOpPanel) bots.get(out.getName());
+		JavaOpPanel bot = bots.get(out.getName());
 		if (bot != null) {
 			// Bring it to the front
 			select(out.getName());
@@ -121,7 +121,7 @@ public class JavaOpFrame extends JFrame {
 	}
 
 	public void removeBot(String name) {
-		JavaOpPanel bot = (JavaOpPanel) bots.get(name);
+		JavaOpPanel bot = bots.get(name);
 
 		if (bot != null) {
 			bot.dispose();
@@ -134,7 +134,7 @@ public class JavaOpFrame extends JFrame {
 	}
 
 	public void select(String name) {
-		JavaOpPanel bot = (JavaOpPanel) bots.get(name);
+		JavaOpPanel bot = bots.get(name);
 
 		if (bot != null)
 			bot.select();
@@ -145,7 +145,7 @@ public class JavaOpFrame extends JFrame {
 	}
 
 	public JavaOpPanel getBotByName(String name) {
-		return (JavaOpPanel) bots.get(name);
+		return bots.get(name);
 	}
 
 	public void minimizeAll() {

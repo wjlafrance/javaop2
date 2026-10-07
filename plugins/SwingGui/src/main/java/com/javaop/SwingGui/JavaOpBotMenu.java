@@ -194,7 +194,7 @@ public class JavaOpBotMenu extends JMenuBar implements ActionListener
 			}
 			else
 			{
-				ActionListener callback = (ActionListener) callbacks.get(e.getSource());
+				ActionListener callback = callbacks.get(e.getSource());
 
 				if (callback == null)
 				{
@@ -218,7 +218,7 @@ public class JavaOpBotMenu extends JMenuBar implements ActionListener
 	public void addItem(String name, String whichMenu, int index, char mnemonic, KeyStroke hotkey,
 			Icon icon, ActionListener callback)
 	{
-		JMenu menu = (JMenu) menus.get(whichMenu.toLowerCase());
+		JMenu menu = menus.get(whichMenu.toLowerCase());
 
 		if (menu == null)
 		{
@@ -249,7 +249,7 @@ public class JavaOpBotMenu extends JMenuBar implements ActionListener
 
 	public void removeItem(String name, String whichMenu)
 	{
-		JMenu menu = (JMenu) menus.get(whichMenu.toLowerCase());
+		JMenu menu = menus.get(whichMenu.toLowerCase());
 
 		if (menu == null)
 			return;
@@ -262,7 +262,7 @@ public class JavaOpBotMenu extends JMenuBar implements ActionListener
 
 	public void addSeparator(String whichMenu)
 	{
-		JMenu menu = (JMenu) menus.get(whichMenu.toLowerCase());
+		JMenu menu = menus.get(whichMenu.toLowerCase());
 
 		if (menu == null)
 		{
@@ -278,7 +278,7 @@ public class JavaOpBotMenu extends JMenuBar implements ActionListener
 
 	public void addMenu(String name, int index, char mnemonic, Icon icon, ActionListener callback)
 	{
-		JMenu menu = (JMenu) menus.get(name.toLowerCase());
+		JMenu menu = menus.get(name.toLowerCase());
 
 		if (menu != null)
 			return;
@@ -302,7 +302,7 @@ public class JavaOpBotMenu extends JMenuBar implements ActionListener
 
 	public void removeMenu(String name)
 	{
-		JMenu menu = (JMenu) menus.get(name.toLowerCase());
+		JMenu menu = menus.get(name.toLowerCase());
 
 		if (menu == null)
 			return;

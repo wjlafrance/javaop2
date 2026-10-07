@@ -51,7 +51,7 @@ public class PreferencesPanel extends JPanelEx
 		{
 			String defaultSetting = defaultSettings.getProperty(keys.get(i), "");
 			String currentSetting = currentSettings.getProperty(keys.get(i), defaultSetting);
-			JComponent currentComponent = (JComponent) components.get(keys.get(i));
+			JComponent currentComponent = components.get(keys.get(i));
 			String description = descriptions.getProperty(keys.get(i), "<ERROR no description set>");
 
 			if (currentComponent == null) {
