@@ -288,7 +288,7 @@ public class SettingWizard extends JFrame implements ListSelectionListener, Wind
 		public Object getValueAt(int row, int col)
 		{
 			if (col == 0)
-				return new Boolean((plugins[row]).getCheck().isSelected());
+				return Boolean.valueOf((plugins[row]).getCheck().isSelected());
 
 			return plugins[row].toString();
 		}

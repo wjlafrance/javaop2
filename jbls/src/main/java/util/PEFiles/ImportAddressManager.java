@@ -50,7 +50,7 @@ public class ImportAddressManager{
   //      "->" + pe.getStringSection(addrs[x]) + " | " + 
   //      Integer.toHexString(addrs[x]) + " | " + Integer.toHexString(pe.ntheader.OptionalHeader.ImageBase));
       }else{
-        addresses.put((prepend+"."+names[x]).toLowerCase(), new Integer(addrs[x]+pe.ntheader.OptionalHeader.ImageBase));
+        addresses.put((prepend+"."+names[x]).toLowerCase(), Integer.valueOf(addrs[x]+pe.ntheader.OptionalHeader.ImageBase));
         //System.out.println((prepend+"."+names[x]).toLowerCase() + 
         //"->" + Integer.toHexString((addrs[x]+pe.ntheader.OptionalHeader.ImageBase)) + 
         //" | " + Integer.toHexString(addrs[x]) + 

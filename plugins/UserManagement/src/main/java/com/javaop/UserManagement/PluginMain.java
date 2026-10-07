@@ -356,7 +356,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
 
 		TreeSet flagTree = new TreeSet();
 		for (int i = 0; i < flagArray.length; i++)
-			flagTree.add(new Character(flagArray[i]));
+			flagTree.add(Character.valueOf(flagArray[i]));
 
 		flags = "";
 

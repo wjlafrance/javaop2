@@ -766,8 +766,8 @@ public class BNLSParse{
     if (botIds == null) botIds = new Hashtable<>(5);
     
     Integer i = (Integer) botIds.get(BNLSUsername.toLowerCase());
-    if (i == null) i = new Integer(0);
-    i = new Integer(i.intValue() + 1);
+    if (i == null) i = 0;
+    i = i + 1;
     botIds.put(BNLSUsername.toLowerCase(), i);
 	
     BNLSServerCode = Math.abs(new Random().nextInt());
