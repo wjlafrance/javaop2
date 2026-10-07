@@ -3,24 +3,18 @@
  */
 package com.javaop.exceptions;
 
-import lombok.Getter;
-
 /**
  * @author iago
- *
  */
-public class CommandUsedIllegallyException extends Exception
-{
+public class CommandUsedIllegallyException extends Exception {
 	private static final long serialVersionUID = 1L;
-
-	private final @Getter String user;
-	private final @Getter String command;
-	private final @Getter String userFlags;
-	private final @Getter String requiredFlags;
+	private final String user;
+	private final String command;
+	private final String userFlags;
+	private final String requiredFlags;
 
 	public CommandUsedIllegallyException(String message, String user, String command, String userFlags, String requiredFlags) {
 		super(message);
-
 		this.user = user;
 		this.command = command;
 		this.userFlags = userFlags;
@@ -28,7 +22,22 @@ public class CommandUsedIllegallyException extends Exception
 	}
 
 	public String toString() {
-		return String.format("User %s tried to use command %s illegally: it requires %s and he has %s -- %s",
-				user, command, requiredFlags, userFlags, getMessage());
+		return String.format("User %s tried to use command %s illegally: it requires %s and he has %s -- %s", user, command, requiredFlags, userFlags, getMessage());
+	}
+
+	public String getUser() {
+		return this.user;
+	}
+
+	public String getCommand() {
+		return this.command;
+	}
+
+	public String getUserFlags() {
+		return this.userFlags;
+	}
+
+	public String getRequiredFlags() {
+		return this.requiredFlags;
 	}
 }

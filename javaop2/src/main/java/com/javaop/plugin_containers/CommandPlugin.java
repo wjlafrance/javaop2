@@ -4,24 +4,19 @@
 package com.javaop.plugin_containers;
 
 import com.javaop.plugin_interfaces.CommandCallback;
-import lombok.Getter;
 
 /**
  * @author iago
- *
  */
-public class CommandPlugin extends AbstractPlugin
-{
-	private final @Getter String name;
-	private final @Getter int args;
-	private final @Getter boolean requiresOps;
-	private final @Getter String requiredFlags;
-	private final @Getter String usage;
-	private final @Getter String help;
+public class CommandPlugin extends AbstractPlugin {
+	private final String name;
+	private final int args;
+	private final boolean requiresOps;
+	private final String requiredFlags;
+	private final String usage;
+	private final String help;
 
-	public CommandPlugin(CommandCallback callback, String name, int args, boolean requiresOps, String requiredFlags,
-			String usage, String help, Object data)
-	{
+	public CommandPlugin(CommandCallback callback, String name, int args, boolean requiresOps, String requiredFlags, String usage, String help, Object data) {
 		super(callback, data);
 		this.name = name;
 		this.args = args;
@@ -29,5 +24,29 @@ public class CommandPlugin extends AbstractPlugin
 		this.requiredFlags = requiredFlags;
 		this.usage = usage;
 		this.help = help;
+	}
+
+	public String getName() {
+		return this.name;
+	}
+
+	public int getArgs() {
+		return this.args;
+	}
+
+	public boolean isRequiresOps() {
+		return this.requiresOps;
+	}
+
+	public String getRequiredFlags() {
+		return this.requiredFlags;
+	}
+
+	public String getUsage() {
+		return this.usage;
+	}
+
+	public String getHelp() {
+		return this.help;
 	}
 }

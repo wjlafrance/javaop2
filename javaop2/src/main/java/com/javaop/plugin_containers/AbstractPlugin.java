@@ -4,16 +4,13 @@
 package com.javaop.plugin_containers;
 
 import com.javaop.plugin_interfaces.AbstractCallback;
-import lombok.Getter;
 
 /**
  * @author iago
- *
  */
-abstract public class AbstractPlugin
-{
-	protected @Getter AbstractCallback callback;
-	protected @Getter Object           data;
+public abstract class AbstractPlugin {
+	protected AbstractCallback callback;
+	protected Object data;
 
 	protected AbstractPlugin(AbstractCallback callback, Object data) {
 		this.data = data;
@@ -22,5 +19,13 @@ abstract public class AbstractPlugin
 
 	public String toString() {
 		return callback.toString();
+	}
+
+	public AbstractCallback getCallback() {
+		return this.callback;
+	}
+
+	public Object getData() {
+		return this.data;
 	}
 }

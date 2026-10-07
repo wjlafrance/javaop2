@@ -3,18 +3,13 @@
  */
 package com.javaop.exceptions;
 
-import lombok.Getter;
-
 /**
  * @author iago
- *
  */
-public class CommandUsedImproperlyException extends Exception
-{
+public class CommandUsedImproperlyException extends Exception {
 	private static final long serialVersionUID = 1L;
-
-	private final @Getter String user;
-	private final @Getter String command;
+	private final String user;
+	private final String command;
 
 	public CommandUsedImproperlyException(String message, String user, String command) {
 		super(message);
@@ -24,5 +19,13 @@ public class CommandUsedImproperlyException extends Exception
 
 	public String toString() {
 		return "User " + user + " tried to use command " + command + " improperly: " + getMessage();
+	}
+
+	public String getUser() {
+		return this.user;
+	}
+
+	public String getCommand() {
+		return this.command;
 	}
 }

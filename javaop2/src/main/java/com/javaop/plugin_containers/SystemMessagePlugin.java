@@ -4,16 +4,13 @@
 package com.javaop.plugin_containers;
 
 import com.javaop.plugin_interfaces.SystemMessageCallback;
-import lombok.Getter;
 
 /**
  * @author iago
- *
  */
 public class SystemMessagePlugin extends AbstractPlugin {
-
-	private final @Getter int minLevel;
-	private final @Getter int maxLevel;
+	private final int minLevel;
+	private final int maxLevel;
 
 	public SystemMessagePlugin(SystemMessageCallback callback, int minLevel, int maxLevel, Object data) {
 		super(callback, data);
@@ -21,4 +18,11 @@ public class SystemMessagePlugin extends AbstractPlugin {
 		this.maxLevel = maxLevel;
 	}
 
+	public int getMinLevel() {
+		return this.minLevel;
+	}
+
+	public int getMaxLevel() {
+		return this.maxLevel;
+	}
 }
