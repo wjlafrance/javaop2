@@ -105,7 +105,7 @@ public class Out {
     {
         Calendar c = Calendar.getInstance();
         StringBuffer s = new StringBuffer();
-        s.append(PadString.padNumber(c.get(Calendar.MONTH), 2)).append("/");
+        s.append(PadString.padNumber(c.get(Calendar.MONTH) + 1, 2)).append("/");
         s.append(PadString.padNumber(c.get(Calendar.DAY_OF_MONTH), 2)).append("/");
         s.append(c.get(Calendar.YEAR)).append(" ");
         s.append(PadString.padNumber(c.get(Calendar.HOUR_OF_DAY), 2)).append(':');

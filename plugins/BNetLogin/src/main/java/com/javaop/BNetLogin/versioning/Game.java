@@ -57,17 +57,22 @@ public class Game {
 
 		RelativeFile f = new RelativeFile(gameData.getFiles(game)[0]);
 
+		return formatExeInfo(f.getName(), f.lastModified(), f.length());
+	}
+
+	/** Formats the exe info string: name, MM/dd/yy HH:mm:ss of the last modified time (default time zone), size. */
+	static String formatExeInfo(String name, long lastModified, long length) {
 		// Set up a calendar to point at the last modified time
 		Calendar c = Calendar.getInstance();
-		c.setTime(new Date(f.lastModified()));
+		c.setTime(new Date(lastModified));
 
 		StringBuilder exeInfo = new StringBuilder();
 
 		// Write to the exeInfo buffer
-		exeInfo.append(f.getName()).append(" ");
+		exeInfo.append(name).append(" ");
 
-		// date
-		exeInfo.append(PadString.padNumber(c.get(Calendar.MONTH), 2)).append("/");
+		// date (Calendar.MONTH is 0-based)
+		exeInfo.append(PadString.padNumber(c.get(Calendar.MONTH) + 1, 2)).append("/");
 		exeInfo.append(PadString.padNumber(c.get(Calendar.DAY_OF_MONTH), 2)).append("/");
 		exeInfo.append(PadString.padNumber((c.get(Calendar.YEAR) % 100), 2)).append(" ");
 
@@ -77,7 +82,7 @@ public class Game {
 		exeInfo.append(PadString.padNumber(c.get(Calendar.SECOND), 2)).append(" ");
 
 		// size
-		exeInfo.append(f.length());
+		exeInfo.append(length);
 
 		return exeInfo.toString();
 	}

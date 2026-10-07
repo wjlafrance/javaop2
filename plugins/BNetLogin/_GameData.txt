@@ -1,0 +1,66 @@
+# /Users/lafrance/dev/agentic/javaop2-monthfix/plugins/BNetLogin/_GameData.txt
+# Also stored  in: /Users/lafrance/.javaop2-tmp-0.6919397320566588
+# Created on: Wed Oct 07 00:13:41 CDT 2026
+# By: lafrance
+# Comment: These are the important informations for games to log in with -- values are stored in hex.
+
+[[default]]
+hash directory=/Users/lafrance/.hashes/
+
+[d2dv]
+file1=/Users/lafrance/.hashes/D2DV/Game.exe
+file2=/Users/lafrance/.hashes/D2DV/Bnclient.dll
+file3=/Users/lafrance/.hashes/D2DV/D2Client.dll
+file4=/Users/lafrance/.hashes/D2DV/D2DV.bin
+version byte=0C
+version hash=01000c00
+
+[d2xp]
+file1=/Users/lafrance/.hashes/D2XP/Game.exe
+file2=/Users/lafrance/.hashes/D2XP/Bnclient.dll
+file3=/Users/lafrance/.hashes/D2XP/D2Client.dll
+file4=/Users/lafrance/.hashes/D2XP/D2XP.bin
+version byte=0C
+version hash=01000c00
+
+[default]
+
+[sexp]
+file1=/Users/lafrance/.hashes/STAR/starcraft.exe
+file2=/Users/lafrance/.hashes/STAR/storm.dll
+file3=/Users/lafrance/.hashes/STAR/battle.snp
+file4=/Users/lafrance/.hashes/STAR/STAR.bin
+version byte=D3
+version hash=01010303
+
+[star]
+file1=/Users/lafrance/.hashes/STAR/starcraft.exe
+file2=/Users/lafrance/.hashes/STAR/storm.dll
+file3=/Users/lafrance/.hashes/STAR/battle.snp
+file4=/Users/lafrance/.hashes/STAR/STAR.bin
+version byte=D3
+version hash=01010303
+
+[w2bn]
+file1=/Users/lafrance/.hashes/W2BN/Warcraft II BNE.exe
+file2=/Users/lafrance/.hashes/W2BN/storm.dll
+file3=/Users/lafrance/.hashes/W2BN/battle.snp
+file4=/Users/lafrance/.hashes/W2BN/W2BN.bin
+version byte=4F
+version hash=01010001
+
+[w3xp]
+file1=/Users/lafrance/.hashes/WAR3/war3.exe
+file2=/Users/lafrance/.hashes/WAR3/Storm.dll
+file3=/Users/lafrance/.hashes/WAR3/game.dll
+file4=/Users/lafrance/.hashes/WAR3/WAR3.bin
+version byte=17
+version hash=01001027
+
+[war3]
+file1=/Users/lafrance/.hashes/WAR3/war3.exe
+file2=/Users/lafrance/.hashes/WAR3/Storm.dll
+file3=/Users/lafrance/.hashes/WAR3/game.dll
+file4=/Users/lafrance/.hashes/WAR3/WAR3.bin
+version byte=17
+version hash=01001027
