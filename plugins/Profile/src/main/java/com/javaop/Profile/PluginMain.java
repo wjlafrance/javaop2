@@ -2,8 +2,9 @@ package com.javaop.Profile;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.Hashtable;
+import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
@@ -31,7 +32,7 @@ public class PluginMain extends GenericPluginInterface implements PacketCallback
 		EventCallback
 {
 	private int                    cookie   = getName().hashCode();
-	private Hashtable<String, ProfileRequest> requests = new Hashtable<>();
+	private Map<String, ProfileRequest> requests = new ConcurrentHashMap<>();
 
 	private PublicExposedFunctions out;
 

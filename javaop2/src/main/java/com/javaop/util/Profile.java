@@ -1,7 +1,9 @@
 package com.javaop.util;
 
-import java.util.Hashtable;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import com.javaop.constants.PacketConstants;
 
 import com.javaop.util.BnetPacket;
@@ -17,8 +19,8 @@ import com.javaop.util.BnetPacket;
  */
 public class Profile
 {
-	private static final Hashtable<String, String> users    = new Hashtable<>();
-	private static final Hashtable<String, String[]> requests = new Hashtable<>();
+	private static final Map<String, String> users    = new ConcurrentHashMap<>();
+	private static final Map<String, String[]> requests = new ConcurrentHashMap<>();
 
 	public static BnetPacket getProfileRequest(int profileCookie, String user, String[] fields)
 	{
@@ -43,7 +45,7 @@ public class Profile
 		return packet;
 	}
 
-	public static Hashtable<String, String> processProfileRequest(int profileCookie, BnetPacket profile)
+	public static Map<String, String> processProfileRequest(int profileCookie, BnetPacket profile)
 	{
 		// (DWORD) Number of accounts
 		if (profile.removeDWord() != 1) {
@@ -69,7 +71,7 @@ public class Profile
 		}
 
 		// (STRING[]) Requested Key Values
-		Hashtable<String, String> h = new Hashtable<>();
+		Map<String, String> h = new HashMap<>();
 		h.put("username", user);
 		for (int i = 0; i < keys; i++) {
 			h.put(fields[i], profile.removeNTString());

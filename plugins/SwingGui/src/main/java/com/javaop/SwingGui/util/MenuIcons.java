@@ -6,14 +6,15 @@ package com.javaop.SwingGui.util;
  * included.
  */
 
-import java.util.Hashtable;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import javax.swing.ImageIcon;
 import javax.swing.Icon;
 
 
 public class MenuIcons {
-	private static final Hashtable<String, ImageIcon> icons
-			= new Hashtable<>();
+	private static final Map<String, ImageIcon> icons
+			= new ConcurrentHashMap<>();
 
 	static {
 		loadban();

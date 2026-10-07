@@ -7,11 +7,12 @@
 package com.javaop.util;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Enumeration;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 import java.util.TreeSet;
-import java.util.Vector;
 
 import com.javaop.util.PersistantMap;
 
@@ -133,16 +134,14 @@ public class UserDB
 			return true;
 		}
 
-		Enumeration<String> e = userDB.propertyNames(null);
+		Set<String> names = userDB.propertyNames(null);
 
-		if (e == null) {
+		if (names == null) {
 			return false;
 		}
 
-		while (e.hasMoreElements())
+		for (String name : names)
 		{
-			String name = e.nextElement();
-
 			if (user.matches(fixPattern(name))) {
 				if (findFlag(name, flag)) {
 					return true;
@@ -182,17 +181,15 @@ public class UserDB
 
 		user = user.toLowerCase();
 
-		Enumeration<String> e = userDB.propertyNames(null);
+		Set<String> names = userDB.propertyNames(null);
 
 		StringBuilder patterns = new StringBuilder();
 		TreeSet<Character> flags = new TreeSet<>();
 
 		// patterns.append(user + ": ");
 
-		while (e.hasMoreElements())
+		for (String name : names)
 		{
-			String name = e.nextElement();
-
 			if (user.matches(fixPattern(name)))
 			{
 				patterns.append(name).append(" ");
@@ -305,13 +302,10 @@ public class UserDB
 	{
 		flag = Character.toUpperCase(flag);
 
-		Vector<String> users = new Vector<>();
+		List<String> users = new ArrayList<>();
 
-		Enumeration<String> e = userDB.propertyNames(null);
-
-		while (e.hasMoreElements())
+		for (String thisUser : userDB.propertyNames(null))
 		{
-			String thisUser = e.nextElement();
 			if (userDB.getNoWrite(null, thisUser, "").indexOf(flag) >= 0) {
 				users.add(thisUser);
 			}
@@ -326,14 +320,12 @@ public class UserDB
 
 	public String[] getUserList()
 	{
-		Enumeration<String> e = userDB.propertyNames(null);
+		Set<String> names = userDB.propertyNames(null);
 
-		Vector<String> ret = new Vector<>();
+		List<String> ret = new ArrayList<>();
 
-		if (e != null) {
-			while (e.hasMoreElements()) {
-				ret.add(e.nextElement());
-			}
+		if (names != null) {
+			ret.addAll(names);
 		}
 
 		return ret.toArray(new String[0]);

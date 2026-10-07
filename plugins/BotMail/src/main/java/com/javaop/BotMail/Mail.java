@@ -1,7 +1,8 @@
 package com.javaop.BotMail;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.Vector;
+import java.util.List;
 
 import com.javaop.util.PersistantMap;
 import com.javaop.util.RelativeFile;
@@ -105,7 +106,7 @@ public class Mail
 		int low = Integer.parseInt(messages.getNoWrite(user, LOW_ID, "1"));
 		int high = Integer.parseInt(messages.getNoWrite(user, ID, "0"));
 
-		Vector<String> ids = new Vector<>();
+		List<String> ids = new ArrayList<>();
 
 		for (int i = low; i <= high; i++)
 			if (exists(user, i + ""))

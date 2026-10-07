@@ -10,10 +10,9 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Enumeration;
 import java.util.List;
-import java.util.Vector;
 
 
 /**
@@ -32,7 +31,7 @@ public class FileManagement
 	public static void removeLine(File file, String remove) throws IOException
 	{
 		BufferedReader in = new BufferedReader(new FileReader(file));
-		Vector<String> lines = new Vector<>();
+		List<String> lines = new ArrayList<>();
 
 		String line;
 		while ((line = in.readLine()) != null)
@@ -45,9 +44,8 @@ public class FileManagement
 		in.close();
 
 		PrintWriter out = new PrintWriter(new FileOutputStream(file, false));
-		Enumeration<String> e = lines.elements();
-		while (e.hasMoreElements()) {
-			out.println(e.nextElement());
+		for (String l : lines) {
+			out.println(l);
 		}
 
 		out.close();
@@ -98,16 +96,16 @@ public class FileManagement
 		return Uniq.uniq(getFile(file));
 	}
 
-	public static Vector<String> getFile(File file) throws IOException
+	public static List<String> getFile(File file) throws IOException
 	{
 		if (!file.exists())
 		{
 			file.getParentFile().mkdirs();
-			return new Vector<>();
+			return new ArrayList<>();
 		}
 
 		BufferedReader in = new BufferedReader(new FileReader(file));
-		Vector<String> lines = new Vector<>();
+		List<String> lines = new ArrayList<>();
 
 		String line;
 		while ((line = in.readLine()) != null) {
@@ -118,15 +116,15 @@ public class FileManagement
 		return lines;
 	}
 
-	public static Vector<File> search(File base, String pattern)
+	public static List<File> search(File base, String pattern)
 	{
 		if (!base.exists())
 		{
 			base.getParentFile().mkdirs();
-			return new Vector<>();
+			return new ArrayList<>();
 		}
 
-		Vector<File> ret = new Vector<>();
+		List<File> ret = new ArrayList<>();
 
 		if (base.isDirectory())
 		{
@@ -150,9 +148,9 @@ public class FileManagement
 
 	public static void copyFile(File oldFile, File newFile) throws IOException
 	{
-		Vector<String> oldData = getFile(oldFile);
+		List<String> oldData = getFile(oldFile);
 
-		String[] oldArray = (String[]) oldData.toArray(new String[oldData.size()]);
+		String[] oldArray = oldData.toArray(new String[0]);
 		setFile(newFile, oldArray);
 	}
 

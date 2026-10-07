@@ -5,7 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /*
@@ -19,7 +20,7 @@ public class Define
 	{
 		word = word.replaceAll(" ", "+");
 
-		Vector<String> ret = new Vector<>();
+		List<String> ret = new ArrayList<>();
 		String text = getPage(word);
 
 		boolean stop = false;
@@ -48,7 +49,7 @@ public class Define
 			}
 		}
 
-		return (String[]) ret.toArray(new String[ret.size()]);
+		return ret.toArray(new String[0]);
 	}
 
 	private static String getPage(String word) throws IOException

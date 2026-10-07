@@ -1,6 +1,8 @@
 package Hashing;
 import java.io.*;
 import java.util.*;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import util.*;
 import util.PEFiles.*;
@@ -9,9 +11,9 @@ import Hashing.*;
 public class CheckRevisionV3 extends CheckRevisionV1{
   private static int Version[][] = new int[3][0x0C];
   private static int seeds[][] = new int[20][2];
-  private static Hashtable<String, lockdown_heap> heaps = new Hashtable<>();
-  private static Hashtable<String, PEFile> pes = new Hashtable<>();
-  private static Hashtable<String, CheckrevisionResults> crCache = new Hashtable<>();
+  private static volatile Map<String, lockdown_heap> heaps = new ConcurrentHashMap<>();
+  private static volatile Map<String, PEFile> pes = new ConcurrentHashMap<>();
+  private static volatile Map<String, CheckrevisionResults> crCache = new ConcurrentHashMap<>();
   private static int crCacheHits = 0;
   private static int crCacheMisses = 0;
   
@@ -20,9 +22,9 @@ public class CheckRevisionV3 extends CheckRevisionV1{
     Version = new int[3][0x0c];
     crCacheHits = 0;
     crCacheMisses = 0;
-    crCache = new Hashtable<>();
-    heaps = new Hashtable<>();
-    pes = new Hashtable<>();
+    crCache = new ConcurrentHashMap<>();
+    heaps = new ConcurrentHashMap<>();
+    pes = new ConcurrentHashMap<>();
     System.gc();
   }
   

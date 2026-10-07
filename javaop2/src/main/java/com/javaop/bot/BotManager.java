@@ -4,8 +4,9 @@
 package com.javaop.bot;
 
 import java.io.IOException;
-import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.javaop.util.Uniq;
 
@@ -20,9 +21,9 @@ import com.javaop.exceptions.PluginException;
  */
 public class BotManager
 {
-	private static final Hashtable<String, BotCore> activeBots = new Hashtable<>();
+	private static final Map<String, BotCore> activeBots = new ConcurrentHashMap<>();
 
-	public static void startBot(String name) throws IOException, PluginException
+	public static synchronized void startBot(String name) throws IOException, PluginException
 	{
 		if (activeBots.get(name) == null) {
 			activeBots.put(name, new BotCore(name));
@@ -31,9 +32,9 @@ public class BotManager
 		}
 	}
 
-	public static void stopBot(String name) throws IllegalArgumentException
+	public static synchronized void stopBot(String name) throws IllegalArgumentException
 	{
-		BotCore bot = (BotCore) activeBots.get(name);
+		BotCore bot = activeBots.get(name);
 
 		activeBots.remove(name);
 
@@ -49,11 +50,11 @@ public class BotManager
 
 	public static List<String>getActiveBots()
 	{
-		return Uniq.uniq(activeBots.keys());
+		return Uniq.uniq(activeBots.keySet());
 	}
 
 	public static BotCore getBot(String name)
 	{
-		return (BotCore) activeBots.get(name);
+		return activeBots.get(name);
 	}
 }

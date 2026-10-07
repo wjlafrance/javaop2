@@ -2,10 +2,11 @@ package util;
 
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Ini{
-  //private Hashtable<String, String> data = new Hashtable<String, String>();
-  private Hashtable<String, Properties> data = new Hashtable<>();
+  //private Map<String, String> data = new ConcurrentHashMap<String, String>();
+  private Map<String, Properties> data = new ConcurrentHashMap<>();
   String file = null;
   
   public Ini(String fileName){
@@ -43,13 +44,11 @@ public class Ini{
     createIfNotExist(file);
     try{
       FileOutputStream out = new FileOutputStream(file, false);
-      for(Enumeration<String> keys = data.keys(); keys.hasMoreElements();){
-        String header = keys.nextElement().toString();
+      for(String header : data.keySet()){
         out.write((header+System.getProperty("line.separator")).getBytes());
         //System.out.println(header);
         Properties section = data.get(header);
-        for(Enumeration<?> props = section.propertyNames(); props.hasMoreElements();){
-          String prop = props.nextElement().toString();
+        for(String prop : section.stringPropertyNames()){
           String value = section.getProperty(prop);
           out.write((prop + "=" + value+System.getProperty("line.separator")).getBytes());
         }

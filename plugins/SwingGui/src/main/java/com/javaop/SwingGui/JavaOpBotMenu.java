@@ -4,7 +4,8 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.util.Hashtable;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.swing.Icon;
 import javax.swing.JMenu;
@@ -60,10 +61,10 @@ public class JavaOpBotMenu extends JMenuBar implements ActionListener
 	private final PublicExposedFunctions out;
 	private final JavaOpPanel            panel;
 
-	private final Hashtable<String, JMenu>
-			menus = new Hashtable<>();
-	private final Hashtable<JMenuItem, ActionListener>
-			callbacks = new Hashtable<>();
+	private final Map<String, JMenu>
+			menus = new ConcurrentHashMap<>();
+	private final Map<JMenuItem, ActionListener>
+			callbacks = new ConcurrentHashMap<>();
 
 	public JavaOpBotMenu(PublicExposedFunctions out, JavaOpPanel panel)
 	{

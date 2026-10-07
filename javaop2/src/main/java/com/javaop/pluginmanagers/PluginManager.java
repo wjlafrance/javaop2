@@ -6,14 +6,14 @@ package com.javaop.pluginmanagers;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.JarURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.Enumeration;
-import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.jar.Attributes;
-import java.net.JarURLConnection;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -38,10 +38,10 @@ import com.javaop.bot.PluginMain;
  *
  */
 public class PluginManager {
-	private static Hashtable<String, GenericPluginInterface> allPlugins =
-			new Hashtable<>();
-	private Hashtable<String, GenericPluginInterface>  activePlugins =
-			new Hashtable<>();
+	private static Map<String, GenericPluginInterface> allPlugins =
+			new ConcurrentHashMap<>();
+	private Map<String, GenericPluginInterface>  activePlugins =
+			new ConcurrentHashMap<>();
 
 	/**************
 	 * These static functions are run exactly once, when the bot loads.
@@ -155,11 +155,9 @@ public class PluginManager {
 	 * plugin's activate() function
 	 */
 	public void activatePlugins(PublicExposedFunctions out, PluginCallbackRegister register) throws IOException {
-		Enumeration<GenericPluginInterface> e = allPlugins.elements();
-
-		while (e.hasMoreElements()) {
+		for (GenericPluginInterface registered : allPlugins.values()) {
 			try {
-				GenericPluginInterface plugin = (GenericPluginInterface) (e.nextElement().getClass().newInstance());
+				GenericPluginInterface plugin = (GenericPluginInterface) (registered.getClass().newInstance());
 
 				out.pluginSetDefaultSettings(plugin.getName());
 
@@ -179,11 +177,9 @@ public class PluginManager {
 		}
 
 		if (activePlugins.size() < 2) {
-			e = allPlugins.elements();
-
-			while (e.hasMoreElements()) {
+			for (GenericPluginInterface registered : allPlugins.values()) {
 				try {
-					GenericPluginInterface plugin = (GenericPluginInterface) (e.nextElement().getClass().newInstance());
+					GenericPluginInterface plugin = (GenericPluginInterface) (registered.getClass().newInstance());
 					System.out.println("Plugin: " + plugin.getName());
 				} catch (IllegalAccessException exc) {
 					System.err.println("Unable to load plugin: IllegalAccessException. Stack trace on console.");
@@ -206,18 +202,16 @@ public class PluginManager {
 	 * plugin's deactivate() function
 	 */
 	public void deactivatePlugins(PluginCallbackRegister register) {
-		Enumeration<GenericPluginInterface> e = activePlugins.elements();
-
-		while (e.hasMoreElements()) {
-			((GenericPluginInterface) e.nextElement()).deactivate(register);
+		for (GenericPluginInterface plugin : activePlugins.values()) {
+			plugin.deactivate(register);
 		}
 	}
 
 	public static List<String> getAllNames() {
-		return Uniq.uniq(allPlugins.keys());
+		return Uniq.uniq(allPlugins.keySet());
 	}
 
 	public static GenericPluginInterface getPlugin(String name) {
-		return (GenericPluginInterface) allPlugins.get(name);
+		return allPlugins.get(name);
 	}
 }

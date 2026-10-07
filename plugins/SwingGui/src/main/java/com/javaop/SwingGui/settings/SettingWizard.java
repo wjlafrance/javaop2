@@ -8,8 +8,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.swing.JComponent;
@@ -107,7 +108,7 @@ public class SettingWizard extends JFrame implements ListSelectionListener, Wind
 		// out.getLocalSettingDefault(thisPlugin, settingNames[i],
 		// defaultSettings.getProperty(settingNames[i])));
 
-		Hashtable<String, JComponent> components = out.getStaticExposedFunctionsHandle().pluginGetComponents(
+		Map<String, JComponent> components = out.getStaticExposedFunctionsHandle().pluginGetComponents(
 																						 thisPlugin,
 																						 settings);
 

@@ -17,7 +17,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Enumeration;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
@@ -272,9 +271,8 @@ public class ConfigurePlugins extends JFrame implements WindowListener
 		File pluginFile = JavaOpFileStuff.getPluginPathsFile();
 
 		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(pluginFile)));
-		Enumeration<String> elements = listData.elements();
-		while (elements.hasMoreElements()) {
-			out.println(elements.nextElement());
+		for (int i = 0; i < listData.size(); i++) {
+			out.println(listData.get(i));
 		}
 
 		out.close();

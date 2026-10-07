@@ -7,7 +7,8 @@ import java.awt.FocusTraversalPolicy;
 import java.beans.PropertyVetoException;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Hashtable;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
@@ -28,8 +29,8 @@ import com.javaop.callback_interfaces.StaticExposedFunctions;
 public class JavaOpFrame extends JFrame {
 	private static final long    serialVersionUID  = 1L;
 
-	private final Hashtable<String, JavaOpPanel>      bots
-		= new Hashtable<>();
+	private final Map<String, JavaOpPanel>      bots
+		= new ConcurrentHashMap<>();
 
 	private final JDesktopPane   desktop;
 

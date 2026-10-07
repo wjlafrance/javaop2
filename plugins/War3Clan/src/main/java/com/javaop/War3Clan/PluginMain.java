@@ -1,8 +1,9 @@
 package com.javaop.War3Clan;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import javax.swing.JComponent;
 import java.io.IOException;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Properties;
 
@@ -32,7 +33,7 @@ public class PluginMain extends GenericPluginInterface implements PacketCallback
 		ClanConstants
 {
 	private PublicExposedFunctions out;
-	private final Hashtable<String, Invite> invites = new Hashtable<>();
+	private final Map<String, Invite> invites = new ConcurrentHashMap<>();
 
 	public void load(StaticExposedFunctions staticFuncs)
 	{
@@ -224,7 +225,7 @@ public class PluginMain extends GenericPluginInterface implements PacketCallback
 		}
 		else if (command.equalsIgnoreCase("invites"))
 		{
-			List<String> clans = Uniq.uniq(invites.keys());
+			List<String> clans = Uniq.uniq(invites.keySet());
 			out.sendTextUserPriority(user, "You have " + clans.size() + " pending invitations",
 									 loudness, PRIORITY_LOW);
 

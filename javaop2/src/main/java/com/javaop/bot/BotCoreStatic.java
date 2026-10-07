@@ -4,9 +4,10 @@
 package com.javaop.bot;
 
 import java.io.IOException;
-import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.ConcurrentHashMap;
 import javax.swing.JComponent;
 
 import com.javaop.plugin_interfaces.GenericPluginInterface;
@@ -19,8 +20,8 @@ import com.javaop.exceptions.PluginException;
 
 public class BotCoreStatic implements StaticExposedFunctions {
 
-	private final static Hashtable<Object, Object>  globalVariables
-			= new Hashtable<>();
+	private final static Map<Object, Object>  globalVariables
+			= new ConcurrentHashMap<>();
 	private final static PersistantMap              globalSettings
 			= JavaOpFileStuff.getGlobalSettings();
 	private static BotCoreStatic                    instance
@@ -166,13 +167,13 @@ public class BotCoreStatic implements StaticExposedFunctions {
 		return pluginGet(plugin).getGlobalSettingsDescription();
 	}
 
-	public Hashtable<String, JComponent> pluginGetComponents(String plugin,
+	public Map<String, JComponent> pluginGetComponents(String plugin,
 			Properties values)
 	{
 		return pluginGet(plugin).getComponents(values);
 	}
 
-	public Hashtable<String, JComponent> pluginGetGlobalComponents(String
+	public Map<String, JComponent> pluginGetGlobalComponents(String
 			plugin, Properties values)
 	{
 		return pluginGet(plugin).getGlobalComponents(values);

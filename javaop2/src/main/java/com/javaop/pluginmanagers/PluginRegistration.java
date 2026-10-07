@@ -2,7 +2,6 @@ package com.javaop.pluginmanagers;
 
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -142,16 +141,14 @@ public class PluginRegistration implements PluginCallbackRegister
 	}
 
 	public String[] getAliasesOf(String command) {
-		Enumeration<String> e = commandAliases.propertyNames(null);
 		Set<String> v = new HashSet<>();
-		while (e.hasMoreElements()) {
-			String s = (String) e.nextElement();
+		for (String s : commandAliases.propertyNames(null)) {
 			if (commandAliases.getNoWrite(null, s, "").equals(command)) {
 				v.add(s);
 			}
 		}
 
-		return (String[]) (v.toArray(new String[v.size()]));
+		return v.toArray(new String[0]);
 	}
 
 	public String getCommandOf(String alias) {

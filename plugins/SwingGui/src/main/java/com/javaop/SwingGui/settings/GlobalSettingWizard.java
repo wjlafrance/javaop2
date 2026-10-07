@@ -8,10 +8,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.util.Hashtable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
-import java.util.Vector;
 
 import javax.swing.JComponent;
 import javax.swing.BorderFactory;
@@ -58,7 +59,7 @@ public class GlobalSettingWizard extends JFrame implements ListSelectionListener
 
 		// Add the list
 		List<String> pluginNames = funcs.pluginGetNames();
-		Vector<String> usefulPlugins = new Vector<>();
+		List<String> usefulPlugins = new ArrayList<>();
 		for (String pluginName : pluginNames) {
 			if (funcs.getGlobalKeys(pluginName).size() != 0)
 			{
@@ -71,7 +72,7 @@ public class GlobalSettingWizard extends JFrame implements ListSelectionListener
 			}
 		}
 
-		this.getContentPane().add(new JScrollPane(list = new JList<>(usefulPlugins)),
+		this.getContentPane().add(new JScrollPane(list = new JList<>(usefulPlugins.toArray(new String[0]))),
 								  BorderLayout.WEST);
 		list.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 		list.getSelectionModel().addListSelectionListener(this);
@@ -103,7 +104,7 @@ public class GlobalSettingWizard extends JFrame implements ListSelectionListener
 				funcs.getGlobalSettingDefault(thisPlugin, settingName, defaultSettings.getProperty(settingName)));
 		}
 
-		Hashtable<String, JComponent> components = funcs.pluginGetGlobalComponents(thisPlugin, settings);
+		Map<String, JComponent> components = funcs.pluginGetGlobalComponents(thisPlugin, settings);
 
 		if (oldRight != null)
 			form.remove(oldRight);

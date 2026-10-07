@@ -1,8 +1,10 @@
 package util;
 
-import java.net.*;
 import java.io.*;
+import java.net.*;
 import java.util.*;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 
@@ -36,8 +38,8 @@ public class BotNet extends Thread{
 
   private String BotID = "RivalBot";
   private String HubPW = "b8f9b319f223ddcc38";
-  private Hashtable<Integer, String> names = new Hashtable<>();
-  private Hashtable<String, Integer> ids = new Hashtable<>();
+  private Map<Integer, String> names = new ConcurrentHashMap<>();
+  private Map<String, Integer> ids = new ConcurrentHashMap<>();
   private OutputStream out = null;
   public static void main(String[] args){}
   public void run(){

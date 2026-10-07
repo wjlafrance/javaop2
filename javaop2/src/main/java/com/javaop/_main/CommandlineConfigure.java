@@ -8,11 +8,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
-import java.util.Vector;
 
 import com.javaop.plugin_interfaces.GenericPluginInterface;
 import com.javaop.pluginmanagers.PluginManager;
@@ -281,7 +280,7 @@ public class CommandlineConfigure
 						PersistantMap settings = JavaOpFileStuff.getSettings(bot);
 						String pluginName = thisPlugin.getName();
 
-						Object[] keys = sortEnumeration(defaults.keys());
+						Object[] keys = sortedKeys(defaults.keySet());
 
 						for (Object key : keys) {
 							clear();
@@ -428,14 +427,8 @@ public class CommandlineConfigure
 		return plugins;
 	}
 
-	private static Object[] sortEnumeration(Enumeration<Object> e) {
-		Vector<Object> objectVector = new Vector<>();
-
-		while (e.hasMoreElements()) {
-			objectVector.add(e.nextElement());
-		}
-
-		Object[] ret = objectVector.toArray();
+	private static Object[] sortedKeys(Collection<?> keys) {
+		Object[] ret = keys.toArray();
 		Arrays.sort(ret);
 
 		return ret;

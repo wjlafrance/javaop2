@@ -2,8 +2,10 @@ package com.javaop.SwingGui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Hashtable;
-import java.util.Vector;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.swing.Icon;
 import javax.swing.JMenuItem;
@@ -25,18 +27,18 @@ import com.javaop.constants.PriorityConstants;
 /** There should only ever be one instance of this created per bot */
 public class JavaOpUserMenu {
 	/** Stores a list of custom items that will be displayed in the menu */
-	private Vector<Object>              	items = new Vector<>();
+	private final List<Object>              	items = new CopyOnWriteArrayList<>();
 
 	/** Add this to the "items" vector to put a separator in the list */
 	private final JMenuItem              			separator = new JMenuItem();
 
 	/** The table of actions for custom items */
-	private final Hashtable<String, ActionListener> actions
-			= new Hashtable<>();
+	private final Map<String, ActionListener> actions
+			= new ConcurrentHashMap<>();
 
 	/** The table if icons for custom items */
-	private final Hashtable<String, Icon>           icons
-			= new Hashtable<>();
+	private final Map<String, Icon>           icons
+			= new ConcurrentHashMap<>();
 
 	private final PublicExposedFunctions pubFuncs;
 
@@ -151,11 +153,11 @@ public class JavaOpUserMenu {
 			edit.addActionListener(this);
 			profile.addActionListener(this);
 
-			for (int i = 0; i < items.size(); i++) {
-				if (items.get(i) == separator) {
+			for (Object entry : items) {
+				if (entry == separator) {
 					this.addSeparator();
 				} else {
-					String itemName = (String) items.get(i);
+					String itemName = (String) entry;
 					JMenuItem item = new JMenuItem(itemName);
 					item.addActionListener(this);
 					this.add(item);

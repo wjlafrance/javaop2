@@ -3,8 +3,9 @@ package com.javaop.ShellCommands;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Hashtable;
+import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.swing.JComponent;
 
@@ -26,7 +27,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
 {
 	private PublicExposedFunctions out;
 	private int                    thread  = 0;
-	private final Hashtable<String, Run> threads = new Hashtable<>();
+	private final Map<String, Run> threads = new ConcurrentHashMap<>();
 
 	public void load(StaticExposedFunctions staticFuncs)
 	{

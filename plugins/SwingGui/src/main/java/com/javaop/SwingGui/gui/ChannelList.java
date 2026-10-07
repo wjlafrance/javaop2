@@ -10,7 +10,9 @@ import java.awt.Component;
 
 import javax.swing.JComponent;
 
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JToolTip;
@@ -124,8 +126,8 @@ public class ChannelList extends JTable
 class Model extends AbstractTableModel
 {
 	private static final long serialVersionUID = 1L;
-	/** A vector of the users in the table. */
-	private Vector<Row>        users;
+	/** The users in the table (synchronized: updated from network threads, read by the EDT). */
+	private List<Row>          users;
 	private boolean           opsOnTop;
 
 	/**
@@ -134,7 +136,7 @@ class Model extends AbstractTableModel
 	 */
 	public Model(boolean opsOnTop)
 	{
-		users = new Vector<>();
+		users = Collections.synchronizedList(new ArrayList<>());
 		this.opsOnTop = opsOnTop;
 	}
 

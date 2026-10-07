@@ -3,7 +3,8 @@
  */
 package com.javaop.SwingGui.util;
 
-import java.util.Hashtable;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import javax.swing.ImageIcon;
 
 import com.javaop.bot.BotCoreStatic;
@@ -14,7 +15,7 @@ import com.javaop.bot.BotCoreStatic;
  *
  */
 public class GameIcons {
-    private static Hashtable<String, ImageIcon> icons = new Hashtable<>();
+    private static Map<String, ImageIcon> icons = new ConcurrentHashMap<>();
 
     static {
 	  icons.put("STAR", new ImageIcon(new byte[] {

@@ -4,8 +4,8 @@
 package com.javaop.callback_interfaces;
 
 import java.io.IOException;
-import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.swing.JComponent;
@@ -119,9 +119,9 @@ public interface StaticExposedFunctions
 
 	public Properties pluginGetGlobalDescriptions(String plugin);
 
-	public Hashtable<String, JComponent> pluginGetComponents(String plugin, Properties values);
+	public Map<String, JComponent> pluginGetComponents(String plugin, Properties values);
 
-	public Hashtable<String, JComponent> pluginGetGlobalComponents(String plugin, Properties values);
+	public Map<String, JComponent> pluginGetGlobalComponents(String plugin, Properties values);
 
 	public GenericPluginInterface[] pluginGetAll(boolean includeDefault);
 

@@ -3,7 +3,8 @@
  */
 package com.javaop.util;
 
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -14,9 +15,9 @@ public class Splitter
 {
 	private static final int maxLength = 100;
 
-	public static Vector<String> split(String str, boolean moreTag)
+	public static List<String> split(String str, boolean moreTag)
 	{
-		Vector<String> ret = new Vector<>();
+		List<String> ret = new ArrayList<>();
 
 		String[] allWords = str.split(" ");
 		// padLength is the amount of extra space on each line

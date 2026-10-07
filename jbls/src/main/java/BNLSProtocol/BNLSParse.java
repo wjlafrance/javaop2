@@ -12,8 +12,9 @@
 
 package BNLSProtocol;
 
-import java.util.Hashtable;
+import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.ConcurrentHashMap;
 
 import util.Buffer;
 import util.Constants;
@@ -98,7 +99,7 @@ public class BNLSParse{
   private static final byte HASHDATA_FLAG_DOUBLEHASH = 0x02;//Fully Supported
   private static final byte HASHDATA_FLAG_COOKIE     = 0x04;//Fully Supported
   
-  public static Hashtable<String, Integer> botIds;
+  public static final Map<String, Integer> botIds = new ConcurrentHashMap<>(5);
 
   public BNLSParse(BNLSConnectionThread conn){ this.connection = conn; }
   
@@ -763,12 +764,7 @@ public class BNLSParse{
       */
     BNLSUsername = in.removeNTString();
     if (Constants.displayParseInfo) Out.info("JBLS", ">>> BNLS Bot ID: " + BNLSUsername);
-    if (botIds == null) botIds = new Hashtable<>(5);
-    
-    Integer i = (Integer) botIds.get(BNLSUsername.toLowerCase());
-    if (i == null) i = 0;
-    i = i + 1;
-    botIds.put(BNLSUsername.toLowerCase(), i);
+    botIds.merge(BNLSUsername.toLowerCase(), 1, Integer::sum);
 	
     BNLSServerCode = Math.abs(new Random().nextInt());
     OutPacketBuffer reply = new OutPacketBuffer(BNLS_AUTHORIZE);

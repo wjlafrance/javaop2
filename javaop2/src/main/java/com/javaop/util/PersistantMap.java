@@ -13,11 +13,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.Collection;
 import java.util.Date;
-import java.util.Enumeration;
-import java.util.Hashtable;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 /**
@@ -46,7 +48,7 @@ public class PersistantMap
 	private final String comment;
 	private long         lastUpdate = 0;
 
-	private Hashtable<String, Properties> sections = new Hashtable<>();
+	private volatile Map<String, Properties> sections = new ConcurrentHashMap<>();
 
 
 	/**
@@ -76,7 +78,7 @@ public class PersistantMap
 			{
 				// System.err.println("Loading");
 
-				Hashtable<String, Properties> temp = new Hashtable<>();
+				Map<String, Properties> temp = new ConcurrentHashMap<>();
 				Properties currentSection = new Properties();
 				String sectionName = "default";
 
@@ -158,7 +160,7 @@ public class PersistantMap
 			try
 			{
 				// System.out.println("Saving to temp file: " + tempFile);
-				Object[] sectionArray = sortEnumeration(sections.keys());
+				Object[] sectionArray = sortedKeys(sections.keySet());
 				file.getParentFile().mkdirs();
 				PrintWriter out = new PrintWriter(new FileWriter(file));
 
@@ -172,7 +174,7 @@ public class PersistantMap
 				for (Object aSectionArray : sectionArray) {
 					String name = aSectionArray.toString().toLowerCase();
 
-					Properties data = (Properties) sections.get(name);
+					Properties data = sections.get(name);
 
 					// Print a blank line, then a header for the section
 					out.println();
@@ -181,7 +183,7 @@ public class PersistantMap
 
 					// Now get the list of keys from data and add them to a
 					// vector
-					Object[] keys = sortEnumeration(data.keys());
+					Object[] keys = sortedKeys(data.keySet());
 					for (Object key : keys) {
 						out.println(key.toString().toLowerCase().replaceAll("=", "\\\\=") + "="
 								+ StringEncoder.encode(data.getProperty((String) key)));
@@ -209,9 +211,9 @@ public class PersistantMap
 		return value == null ? "default" : value.toLowerCase();
 	}
 
-	private Object[] sortEnumeration(Enumeration<?> e)
+	private Object[] sortedKeys(Collection<?> keys)
 	{
-		Object[] ret = Collections.list(e).toArray();
+		Object[] ret = keys.toArray();
 		Arrays.sort(ret);
 
 		return ret;
@@ -224,7 +226,7 @@ public class PersistantMap
 
 		load();
 
-		Properties section = (Properties) sections.get(sectionName);
+		Properties section = sections.get(sectionName);
 		if (section == null) {
 			section = new Properties();
 		}
@@ -247,7 +249,7 @@ public class PersistantMap
 
 		load();
 
-		Properties section = (Properties) sections.get(sectionName);
+		Properties section = sections.get(sectionName);
 		if (section == null) {
 			return defaultValue;
 		}
@@ -262,7 +264,7 @@ public class PersistantMap
 
 		load();
 
-		Properties section = (Properties) sections.get(sectionName);
+		Properties section = sections.get(sectionName);
 		if (section == null)
 		{
 			// System.err.println("Section " + sectionName +
@@ -292,7 +294,7 @@ public class PersistantMap
 
 		load();
 
-		Properties section = (Properties) sections.get(sectionName);
+		Properties section = sections.get(sectionName);
 		if (section == null) {
 			return;
 		}
@@ -305,25 +307,25 @@ public class PersistantMap
 		save();
 	}
 
-	public Enumeration<String> propertyNames(String sectionName)
+	public Set<String> propertyNames(String sectionName)
 	{
 		sectionName = fix(sectionName);
 
 		load();
 
-		Properties section = (Properties) sections.get(sectionName);
+		Properties section = sections.get(sectionName);
 		if (section == null) {
 			return null;
 		}
 
-		return Collections.enumeration(section.stringPropertyNames());
+		return section.stringPropertyNames();
 	}
 
-	public Enumeration<String> sectionNames()
+	public Set<String> sectionNames()
 	{
 		load();
 
-		return sections.keys();
+		return new HashSet<>(sections.keySet());
 	}
 
 	public int size(String sectionName)
@@ -332,7 +334,7 @@ public class PersistantMap
 
 		sectionName = fix(sectionName);
 
-		Properties section = (Properties) sections.get(sectionName);
+		Properties section = sections.get(sectionName);
 		if (section == null) {
 			return 0;
 		}
@@ -354,7 +356,7 @@ public class PersistantMap
 
 		load();
 
-		Properties section = (Properties) sections.get(sectionName);
+		Properties section = sections.get(sectionName);
 		if (section == null) {
 			return false;
 		}
@@ -369,6 +371,6 @@ public class PersistantMap
 
 		load();
 
-		return ((Properties) sections.get(section));
+		return (sections.get(section));
 	}
 }

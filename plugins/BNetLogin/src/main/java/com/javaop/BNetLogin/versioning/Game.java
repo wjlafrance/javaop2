@@ -12,7 +12,6 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Vector;
 
 import com.javaop.bot.BotCoreStatic;
 import com.javaop.util.Buffer;
@@ -92,9 +91,9 @@ public class Game {
 	}
 
 	/**
-	 * Gets a Vector of all possible games.
+	 * Gets a list of all possible games.
 	 *
-	 * @return A Vector of all possible games.
+	 * @return A list of all possible games.
 	 */
 	public static List<String> getGames() {
 		return Arrays.asList(

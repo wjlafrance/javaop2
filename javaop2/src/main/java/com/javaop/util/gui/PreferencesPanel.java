@@ -9,9 +9,9 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Enumeration;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.swing.BorderFactory;
@@ -29,7 +29,7 @@ public class PreferencesPanel extends JPanelEx
 {
 	private static final long serialVersionUID = 1L;
 
-	private final Hashtable<String, JComponent> components = new Hashtable<>();
+	private final Map<String, JComponent> components = new HashMap<>();
 	private final Properties  initial;
 
 	/**
@@ -37,7 +37,7 @@ public class PreferencesPanel extends JPanelEx
 	 * look
 	 */
 	public PreferencesPanel(Properties currentSettings, Properties defaultSettings,
-			Properties descriptions, Hashtable<String, JComponent> components)
+			Properties descriptions, Map<String, JComponent> components)
 	{
 		super(new GridBagLayout());
 
@@ -110,11 +110,8 @@ public class PreferencesPanel extends JPanelEx
 	public Properties getValues()
 	{
 		Properties p = new Properties();
-		Enumeration<String> e = components.keys();
-
-		while (e.hasMoreElements())
+		for (String thisElement : components.keySet())
 		{
-			String thisElement = e.nextElement();
 			p.setProperty(thisElement, getValue(thisElement));
 		}
 

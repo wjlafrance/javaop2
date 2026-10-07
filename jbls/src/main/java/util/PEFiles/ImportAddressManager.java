@@ -1,9 +1,11 @@
 package util.PEFiles;
 import java.util.*;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ImportAddressManager{
-  private static Hashtable<String, Integer> addresses = new Hashtable<>();
-  private static Hashtable<String, String> forwards = new Hashtable<>();
+  private static Map<String, Integer> addresses = new ConcurrentHashMap<>();
+  private static Map<String, String> forwards = new ConcurrentHashMap<>();
   public static int getAddress(String function){
     Integer ret = addresses.get(function.toLowerCase());
     String forward = forwards.get(function.toLowerCase());

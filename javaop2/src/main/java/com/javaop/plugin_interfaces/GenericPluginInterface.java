@@ -1,6 +1,7 @@
 package com.javaop.plugin_interfaces;
 
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.swing.JComponent;
@@ -91,10 +92,10 @@ abstract public class GenericPluginInterface
 	abstract public JComponent getGlobalComponent(String settingName, String value);
 
 	/** This is just to simplify some code */
-	public Hashtable<String, JComponent> getComponents(Properties values)
+	public Map<String, JComponent> getComponents(Properties values)
 	{
 		Iterable<String> keys = Uniq.uniq(getDefaultSettingValues().keys());
-		Hashtable<String, JComponent> ret = new Hashtable<>();
+		Map<String, JComponent> ret = new HashMap<>();
 
 		for (String key : keys) {
 			JComponent component = getComponent(key, values.getProperty(key.toLowerCase()));
@@ -110,10 +111,10 @@ abstract public class GenericPluginInterface
 	}
 
 	/** This is just to simplify some code */
-	public Hashtable<String, JComponent> getGlobalComponents(Properties values)
+	public Map<String, JComponent> getGlobalComponents(Properties values)
 	{
 		Iterable<String> keys = Uniq.uniq(getGlobalDefaultSettingValues().keys());
-		Hashtable<String, JComponent> ret = new Hashtable<>();
+		Map<String, JComponent> ret = new HashMap<>();
 
 		for (String key : keys) {
 			JComponent component = getGlobalComponent(key, values.getProperty(key.toLowerCase()));
@@ -134,7 +135,7 @@ abstract public class GenericPluginInterface
 	 */
 	public JPanel getPreferenceImplementation(Properties currentSettings,
 			Properties defaultSettings, Properties descriptions,
-			Hashtable<String, JComponent> components)
+			Map<String, JComponent> components)
 	{
 		return new PreferencesPanel(currentSettings, defaultSettings, descriptions, components);
 	}
@@ -145,7 +146,7 @@ abstract public class GenericPluginInterface
 	 */
 	public JPanel getGlobalPreferenceImplementation(Properties currentSettings,
 			Properties defaultSettings, Properties descriptions,
-			Hashtable<String, JComponent> components)
+			Map<String, JComponent> components)
 	{
 		return new PreferencesPanel(currentSettings, defaultSettings, descriptions, components);
 	}

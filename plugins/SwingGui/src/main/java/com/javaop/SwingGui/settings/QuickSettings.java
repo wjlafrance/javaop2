@@ -6,7 +6,8 @@ package com.javaop.SwingGui.settings;
 import java.awt.BorderLayout;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.swing.JComponent;
@@ -52,7 +53,7 @@ public class QuickSettings extends JFrame implements WindowListener {
 		Properties currentSettings = new Properties();
 		Properties defaultSettings = new Properties();
 		Properties descriptions = new Properties();
-		Hashtable<String, JComponent> components = new Hashtable<>();
+		Map<String, JComponent> components = new HashMap<>();
 
 		currentSettings.setProperty("server",
 				out.getLocalSettingDefault("_Default", "server",

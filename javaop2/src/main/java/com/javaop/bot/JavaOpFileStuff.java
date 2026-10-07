@@ -8,8 +8,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 import java.util.stream.Collectors;
 
 import com.javaop.plugin_interfaces.GenericPluginInterface;
@@ -117,7 +117,7 @@ public class JavaOpFileStuff
 	 */
 	public static List<String> getAllPlugins()
 	{
-		Vector<File> jars = new Vector<>();
+		List<File> jars = new ArrayList<>();
 
 		for (String path : Uniq.uniq(getPluginPaths())) {
 			jars.addAll(FileManagement.search(new RelativeFile(path), ".*\\.jar"));
@@ -126,12 +126,12 @@ public class JavaOpFileStuff
 		return Uniq.uniq(jars);
 	}
 
-	private static Vector<String> getPluginPaths()
+	private static List<String> getPluginPaths()
 	{
 		try
 		{
 			File pluginFile = new RelativeFile(PLUGIN_PATHS);
-			Vector<String> ret = FileManagement.getFile(pluginFile);
+			List<String> ret = FileManagement.getFile(pluginFile);
 
 			if (ret == null) {
 				System.err.println("Plugin paths file not found -- using defaults (" + pluginFile
@@ -153,7 +153,7 @@ public class JavaOpFileStuff
 		}
 	}
 
-	private static void addIfExists(Vector<String> v, File f)
+	private static void addIfExists(List<String> v, File f)
 	{
 		String path = f.toString();
 		if (f.exists() && !v.contains(path)) {

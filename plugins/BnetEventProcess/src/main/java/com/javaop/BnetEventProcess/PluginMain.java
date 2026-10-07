@@ -1,12 +1,13 @@
 package com.javaop.BnetEventProcess;
 
 import java.io.IOException;
-import java.util.Enumeration;
-import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.Vector;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.swing.JComponent;
 
@@ -139,10 +140,10 @@ public class PluginMain extends GenericPluginInterface implements RawEventCallba
 		return event;
 	}
 
-	private Hashtable<String, Vector<BnetEvent>> 	queuedMessages
-			= new Hashtable<>();
-	private Hashtable<String, Callback> 			timers
-			= new Hashtable<>();
+	private Map<String, List<BnetEvent>> 	queuedMessages
+			= new ConcurrentHashMap<>();
+	private Map<String, Callback> 			timers
+			= new ConcurrentHashMap<>();
 	private Timer     timer          = new Timer();
 
 	public void eventOccurred(BnetEvent event, Object data) throws IOException, PluginException {
@@ -159,7 +160,7 @@ public class PluginMain extends GenericPluginInterface implements RawEventCallba
 
 				if (code == EID_JOIN) {
 
-					Vector<BnetEvent> v = new Vector<>();
+					List<BnetEvent> v = new CopyOnWriteArrayList<>();
 					v.add(event);
 					queuedMessages.put(event.getUsername(), v);
 
@@ -170,7 +171,7 @@ public class PluginMain extends GenericPluginInterface implements RawEventCallba
 					if (cancelCallback(event.getUsername()) == false)
 						processEvent(event);
 				} else {
-					Vector<BnetEvent> events = (Vector<BnetEvent>) queuedMessages.get(event.getUsername());
+					List<BnetEvent> events = queuedMessages.get(event.getUsername());
 					if (events == null)
 						processEvent(event);
 					else
@@ -182,7 +183,7 @@ public class PluginMain extends GenericPluginInterface implements RawEventCallba
 
 	private boolean cancelCallback(String username) {
 		queuedMessages.remove(username);
-		Callback callback = (Callback) timers.remove(username);
+		Callback callback = timers.remove(username);
 		if (callback != null)
 			callback.cancel();
 		return callback != null;
@@ -198,14 +199,12 @@ public class PluginMain extends GenericPluginInterface implements RawEventCallba
 		public void run() {
 			synchronized (this) {
 				try {
-					Vector<BnetEvent> messages = (Vector<BnetEvent>) queuedMessages.get(username);
+					List<BnetEvent> messages = queuedMessages.get(username);
 					if (messages == null)
 						return;
 
-					Enumeration<BnetEvent> e = messages.elements();
-
-					while (e.hasMoreElements())
-						processEvent((BnetEvent) e.nextElement());
+					for (BnetEvent queued : messages)
+						processEvent(queued);
 
 					cancelCallback(username);
 

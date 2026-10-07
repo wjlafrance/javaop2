@@ -4,6 +4,7 @@
 package com.javaop.util;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
@@ -20,11 +21,11 @@ public class Uniq {
 		return uniq(Optional.ofNullable(input).map(Arrays::asList));
 	}
 
-	public static <T> List<String> uniq(List<T> input) {
+	public static <T> List<String> uniq(Collection<T> input) {
 		return uniq(Optional.ofNullable(input));
 	}
 
-	public static <T> List<String> uniq(Optional<List<T>> input) {
+	public static <T> List<String> uniq(Optional<? extends Collection<T>> input) {
 		return input.map(z -> z.stream()
 			.map(x -> x.toString())
 			.distinct()
