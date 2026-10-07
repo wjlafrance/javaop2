@@ -80,6 +80,7 @@ public class JavaOpFrame extends JFrame {
 		// Center the frame
 		Gui.center(this);
 
+		MacIntegration.install(staticFuncs, this);
 
 		// Make it visible
 		this.setVisible(true);
