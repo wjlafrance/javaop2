@@ -10,3 +10,5 @@
 *.png binary
 *.gif binary
 *.jpg binary
+mvnw text eol=lf
+*.cmd text eol=crlf
