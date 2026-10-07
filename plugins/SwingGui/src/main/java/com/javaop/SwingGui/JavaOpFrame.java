@@ -49,10 +49,15 @@ public class JavaOpFrame extends JFrame {
 
 	public JavaOpFrame(StaticExposedFunctions staticFuncs) {
 
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch(Exception e) {
-			// no native look and feel? no big deal
+		// BotStart installs FlatLaf before we get here. Only fall back to the
+		// system look and feel if that didn't happen (e.g. FlatLaf missing).
+		if (!UIManager.getLookAndFeel().getClass().getName().startsWith("com.formdev.flatlaf.")) {
+			System.err.println("FlatLaf is not active; using the system look and feel");
+			try {
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			} catch(Exception e) {
+				// no native look and feel? no big deal
+			}
 		}
 
 		// Set the program's title
@@ -74,6 +79,7 @@ public class JavaOpFrame extends JFrame {
 
 		// Center the frame
 		Gui.center(this);
+
 
 		// Make it visible
 		this.setVisible(true);
