@@ -123,6 +123,10 @@ public class JavaOpFileStuff
 			jars.addAll(FileManagement.search(new RelativeFile(path), ".*\\.jar"));
 		}
 
+		// Plugins bundled with the app itself. Never persisted to the plugin
+		// paths file, so they follow the app if it is moved or updated.
+		jars.addAll(BuiltInPlugins.find());
+
 		return Uniq.uniq(jars);
 	}
 
