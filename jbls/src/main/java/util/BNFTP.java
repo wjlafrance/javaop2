@@ -16,11 +16,13 @@ public class BNFTP extends Thread{
   public static void main(String[] args) {}
   
   public BNFTP(String bnServer, int bnPort, String fileName){
+    super("BNFTP");
     this.server = bnServer;
     this.port = bnPort;
     this.file = fileName;
   }
   public BNFTP(String bnServer, int bnPort, String fileName, BotNet callback, int userid){
+    super("BNFTP");
     this.server = bnServer;
     this.port = bnPort;
     this.file = fileName;

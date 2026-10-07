@@ -23,10 +23,11 @@ import util.Constants;
 public class BNLSServer extends Thread{
 
 	// Socket
-	private ServerSocket server=null;
-	private boolean listening=false;
+	private volatile ServerSocket server=null;
+	private volatile boolean listening=false;
 
 	public BNLSServer() {
+		super("BNLSServer");
 		Out.println("JBLS"," Server thread created.");
 	}
 
@@ -52,14 +53,7 @@ public class BNLSServer extends Thread{
 				Socket inSocket=server.accept();//block until a connection is made
 
 				BNLSConnectionThread bConnection = new BNLSConnectionThread(inSocket); //Create the new thread
-				if (Controller.lLinkedHead == null) {
-			      Controller.lLinkedHead = bConnection;
-				  bConnection.setNext(null);
-				} else {
-				  Controller.lLinkedHead.setPrev(bConnection);
-				  bConnection.setNext(Controller.lLinkedHead);
-				  Controller.lLinkedHead = bConnection;
-				}
+				Controller.connections.add(bConnection);
 				bConnection.start();
 
 			}catch (IOException e) {
@@ -87,13 +81,8 @@ public class BNLSServer extends Thread{
 
 	/** Destroy all current BNLS connections */
 	public void destroyAllConnections() {
-	    BNLSConnectionThread bCurrent = Controller.lLinkedHead;
-	    BNLSConnectionThread bTemp;
-		while (bCurrent != null) {
-		   bCurrent.Destroy();
-		   bTemp = bCurrent.getNext();
-		   bCurrent = null;
-		   bCurrent = bTemp;
+		for (BNLSConnectionThread connection : Controller.connections) {
+			connection.Destroy();
 		}
 	}
 }//end server class

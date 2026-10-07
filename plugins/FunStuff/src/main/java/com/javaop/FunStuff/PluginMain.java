@@ -19,6 +19,7 @@ import com.javaop.exceptions.CommandUsedImproperlyException;
 import com.javaop.exceptions.PluginException;
 import com.javaop.plugin_interfaces.CommandCallback;
 import com.javaop.plugin_interfaces.GenericPluginInterface;
+import com.javaop.util.BackgroundTasks;
 import com.javaop.util.PersistantMap;
 import com.javaop.util.RelativeFile;
 import com.javaop.util.Uniq;
@@ -301,9 +302,9 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
 			if (args.length == 0)
 				throw new CommandUsedImproperlyException("Must specify a word to define", user, command);
 
-			new DefineThread(user, loudness, Integer.parseInt(out.getLocalSetting(getName(),
+			BackgroundTasks.execute(new DefineTask(user, loudness, Integer.parseInt(out.getLocalSetting(getName(),
 																				  "definitions")),
-					args[0]).start();
+					args[0]));
 		}
 		else
 		{
@@ -314,21 +315,19 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
 		}
 	}
 
-	private class DefineThread extends Thread
+	private class DefineTask implements Runnable
 	{
 		private final String word;
 		private final int    loudness;
 		private final int    max;
 		private final String user;
 
-		public DefineThread(String user, int loudness, int max, String word)
+		public DefineTask(String user, int loudness, int max, String word)
 		{
 			this.user = user;
 			this.loudness = loudness;
 			this.max = max;
 			this.word = word;
-
-			this.setName("Define-thread");
 		}
 
 		public void run()

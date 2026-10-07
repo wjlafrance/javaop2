@@ -5,10 +5,11 @@ import java.io.IOException;
 
 public class HTTPServer extends Thread{
     final static String CRLF = "\r\n";
-	ServerSocket server = null;
-	boolean listening = false;
+	volatile ServerSocket server = null;
+	volatile boolean listening = false;
 
 	public HTTPServer(){
+		super("HTTPServer");
 		Out.info("HTTP", "Server thread created.");
 	}
 

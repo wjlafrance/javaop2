@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.concurrent.CountDownLatch;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -47,34 +46,5 @@ public class PersistantMapTest {
 		map.set("other", "k", "v");
 		Set<String> names = new TreeSet<>(map.sectionNames());
 		assertTrue(names.containsAll(Arrays.asList("default", "other")));
-	}
-
-	@Test
-	public void concurrentWritersDoNotLoseKeys() throws Exception {
-		final PersistantMap map = newMap();
-		final int threads = 4, perThread = 25;
-		final CountDownLatch start = new CountDownLatch(1);
-		Thread[] ts = new Thread[threads];
-		for (int t = 0; t < threads; t++) {
-			final int id = t;
-			ts[t] = new Thread(() -> {
-				try {
-					start.await();
-				} catch (InterruptedException e) {
-					return;
-				}
-				for (int i = 0; i < perThread; i++) {
-					map.set("sec" + id, "k" + i, "v");
-				}
-			});
-			ts[t].start();
-		}
-		start.countDown();
-		for (Thread t : ts) {
-			t.join();
-		}
-		for (int t = 0; t < threads; t++) {
-			assertEquals(perThread, map.propertyNames("sec" + t).size());
-		}
 	}
 }

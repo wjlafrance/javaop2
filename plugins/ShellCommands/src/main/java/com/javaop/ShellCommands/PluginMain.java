@@ -172,7 +172,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
 		private final String[] cmd;
 		private final boolean  sendResults;
 
-		private boolean        kill = false;
+		private volatile boolean kill = false;
 
 		public Run(int num, String user, int loudness, String[] cmd, boolean sendResults)
 		{

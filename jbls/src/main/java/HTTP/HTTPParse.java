@@ -3,13 +3,14 @@ package HTTP;
 import java.io.*;
 import java.net.*;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import util.*;
 import Hashing.HashMain;
 import BNLSProtocol.BNLSConnectionThread;
 
 public class HTTPParse extends Thread{
   private Socket socket = null;
-  private static int threadCount=0;
+  private static final AtomicInteger threadCount = new AtomicInteger();
   private int threadID;
   DataOutputStream out = null;
   BufferedReader in = null;
@@ -86,7 +87,7 @@ public class HTTPParse extends Thread{
   public HTTPParse(Socket cSock){
     super("HTTPParse");
     this.socket = cSock;
-	threadID = threadCount++;
+	threadID = threadCount.getAndIncrement();
     setDaemon(true);
   }
 
@@ -119,14 +120,8 @@ public class HTTPParse extends Thread{
             fis = null;
           }catch (FileNotFoundException e){}
 
-       	  BNLSConnectionThread bCurrent = Controller.lLinkedHead;
-		  int X=0;
-		  while (bCurrent != null) {
-		    X++;
-		    bCurrent = bCurrent.getNext();
-		  }
-       	  page = page.replaceAll("<count>", String.valueOf(X));
-       	  page = page.replaceAll("<jbls>", ""+BNLSConnectionThread.connectionCount);
+       	  page = page.replaceAll("<count>", String.valueOf(Controller.connections.size()));
+       	  page = page.replaceAll("<jbls>", ""+BNLSConnectionThread.connectionCount.get());
        	  page = page.replaceAll("<sck>", ""+HashMain.STARKeysHashed);
        	  page = page.replaceAll("<d2k>", ""+HashMain.D2DVKeysHashed);
        	  page = page.replaceAll("<w3k>", ""+HashMain.WAR3KeysHashed);
@@ -256,7 +251,7 @@ public class HTTPParse extends Thread{
       Out.error("HTTP: " + threadID, "Error cloding streams: " + e.toString());
     }
     Out.debug("HTTP: " + threadID, "Closed");
-    threadCount--;
+    threadCount.decrementAndGet();
   }
 
   private void writeBytes(String data){

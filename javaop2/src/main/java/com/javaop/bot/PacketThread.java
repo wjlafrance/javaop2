@@ -40,11 +40,12 @@ public class PacketThread extends Thread {
 	final private PluginRegistration     callbacks;
 	final private PublicExposedFunctions out;
 
-	protected Socket                     s      = null;
-	protected OutputStream               output = null;
-	protected InputStream                input;
+	// Written by this thread, closed by whichever thread calls stopThread()
+	protected volatile Socket            s      = null;
+	protected volatile OutputStream      output = null;
+	protected volatile InputStream       input;
 
-	private boolean                      stop   = false;
+	private volatile boolean             stop   = false;
 
 	public PacketThread(PluginRegistration callbacks, PublicExposedFunctions out) {
 		this.callbacks = callbacks;

@@ -6,80 +6,71 @@ package com.javaop.util;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 
-public class TimeoutSocket extends Thread
+/**
+ * Opens a socket, giving up after a timeout. Name resolution happens on a background thread too,
+ * so a stuck lookup is covered by the timeout.
+ */
+public class TimeoutSocket
 {
+	private TimeoutSocket()
+	{
+	}
+
 	public static Socket getSocket(String server, int port, int timeout) throws SocketException
 	{
-		long endTime = System.currentTimeMillis() + timeout;
+		final AtomicBoolean abandoned = new AtomicBoolean(false);
 
-		TimeoutSocket thisSocket = new TimeoutSocket(server, port);
-		thisSocket.start();
-
-		while (true)
-		{
-			// Success
-			if (thisSocket.getSocket() != null)
-			{
-				return thisSocket.getSocket();
-			}
-
-			if (System.currentTimeMillis() > endTime)
-			{
-				thisSocket.cancel();
-				throw new SocketException("Connection timed out");
-			}
-
-			try
-			{
-				Thread.sleep(100);
-			}
-			catch (Exception e)
-			{
-			}
-		}
-	}
-
-	private Socket       s      = null;
-	private boolean      cancel = false;
-	private String       failed = null;
-
-	private final String server;
-	private final int    port;
-
-	private TimeoutSocket(String server, int port)
-	{
-		this.server = server;
-		this.port = port;
-	}
-
-	public void run()
-	{
-		try
-		{
-			s = new Socket(server, port);
-
-			if (cancel) {
+		Future<Socket> attempt = BackgroundTasks.submit(() -> {
+			Socket s = new Socket(server, port);
+			// If the caller already gave up, don't leak the connection
+			if (abandoned.get()) {
 				s.close();
 			}
-		}
-		catch (IOException e)
+			return s;
+		});
+
+		try
 		{
-			failed = e.toString();
+			return attempt.get(timeout, TimeUnit.MILLISECONDS);
+		}
+		catch (TimeoutException e)
+		{
+			abandon(attempt, abandoned);
+			throw new SocketException("Connection timed out");
+		}
+		catch (ExecutionException e)
+		{
+			throw new SocketException(e.getCause().toString());
+		}
+		catch (InterruptedException e)
+		{
+			Thread.currentThread().interrupt();
+			abandon(attempt, abandoned);
+			throw new SocketException("Connection interrupted");
 		}
 	}
 
-	private Socket getSocket() throws SocketException
+	private static void abandon(Future<Socket> attempt, AtomicBoolean abandoned)
 	{
-		if (failed != null) {
-			throw new SocketException(failed);
+		abandoned.set(true);
+		attempt.cancel(true);
+		// The attempt may have finished between the timeout and now; close that socket too
+		if (attempt.isDone() && !attempt.isCancelled())
+		{
+			try
+			{
+				attempt.get().close();
+			}
+			catch (Exception ignored)
+			{
+			}
 		}
-		return s;
-	}
-
-	private void cancel()
-	{
-		cancel = true;
 	}
 }

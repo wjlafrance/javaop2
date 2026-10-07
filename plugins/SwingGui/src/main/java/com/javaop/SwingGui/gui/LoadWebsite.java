@@ -26,8 +26,8 @@ import javax.swing.event.HyperlinkListener;
 public class LoadWebsite extends Thread implements ActionListener, HyperlinkListener
 {
 	private final String site;
-	private JFrame       window;
-	private JEditorPane  editor;
+	private volatile JFrame      window;
+	private volatile JEditorPane editor;
 
 	public LoadWebsite(String site)
 	{

@@ -46,7 +46,7 @@ public class PersistantMap
 	private final File   tempFile   = new File(System.getProperty("user.home") + "/.javaop2-tmp-" + Math.random());
 	private final File   file;
 	private final String comment;
-	private long         lastUpdate = 0;
+	private volatile long lastUpdate = 0;
 
 	private volatile Map<String, Properties> sections = new ConcurrentHashMap<>();
 

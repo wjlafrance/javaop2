@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.InterruptedIOException;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import util.Constants;
 import util.Controller;
@@ -23,11 +24,7 @@ import BNLSProtocol.BNLSConnectionThread;
 public class BNLSConnectionThread extends Thread
 {
     /** Total Connection Count * */
-    public static int connectionCount = 0;
-
-    /** Next item in the linked list */
-    private BNLSConnectionThread bNextList = null;
-    private BNLSConnectionThread bPrevList = null;
+    public static final AtomicInteger connectionCount = new AtomicInteger();
 
     /** Thread's Socket */
     private Socket socket = null;
@@ -43,44 +40,15 @@ public class BNLSConnectionThread extends Thread
     private InputStream in = null;
 
     /** Current Thread Count */
-    private static int threadCount = 0;
+    private static final AtomicInteger threadCount = new AtomicInteger();
 
     /** Thread ID of this instance */
     public int threadID;
 
 
-    /** Set the next item in the linked list */
-    public void setNext(BNLSConnectionThread bNext){
-    	bNextList = bNext;
-    }
-    /** Get the next item in the linked list */
-    public BNLSConnectionThread getNext(){
-    	return bNextList;
-    }
-    /** Set the last item in the linked list */
-    public void setPrev(BNLSConnectionThread bPrev){
-    	bPrevList = bPrev;
-    }
-    /** Get the Last item in the linked list */
-    public BNLSConnectionThread getPrev(){
-    	return bPrevList;
-    }
-
-    /** Destry removed this thread from the Linked List. */
+    /** Destroy removes this thread from the live connection set and closes its streams. */
     public void Destroy() {
-    	if (bPrevList == null) {
-    		if (bNextList == null )
-    		  Controller.lLinkedHead = null;
-    		else
-    	      Controller.lLinkedHead = bNextList;
-    	} else {
-    	  if (bNextList == null) {
-    	    bPrevList.setNext(null);
-    	  } else {
-    	    bPrevList.setNext(bNextList);
-    	    bNextList.setPrev(bPrevList);
-    	  }
-    	}
+    	Controller.connections.remove(this);
     	try {
     	  out.close();
           in.close();
@@ -97,8 +65,8 @@ public class BNLSConnectionThread extends Thread
     public BNLSConnectionThread(Socket cSocket)
     {
         super("BNLSConnectionThread");
-        threadID = threadCount++;
-        connectionCount++;
+        threadID = threadCount.getAndIncrement();
+        connectionCount.incrementAndGet();
         socket = cSocket;
         setDaemon(true);// make this Thread Not Hold up the Program
     }
@@ -107,10 +75,10 @@ public class BNLSConnectionThread extends Thread
     { // Run the connection thread
 
         // Check for too many thread instances(dont want to overload server)
-        if (threadCount > Constants.maxThreads)
+        if (threadCount.get() > Constants.maxThreads)
         {
-            Out.error("JBLS", "Max Threads Exceeded. Current count: " + threadCount + ". Max count: " + Constants.maxThreads + ".  Connection terminated.");
-            threadCount--;
+            Out.error("JBLS", "Max Threads Exceeded. Current count: " + threadCount.get() + ". Max count: " + Constants.maxThreads + ".  Connection terminated.");
+            threadCount.decrementAndGet();
             Destroy();
             return;
         }
@@ -120,7 +88,7 @@ public class BNLSConnectionThread extends Thread
         if (!IpAuth.checkAuth(IP))
         {
             Out.error("Thread " + threadID, "IP Not Authorized.  Thread Terminated.");
-            threadCount--;
+            threadCount.decrementAndGet();
             Destroy();
             return;
         }
@@ -219,7 +187,7 @@ public class BNLSConnectionThread extends Thread
         }
 
         Out.debug("Thread " + threadID, "Closed");
-        threadCount--;
+        threadCount.decrementAndGet();
         Destroy();
 
     }// end of run method

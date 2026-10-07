@@ -5,6 +5,8 @@ package util;
 import BNLSProtocol.BNLSServer;
 import BNLSProtocol.BNLSConnectionThread;
 import HTTP.HTTPServer;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * This Class contains static references to all the main and important
@@ -14,7 +16,8 @@ import HTTP.HTTPServer;
 public class Controller {
   public static HTTPServer hServer;
 	public static BNLSServer jServer;
-	public static BNLSConnectionThread lLinkedHead = null;
+	/** Live BNLS connections (added by the server thread, removed by each connection when it ends). */
+	public static final Set<BNLSConnectionThread> connections = ConcurrentHashMap.newKeySet();
 	public static ThreadGroup jConnectionThreads=new ThreadGroup("JBLS");
 	public static Statistics stats = null;
 
