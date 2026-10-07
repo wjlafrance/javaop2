@@ -14,6 +14,8 @@ JavaOp2 requires Java 17. Give me lambda or give me death!
     $ mkdir plugins-build && cp `find plugins/ | grep jar$ | xargs` plugins-build
     $ java -jar javaop2/target/javaop2-2.2.0-SNAPSHOT.jar
 
+`mvn package` also copies the runtime libraries (FlatLaf) into `javaop2/target/lib/`; the jar's manifest points at that directory, so keep `lib/` next to the jar when you move it.
+
 Select the `plugins-build` directory when prompted on the first bot load.
 
 ## License

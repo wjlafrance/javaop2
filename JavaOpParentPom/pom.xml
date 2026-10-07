@@ -18,10 +18,17 @@
 
 		<!-- Fixed timestamp for reproducible jars -->
 		<project.build.outputTimestamp>2026-10-06T00:00:00Z</project.build.outputTimestamp>
+
+		<flatlaf.version>3.7.2</flatlaf.version>
 	</properties>
 
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>com.formdev</groupId>
+				<artifactId>flatlaf</artifactId>
+				<version>${flatlaf.version}</version>
+			</dependency>
 			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
@@ -61,6 +68,10 @@
 				<plugin>
 					<artifactId>maven-jar-plugin</artifactId>
 					<version>3.4.2</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<version>3.8.1</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-install-plugin</artifactId>
