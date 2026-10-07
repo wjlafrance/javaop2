@@ -4,7 +4,7 @@ It's a chatbot for [Classic Battle.net](http://classic.battle.net/)!
 
 ## System requirements
 
-JavaOp2 requires Java 8. Give me lambda or give me death!
+JavaOp2 requires Java 17. Give me lambda or give me death!
 
 ## Building and running
 
