@@ -21,4 +21,14 @@
 		<module>plugins</module>
 	</modules>
 
+	<profiles>
+		<!-- ./mvnw -B -Pmac-app package  ->  dist/target/app/JavaOp2.app (macOS only; not part of CI) -->
+		<profile>
+			<id>mac-app</id>
+			<modules>
+				<module>dist</module>
+			</modules>
+		</profile>
+	</profiles>
+
 </project>
