@@ -74,7 +74,7 @@ public class GlobalSettingWizard extends JFrame implements ListSelectionListener
 
 		this.getContentPane().add(new JScrollPane(list = new JList<>(usefulPlugins.toArray(new String[0]))),
 								  BorderLayout.WEST);
-		list.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+		list.setBorder(BorderFactory.createLineBorder(javax.swing.UIManager.getColor("controlDkShadow"), 2));
 		list.getSelectionModel().addListSelectionListener(this);
 		list.getSelectionModel().setSelectionInterval(0, 0);
 		list.setPreferredSize(new Dimension(200, 0));

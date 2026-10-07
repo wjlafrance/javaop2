@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 
 import com.javaop.callback_interfaces.StaticExposedFunctions;
 
@@ -46,7 +47,8 @@ public class PluginPanel extends JPanel
 
 		top.setLayout(new GridLayout(-1, 2));
 		JLabel name = new JLabel(plugin);
-		name.setForeground(Color.BLUE);
+		Color accent = UIManager.getColor("Component.accentColor");
+		name.setForeground(accent != null ? accent : Color.BLUE);
 		top.add(name);
 		top.add(new JLabel());
 		top.add(new JLabel("Author"));

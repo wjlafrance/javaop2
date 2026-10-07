@@ -88,8 +88,8 @@ public class UserDatabaseWizard extends JFrame implements ActionListener, ListSe
 		addButton.addActionListener(this);
 		removeButton.addActionListener(this);
 
-		checkPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-		scroller.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+		checkPanel.setBorder(BorderFactory.createLineBorder(javax.swing.UIManager.getColor("controlDkShadow"), 2));
+		scroller.setBorder(BorderFactory.createLineBorder(javax.swing.UIManager.getColor("controlDkShadow"), 2));
 
 		if (user != null)
 		{

@@ -76,7 +76,7 @@ public class SettingWizard extends JFrame implements ListSelectionListener, Wind
 		JScrollPane listScroller = new JScrollPane(list = new PluginTable(pluginList));
 		listScroller.setPreferredSize(new Dimension(195, -1));
 		this.getContentPane().add(listScroller, BorderLayout.WEST);
-		list.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+		list.setBorder(BorderFactory.createLineBorder(javax.swing.UIManager.getColor("controlDkShadow"), 2));
 		list.getSelectionModel().addListSelectionListener(this);
 		list.getSelectionModel().setSelectionInterval(0, 0);
 

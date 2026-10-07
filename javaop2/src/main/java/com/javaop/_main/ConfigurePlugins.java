@@ -29,6 +29,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListCellRenderer;
+import javax.swing.UIManager;
 import javax.swing.filechooser.FileFilter;
 
 import com.javaop.pluginmanagers.PluginManager;
@@ -111,7 +112,7 @@ public class ConfigurePlugins extends JFrame implements WindowListener
 			this.add(new JScrollPane(list = new JList<>(listData)), BorderLayout.CENTER);
 
 			this.setBorder(BorderFactory.createCompoundBorder(
-					BorderFactory.createLineBorder(Color.BLACK, 2),
+					BorderFactory.createLineBorder(UIManager.getColor("controlDkShadow"), 2),
 					BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
 			list.setCellRenderer(new MyCellRenderer());
@@ -126,17 +127,19 @@ public class ConfigurePlugins extends JFrame implements WindowListener
 
 				c = new JLabel(value.toString());
 
-				c.setBackground(Color.WHITE);
-				c.setForeground(Color.BLACK);
+				Color bg = isSelected ? list.getSelectionBackground() : list.getBackground();
+				Color fg = isSelected ? list.getSelectionForeground() : list.getForeground();
+				c.setBackground(bg);
+				c.setForeground(fg);
 
 				JPanel ret = new JPanel();
 				ret.setLayout(new GridLayout());
-				ret.setBackground(Color.WHITE);
-				ret.setForeground(Color.BLACK);
+				ret.setBackground(bg);
+				ret.setForeground(fg);
 				ret.add(c);
 
 				if (isSelected) {
-					ret.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+					ret.setBorder(BorderFactory.createLineBorder(UIManager.getColor("controlDkShadow"), 2));
 				} else {
 					ret.setBorder(BorderFactory.createLineBorder(list.getBackground(), 2));
 				}
@@ -182,7 +185,7 @@ public class ConfigurePlugins extends JFrame implements WindowListener
 			save.addActionListener(this);
 
 			this.setBorder(BorderFactory.createCompoundBorder(
-					BorderFactory.createLineBorder(Color.BLACK, 2),
+					BorderFactory.createLineBorder(UIManager.getColor("controlDkShadow"), 2),
 					BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
 		}

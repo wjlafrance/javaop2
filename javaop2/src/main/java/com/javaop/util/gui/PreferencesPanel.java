@@ -21,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 
 import com.javaop.util.Uniq;
 
@@ -79,7 +80,7 @@ public class PreferencesPanel extends JPanelEx
 		JPanelEx p = new JPanelEx(new GridBagLayout());
 
 		p.setBorder(BorderFactory.createTitledBorder(
-													 BorderFactory.createLineBorder(Color.BLACK, 2),
+													 BorderFactory.createLineBorder(UIManager.getColor("controlDkShadow"), 2),
 													 name));
 
 		p.add(comp, new GridBagConstraints(0, 1, 1, 1, 2, 0, GridBagConstraints.WEST,
