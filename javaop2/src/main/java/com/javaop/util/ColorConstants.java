@@ -150,7 +150,7 @@ public class ColorConstants
 	{
 		private static final long   serialVersionUID = 1L;
 
-		private final JList         list;
+		private final JList<String>   list;
 		private final JColorChooser chooser          = new JColorChooser();
 		private String              currentKey       = null;
 
@@ -158,8 +158,8 @@ public class ColorConstants
 		{
 			super("Editing colors");
 
-			String[] colorArray = (String[]) Uniq.uniq(colors.getSection(null).keys()).toArray();
-			list = new JList(colorArray);
+			String[] colorArray = Uniq.uniq(colors.getSection(null).keys()).toArray(new String[0]);
+			list = new JList<>(colorArray);
 			list.addListSelectionListener(this);
 			list.setSelectedIndex(0);
 			valueChanged(null);

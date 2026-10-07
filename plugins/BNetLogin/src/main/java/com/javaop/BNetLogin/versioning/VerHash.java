@@ -160,7 +160,7 @@ public class VerHash
 
 			/* If we've found the rsrc section, process it. If not, we really don't care. */
 			if(file.getLong(sectionsBase + (i * 40)) == rsrc)
-				return processResourceRecord(new LinkedList(), file, 0, file.getInt(sectionBase + 20), rsrcVirtualToRaw);
+				return processResourceRecord(new LinkedList<>(), file, 0, file.getInt(sectionBase + 20), rsrcVirtualToRaw);
 		}
 
 		return 0;
@@ -186,7 +186,7 @@ public class VerHash
 	 * @throws IOException
 	 *             If there's an error finding the version.
 	 */
-	private static int processResourceRecord(LinkedList tree, MappedByteBuffer file, int recordOffset, int rsrcStart,
+	private static int processResourceRecord(LinkedList<Integer> tree, MappedByteBuffer file, int recordOffset, int rsrcStart,
 			int rsrcVirtualToRaw) throws IOException
 	{
 		int i;
@@ -213,7 +213,7 @@ public class VerHash
 			/* Each entry is 8 bytes, skip over the ones we've already seen */
 			entry = ptrIDEntriesBase + (i * 8);
 			/* Process the entry. processEntry() will call processResourceRecord() again for branches. */
-			version = processEntry(new LinkedList(tree), file, entry, rsrcStart, rsrcVirtualToRaw);
+			version = processEntry(new LinkedList<>(tree), file, entry, rsrcStart, rsrcVirtualToRaw);
 			/* If we've found the version, return it immediately. Otherwise, keep looping. */
 			if(version != 0)
 				return version;
@@ -240,7 +240,7 @@ public class VerHash
 	 * @throws IOException
 	 *             If there's an error finding the version.
 	 */
-	private static int processEntry(LinkedList tree, MappedByteBuffer file, int entry, int rsrcStart,
+	private static int processEntry(LinkedList<Integer> tree, MappedByteBuffer file, int entry, int rsrcStart,
 			int rsrcVirtualToRaw) throws IOException
 	{
 		/*
@@ -258,7 +258,7 @@ public class VerHash
 		int rawDataAddress;
 
 		/* Add the identifier to the tree */
-		tree.addLast((Object) Integer.valueOf(file.getInt(entry + 0)));
+		tree.addLast(Integer.valueOf(file.getInt(entry + 0)));
 
 		/* Check if it's a branch by checking the left-most bit. If it's set, it's a branch. */
 		if((nextAddress & 0x80000000) != 0)

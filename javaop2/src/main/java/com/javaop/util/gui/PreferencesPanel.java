@@ -29,7 +29,7 @@ public class PreferencesPanel extends JPanelEx
 {
 	private static final long serialVersionUID = 1L;
 
-	private final Hashtable   components       = new Hashtable();
+	private final Hashtable<String, JComponent> components = new Hashtable<>();
 	private final Properties  initial;
 
 	/**
@@ -37,7 +37,7 @@ public class PreferencesPanel extends JPanelEx
 	 * look
 	 */
 	public PreferencesPanel(Properties currentSettings, Properties defaultSettings,
-			Properties descriptions, Hashtable components)
+			Properties descriptions, Hashtable<String, JComponent> components)
 	{
 		super(new GridBagLayout());
 
@@ -104,17 +104,17 @@ public class PreferencesPanel extends JPanelEx
 
 	public String getValue(String key)
 	{
-		return Gui.getTextFromComponent((JComponent) components.get(key));
+		return Gui.getTextFromComponent(components.get(key));
 	}
 
 	public Properties getValues()
 	{
 		Properties p = new Properties();
-		Enumeration e = components.keys();
+		Enumeration<String> e = components.keys();
 
 		while (e.hasMoreElements())
 		{
-			String thisElement = (String) e.nextElement();
+			String thisElement = e.nextElement();
 			p.setProperty(thisElement, getValue(thisElement));
 		}
 

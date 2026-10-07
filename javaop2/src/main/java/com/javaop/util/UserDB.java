@@ -133,7 +133,7 @@ public class UserDB
 			return true;
 		}
 
-		Enumeration e = userDB.propertyNames(null);
+		Enumeration<String> e = userDB.propertyNames(null);
 
 		if (e == null) {
 			return false;
@@ -141,7 +141,7 @@ public class UserDB
 
 		while (e.hasMoreElements())
 		{
-			String name = (String) e.nextElement();
+			String name = e.nextElement();
 
 			if (user.matches(fixPattern(name))) {
 				if (findFlag(name, flag)) {
@@ -182,16 +182,16 @@ public class UserDB
 
 		user = user.toLowerCase();
 
-		Enumeration e = userDB.propertyNames(null);
+		Enumeration<String> e = userDB.propertyNames(null);
 
 		StringBuilder patterns = new StringBuilder();
-		TreeSet flags = new TreeSet();
+		TreeSet<Character> flags = new TreeSet<>();
 
 		// patterns.append(user + ": ");
 
 		while (e.hasMoreElements())
 		{
-			String name = (String) e.nextElement();
+			String name = e.nextElement();
 
 			if (user.matches(fixPattern(name)))
 			{
@@ -305,13 +305,13 @@ public class UserDB
 	{
 		flag = Character.toUpperCase(flag);
 
-		Vector users = new Vector();
+		Vector<String> users = new Vector<>();
 
-		Enumeration e = userDB.propertyNames(null);
+		Enumeration<String> e = userDB.propertyNames(null);
 
 		while (e.hasMoreElements())
 		{
-			String thisUser = (String) e.nextElement();
+			String thisUser = e.nextElement();
 			if (userDB.getNoWrite(null, thisUser, "").indexOf(flag) >= 0) {
 				users.add(thisUser);
 			}
@@ -326,17 +326,17 @@ public class UserDB
 
 	public String[] getUserList()
 	{
-		Enumeration e = userDB.propertyNames(null);
+		Enumeration<String> e = userDB.propertyNames(null);
 
-		Vector ret = new Vector();
+		Vector<String> ret = new Vector<>();
 
 		if (e != null) {
 			while (e.hasMoreElements()) {
-				ret.add((String) e.nextElement());
+				ret.add(e.nextElement());
 			}
 		}
 
-		return (String[]) ret.toArray(new String[ret.size()]);
+		return ret.toArray(new String[0]);
 	}
 
 	/**

@@ -125,7 +125,7 @@ class Model extends AbstractTableModel
 {
 	private static final long serialVersionUID = 1L;
 	/** A vector of the users in the table. */
-	private Vector            users;
+	private Vector<Row>        users;
 	private boolean           opsOnTop;
 
 	/**
@@ -134,7 +134,7 @@ class Model extends AbstractTableModel
 	 */
 	public Model(boolean opsOnTop)
 	{
-		users = new Vector();
+		users = new Vector<>();
 		this.opsOnTop = opsOnTop;
 	}
 
@@ -148,7 +148,7 @@ class Model extends AbstractTableModel
 		if (oldRowIndex < 0)
 			return null;
 
-		Row oldRow = (Row) users.get(oldRowIndex);
+		Row oldRow = users.get(oldRowIndex);
 		users.remove(oldRow);
 
 		fireTableDataChanged();
@@ -164,7 +164,7 @@ class Model extends AbstractTableModel
 		if (index < 0)
 			return null;
 
-		return (Row) users.get(index);
+		return users.get(index);
 	}
 
 	/**
@@ -231,7 +231,7 @@ class Model extends AbstractTableModel
 		if (row < 0 || row >= users.size())
 			return null;
 
-		Row rowData = (Row) users.get(row);
+		Row rowData = users.get(row);
 		switch (column)
 		{
 			case 0:
@@ -253,7 +253,7 @@ class Model extends AbstractTableModel
 		if (row < 0 || row > users.size())
 			return null;
 
-		Row rowData = (Row) users.get(row);
+		Row rowData = users.get(row);
 		switch (column)
 		{
 			case 0:
@@ -270,7 +270,7 @@ class Model extends AbstractTableModel
 	}
 
 	/** Returns the class of the selected column. */
-	public Class getColumnClass(int i)
+	public Class<?> getColumnClass(int i)
 	{
 		switch (i)
 		{

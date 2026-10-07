@@ -176,8 +176,8 @@ public class JavaOpFrame extends JFrame {
 	public void cascade() {
 		JInternalFrame[] frames = desktop.getAllFrames();
 
-		Arrays.sort(frames, new Comparator() {
-			public int compare(Object arg0, Object arg1) {
+		Arrays.sort(frames, new Comparator<JInternalFrame>() {
+			public int compare(JInternalFrame arg0, JInternalFrame arg1) {
 				return ((JavaOpPanel) arg0).getTitle().compareTo(((JavaOpPanel) arg1).getTitle());
 			}
 		});
@@ -193,8 +193,8 @@ public class JavaOpFrame extends JFrame {
 	public void tile() {
 		JInternalFrame[] frames = desktop.getAllFrames();
 
-		Arrays.sort(frames, new Comparator() {
-			public int compare(Object arg0, Object arg1) {
+		Arrays.sort(frames, new Comparator<JInternalFrame>() {
+			public int compare(JInternalFrame arg0, JInternalFrame arg1) {
 				return ((JavaOpPanel) arg0).getTitle().compareTo(((JavaOpPanel) arg1).getTitle());
 			}
 		});
@@ -252,8 +252,8 @@ public class JavaOpFrame extends JFrame {
 		private JInternalFrame[] getFrames() {
 			JInternalFrame[] frames = desktop.getAllFrames();
 
-			Arrays.sort(frames, new Comparator() {
-				public int compare(Object arg0, Object arg1) {
+			Arrays.sort(frames, new Comparator<JInternalFrame>() {
+				public int compare(JInternalFrame arg0, JInternalFrame arg1) {
 					return ((JavaOpPanel) arg0).getTitle().compareTo(
 							((JavaOpPanel) arg1).getTitle());
 				}

@@ -176,7 +176,7 @@ public class PluginMain extends GenericPluginInterface {
 		{
 			return new JCheckBox("", value.equalsIgnoreCase("true"));
 		} else if (settingName.equalsIgnoreCase("On message")) {
-			JComboBox combo = new JComboBox(new String[]
+			JComboBox<String> combo = new JComboBox<>(new String[]
 			{ "Nothing", "Highlight", "Switch" });
 			combo.setSelectedItem(value);
 			combo.setEditable(false);
@@ -197,7 +197,7 @@ public class PluginMain extends GenericPluginInterface {
 		{
 			return new JCheckBox("", value.equalsIgnoreCase("true"));
 		} else if (settingName.equalsIgnoreCase("Loudness")) {
-			JComboBox combo = new JComboBox(new String[] {
+			JComboBox<String> combo = new JComboBox<>(new String[] {
 					"packet",   "debug", "info",    "notice",
 					"warning",  "error", "critical", "emergency"
 			});

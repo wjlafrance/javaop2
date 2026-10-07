@@ -17,8 +17,8 @@ import com.javaop.util.BnetPacket;
  */
 public class Profile
 {
-	private static final Hashtable users    = new Hashtable();
-	private static final Hashtable requests = new Hashtable();
+	private static final Hashtable<String, String> users    = new Hashtable<>();
+	private static final Hashtable<String, String[]> requests = new Hashtable<>();
 
 	public static BnetPacket getProfileRequest(int profileCookie, String user, String[] fields)
 	{
@@ -43,7 +43,7 @@ public class Profile
 		return packet;
 	}
 
-	public static Hashtable processProfileRequest(int profileCookie, BnetPacket profile)
+	public static Hashtable<String, String> processProfileRequest(int profileCookie, BnetPacket profile)
 	{
 		// (DWORD) Number of accounts
 		if (profile.removeDWord() != 1) {
@@ -57,8 +57,8 @@ public class Profile
 			return null;
 		}
 
-		String user = (String) users.remove("request-" + profileCookie);
-		String[] fields = (String[]) requests.remove("request-" + profileCookie);
+		String user = users.remove("request-" + profileCookie);
+		String[] fields = requests.remove("request-" + profileCookie);
 
 		if (user == null || fields == null) {
 			return null;
@@ -69,7 +69,7 @@ public class Profile
 		}
 
 		// (STRING[]) Requested Key Values
-		Hashtable h = new Hashtable();
+		Hashtable<String, String> h = new Hashtable<>();
 		h.put("username", user);
 		for (int i = 0; i < keys; i++) {
 			h.put(fields[i], profile.removeNTString());

@@ -26,7 +26,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
 {
 	private PublicExposedFunctions out;
 	private int                    thread  = 0;
-	private final Hashtable        threads = new Hashtable();
+	private final Hashtable<String, Run> threads = new Hashtable<>();
 
 	public void load(StaticExposedFunctions staticFuncs)
 	{
@@ -139,7 +139,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
 
 			thread++;
 
-			Thread t = new Run(thread, user, loudness, args, command.equalsIgnoreCase("run"));
+			Run t = new Run(thread, user, loudness, args, command.equalsIgnoreCase("run"));
 			threads.put(thread + "", t);
 			t.start();
 		}
@@ -149,7 +149,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
 				throw new CommandUsedImproperlyException("runstop requires the number of the process", user,
 						command);
 
-			Run r = (Run) threads.get(args[0]);
+			Run r = threads.get(args[0]);
 
 			if (r == null)
 			{

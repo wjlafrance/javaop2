@@ -78,15 +78,21 @@ public class PluginRegistration implements PluginCallbackRegister
 	private Set<EventPlugin>           eventPlugins          = new HashSet<>();
 	private Set<GuiPlugin>             guiPlugins            = new HashSet<>();
 
-	private Set<RawEventPlugin>[]      rawEventPlugins       = new Set[EventConstants.MAX_EVENT + 1];
-	private Set<PacketPlugin>[]        incomingPacketPlugins = new Set[255];
-	private Set<PacketPlugin>[]        outgoingPacketPlugins = new Set[255];
+	private Set<RawEventPlugin>[]      rawEventPlugins       = newSetArray(EventConstants.MAX_EVENT + 1);
+	private Set<PacketPlugin>[]        incomingPacketPlugins = newSetArray(255);
+	private Set<PacketPlugin>[]        outgoingPacketPlugins = newSetArray(255);
 
 	private Map<String, CommandPlugin> commandPlugins        = new HashMap<>();
 	private final PersistantMap        commandAliases;
 	private final PersistantMap        customCommandFlags;
 
 	private PublicExposedFunctions pubFuncs;
+
+	/** Generic arrays can't be created directly; the elements are only ever read/written as Set<T>. */
+	@SuppressWarnings("unchecked")
+	private static <T> Set<T>[] newSetArray(int size) {
+		return (Set<T>[]) new Set<?>[size];
+	}
 
 	public PluginRegistration(PublicExposedFunctions pubFuncs) {
 		this.pubFuncs = pubFuncs;

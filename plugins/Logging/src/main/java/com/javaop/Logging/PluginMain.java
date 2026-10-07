@@ -138,7 +138,7 @@ public class PluginMain extends GenericPluginInterface implements EventCallback,
 		}
 		else if (settingName.equalsIgnoreCase("Log format"))
 		{
-			JComboBox list = new JComboBox(new String[]
+			JComboBox<String> list = new JComboBox<>(new String[]
 			{ "html", "text", "bb" });
 			list.setSelectedItem(value);
 			return list;

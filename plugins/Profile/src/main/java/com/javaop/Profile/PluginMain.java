@@ -31,7 +31,7 @@ public class PluginMain extends GenericPluginInterface implements PacketCallback
 		EventCallback
 {
 	private int                    cookie   = getName().hashCode();
-	private Hashtable              requests = new Hashtable();
+	private Hashtable<String, ProfileRequest> requests = new Hashtable<>();
 
 	private PublicExposedFunctions out;
 
@@ -188,7 +188,7 @@ public class PluginMain extends GenericPluginInterface implements PacketCallback
 			// (DWORD) Request ID
 			int thisCookie = buf.removeDWord();
 
-			ProfileRequest thisRequest = (ProfileRequest) requests.remove(thisCookie + "");
+			ProfileRequest thisRequest = requests.remove(thisCookie + "");
 
 			// Check if the request belongs to us
 			if (thisRequest == null)
@@ -226,7 +226,7 @@ public class PluginMain extends GenericPluginInterface implements PacketCallback
 			if (success != 0)
 				return;
 
-			ProfileRequest thisRequest = (ProfileRequest) requests.remove(thisCookie + "");
+			ProfileRequest thisRequest = requests.remove(thisCookie + "");
 			if (thisRequest == null)
 				return;
 

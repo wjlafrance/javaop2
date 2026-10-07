@@ -171,7 +171,7 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
 		}
 		else if (settingName.equalsIgnoreCase("idle"))
 		{
-			JComboBox combo = new JComboBox(new String[]
+			JComboBox<String> combo = new JComboBox<>(new String[]
 			{ "off", "count", "time" });
 			combo.setSelectedItem(value);
 			return combo;

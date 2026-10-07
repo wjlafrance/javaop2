@@ -12,6 +12,7 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Properties;
 
+import javax.swing.JComponent;
 import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -106,7 +107,7 @@ public class SettingWizard extends JFrame implements ListSelectionListener, Wind
 		// out.getLocalSettingDefault(thisPlugin, settingNames[i],
 		// defaultSettings.getProperty(settingNames[i])));
 
-		Hashtable components = out.getStaticExposedFunctionsHandle().pluginGetComponents(
+		Hashtable<String, JComponent> components = out.getStaticExposedFunctionsHandle().pluginGetComponents(
 																						 thisPlugin,
 																						 settings);
 
@@ -275,7 +276,7 @@ public class SettingWizard extends JFrame implements ListSelectionListener, Wind
 			this.plugins = plugins;
 		}
 
-		public Class getColumnClass(int col)
+		public Class<?> getColumnClass(int col)
 		{
 			return col == 0 ? Boolean.class : super.getColumnClass(col);
 		}

@@ -55,9 +55,9 @@ public class ZIP {
 			File outDirectory = new File(outFolder);
 			ZipFile zipFile = new ZipFile(sourceZipFile, ZipFile.OPEN_READ);
 			
-			Enumeration zipFileEntries = zipFile.entries();
+			Enumeration<? extends ZipEntry> zipFileEntries = zipFile.entries();
 			while (zipFileEntries.hasMoreElements()){
-				ZipEntry entry = (ZipEntry) zipFileEntries.nextElement();
+				ZipEntry entry = zipFileEntries.nextElement();
 	
 				String currentEntry = entry.getName();
 				for (int X = currentEntry.length() - 1; X >= 0; X--){

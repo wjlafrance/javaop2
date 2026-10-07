@@ -140,7 +140,7 @@ public class PluginMain extends GenericPluginInterface implements EventCallback,
 		}
 
 		if (settingName.equalsIgnoreCase("loud")) {
-			JComboBox loud = new JComboBox(new String[]
+			JComboBox<String> loud = new JComboBox<>(new String[]
 			{ "quiet", "loud", "loud (no name)", "silent (not recommended)" });
 			loud.setSelectedItem(value);
 			return loud;
@@ -371,7 +371,7 @@ public class PluginMain extends GenericPluginInterface implements EventCallback,
 
 	private int getLoudness()
 	{
-		// JComboBox loud = new JComboBox(new String[] { "quiet", "loud",
+		// JComboBox<String> loud = new JComboBox<>(new String[] { "quiet", "loud",
 		// "loud (no name)", "silent (not recommended)" });
 		String loudness = out.getLocalSettingDefault(getName(), "loud", "info");
 

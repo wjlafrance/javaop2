@@ -123,7 +123,7 @@ public class PluginManager {
 
 			System.out.println("Loading plugin: " + mainClass);
 
-			Class cl = ucl.loadClass(mainClass);
+			Class<?> cl = ucl.loadClass(mainClass);
 			GenericPluginInterface plugin = (GenericPluginInterface) cl.newInstance();
 
 			allPlugins.put(plugin.getName(), plugin);

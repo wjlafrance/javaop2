@@ -9,6 +9,7 @@ import java.awt.event.WindowListener;
 import java.util.Hashtable;
 import java.util.Properties;
 
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -51,7 +52,7 @@ public class QuickSettings extends JFrame implements WindowListener {
 		Properties currentSettings = new Properties();
 		Properties defaultSettings = new Properties();
 		Properties descriptions = new Properties();
-		Hashtable components = new Hashtable();
+		Hashtable<String, JComponent> components = new Hashtable<>();
 
 		currentSettings.setProperty("server",
 				out.getLocalSettingDefault("_Default", "server",

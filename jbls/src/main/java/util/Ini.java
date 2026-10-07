@@ -43,12 +43,12 @@ public class Ini{
     createIfNotExist(file);
     try{
       FileOutputStream out = new FileOutputStream(file, false);
-      for(Enumeration keys = data.keys(); keys.hasMoreElements();){
+      for(Enumeration<String> keys = data.keys(); keys.hasMoreElements();){
         String header = keys.nextElement().toString();
         out.write((header+System.getProperty("line.separator")).getBytes());
         //System.out.println(header);
         Properties section = data.get(header);
-        for(Enumeration props = section.propertyNames(); props.hasMoreElements();){
+        for(Enumeration<?> props = section.propertyNames(); props.hasMoreElements();){
           String prop = props.nextElement().toString();
           String value = section.getProperty(prop);
           out.write((prop + "=" + value+System.getProperty("line.separator")).getBytes());

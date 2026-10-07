@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Vector;
 
+import javax.swing.JComponent;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -35,7 +36,7 @@ public class GlobalSettingWizard extends JFrame implements ListSelectionListener
 	 */
 	private static final long      serialVersionUID = 1L;
 	private JPanel                 form;
-	private JList                  list;
+	private JList<String>           list;
 
 	private StaticExposedFunctions funcs;
 
@@ -57,7 +58,7 @@ public class GlobalSettingWizard extends JFrame implements ListSelectionListener
 
 		// Add the list
 		List<String> pluginNames = funcs.pluginGetNames();
-		Vector usefulPlugins = new Vector();
+		Vector<String> usefulPlugins = new Vector<>();
 		for (String pluginName : pluginNames) {
 			if (funcs.getGlobalKeys(pluginName).size() != 0)
 			{
@@ -70,7 +71,7 @@ public class GlobalSettingWizard extends JFrame implements ListSelectionListener
 			}
 		}
 
-		this.getContentPane().add(new JScrollPane(list = new JList(usefulPlugins)),
+		this.getContentPane().add(new JScrollPane(list = new JList<>(usefulPlugins)),
 								  BorderLayout.WEST);
 		list.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 		list.getSelectionModel().addListSelectionListener(this);
@@ -90,7 +91,7 @@ public class GlobalSettingWizard extends JFrame implements ListSelectionListener
 
 		// They clicked a new plugin on the list. Load a new panel for the
 		// plugin
-		String thisPlugin = (String) list.getSelectedValue();
+		String thisPlugin = list.getSelectedValue();
 		List<String> settingNames = funcs.getGlobalKeys(thisPlugin);
 
 		Properties defaultSettings = funcs.pluginGetGlobalDefaultSettings(thisPlugin);
@@ -102,7 +103,7 @@ public class GlobalSettingWizard extends JFrame implements ListSelectionListener
 				funcs.getGlobalSettingDefault(thisPlugin, settingName, defaultSettings.getProperty(settingName)));
 		}
 
-		Hashtable components = funcs.pluginGetGlobalComponents(thisPlugin, settings);
+		Hashtable<String, JComponent> components = funcs.pluginGetGlobalComponents(thisPlugin, settings);
 
 		if (oldRight != null)
 			form.remove(oldRight);

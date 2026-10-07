@@ -32,7 +32,7 @@ public class PluginMain extends GenericPluginInterface implements PacketCallback
 		ClanConstants
 {
 	private PublicExposedFunctions out;
-	private final Hashtable        invites = new Hashtable();
+	private final Hashtable<String, Invite> invites = new Hashtable<>();
 
 	public void load(StaticExposedFunctions staticFuncs)
 	{
@@ -200,7 +200,7 @@ public class PluginMain extends GenericPluginInterface implements PacketCallback
 				throw new CommandUsedImproperlyException(
 						"Accept and decline require the clan name as a parameter", user, command);
 
-			Invite invite = (Invite) invites.get(args[0]);
+			Invite invite = invites.get(args[0]);
 
 			if (invite == null)
 			{

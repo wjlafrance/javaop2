@@ -257,9 +257,9 @@ public class JavaOpMainMenu extends JMenuBar implements ActionListener,
 
 		JInternalFrame[] frames = desktop.getAllFrames();
 
-		Arrays.sort(frames, new Comparator()
+		Arrays.sort(frames, new Comparator<JInternalFrame>()
 		{
-			public int compare(Object arg0, Object arg1)
+			public int compare(JInternalFrame arg0, JInternalFrame arg1)
 			{
 				return ((JavaOpPanel) arg0).getTitle().compareTo(((JavaOpPanel) arg1).getTitle());
 			}

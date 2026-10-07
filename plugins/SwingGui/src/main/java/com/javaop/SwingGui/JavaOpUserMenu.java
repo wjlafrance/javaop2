@@ -25,7 +25,7 @@ import com.javaop.constants.PriorityConstants;
 /** There should only ever be one instance of this created per bot */
 public class JavaOpUserMenu {
 	/** Stores a list of custom items that will be displayed in the menu */
-	private Vector              					items = new Vector();
+	private Vector<Object>              	items = new Vector<>();
 
 	/** Add this to the "items" vector to put a separator in the list */
 	private final JMenuItem              			separator = new JMenuItem();

@@ -105,13 +105,13 @@ public class Mail
 		int low = Integer.parseInt(messages.getNoWrite(user, LOW_ID, "1"));
 		int high = Integer.parseInt(messages.getNoWrite(user, ID, "0"));
 
-		Vector ids = new Vector();
+		Vector<String> ids = new Vector<>();
 
 		for (int i = low; i <= high; i++)
 			if (exists(user, i + ""))
 				ids.add(i + "");
 
-		return (String[]) ids.toArray(new String[ids.size()]);
+		return ids.toArray(new String[0]);
 	}
 
 	public synchronized int getCount(String user)

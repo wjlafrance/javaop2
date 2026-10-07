@@ -14,9 +14,9 @@ public class Splitter
 {
 	private static final int maxLength = 100;
 
-	public static Vector split(String str, boolean moreTag)
+	public static Vector<String> split(String str, boolean moreTag)
 	{
-		Vector ret = new Vector();
+		Vector<String> ret = new Vector<>();
 
 		String[] allWords = str.split(" ");
 		// padLength is the amount of extra space on each line

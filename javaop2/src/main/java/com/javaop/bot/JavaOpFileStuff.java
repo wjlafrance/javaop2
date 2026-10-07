@@ -153,10 +153,11 @@ public class JavaOpFileStuff
 		}
 	}
 
-	private static void addIfExists(Vector v, File f)
+	private static void addIfExists(Vector<String> v, File f)
 	{
-		if (f.exists() && !v.contains(f)) {
-			v.add(f);
+		String path = f.toString();
+		if (f.exists() && !v.contains(path)) {
+			v.add(path);
 		}
 	}
 
@@ -194,7 +195,7 @@ public class JavaOpFileStuff
 		URL[] urls =
 		{ url };
 		URLClassLoader ucl = new URLClassLoader(urls);
-		Class cl = ucl.loadClass("PluginMain");
+		Class<?> cl = ucl.loadClass("PluginMain");
 		return (GenericPluginInterface) cl.newInstance();
 	}
 

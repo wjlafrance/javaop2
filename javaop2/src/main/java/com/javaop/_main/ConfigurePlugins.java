@@ -48,10 +48,10 @@ public class ConfigurePlugins extends JFrame implements WindowListener
 {
 	private static final long serialVersionUID = 1L;
 
-	private JList             list;
+	private JList<String>      list;
 	private boolean           dirty            = true;
 
-	private DefaultListModel  listData;
+	private DefaultListModel<String> listData;
 
 	public ConfigurePlugins()
 	{
@@ -59,7 +59,7 @@ public class ConfigurePlugins extends JFrame implements WindowListener
 
 		try
 		{
-			listData = new DefaultListModel();
+			listData = new DefaultListModel<>();
 			for (String file : JavaOpFileStuff.getRawPluginPaths()) {
 				listData.addElement(file);
 			}
@@ -109,7 +109,7 @@ public class ConfigurePlugins extends JFrame implements WindowListener
 			this.setLayout(new BorderLayout(5, 5));
 			this.add(new JLabel("Loaded paths:"), BorderLayout.NORTH);
 
-			this.add(new JScrollPane(list = new JList(listData)), BorderLayout.CENTER);
+			this.add(new JScrollPane(list = new JList<>(listData)), BorderLayout.CENTER);
 
 			this.setBorder(BorderFactory.createCompoundBorder(
 					BorderFactory.createLineBorder(Color.BLACK, 2),
@@ -118,9 +118,9 @@ public class ConfigurePlugins extends JFrame implements WindowListener
 			list.setCellRenderer(new MyCellRenderer());
 		}
 
-		private class MyCellRenderer implements ListCellRenderer
+		private class MyCellRenderer implements ListCellRenderer<String>
 		{
-			public Component getListCellRendererComponent(JList list, Object value, int index,
+			public Component getListCellRendererComponent(JList<? extends String> list, String value, int index,
 					boolean isSelected, boolean cellHasFocus)
 			{
 				Component c;
@@ -272,7 +272,7 @@ public class ConfigurePlugins extends JFrame implements WindowListener
 		File pluginFile = JavaOpFileStuff.getPluginPathsFile();
 
 		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(pluginFile)));
-		Enumeration elements = listData.elements();
+		Enumeration<String> elements = listData.elements();
 		while (elements.hasMoreElements()) {
 			out.println(elements.nextElement());
 		}

@@ -8,6 +8,8 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Properties;
 
+import javax.swing.JComponent;
+
 import com.javaop.plugin_interfaces.GenericPluginInterface;
 import com.javaop.util.PersistantMap;
 
@@ -117,9 +119,9 @@ public interface StaticExposedFunctions
 
 	public Properties pluginGetGlobalDescriptions(String plugin);
 
-	public Hashtable pluginGetComponents(String plugin, Properties values);
+	public Hashtable<String, JComponent> pluginGetComponents(String plugin, Properties values);
 
-	public Hashtable pluginGetGlobalComponents(String plugin, Properties values);
+	public Hashtable<String, JComponent> pluginGetGlobalComponents(String plugin, Properties values);
 
 	public GenericPluginInterface[] pluginGetAll(boolean includeDefault);
 

@@ -230,7 +230,7 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
 			return new JCheckBox("", value.equalsIgnoreCase("true"));
 		} else if(settingName.equalsIgnoreCase("game")) {
 			Vector<String> gameOptions = Game.getGames().stream().collect(Collectors.toCollection(Vector::new));
-			JComboBox combo = new JComboBox(gameOptions);
+			JComboBox<String> combo = new JComboBox<>(gameOptions);
 			combo.setEditable(true);
 			combo.setSelectedItem(value);
 			return combo;

@@ -13,11 +13,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Properties;
-import java.util.Vector;
 
 
 /**
@@ -209,15 +209,9 @@ public class PersistantMap
 		return value == null ? "default" : value.toLowerCase();
 	}
 
-	private Object[] sortEnumeration(Enumeration e)
+	private Object[] sortEnumeration(Enumeration<?> e)
 	{
-		Vector objectVector = new Vector();
-
-		while (e.hasMoreElements()) {
-			objectVector.add(e.nextElement());
-		}
-
-		Object[] ret = objectVector.toArray();
+		Object[] ret = Collections.list(e).toArray();
 		Arrays.sort(ret);
 
 		return ret;
@@ -311,7 +305,7 @@ public class PersistantMap
 		save();
 	}
 
-	public Enumeration propertyNames(String sectionName)
+	public Enumeration<String> propertyNames(String sectionName)
 	{
 		sectionName = fix(sectionName);
 
@@ -322,10 +316,10 @@ public class PersistantMap
 			return null;
 		}
 
-		return section.keys();
+		return Collections.enumeration(section.stringPropertyNames());
 	}
 
-	public Enumeration sectionNames()
+	public Enumeration<String> sectionNames()
 	{
 		load();
 

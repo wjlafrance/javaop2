@@ -39,8 +39,8 @@ public class UserDatabaseWizard extends JFrame implements ActionListener, ListSe
 	final private PublicExposedFunctions out;
 
 	final private CheckPanel             checkPanel;
-	final private DefaultListModel       model            = new DefaultListModel();
-	final private JList                  list             = new JList(model);
+	final private DefaultListModel<String> model           = new DefaultListModel<>();
+	final private JList<String>           list             = new JList<>(model);
 
 	final private JButton                addButton        = new JButton("Add...");
 	final private JButton                removeButton     = new JButton("Remove");

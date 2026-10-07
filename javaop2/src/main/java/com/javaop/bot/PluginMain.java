@@ -122,7 +122,7 @@ public class PluginMain extends GenericPluginInterface
 	{
 		if (settingName.equalsIgnoreCase("server"))
 		{
-			JComboBox combo = new JComboBox(new String[] {
+			JComboBox<String> combo = new JComboBox<>(new String[] {
 					"uswest.battle.net",
 					"useast.battle.net",
 					"europe.battle.net",

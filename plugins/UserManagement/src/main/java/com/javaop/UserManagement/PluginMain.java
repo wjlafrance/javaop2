@@ -354,13 +354,13 @@ public class PluginMain extends GenericPluginInterface implements CommandCallbac
 
 		char[] flagArray = flags.toCharArray();
 
-		TreeSet flagTree = new TreeSet();
+		TreeSet<Character> flagTree = new TreeSet<>();
 		for (int i = 0; i < flagArray.length; i++)
 			flagTree.add(Character.valueOf(flagArray[i]));
 
 		flags = "";
 
-		Iterator it = flagTree.iterator();
+		Iterator<Character> it = flagTree.iterator();
 
 		while (it.hasNext())
 			flags = flags + it.next();
