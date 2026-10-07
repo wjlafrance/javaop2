@@ -15,20 +15,10 @@
 
 		<!-- Maven plugin versions -->
 		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-
-		<!-- Dependency versions -->
-		<lombok.version>1.18.12</lombok.version>
 	</properties>
 
 	<dependencies>
 		<!-- Dependencies to be imported in all projects -->
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>${lombok.version}</version>
-			<scope>compile</scope>
-		</dependency>
-
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
