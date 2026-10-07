@@ -51,6 +51,10 @@
 							<classpathPrefix>lib/</classpathPrefix>
 							<mainClass>com.javaop._main.BotStart</mainClass>
 						</manifest>
+						<manifestEntries>
+							<!-- FlatLaf loads a small native library for window decorations; JDK 24+ warns without this -->
+							<Enable-Native-Access>ALL-UNNAMED</Enable-Native-Access>
+						</manifestEntries>
 					</archive>
 				</configuration>
 			</plugin>
