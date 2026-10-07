@@ -13,7 +13,7 @@ import javax.swing.Icon;
 
 public class MenuIcons {
 	private static final Hashtable<String, ImageIcon> icons
-			= new Hashtable<String, ImageIcon>();
+			= new Hashtable<>();
 
 	static {
 		loadban();

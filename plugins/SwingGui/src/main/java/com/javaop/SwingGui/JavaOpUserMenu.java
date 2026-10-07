@@ -32,11 +32,11 @@ public class JavaOpUserMenu {
 
 	/** The table of actions for custom items */
 	private final Hashtable<String, ActionListener> actions
-			= new Hashtable<String, ActionListener>();
+			= new Hashtable<>();
 
 	/** The table if icons for custom items */
 	private final Hashtable<String, Icon>           icons
-			= new Hashtable<String, Icon>();
+			= new Hashtable<>();
 
 	private final PublicExposedFunctions pubFuncs;
 

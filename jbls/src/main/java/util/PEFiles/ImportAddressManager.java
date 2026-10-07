@@ -2,8 +2,8 @@ package util.PEFiles;
 import java.util.*;
 
 public class ImportAddressManager{
-  private static Hashtable<String, Integer> addresses = new Hashtable<String, Integer>();
-  private static Hashtable<String, String> forwards = new Hashtable<String, String>();
+  private static Hashtable<String, Integer> addresses = new Hashtable<>();
+  private static Hashtable<String, String> forwards = new Hashtable<>();
   public static int getAddress(String function){
     Integer ret = addresses.get(function.toLowerCase());
     String forward = forwards.get(function.toLowerCase());

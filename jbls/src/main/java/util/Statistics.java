@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Statistics{
   private Database db = null;
-  private ArrayList<String> queue = new ArrayList<String>();
+  private ArrayList<String> queue = new ArrayList<>();
   
   public void connect(){
 	if(Constants.StatsDatabase.length() < 1 || Constants.StatsUsername.length() < 1){

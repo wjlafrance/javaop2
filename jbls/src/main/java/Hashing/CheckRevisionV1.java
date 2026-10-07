@@ -26,7 +26,7 @@ public class CheckRevisionV1
     private static Buffer    Info[][]     = new Buffer[3][0x0C];
 
     /** Stores some past results */
-    private static Hashtable<String, CheckrevisionResults> crCache = new Hashtable<String, CheckrevisionResults>();
+    private static Hashtable<String, CheckrevisionResults> crCache = new Hashtable<>();
     private static int crCacheHits = 0;
     private static int crCacheMisses = 0;
 
@@ -36,7 +36,7 @@ public class CheckRevisionV1
       Info = new Buffer[3][0x0c];
       crCacheHits = 0;
       crCacheMisses = 0;
-      crCache = new Hashtable<String, CheckrevisionResults>();
+      crCache = new Hashtable<>();
       System.gc();
     }
     /** Does the actual version check.

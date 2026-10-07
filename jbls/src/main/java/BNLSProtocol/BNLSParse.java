@@ -763,7 +763,7 @@ public class BNLSParse{
       */
     BNLSUsername = in.removeNTString();
     if (Constants.displayParseInfo) Out.info("JBLS", ">>> BNLS Bot ID: " + BNLSUsername);
-    if (botIds == null) botIds = new Hashtable<String, Integer>(5);
+    if (botIds == null) botIds = new Hashtable<>(5);
     
     Integer i = (Integer) botIds.get(BNLSUsername.toLowerCase());
     if (i == null) i = new Integer(0);

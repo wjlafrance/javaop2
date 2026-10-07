@@ -136,7 +136,7 @@ public class PE
 
 			/* If we've found the rsrc section, process it.  If not, we really don't care. */
 			if(file.getLong(sectionsBase + (i * 40)) == rsrc)
-				return processResourceRecord(new LinkedList<Integer>(), file, 0, file.getInt(sectionBase + 20), rsrcVirtualToRaw, byteorder);
+				return processResourceRecord(new LinkedList<>(), file, 0, file.getInt(sectionBase + 20), rsrcVirtualToRaw, byteorder);
 		}
 
 		return 0;
@@ -182,7 +182,7 @@ public class PE
 			/* Each entry is 8 bytes, skip over the ones we've already seen */
 			entry = ptrIDEntriesBase + (i * 8);
 			/* Process the entry.  processEntry() will call processResourceRecord() again for branches. */
-			version = processEntry(new LinkedList<Integer>(tree), file, entry, rsrcStart, rsrcVirtualToRaw, byteorder);
+			version = processEntry(new LinkedList<>(tree), file, entry, rsrcStart, rsrcVirtualToRaw, byteorder);
 			/* If we've found the version, return it immediately.  Otherwise, keep looping. */
 			if(version != 0)
 				return version;

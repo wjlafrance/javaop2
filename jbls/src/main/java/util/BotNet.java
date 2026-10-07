@@ -36,8 +36,8 @@ public class BotNet extends Thread{
 
   private String BotID = "RivalBot";
   private String HubPW = "b8f9b319f223ddcc38";
-  private Hashtable<Integer, String> names = new Hashtable<Integer, String>();
-  private Hashtable<String, Integer> ids = new Hashtable<String, Integer>();
+  private Hashtable<Integer, String> names = new Hashtable<>();
+  private Hashtable<String, Integer> ids = new Hashtable<>();
   private OutputStream out = null;
   public static void main(String[] args){}
   public void run(){

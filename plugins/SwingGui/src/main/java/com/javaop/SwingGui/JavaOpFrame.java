@@ -29,7 +29,7 @@ public class JavaOpFrame extends JFrame {
 	private static final long    serialVersionUID  = 1L;
 
 	private final Hashtable<String, JavaOpPanel>      bots
-		= new Hashtable<String, JavaOpPanel>();
+		= new Hashtable<>();
 
 	private final JDesktopPane   desktop;
 

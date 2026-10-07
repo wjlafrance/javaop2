@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Ini{
   //private Hashtable<String, String> data = new Hashtable<String, String>();
-  private Hashtable<String, Properties> data = new Hashtable<String, Properties>();
+  private Hashtable<String, Properties> data = new Hashtable<>();
   String file = null;
   
   public Ini(String fileName){

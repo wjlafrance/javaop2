@@ -61,9 +61,9 @@ public class JavaOpBotMenu extends JMenuBar implements ActionListener
 	private final JavaOpPanel            panel;
 
 	private final Hashtable<String, JMenu>
-			menus = new Hashtable<String, JMenu>();
+			menus = new Hashtable<>();
 	private final Hashtable<JMenuItem, ActionListener>
-			callbacks = new Hashtable<JMenuItem, ActionListener>();
+			callbacks = new Hashtable<>();
 
 	public JavaOpBotMenu(PublicExposedFunctions out, JavaOpPanel panel)
 	{

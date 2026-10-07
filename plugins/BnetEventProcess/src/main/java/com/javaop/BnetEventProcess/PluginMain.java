@@ -140,9 +140,9 @@ public class PluginMain extends GenericPluginInterface implements RawEventCallba
 	}
 
 	private Hashtable<String, Vector<BnetEvent>> 	queuedMessages
-			= new Hashtable<String, Vector<BnetEvent>>();
+			= new Hashtable<>();
 	private Hashtable<String, Callback> 			timers
-			= new Hashtable<String, Callback>();
+			= new Hashtable<>();
 	private Timer     timer          = new Timer();
 
 	public void eventOccurred(BnetEvent event, Object data) throws IOException, PluginException {
@@ -159,7 +159,7 @@ public class PluginMain extends GenericPluginInterface implements RawEventCallba
 
 				if (code == EID_JOIN) {
 
-					Vector<BnetEvent> v = new Vector<BnetEvent>();
+					Vector<BnetEvent> v = new Vector<>();
 					v.add(event);
 					queuedMessages.put(event.getUsername(), v);
 

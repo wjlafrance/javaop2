@@ -14,7 +14,7 @@ import com.javaop.bot.BotCoreStatic;
  *
  */
 public class GameIcons {
-    private static Hashtable<String, ImageIcon> icons = new Hashtable<String, ImageIcon>();
+    private static Hashtable<String, ImageIcon> icons = new Hashtable<>();
 
     static {
 	  icons.put("STAR", new ImageIcon(new byte[] {

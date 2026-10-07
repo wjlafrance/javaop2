@@ -281,7 +281,7 @@ public class CheckRevision {
 			bytes[i] = (byte) value--;
 		}
 
-		LinkedList<Integer> words = new LinkedList<Integer>();
+		LinkedList<Integer> words = new LinkedList<>();
 		for (int i = 0; i < bytes.length; i += 4) {
 			int j = ((bytes[i + 0] << 0) & 0x000000ff)
 					| ((bytes[i + 1] << 8) & 0x0000ff00)

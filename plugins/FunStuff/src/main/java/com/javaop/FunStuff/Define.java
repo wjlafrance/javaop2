@@ -19,7 +19,7 @@ public class Define
 	{
 		word = word.replaceAll(" ", "+");
 
-		Vector<String> ret = new Vector<String>();
+		Vector<String> ret = new Vector<>();
 		String text = getPage(word);
 
 		boolean stop = false;

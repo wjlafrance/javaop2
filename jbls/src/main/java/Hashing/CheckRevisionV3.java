@@ -9,9 +9,9 @@ import Hashing.*;
 public class CheckRevisionV3 extends CheckRevisionV1{
   private static int Version[][] = new int[3][0x0C];
   private static int seeds[][] = new int[20][2];
-  private static Hashtable<String, lockdown_heap> heaps = new Hashtable<String, lockdown_heap>();
-  private static Hashtable<String, PEFile> pes = new Hashtable<String, PEFile>();
-  private static Hashtable<String, CheckrevisionResults> crCache = new Hashtable<String, CheckrevisionResults>();
+  private static Hashtable<String, lockdown_heap> heaps = new Hashtable<>();
+  private static Hashtable<String, PEFile> pes = new Hashtable<>();
+  private static Hashtable<String, CheckrevisionResults> crCache = new Hashtable<>();
   private static int crCacheHits = 0;
   private static int crCacheMisses = 0;
   
@@ -20,9 +20,9 @@ public class CheckRevisionV3 extends CheckRevisionV1{
     Version = new int[3][0x0c];
     crCacheHits = 0;
     crCacheMisses = 0;
-    crCache = new Hashtable<String, CheckrevisionResults>();
-    heaps = new Hashtable<String, lockdown_heap>();
-    pes = new Hashtable<String, PEFile>();
+    crCache = new Hashtable<>();
+    heaps = new Hashtable<>();
+    pes = new Hashtable<>();
     System.gc();
   }
   
