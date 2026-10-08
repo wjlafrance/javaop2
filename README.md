@@ -6,6 +6,12 @@ It's a chatbot for [Classic Battle.net](http://classic.battle.net/)!
 
 JavaOp2 requires Java 17. Give me lambda or give me death!
 
+## Supported games
+
+Diablo (`DRTL`), Diablo Shareware (`DSHR`), StarCraft, Brood War, Warcraft II, Diablo II, Diablo II: LoD, Warcraft III and The Frozen Throne are selectable in the Battle.net Login plugin's `game` setting.
+
+Diablo and Diablo Shareware send no CD key. useast answers them (version byte 0x2A) with a Lockdown version check, which JavaOp2 cannot compute locally, so leave BNLS enabled (the default). They log on with SID_LOGONRESPONSE (0x29), no account is created automatically, and chat is limited to the channel menu: the bot joins "Diablo" / "Diablo Shareware" and the `statstring` setting holds the character statstring (e.g. `LTRD 23 0 0 85 10 50 50 3742 0`) that class and level channels look at.
+
 ## Building and running
 
     $ git clone git@github.com:wjlafrance/javaop2.git
