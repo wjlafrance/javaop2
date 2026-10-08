@@ -21,6 +21,16 @@ public class SidLogonResponse2
 	public static BnetPacket getOutgoing(PublicExposedFunctions pubFuncs)
 		throws LoginException
 	{
+		return getOutgoing(pubFuncs, PacketConstants.SID_LOGONRESPONSE2);
+	}
+
+	/**
+	 * Builds the double-hash logon. The body is identical for SID_LOGONRESPONSE2 (0x3A) and the older SID_LOGONRESPONSE
+	 * (0x29) that Diablo uses.
+	 */
+	public static BnetPacket getOutgoing(PublicExposedFunctions pubFuncs, byte packetId)
+		throws LoginException
+	{
 		String username = pubFuncs.getLocalSetting("Battle.net Login Plugin", "username");
 		String password = pubFuncs.getLocalSetting("Battle.net Login Plugin", "password").toLowerCase();
 		int clientToken = (Integer)pubFuncs.getLocalVariable("clientToken");
@@ -35,7 +45,7 @@ public class SidLogonResponse2
 		if (serverToken == 0)
 			throw new LoginException("[BNET] Cannot login because server token isn't set. ???");
 
-		BnetPacket packet = new BnetPacket(PacketConstants.SID_LOGONRESPONSE2);
+		BnetPacket packet = new BnetPacket(packetId);
 		// (DWORD) Client Token
 		packet.addDWord(clientToken);
 		// (DWORD) Server Token

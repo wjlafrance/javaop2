@@ -55,7 +55,9 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
 		register.registerConnectionPlugin(this, null);
 		register.registerIncomingPacketPlugin(this, SID_AUTH_INFO, null);
 		register.registerIncomingPacketPlugin(this, SID_AUTH_CHECK, null);
+		register.registerIncomingPacketPlugin(this, SID_LOGONRESPONSE, null);
 		register.registerIncomingPacketPlugin(this, SID_LOGONRESPONSE2, null);
+		register.registerIncomingPacketPlugin(this, SID_GETCHANNELLIST, null);
 		register.registerIncomingPacketPlugin(this, SID_CHANGEPASSWORD, null);
 		register.registerIncomingPacketPlugin(this, SID_CREATEACCOUNT2, null);
 		register.registerIncomingPacketPlugin(this, SID_WARDEN, null);
@@ -178,6 +180,7 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
 		p.setProperty("cdkey", "<CDKEY GOES HERE>");
 		p.setProperty("cdkey2", "");
 		p.setProperty("home channel", "clan bot");
+		p.setProperty("statstring", "");
 		p.setProperty("game", "SEXP");
 		p.setProperty("Verify server", "true");
 
@@ -204,9 +207,12 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
 				+ "will be moved to \"password\".  Leave blank for no change. "
 				+ "If you were thinking, \"How do I set a blank password?\""
 				+ "away from me.");
-		p.setProperty("cdkey", "The CDKey to log in with.");
+		p.setProperty("cdkey", "The CDKey to log in with. Not used by Diablo (DRTL/DSHR).");
 		p.setProperty("cdkey2", "This is the cdkey for Lord of Destruction or "
 				+ "The Frozen Throne.");
+		p.setProperty("statstring", "Diablo and Diablo Shareware only: the character statstring sent with the "
+				+ "enter-chat request, e.g. \"LTRD 23 0 0 85 10 50 50 3742 0\" (product, level, class, dots, str, "
+				+ "mag, dex, vit, gold, 0). Class and level channels need it. Blank = no character.");
 		p.setProperty("home channel", "The default channel to join when the "
 				+ "bot logs onto Battle.net.");
 		p.setProperty("game", "The game client to log on as.");
@@ -290,6 +296,16 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
 		}
 	}
 
+	/** SID_ENTERCHAT, then (Diablo only) SID_GETCHANNELLIST, then the first channel join. */
+	private void enterChat() throws IOException, PluginException {
+		pubFuncs.sendPacket(login.getEnterChat(pubFuncs));
+		BnetPacket channelList = login.getChannelListRequest(pubFuncs);
+		if (channelList != null) {
+			pubFuncs.sendPacket(channelList);
+		}
+		pubFuncs.sendPacket(login.getJoinHomeChannel(pubFuncs));
+	}
+
 	public void processedPacket(BnetPacket buf, Object data) throws
 			PluginException, IOException
 	{
@@ -301,14 +317,24 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
 						"changed, logging in..");
 				break;
 
+			case SID_LOGONRESPONSE: // 0x29 (Diablo)
+				SidLogonResponse.checkIncoming(buf);
+				// exception thrown if SID_LOGONRESPONSE fails
+				pubFuncs.systemMessage(INFO, "[BNET] Logon successful! "
+						+ "Entering chat..");
+				enterChat();
+				break;
+
+			case SID_GETCHANNELLIST: // 0x0B, the channel menu; nothing to do
+				break;
+
 			case SID_LOGONRESPONSE2: // 0x3A
 				try {
 					SidLogonResponse2.checkIncoming(pubFuncs, buf);
 					// exception thrown if SID_LOGINRESPONSE2 fails
 					pubFuncs.systemMessage(INFO, "[BNET] Logon successful! "
 							+ "Entering chat..");
-					pubFuncs.sendPacket(login.getEnterChat(pubFuncs));
-					pubFuncs.sendPacket(login.getJoinHomeChannel(pubFuncs));
+					enterChat();
 				} catch(AccountDneException adne) {
 					pubFuncs.systemMessage(ErrorLevelConstants.WARNING,
 						"[BNET] Account doesn't exist, attempting to create..");
@@ -339,7 +365,12 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
 
 				switch((Integer)pubFuncs.getLocalVariable("loginType")) {
 					case 0:
-						pubFuncs.sendPacket(SidLogonResponse2.getOutgoing(pubFuncs));
+						if (GameData.usesLegacyLogonPacket(new Game(pubFuncs
+								.getLocalSetting(getName(), "game")).getName())) {
+							pubFuncs.sendPacket(SidLogonResponse.getOutgoing(pubFuncs));
+						} else {
+							pubFuncs.sendPacket(SidLogonResponse2.getOutgoing(pubFuncs));
+						}
 						break;
 					case 1:
 					case 2:
@@ -369,8 +400,7 @@ public class PluginMain extends GenericPluginInterface implements ConnectionCall
 				pubFuncs.systemMessage(INFO, "[BNET] Checking NLS proof..");
 				srpLogin.checkSidAuthAccountLogonProof(pubFuncs, buf);
 				pubFuncs.systemMessage(INFO, "[BNET] NLS logon successful!");
-				pubFuncs.sendPacket(login.getEnterChat(pubFuncs));
-				pubFuncs.sendPacket(login.getJoinHomeChannel(pubFuncs));
+				enterChat();
 				break;
 
 			case SID_AUTH_ACCOUNTCHANGE: // 0x55

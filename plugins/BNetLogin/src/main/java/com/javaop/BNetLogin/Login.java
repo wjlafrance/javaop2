@@ -10,6 +10,8 @@ import com.javaop.constants.ErrorLevelConstants;
 import com.javaop.constants.PacketConstants;
 import com.javaop.BNetLogin.password.BrokenSHA1;
 import com.javaop.BNetLogin.password.DoubleHash;
+import com.javaop.BNetLogin.versioning.Game;
+import com.javaop.BNetLogin.versioning.GameData;
 import com.javaop.BNetLogin.packets.*;
 
 /*
@@ -137,17 +139,47 @@ public class Login {
 	 * Generic functions
 	 */
 
+	/** The normalized product code (DRTL, STAR, ...) of the configured game, or "" if the game is unusable. */
+	private String gameCode(PublicExposedFunctions out) {
+		try {
+			return new Game(out.getLocalSetting(prefSection, "game")).getName();
+		} catch (Exception e) {
+			return "";
+		}
+	}
+
 	public BnetPacket getEnterChat(PublicExposedFunctions out) {
 		BnetPacket enterChat = new BnetPacket(PacketConstants.SID_ENTERCHAT);
 		enterChat.addNTString(out.getLocalSettingDefault(prefSection, "username", "not.iago.x86"));
-		enterChat.addNTString("");
+		// Diablo sends its character statstring here (class and level gate some channels); others send none.
+		enterChat.addNTString(GameData.isDiablo(gameCode(out)) ? out.getLocalSettingDefault(prefSection, "statstring", "") : "");
 
 		return enterChat;
 	}
 
+	/**
+	 * SID_GETCHANNELLIST (0x0B) as the real Diablo client sends it after SID_ENTERCHAT, or null for games that do not.
+	 */
+	public BnetPacket getChannelListRequest(PublicExposedFunctions out) throws LoginException {
+		String code = gameCode(out);
+		if (!GameData.isChatMenuRestricted(code)) {
+			return null;
+		}
+		BnetPacket request = new BnetPacket(PacketConstants.SID_GETCHANNELLIST);
+		request.addDWord(new Game(code).getGameCode());
+		return request;
+	}
+
 	public BnetPacket getJoinHomeChannel(PublicExposedFunctions out) {
+		String code = gameCode(out);
 		BnetPacket enterChannel = new BnetPacket();
 		enterChannel.setCode(PacketConstants.SID_JOINCHANNEL);
+		if (GameData.isChatMenuRestricted(code)) {
+			// Chat is restricted to the channel menu: first join (flags 1) of the product channel, not a forced join.
+			enterChannel.addDWord(0x01);
+			enterChannel.addNTString(GameData.firstJoinChannel(code));
+			return enterChannel;
+		}
 		enterChannel.addDWord(0x02);
 		enterChannel.addNTString(out.getLocalSettingDefault(prefSection, "home channel", "op x86"));
 
