@@ -228,9 +228,15 @@ public class BotCoreStatic implements StaticExposedFunctions {
 
 		switch (normalizedGame) {
 			case "diablo":
+			case "diabloretail":
 			case "drtl":
 			case "ltrd":
 				return "DRTL";
+			case "dshr":
+			case "rhsd":
+			case "diabloshareware":
+			case "diabloshr":
+				return "DSHR";
 			case "star":
 			case "rats":
 			case "starcraft":

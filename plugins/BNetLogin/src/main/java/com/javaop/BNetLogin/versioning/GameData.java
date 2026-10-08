@@ -67,11 +67,34 @@ public class GameData {
 	public int numberOfKeys(String game) {
 		if (game.equals("D2XP") || game.equals("W3XP")) {
 			return 2;
-		} else if (game.equals("DRTL")) {
-			return 0;
+		} else if (isDiablo(game)) {
+			return 0; // Diablo sends no CD key on Battle.net
 		} else {
 			return 1;
 		}
+	}
+
+	/** Diablo retail (DRTL) and shareware (DSHR). */
+	public static boolean isDiablo(String game) {
+		return "DRTL".equals(game) || "DSHR".equals(game);
+	}
+
+	/**
+	 * Diablo logs on with SID_LOGONRESPONSE (0x29, Broken-SHA1 double hash) after the 0x50/0x51 version check; everything
+	 * else with loginType 0 uses SID_LOGONRESPONSE2 (0x3A).
+	 */
+	public static boolean usesLegacyLogonPacket(String game) {
+		return isDiablo(game);
+	}
+
+	/** Battle.net restricts Diablo chat to the SID_GETCHANNELLIST menu: no forced join of an arbitrary home channel. */
+	public static boolean isChatMenuRestricted(String game) {
+		return isDiablo(game);
+	}
+
+	/** The product channel the real Diablo client joins first (menu channel names on useast, 2026-10-04). */
+	public static String firstJoinChannel(String game) {
+		return "DSHR".equals(game) ? "Diablo Shareware" : "Diablo";
 	}
 
 	/**
@@ -91,6 +114,8 @@ public class GameData {
 		games.getWrite("D2DV", "Version byte", "0C");
 		games.getWrite("D2XP", "Version byte", "0C");
 		games.getWrite("W2BN", "Version byte", "4F");
+		games.getWrite("DRTL", "Version byte", "2A");
+		games.getWrite("DSHR", "Version byte", "2A");
 		games.getWrite("WAR3", "Version byte", "17");
 		games.getWrite("W3XP", "Version byte", "17");
 
@@ -116,6 +141,14 @@ public class GameData {
 		games.getWrite("W2BN", "File2", hashDir + "W2BN/storm.dll");
 		games.getWrite("W2BN", "File3", hashDir + "W2BN/battle.snp");
 		games.getWrite("W2BN", "File4", hashDir + "W2BN/W2BN.bin");
+		games.getWrite("DRTL", "File1", hashDir + "DRTL/Diablo.exe");
+		games.getWrite("DRTL", "File2", hashDir + "DRTL/storm.dll");
+		games.getWrite("DRTL", "File3", hashDir + "DRTL/battle.snp");
+		games.getWrite("DRTL", "File4", hashDir + "DRTL/DRTL.bin");
+		games.getWrite("DSHR", "File1", hashDir + "DSHR/Diablo_s.exe");
+		games.getWrite("DSHR", "File2", hashDir + "DSHR/storm.dll");
+		games.getWrite("DSHR", "File3", hashDir + "DSHR/battle.snp");
+		games.getWrite("DSHR", "File4", hashDir + "DSHR/DSHR.bin");
 		games.getWrite("WAR3", "File1", hashDir + "WAR3/war3.exe");
 		games.getWrite("WAR3", "File2", hashDir + "WAR3/Storm.dll");
 		games.getWrite("WAR3", "File3", hashDir + "WAR3/game.dll");
@@ -130,6 +163,8 @@ public class GameData {
 		games.getWrite("D2DV", "Version hash", "01000c00");
 		games.getWrite("D2XP", "Version hash", "01000c00");
 		games.getWrite("W2BN", "Version hash", "01010001");
+		games.getWrite("DRTL", "Version hash", "01000901");
+		games.getWrite("DSHR", "Version hash", "01000901");
 		games.getWrite("WAR3", "Version hash", "01001027");
 		games.getWrite("W3XP", "Version hash", "01001027");
 	}

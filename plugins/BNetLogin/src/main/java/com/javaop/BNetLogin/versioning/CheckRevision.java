@@ -262,7 +262,8 @@ public class CheckRevision {
 	 * @return The 32-bit CheckRevision hash.
 	 */
 	public static int checkRevisionLockdown(int mpqNumber, String[] files, byte[] formula) throws LoginException, IOException {
-		throw new LoginException("Lockdown CheckRevision not supported.");
+		throw new LoginException("Lockdown CheckRevision not supported locally. Diablo and the other Lockdown "
+				+ "products need BNLS: turn on \"Enable BNLS\" in the Battle.net Login Plugin's global settings.");
 	}
 
 	/**

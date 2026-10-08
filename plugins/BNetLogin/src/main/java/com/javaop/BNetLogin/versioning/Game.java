@@ -98,6 +98,7 @@ public class Game {
 	public static List<String> getGames() {
 		return Arrays.asList(
 			"Diablo",
+			"Diablo Shareware",
 			"Starcraft",
 			"Brood War",
 			"Warcraft II",
