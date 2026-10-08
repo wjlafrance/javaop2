@@ -39,6 +39,7 @@ import com.javaop.plugin_containers.UserErrorPlugin;
 import com.javaop.plugin_interfaces.BotCallback;
 import com.javaop.plugin_interfaces.CommandCallback;
 import com.javaop.plugin_interfaces.ConnectionCallback;
+import com.javaop.util.DisconnectReason;
 import com.javaop.plugin_interfaces.ErrorCallback;
 import com.javaop.plugin_interfaces.EventCallback;
 import com.javaop.plugin_interfaces.GuiCallback;
@@ -357,9 +358,14 @@ public class PluginRegistration implements PluginCallbackRegister
 
 	/** The bot has disconnected from the server. */
 	public void disconnected() {
+		disconnected(DisconnectReason.REQUESTED);
+	}
+
+	/** The bot has disconnected from the server, and this is why. */
+	public void disconnected(DisconnectReason reason) {
 		for (ConnectionPlugin plugin : connectionPlugins) {
 			ConnectionCallback callback = (ConnectionCallback) plugin.getCallback();
-			callback.disconnected(plugin.getData());
+			callback.disconnected(reason, plugin.getData());
 		}
 	}
 

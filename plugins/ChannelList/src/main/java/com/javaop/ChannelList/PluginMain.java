@@ -7,6 +7,7 @@ import javax.swing.JComponent;
 import com.javaop.callback_interfaces.PluginCallbackRegister;
 import com.javaop.callback_interfaces.PublicExposedFunctions;
 import com.javaop.callback_interfaces.StaticExposedFunctions;
+import com.javaop.plugin_interfaces.ConnectionCallback;
 import com.javaop.plugin_interfaces.EventCallback;
 import com.javaop.plugin_interfaces.GenericPluginInterface;
 
@@ -23,7 +24,7 @@ import com.javaop.plugin_interfaces.GenericPluginInterface;
  * @author iago
  *
  */
-public class PluginMain extends GenericPluginInterface implements EventCallback
+public class PluginMain extends GenericPluginInterface implements EventCallback, ConnectionCallback
 {
 	private PublicExposedFunctions out;
 
@@ -36,6 +37,35 @@ public class PluginMain extends GenericPluginInterface implements EventCallback
 		this.out = out;
 
 		register.registerEventPlugin(this, null);
+		register.registerConnectionPlugin(this, null);
+	}
+
+	/** The name the core reports before the bot has joined a channel. */
+	static final String NOT_LOGGED_IN = "<not logged in>";
+
+	public boolean connecting(String host, int port, Object data)
+	{
+		return true;
+	}
+
+	public void connected(String host, int port, Object data)
+	{
+	}
+
+	public boolean disconnecting(Object data)
+	{
+		return true;
+	}
+
+	/**
+	 * Every way the connection can end (socket error in the packet thread, server close, Disconnect, Reconnect,
+	 * a StayConnected reconnect) ends up here, so the users and the channel name never outlive the connection.
+	 * Clearing twice is harmless; a reconnect refills the list from the new join (EID_CHANNEL + EID_SHOWUSER).
+	 */
+	public void disconnected(Object data)
+	{
+		out.channelClear();
+		out.channelSetName(NOT_LOGGED_IN);
 	}
 
 	public void deactivate(PluginCallbackRegister register)

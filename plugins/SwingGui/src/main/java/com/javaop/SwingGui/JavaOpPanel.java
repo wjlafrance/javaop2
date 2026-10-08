@@ -25,6 +25,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
 
@@ -34,6 +35,7 @@ import com.javaop.exceptions.LoginException;
 import com.javaop.exceptions.PluginException;
 
 import com.javaop.plugin_interfaces.CommandCallback;
+import com.javaop.plugin_interfaces.ConnectionCallback;
 import com.javaop.plugin_interfaces.ErrorCallback;
 import com.javaop.plugin_interfaces.EventCallback;
 import com.javaop.plugin_interfaces.GuiCallback;
@@ -74,7 +76,7 @@ import com.javaop.callback_interfaces.PublicExposedFunctions;
 public class JavaOpPanel extends JInternalFrame implements FocusListener,
 		InternalFrameListener, MouseListener, ActionListener, GuiCallback,
 		EventCallback, OutgoingTextCallback, SystemMessageCallback,
-		ErrorCallback, CommandCallback
+		ErrorCallback, CommandCallback, ConnectionCallback
 {
 	private static final long               serialVersionUID = 1L;
 
@@ -87,7 +89,8 @@ public class JavaOpPanel extends JInternalFrame implements FocusListener,
 	final private JavaOpBotMenu             menu;
 	final private JavaOpUserMenu            userMenu;
 	private String                          name            = "Swing Gui";
-	private String                          channel         = "<Not Logged In>";
+	static final String                     NOT_LOGGED_IN   = "<Not Logged In>";
+	private String                          channel         = NOT_LOGGED_IN;
 	private String                          lastWhisperTo   = null;
 	private String                          lastWhisperFrom = null;
 
@@ -197,6 +200,7 @@ public class JavaOpPanel extends JInternalFrame implements FocusListener,
 
 	public void registerCallbacks(PluginCallbackRegister register) {
 		register.registerEventPlugin(this, null);
+		register.registerConnectionPlugin(this, null);
 		register.registerOutgoingTextPlugin(this, null);
 		register.registerErrorPlugin(this, null);
 
@@ -238,6 +242,39 @@ public class JavaOpPanel extends JInternalFrame implements FocusListener,
 		this.channel = channel;
 		channelList.clear();
 		channelName.setText(channel + " (" + channelList.getRowCount() + ")");
+	}
+
+	/**
+	 * The connection is gone: the users in the list are stale and the channel name means nothing. Safe to call from
+	 * any thread; the Swing components are touched on the EDT.
+	 */
+	public void connectionLost() {
+		if (SwingUtilities.isEventDispatchThread()) {
+			resetChannel();
+		} else {
+			SwingUtilities.invokeLater(this::resetChannel);
+		}
+	}
+
+	private void resetChannel() {
+		this.channel = NOT_LOGGED_IN;
+		channelList.clear();
+		channelName.setText(channel + " (" + channelList.getRowCount() + ")");
+	}
+
+	public boolean connecting(String host, int port, Object data) {
+		return true;
+	}
+
+	public void connected(String host, int port, Object data) {
+	}
+
+	public boolean disconnecting(Object data) {
+		return true;
+	}
+
+	public void disconnected(Object data) {
+		connectionLost();
 	}
 
 	public void clear() {

@@ -4,6 +4,8 @@
 package com.javaop.bot;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetAddress;
@@ -23,6 +25,8 @@ import com.javaop.exceptions.PluginException;
 
 import com.javaop.util.BnetEvent;
 import com.javaop.util.BnetPacket;
+import com.javaop.util.DisconnectReason;
+import com.javaop.util.PacketReader;
 import com.javaop.util.TimeoutSocket;
 import com.javaop.util.Buffer;
 
@@ -121,7 +125,8 @@ public class PacketThread extends Thread {
 				return;
 			}
 			out.systemMessage(ErrorLevelConstants.ERROR, "[BNET] Connect failed: " + e);
-			disconnected();
+			disconnected(e instanceof IOException ? DisconnectReason.of((IOException) e)
+					: new DisconnectReason(DisconnectReason.Kind.IO_ERROR, e.toString(), e));
 			return;
 		}
 
@@ -129,6 +134,7 @@ public class PacketThread extends Thread {
 			return;
 		}
 
+		DisconnectReason reason = null;
 		try {
 			out.systemMessage(ErrorLevelConstants.DEBUG, "[BNET] PacketThread entering receive loop.");
 			// Loop and receive packets
@@ -139,30 +145,9 @@ public class PacketThread extends Thread {
 				// the disconnect() function and
 				// kills this thread
 				try {
-					int FF = input.read();
-					byte code = (byte) input.read();
-					int len1 = (input.read() & 0x000000FF);
-					int len2 = (input.read() & 0x000000FF) << 8;
+					BnetPacket buf = PacketReader.read(input);
+					byte code = (byte) buf.getCode();
 
-					if (FF == -1) {
-						throw new IOException("Connection lost");
-					}
-
-					if (FF != 0x000000FF) {
-						throw new IOException("Packet didn't start with 0xFF (it started with 0x"
-								+ Integer.toHexString(FF) + ") -- Battle.net broke or something.");
-					}
-
-					int length = len1 | len2;
-
-					byte[] packet = new byte[length - 4];
-
-					for (int i = 0; i < packet.length; i++) {
-						packet[i] = (byte) input.read();
-					}
-
-					BnetPacket buf = new BnetPacket(code);
-					buf.add(packet);
 					out.systemMessage(ErrorLevelConstants.PACKET, "In:\n" + buf.toString());
 
 					buf = callbacks.processingIncomingPacket(buf);
@@ -212,18 +197,27 @@ public class PacketThread extends Thread {
 			}
 
 			callbacks.loginException(e);
+			reason = DisconnectReason.LOGIN_FAILED;
 		} catch (IOException e) {
 			if (stop) {
 				return;
 			}
 
-			callbacks.ioException(e);
+			// A lost connection is a normal event: one line for the user, details only at DEBUG.
+			reason = DisconnectReason.of(e);
+			out.systemMessage(reason.isExpected() ? ErrorLevelConstants.WARNING : ErrorLevelConstants.ERROR,
+					"[BNET] Disconnected: " + reason.getMessage());
+			if (reason.getCause() != null) {
+				StringWriter trace = new StringWriter();
+				reason.getCause().printStackTrace(new PrintWriter(trace));
+				out.systemMessage(ErrorLevelConstants.DEBUG, "[BNET] Disconnect cause: " + trace);
+			}
 		}
 
-		disconnected();
+		disconnected(reason);
 	}
 
-	private void disconnected() {
+	private void disconnected(DisconnectReason reason) {
 		try {
 			input.close();
 			output.close();
@@ -231,7 +225,7 @@ public class PacketThread extends Thread {
 		} catch (Exception e) {
 		}
 
-		callbacks.disconnected();
+		callbacks.disconnected(reason);
 		stop = true;
 	}
 

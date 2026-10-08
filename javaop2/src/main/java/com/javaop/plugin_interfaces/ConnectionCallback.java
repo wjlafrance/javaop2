@@ -2,6 +2,8 @@ package com.javaop.plugin_interfaces;
 
 import java.io.IOException;
 
+import com.javaop.util.DisconnectReason;
+
 import com.javaop.exceptions.PluginException;
 
 
@@ -35,4 +37,12 @@ public interface ConnectionCallback extends AbstractCallback
 
 	/** The bot has disconnected from the server. */
 	void disconnected(Object data);
+
+	/**
+	 * The bot has disconnected from the server, with the reason. Plugins that care why override this; by default
+	 * it forwards to {@link #disconnected(Object)}, so existing plugins keep working.
+	 */
+	default void disconnected(DisconnectReason reason, Object data) {
+		disconnected(data);
+	}
 }
